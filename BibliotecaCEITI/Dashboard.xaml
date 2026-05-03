@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:BibliotecaCEITI"
+             xmlns:fa5="http://schemas.fontawesome.com/icons/"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="900">
 
@@ -28,19 +30,38 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <!-- Button Style Custom -->
+        <Style x:Key="ModernButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="{StaticResource PrimaryPurple}"/>
+            <Setter Property="Foreground" Value="{StaticResource PrimaryPurple}"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="1" 
+                                CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
 
     <Grid Background="{StaticResource BackgroundGray}">
         <Grid Margin="25">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <!-- Header -->
                 <RowDefinition Height="Auto"/>
-                <!-- Stats Cards -->
                 <RowDefinition Height="*"/>
-                <!-- Main Content -->
             </Grid.RowDefinitions>
 
+            <!-- Header Section -->
             <Grid Grid.Row="0" Margin="10,0,10,25">
                 <StackPanel>
                     <TextBlock Text="Bun venit, Admin!" FontSize="28" FontWeight="Bold" Foreground="{StaticResource TextDark}"/>
@@ -48,11 +69,12 @@
                 </StackPanel>
             </Grid>
 
+            <!-- Stats Cards Row -->
             <UniformGrid Grid.Row="1" Columns="4">
                 <Border Style="{StaticResource StatCardStyle}">
                     <StackPanel Orientation="Horizontal">
                         <Border Width="45" Height="45" Background="#F4F7FE" CornerRadius="12" Margin="0,0,15,0">
-                            <TextBlock Text="📚" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+                            <fa5:ImageAwesome Icon="Solid_Book" Foreground="{StaticResource SecondaryBlue}" Width="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Border>
                         <StackPanel VerticalAlignment="Center">
                             <TextBlock Text="Cărți totale" Foreground="{StaticResource TextGray}" FontSize="13"/>
@@ -64,7 +86,7 @@
                 <Border Style="{StaticResource StatCardStyle}">
                     <StackPanel Orientation="Horizontal">
                         <Border Width="45" Height="45" Background="#E6F9F4" CornerRadius="12" Margin="0,0,15,0">
-                            <TextBlock Text="✅" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+                            <fa5:ImageAwesome Icon="Solid_CheckCircle" Foreground="{StaticResource SuccessGreen}" Width="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Border>
                         <StackPanel VerticalAlignment="Center">
                             <TextBlock Text="Disponibile" Foreground="{StaticResource TextGray}" FontSize="13"/>
@@ -76,7 +98,7 @@
                 <Border Style="{StaticResource StatCardStyle}">
                     <StackPanel Orientation="Horizontal">
                         <Border Width="45" Height="45" Background="#FFF5EB" CornerRadius="12" Margin="0,0,15,0">
-                            <TextBlock Text="🕒" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+                            <fa5:ImageAwesome Icon="Solid_Clock" Foreground="{StaticResource WarningOrange}" Width="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Border>
                         <StackPanel VerticalAlignment="Center">
                             <TextBlock Text="Împrumutate" Foreground="{StaticResource TextGray}" FontSize="13"/>
@@ -88,7 +110,7 @@
                 <Border Style="{StaticResource StatCardStyle}">
                     <StackPanel Orientation="Horizontal">
                         <Border Width="45" Height="45" Background="#EEE6FF" CornerRadius="12" Margin="0,0,15,0">
-                            <TextBlock Text="🔖" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+                            <fa5:ImageAwesome Icon="Solid_Bookmark" Foreground="{StaticResource PrimaryPurple}" Width="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Border>
                         <StackPanel VerticalAlignment="Center">
                             <TextBlock Text="Rezervate" Foreground="{StaticResource TextGray}" FontSize="13"/>
@@ -98,30 +120,31 @@
                 </Border>
             </UniformGrid>
 
+            <!-- Lower Section -->
             <Grid Grid.Row="2" Margin="0,10,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1.7*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
+                <!-- Activity Chart -->
                 <Border Grid.Column="0" Style="{StaticResource StatCardStyle}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,0,0,20">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
                             <TextBlock Text="Activitate Împrumuturi" FontWeight="Bold" FontSize="18" Foreground="{StaticResource TextDark}"/>
                             <TextBlock Text="(Ultimele 6 luni)" Foreground="{StaticResource TextGray}" FontSize="12" VerticalAlignment="Bottom" Margin="10,0,0,3"/>
                         </StackPanel>
 
-                        <UniformGrid Grid.Row="1" Columns="6" VerticalAlignment="Bottom" Height="200">
-                            <StackPanel VerticalAlignment="Bottom"/>
-                            <StackPanel VerticalAlignment="Bottom"/>
-                            <StackPanel VerticalAlignment="Bottom"/>
-                            <StackPanel VerticalAlignment="Bottom"/>
-                            <StackPanel VerticalAlignment="Bottom"/>
-                        </UniformGrid>
+                        <!-- Chart Space -->
+                        <lvc:CartesianChart Grid.Row="1" 
+                                            Series="{Binding MySeries}"
+                                            XAxes="{Binding XAxes}"
+                                            Height="250"
+                                            VerticalAlignment="Stretch"/>
                     </Grid>
                 </Border>
 
@@ -136,7 +159,9 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Border Width="45" Height="60" Background="#F4F7FE" CornerRadius="8"/>
+                            <Border Width="45" Height="60" Background="#F4F7FE" CornerRadius="8">
+                                <fa5:ImageAwesome Icon="Solid_BookOpen" Foreground="{StaticResource TextGray}" Width="15" Opacity="0.5"/>
+                            </Border>
                             <StackPanel Grid.Column="1" Margin="15,0" VerticalAlignment="Center">
                                 <TextBlock Text="Amintiri din copilărie" FontWeight="SemiBold" FontSize="14" Foreground="{StaticResource TextDark}"/>
                                 <TextBlock Text="Ion Creangă" FontSize="12" Foreground="{StaticResource TextGray}"/>
@@ -152,7 +177,9 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Border Width="45" Height="60" Background="#F4F7FE" CornerRadius="8"/>
+                            <Border Width="45" Height="60" Background="#F4F7FE" CornerRadius="8">
+                                <fa5:ImageAwesome Icon="Solid_BookOpen" Foreground="{StaticResource TextGray}" Width="15" Opacity="0.5"/>
+                            </Border>
                             <StackPanel Grid.Column="1" Margin="15,0" VerticalAlignment="Center">
                                 <TextBlock Text="Enigma Otiliei" FontWeight="SemiBold" FontSize="14" Foreground="{StaticResource TextDark}"/>
                                 <TextBlock Text="G. Călinescu" FontSize="12" Foreground="{StaticResource TextGray}"/>
@@ -168,7 +195,9 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Border Width="45" Height="60" Background="#F4F7FE" CornerRadius="8"/>
+                            <Border Width="45" Height="60" Background="#F4F7FE" CornerRadius="8">
+                                <fa5:ImageAwesome Icon="Solid_BookOpen" Foreground="{StaticResource TextGray}" Width="15" Opacity="0.5"/>
+                            </Border>
                             <StackPanel Grid.Column="1" Margin="15,0" VerticalAlignment="Center">
                                 <TextBlock Text="Moromeții" FontWeight="SemiBold" FontSize="14" Foreground="{StaticResource TextDark}"/>
                                 <TextBlock Text="Marin Preda" FontSize="12" Foreground="{StaticResource TextGray}"/>
@@ -176,13 +205,7 @@
                             <TextBlock Grid.Column="2" Text="86" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PrimaryPurple}"/>
                         </Grid>
 
-                        <Button Content="Vezi tot raportul" Margin="0,20,0,0" Background="Transparent" BorderBrush="{StaticResource PrimaryPurple}" Foreground="{StaticResource PrimaryPurple}" Height="35" Cursor="Hand">
-                            <Button.Resources>
-                                <Style TargetType="Border">
-                                    <Setter Property="CornerRadius" Value="10"/>
-                                </Style>
-                            </Button.Resources>
-                        </Button>
+                        <Button Content="Vezi tot raportul" Margin="0,20,0,0" Style="{StaticResource ModernButtonStyle}"/>
                     </StackPanel>
                 </Border>
             </Grid>
