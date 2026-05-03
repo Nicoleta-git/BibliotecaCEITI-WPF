@@ -140,11 +140,6 @@
                         </StackPanel>
 
                         <!-- Chart Space -->
-                        <lvc:CartesianChart Grid.Row="1" 
-                                            Series="{Binding MySeries}"
-                                            XAxes="{Binding XAxes}"
-                                            Height="250"
-                                            VerticalAlignment="Stretch"/>
                     </Grid>
                 </Border>
 
