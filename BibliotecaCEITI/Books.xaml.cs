@@ -23,5 +23,26 @@ namespace BibliotecaCEITI
         {
             InitializeComponent();
         }
+
+        private void EditBtn_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateBook updateControl = new UpdateBook();
+            Window parentWindow = Window.GetWindow(this);
+
+            if (parentWindow is MainWindow mainWindow)
+            {
+                mainWindow.ChangeView(updateControl);
+            }
+        }
+
+        private void StergeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Delete delete = new Delete();
+            Window parentWindow = Window.GetWindow(this);
+
+            if (parentWindow is MainWindow mainWindow) {
+                mainWindow.ChangeView(delete);
+            }
+        }
     }
 }
