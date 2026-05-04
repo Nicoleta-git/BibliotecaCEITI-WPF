@@ -62,14 +62,14 @@
                         <!-- Menu Section -->
                         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden">
                             <StackPanel>
-                                <Button Style="{StaticResource MenuButtonStyle}">
+                                <Button Style="{StaticResource MenuButtonStyle}" Click="DashBoardBtn_Click">
                                     <StackPanel Orientation="Horizontal">
                                         <fa5:ImageAwesome Icon="Solid_ChartPie" Width="16" Foreground="White" Margin="0,0,15,0"/>
                                         <TextBlock Text="Dashboard"/>
                                     </StackPanel>
                                 </Button>
 
-                                <Button Style="{StaticResource MenuButtonStyle}">
+                                <Button Style="{StaticResource MenuButtonStyle}" Click="CartiBtn_Click">
                                     <StackPanel Orientation="Horizontal">
                                         <fa5:ImageAwesome Icon="Solid_Book" Width="16" Foreground="White" Margin="0,0,15,0"/>
                                         <TextBlock Text="Cărți"/>
