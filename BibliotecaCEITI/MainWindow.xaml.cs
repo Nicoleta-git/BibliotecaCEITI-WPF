@@ -22,6 +22,10 @@ namespace BibliotecaCEITI
         public MainWindow()
         {
             InitializeComponent();
+
+            Dashboard dashView = new Dashboard();
+
+            MainContentContainer.Content = dashView;
         }
 
         private void BtnMaximize_Click(object sender, RoutedEventArgs e)
@@ -58,5 +62,12 @@ namespace BibliotecaCEITI
             Books b = new Books();
             MainContentContainer.Content = b;
         }
+
+        public void ChangeView(UserControl newView)
+        {
+            MainContentContainer.Content = newView;
+        }
+
+
     }
 }
