@@ -45,5 +45,18 @@ namespace BibliotecaCEITI
         {
             this.Close();
         }
+
+        private void DashBoardBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Dashboard dashView = new Dashboard();
+
+            MainContentContainer.Content = dashView;
+        }
+
+        private void CartiBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Books b = new Books();
+            MainContentContainer.Content = b;
+        }
     }
 }

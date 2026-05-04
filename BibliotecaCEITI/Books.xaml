@@ -1,0 +1,185 @@
+﻿<UserControl x:Class="BibliotecaCEITI.Books"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa5="http://schemas.fontawesome.com/icons/"
+        mc:Ignorable="d"
+        Background="#F5F7FA" FontFamily="Segoe UI" 
+        d:DesignHeight="600" d:DesignWidth="900">
+
+    <UserControl.Resources>
+        <!-- Palette conform standardelor UI moderne -->
+        <SolidColorBrush x:Key="PrimaryBlue" Color="#3182CE"/>
+        <SolidColorBrush x:Key="TextDark" Color="#2D3748"/>
+        <SolidColorBrush x:Key="TextMuted" Color="#718096"/>
+        <SolidColorBrush x:Key="BorderLight" Color="#E2E8F0"/>
+
+        <!-- Status Colors bazate pe ENUM-ul 'stare' din BD -->
+        <SolidColorBrush x:Key="StockGreen" Color="#2F855A"/>
+        <SolidColorBrush x:Key="StockGreenBg" Color="#F0FFF4"/>
+        <SolidColorBrush x:Key="BorrowedOrange" Color="#C05621"/>
+        <SolidColorBrush x:Key="BorrowedOrangeBg" Color="#FFFAF0"/>
+
+        <Style x:Key="ActionButtonStyle" TargetType="Button">
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="8"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+
+        <Style x:Key="SearchBorderStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderLight}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Height" Value="45"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Header -->
+            <RowDefinition Height="Auto"/>
+            <!-- Search & Actions -->
+            <RowDefinition Height="*"/>
+            <!-- DataGrid (Inventar) -->
+            <RowDefinition Height="Auto"/>
+            <!-- Detalii Exemplar & Locație -->
+        </Grid.RowDefinitions>
+
+        <!-- 1. Header -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,25">
+            <TextBlock Text="Gestiune Inventar (Carti)" FontSize="28" FontWeight="Bold" Foreground="{StaticResource TextDark}"/>
+        </StackPanel>
+
+        <!-- 2. Search & Add -->
+        <Grid Grid.Row="1" Margin="0,0,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Style="{StaticResource SearchBorderStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="45"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <fa5:ImageAwesome Icon="Solid_Search" Foreground="#A0AEC0" Width="14" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBox Grid.Column="1" VerticalContentAlignment="Center" BorderThickness="0" Background="Transparent" 
+                             Tag="Caută după Titlu, Autor sau ISBN..." Padding="5,0" FontSize="14"/>
+                </Grid>
+            </Border>
+
+            <Button Grid.Column="1" Margin="15,0,0,0" Style="{StaticResource ActionButtonStyle}" Background="{StaticResource PrimaryBlue}" Foreground="White">
+                <StackPanel Orientation="Horizontal">
+                    <fa5:ImageAwesome Icon="Solid_Plus" Foreground="White" Width="12" Margin="0,0,10,0"/>
+                    <TextBlock Text="Adauga carte"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+
+        <!-- 3. DataGrid: Corelat cu tabelele 'carti' și 'exemplare' -->
+        <Border Grid.Row="2" Background="White" CornerRadius="12" BorderBrush="{StaticResource BorderLight}" BorderThickness="1" Margin="0,0,0,20">
+            <DataGrid Background="Transparent" BorderThickness="0" AutoGenerateColumns="False" 
+                      RowHeight="52" CanUserAddRows="False" GridLinesVisibility="None"
+                      HeadersVisibility="Column" SelectionMode="Single"
+                      x:Name="BooksGrid">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="#F8FAFC"/>
+                        <Setter Property="Foreground" Value="{StaticResource TextMuted}"/>
+                        <Setter Property="FontWeight" Value="SemiBold"/>
+                        <Setter Property="Padding" Value="15,12"/>
+                        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                        <Setter Property="BorderBrush" Value="{StaticResource BorderLight}"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.Columns>
+                    <!-- Date din tabelul 'exemplare' -->
+                    <DataGridTextColumn Header="Cod Inventar" Binding="{Binding CodInventar}" Width="120"/>
+                    <!-- Date din tabelul 'carti' -->
+                    <DataGridTextColumn Header="Titlu" Binding="{Binding Titlu}" Width="*" FontWeight="SemiBold"/>
+                    <DataGridTextColumn Header="ISBN" Binding="{Binding ISBN}" Width="130"/>
+                    <DataGridTextColumn Header="Preț (MDL)" Binding="{Binding PretMdl, StringFormat=\{0:N2\}}" Width="100"/>
+
+                    <!-- Status bazat pe ENUM 'stare' din 'exemplare' -->
+                    <DataGridTemplateColumn Header="Stare" Width="130">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border CornerRadius="6" Padding="8,4" HorizontalAlignment="Left" Background="{StaticResource StockGreenBg}">
+                                    <TextBlock Text="{Binding Stare}" Foreground="{StaticResource StockGreen}" FontWeight="Bold" FontSize="11"/>
+                                </Border>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <!-- 4. Detalii Extinse: Corelat cu tabelul 'locatii' și 'edituri' -->
+        <Border Grid.Row="3" Background="White" CornerRadius="12" BorderBrush="{StaticResource BorderLight}" BorderThickness="1" Padding="25">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Imagine Copertă (URL din BD) -->
+                <Border Width="70" Height="95" Background="#F7FAFC" CornerRadius="8" BorderBrush="#EDF2F7" BorderThickness="1" Margin="0,0,20,0">
+                    <fa5:ImageAwesome Icon="Solid_BookOpen" Foreground="#CBD5E0" Width="24" VerticalAlignment="Center"/>
+                </Border>
+
+                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                    <TextBlock Text="LOCALIZARE ȘI DETALII EXEMPLAR" FontSize="10" FontWeight="Black" Foreground="#A0AEC0" Margin="0,0,0,5"/>
+                    <TextBlock Text="{Binding SelectedItem.Titlu, ElementName=BooksGrid, FallbackValue='Selectați un exemplar'}" 
+                               FontSize="22" FontWeight="Bold" Foreground="{StaticResource TextDark}"/>
+
+                    <WrapPanel Margin="0,8,0,0">
+                        <!-- Locație din tabelul 'locatii' -->
+                        <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
+                            <fa5:ImageAwesome Icon="Solid_MapMarkerAlt" Width="12" Foreground="{StaticResource PrimaryBlue}" Margin="0,0,5,0"/>
+                            <TextBlock Text="Locație: " Foreground="{StaticResource TextMuted}"/>
+                            <TextBlock Text="{Binding SelectedItem.LocatieCompleta, FallbackValue='Sala Lectură, Raft A-1'}" Foreground="{StaticResource TextDark}" FontWeight="SemiBold"/>
+                        </StackPanel>
+
+                        <!-- Editură din tabelul 'edituri' -->
+                        <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
+                            <fa5:ImageAwesome Icon="Solid_Building" Width="12" Foreground="{StaticResource TextMuted}" Margin="0,0,5,0"/>
+                            <TextBlock Text="Editura: " Foreground="{StaticResource TextMuted}"/>
+                            <TextBlock Text="{Binding SelectedItem.EdituraDenumire, FallbackValue='Nespecificat'}" Foreground="{StaticResource TextDark}" FontWeight="SemiBold"/>
+                        </StackPanel>
+
+                        <!-- Tip din tabelul 'categorii_carti' -->
+                        <StackPanel Orientation="Horizontal">
+                            <fa5:ImageAwesome Icon="Solid_Tag" Width="12" Foreground="{StaticResource TextMuted}" Margin="0,0,5,0"/>
+                            <TextBlock Text="Tip: " Foreground="{StaticResource TextMuted}"/>
+                            <TextBlock Text="{Binding SelectedItem.CategorieTip, FallbackValue='Carte'}" Foreground="{StaticResource TextDark}" FontWeight="SemiBold"/>
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+
+                <!-- Acțiuni de Audit -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button Style="{StaticResource ActionButtonStyle}" Background="#EDF2F7" Foreground="#2B6CB0" Margin="0,0,10,0" ToolTip="Editează datele bibliografice">
+                        <StackPanel Orientation="Horizontal">
+                            <fa5:ImageAwesome Icon="Solid_Edit" Width="14" Margin="0,0,10,0" Foreground="#2B6CB0"/>
+                            <TextBlock Text="Editare"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource ActionButtonStyle}" Background="#FFF5F5" Foreground="#C53030" ToolTip="Arhivează Exemplar (DataArhivare)">
+                        <fa5:ImageAwesome Icon="Solid_Archive" Width="14" Foreground="#C53030"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
