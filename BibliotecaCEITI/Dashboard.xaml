@@ -153,9 +153,7 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Border Width="45" Height="60" Background="#F4F7FE" CornerRadius="8">
-                                <fa5:ImageAwesome Icon="Solid_BookOpen" Foreground="{StaticResource TextGray}" Width="15" Opacity="0.5"/>
-                            </Border>
+                            <Border Width="45" Height="60" Background="#F4F7FE" CornerRadius="8"/>
                             <StackPanel Grid.Column="1" Margin="15,0" VerticalAlignment="Center">
                                 <TextBlock Text="Amintiri din copilărie" FontWeight="SemiBold" FontSize="14" Foreground="{StaticResource TextDark}"/>
                                 <TextBlock Text="Ion Creangă" FontSize="12" Foreground="{StaticResource TextGray}"/>
@@ -171,9 +169,7 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Border Width="45" Height="60" Background="#F4F7FE" CornerRadius="8">
-                                <fa5:ImageAwesome Icon="Solid_BookOpen" Foreground="{StaticResource TextGray}" Width="15" Opacity="0.5"/>
-                            </Border>
+                            <Border Width="45" Height="60" Background="#F4F7FE" CornerRadius="8"/>
                             <StackPanel Grid.Column="1" Margin="15,0" VerticalAlignment="Center">
                                 <TextBlock Text="Enigma Otiliei" FontWeight="SemiBold" FontSize="14" Foreground="{StaticResource TextDark}"/>
                                 <TextBlock Text="G. Călinescu" FontSize="12" Foreground="{StaticResource TextGray}"/>
@@ -189,9 +185,7 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Border Width="45" Height="60" Background="#F4F7FE" CornerRadius="8">
-                                <fa5:ImageAwesome Icon="Solid_BookOpen" Foreground="{StaticResource TextGray}" Width="15" Opacity="0.5"/>
-                            </Border>
+                            <Border Width="45" Height="60" Background="#F4F7FE" CornerRadius="8"/>
                             <StackPanel Grid.Column="1" Margin="15,0" VerticalAlignment="Center">
                                 <TextBlock Text="Moromeții" FontWeight="SemiBold" FontSize="14" Foreground="{StaticResource TextDark}"/>
                                 <TextBlock Text="Marin Preda" FontSize="12" Foreground="{StaticResource TextGray}"/>

@@ -10,35 +10,29 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace BibliotecaCEITI
 {
     /// <summary>
-    /// Interaction logic for UpdateBook.xaml
+    /// Interaction logic for Sterge.xaml
     /// </summary>
-    public partial class UpdateBook : UserControl
+    public partial class Delete : UserControl
     {
-        public UpdateBook()
+        public Delete()
         {
             InitializeComponent();
-
-            // Testing ComboBox functionality
-            cbEditura.Items.Add("Editura Cartier");
-            cbEditura.Items.Add("Editura Litera");
-            cbEditura.Items.Add("Editura ARC");
-            cbEditura.Items.Add("Editura Știința");
-
-            cbEditura.SelectedIndex = 0;
         }
 
-        private void BtnBack_Click(object sender, RoutedEventArgs e)
+        private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
             var mainWindow = Window.GetWindow(this) as MainWindow;
             if (mainWindow != null)
             {
                 mainWindow.MainContentContainer.Content = new Books();
             }
+
         }
     }
 }
