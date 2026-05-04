@@ -9,6 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Loading\BibliotecaCEITI-logo.png" />
+    <None Remove="Assets\Loading\pc-loading.png" />
     <None Remove="Assets\Logo_bib.png" />
   </ItemGroup>
 
@@ -17,6 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\Loading\BibliotecaCEITI-logo.png" />
+    <Resource Include="Assets\Loading\pc-loading.png" />
     <Resource Include="Assets\Logo_bib.png" />
   </ItemGroup>
 

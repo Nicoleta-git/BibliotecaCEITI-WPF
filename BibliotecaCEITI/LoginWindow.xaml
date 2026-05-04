@@ -105,6 +105,11 @@
                             Click="ConectareBtn_Click"/>
                 </StackPanel>
             </Grid>
+            <Image Source="/Assets/Logo_bib.png" 
+                Width="342" Height="196" 
+                HorizontalAlignment="Left" VerticalAlignment="Top" 
+                Margin="20,54,0,0" Opacity="0.9"
+                RenderOptions.BitmapScalingMode="HighQuality" Grid.ColumnSpan="2"/>
         </Grid>
     </Border>
 </Window>
