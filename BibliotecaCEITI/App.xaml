@@ -6,8 +6,8 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!-- Stilurile mele definite pentru componente -->
                 <ResourceDictionary Source="Styles.xaml"/>
+                <ResourceDictionary Source="DefaultControls.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

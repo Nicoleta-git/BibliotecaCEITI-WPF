@@ -1,0 +1,142 @@
+﻿<Window x:Class="BibliotecaCEITI.AddBook"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa5="http://schemas.fontawesome.com/icons/"
+        mc:Ignorable="d"
+        Height="780" Width="950"
+        Background="#F8FAFC" WindowStartupLocation="CenterScreen" FontFamily="Segoe UI">
+
+    <Grid Margin="40">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Header -->
+            <RowDefinition Height="*"/>
+            <!-- Content -->
+            <RowDefinition Height="Auto"/>
+            <!-- Footer -->
+        </Grid.RowDefinitions>
+
+        <!-- 1. Header Section -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,30">
+            <TextBlock Text="Adăugare carte nouă" FontSize="24" FontWeight="Bold" Foreground="{StaticResource TextDark}"/>
+        </StackPanel>
+
+        <!-- 2. Form Content Area -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,0,0,20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="260"/>
+                    <!-- Left: Image controls -->
+                    <ColumnDefinition Width="*"/>
+                    <!-- Right: Data fields -->
+                </Grid.ColumnDefinitions>
+
+                <!-- Left Column: Image Selection -->
+                <StackPanel Grid.Column="0" Margin="0,0,30,0">
+                    <TextBlock Text="Coperta cărții" Style="{StaticResource FieldLabel}"/>
+
+                    <!-- Image Preview Container -->
+                    <Border BorderBrush="{StaticResource BorderLight}" BorderThickness="1" Background="White" Height="300" CornerRadius="8">
+                        <Image Width="227"/>
+                    </Border>
+
+                    <!-- Image Action Buttons -->
+                    <Button Content="Alege fișier" Margin="0,15,0,20" Width="150" HorizontalAlignment="Left"
+                            Background="#F1F5F9" BorderThickness="0" Padding="10,8" Cursor="Hand"/>
+
+                    <TextBlock Text="URL Copertă" Style="{StaticResource FieldLabel}"/>
+                    <TextBox x:Name="txtCopertaUrl" Style="{StaticResource ModernTextBox}" FontSize="11" Tag="https://..."/>
+                </StackPanel>
+
+                <!-- Right Column: Book Details -->
+                <StackPanel Grid.Column="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Title Field -->
+                        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,15">
+                            <TextBlock Text="Titlu carte *" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="txtTitlu" Style="{StaticResource ModernTextBox}"/>
+                        </StackPanel>
+
+                        <!-- Author & Edition -->
+                        <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,0,10,15">
+                            <TextBlock Text="Autor *" Style="{StaticResource FieldLabel}"/>
+                            <ComboBox x:Name="cbAutor" Style="{StaticResource ModernComboBox}" DisplayMemberPath="Nume"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1" Grid.Column="1" Margin="10,0,0,15">
+                            <TextBlock Text="Ediție" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="txtEditie" Style="{StaticResource ModernTextBox}"/>
+                        </StackPanel>
+
+                        <!-- Category & ISBN -->
+                        <StackPanel Grid.Row="2" Grid.Column="0" Margin="0,0,10,15">
+                            <TextBlock Text="Categorie *" Style="{StaticResource FieldLabel}"/>
+                            <ComboBox x:Name="cbCategorie" Style="{StaticResource ModernComboBox}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="2" Grid.Column="1" Margin="10,0,0,15">
+                            <TextBlock Text="ISBN" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="txtIsbn" Style="{StaticResource ModernTextBox}"/>
+                        </StackPanel>
+
+                        <!-- Publisher & Year -->
+                        <StackPanel Grid.Row="3" Grid.Column="0" Margin="0,0,10,15">
+                            <TextBlock Text="Editura *" Style="{StaticResource FieldLabel}"/>
+                            <ComboBox x:Name="cbEditura" Style="{StaticResource ModernComboBox}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="3" Grid.Column="1" Margin="10,0,0,15">
+                            <TextBlock Text="An apariție (YYYY) *" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="txtAnPublicare" Style="{StaticResource ModernTextBox}"/>
+                        </StackPanel>
+
+                        <!-- Pricing Details -->
+                        <StackPanel Grid.Row="4" Grid.Column="0" Margin="0,0,10,15">
+                            <TextBlock Text="Preț vânzare (MDL)" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="txtPretMdl" Style="{StaticResource ModernTextBox}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="4" Grid.Column="1" Margin="10,0,0,15">
+                            <TextBlock Text="Preț chirie (Manuale)" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="txtPretChirie" Style="{StaticResource ModernTextBox}"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- Language & Description -->
+                    <StackPanel Margin="0,10,0,0">
+                        <TextBlock Text="Limba *" Style="{StaticResource FieldLabel}"/>
+                        <ComboBox x:Name="cbLimba" Style="{StaticResource ModernComboBox}" Width="250" HorizontalAlignment="Left" Margin="0,0,0,15"/>
+
+                        <TextBlock Text="Descriere" Style="{StaticResource FieldLabel}"/>
+                        <TextBox x:Name="txtDescriere" Style="{StaticResource ModernTextBox}" Height="100" 
+                                 TextWrapping="Wrap" AcceptsReturn="True" VerticalContentAlignment="Top" Padding="10"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+
+        <!-- 3. Footer: Action Buttons -->
+        <Border Grid.Row="2" Padding="0,20,0,0" BorderBrush="{StaticResource BorderLight}" BorderThickness="0,1,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Anulează" Width="100" Margin="0,0,15,0" Height="40" Background="Transparent" 
+                        BorderBrush="{StaticResource BorderLight}" BorderThickness="1" Cursor="Hand"/>
+                <Button x:Name="btnSalveaza" Content="Salvează cartea" Width="180" 
+                        Style="{StaticResource PrimaryButtonStyle}" Cursor="Hand"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
