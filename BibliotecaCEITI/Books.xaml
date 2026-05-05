@@ -66,7 +66,7 @@
 
         <!-- PAGE HEADER -->
         <StackPanel Grid.Row="0" Margin="0,0,0,25">
-            <TextBlock Text="Gestiune Inventar (Carti) . mihail test" FontSize="28" FontWeight="Bold" Foreground="{StaticResource TextDark}"/>
+            <TextBlock Text="Gestiune Inventar (Carti)" FontSize="28" FontWeight="Bold" Foreground="{StaticResource TextDark}"/>
         </StackPanel>
 
         <!-- SEARCH AND ADD ACTIONS -->
@@ -99,44 +99,32 @@
         </Grid>
 
         <!-- MAIN DATA GRID: Displays the list of books -->
-        <Border Grid.Row="2" Background="White" CornerRadius="12" BorderBrush="{StaticResource BorderLight}" BorderThickness="1" Margin="0,0,0,20">
-            <DataGrid Background="Transparent" BorderThickness="0" AutoGenerateColumns="False" 
-                      RowHeight="52" CanUserAddRows="False" GridLinesVisibility="None"
-                      HeadersVisibility="Column" SelectionMode="Single"
-                      x:Name="BooksGrid">
+        <Border Grid.Row="2" Background="White" CornerRadius="12" BorderBrush="#E2E8F0" BorderThickness="1" Margin="0,20,0,20">
+            <DataGrid x:Name="BooksGrid"
+              Background="Transparent" 
+              BorderThickness="0" 
+              AutoGenerateColumns="True" 
+              ColumnWidth="*" 
+              RowHeight="52" 
+              CanUserAddRows="False" 
+              GridLinesVisibility="None"
+              HeadersVisibility="Column" 
+              SelectionMode="Single"
+              VerticalScrollBarVisibility="Auto"
+              HorizontalScrollBarVisibility="Auto">
 
-                <!-- DataGrid Column Header Customization -->
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="DataGridColumnHeader">
                         <Setter Property="Background" Value="#F8FAFC"/>
-                        <Setter Property="Foreground" Value="{StaticResource TextMuted}"/>
+                        <Setter Property="Foreground" Value="#64748B"/>
                         <Setter Property="FontWeight" Value="SemiBold"/>
                         <Setter Property="Padding" Value="15,12"/>
                         <Setter Property="BorderThickness" Value="0,0,0,1"/>
-                        <Setter Property="BorderBrush" Value="{StaticResource BorderLight}"/>
+                        <Setter Property="BorderBrush" Value="#E2E8F0"/>
                     </Style>
                 </DataGrid.ColumnHeaderStyle>
-
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Cod Inventar" Binding="{Binding CodInventar}" Width="120"/>
-                    <DataGridTextColumn Header="Titlu" Binding="{Binding Titlu}" Width="*" FontWeight="SemiBold"/>
-                    <DataGridTextColumn Header="ISBN" Binding="{Binding ISBN}" Width="130"/>
-                    <DataGridTextColumn Header="Preț (MDL)" Binding="{Binding PretMdl, StringFormat=\{0:N2\}}" Width="100"/>
-
-                    <!-- Status Column with Badge Appearance -->
-                    <DataGridTemplateColumn Header="Stare" Width="130">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Border CornerRadius="6" Padding="8,4" HorizontalAlignment="Left" Background="{StaticResource StockGreenBg}">
-                                    <TextBlock Text="{Binding Stare}" Foreground="{StaticResource StockGreen}" FontWeight="Bold" FontSize="11"/>
-                                </Border>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
             </DataGrid>
         </Border>
-
         <!-- SELECTION DETAILS PANEL: Shows info about the currently selected book -->
         <Border Grid.Row="3" Background="White" CornerRadius="12" BorderBrush="{StaticResource BorderLight}" BorderThickness="1" Padding="25">
             <Grid>
