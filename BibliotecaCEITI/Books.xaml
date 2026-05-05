@@ -66,7 +66,7 @@
 
         <!-- PAGE HEADER -->
         <StackPanel Grid.Row="0" Margin="0,0,0,25">
-            <TextBlock Text="Gestiune Inventar (Carti)" FontSize="28" FontWeight="Bold" Foreground="{StaticResource TextDark}"/>
+            <TextBlock Text="Gestiune Inventar (Carti) . mihail test" FontSize="28" FontWeight="Bold" Foreground="{StaticResource TextDark}"/>
         </StackPanel>
 
         <!-- SEARCH AND ADD ACTIONS -->
