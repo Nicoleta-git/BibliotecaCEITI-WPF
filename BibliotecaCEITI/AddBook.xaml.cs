@@ -17,11 +17,21 @@ namespace BibliotecaCEITI
     /// <summary>
     /// Interaction logic for AddBook.xaml
     /// </summary>
-    public partial class AddBook : Window
+    public partial class AddBook : UserControl
     {
         public AddBook()
         {
             InitializeComponent();
+        }
+
+        private void BackBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var mainWindow = Window.GetWindow(this) as MainWindow;
+            if (mainWindow != null)
+            {
+                mainWindow.MainContentContainer.Content = new Books();
+            }
+
         }
     }
 }

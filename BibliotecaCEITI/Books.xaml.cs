@@ -44,5 +44,14 @@ namespace BibliotecaCEITI
                 mainWindow.ChangeView(delete);
             }
         }
+        private void AddBook_Click(object sender, RoutedEventArgs e)
+        {
+            AddBook addBook = new AddBook();
+            Window parentWindow = Window.GetWindow(this);
+
+            if (parentWindow is MainWindow mainWindow) {
+                mainWindow.ChangeView(addBook);
+            }
+        }
     }
 }
