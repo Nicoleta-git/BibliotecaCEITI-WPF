@@ -92,7 +92,7 @@
                 <TextBlock Text="Ștergere carte" FontSize="22" FontWeight="Bold" Foreground="#1E293B" Margin="0,0,0,25"/>
 
                 <!-- MAIN FORM CONTAINER -->
-                <Border Background="White" CornerRadius="8" BorderBrush="#E2E8F0" BorderThickness="1" Padding="30">
+                <Border Background="White" CornerRadius="8" BorderBrush="#E2E8F0" BorderThickness="1" Padding="30" Height="575">
                     <StackPanel>
 
                         <!-- WARNING MESSAGE: Warns the user about irreversible data loss -->
