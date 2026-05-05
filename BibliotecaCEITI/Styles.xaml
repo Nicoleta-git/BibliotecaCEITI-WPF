@@ -5,7 +5,7 @@
     <Color x:Key="HoverBlueColor">#2575fc</Color>
     
     <!-- ========================================== -->
-    <!-- 1. CULORI (Brushes)                        -->
+    <!-- CULORI (Brushes)                        -->
     <!-- ========================================== -->
     <SolidColorBrush x:Key="PrimaryPurple" Color="#6210CC"/>
     <SolidColorBrush x:Key="LoginPurple" Color="#6a11cb"/>
@@ -15,13 +15,13 @@
     <SolidColorBrush x:Key="HeaderWhite" Color="White"/>
 
     <!-- ========================================== -->
-    <!-- 2. EFECTE (Shadows)                        -->
+    <!-- EFECTE (Shadows)                        -->
     <!-- ========================================== -->
     <DropShadowEffect x:Key="CardShadow" BlurRadius="15" ShadowDepth="1" Opacity="0.1"/>
     <DropShadowEffect x:Key="ButtonShadow" BlurRadius="15" Direction="270" Opacity="0.3" ShadowDepth="5" Color="#6a11cb"/>
 
     <!-- ========================================== -->
-    <!-- 3. STILURI PENTRU BORDER (Carduri Stat)    -->
+    <!-- STILURI PENTRU BORDER (Carduri Stat)    -->
     <!-- ========================================== -->
     <Style x:Key="StatCardStyle" TargetType="Border">
         <Setter Property="Background" Value="White"/>
@@ -32,7 +32,7 @@
     </Style>
 
     <!-- ========================================== -->
-    <!-- 4. STILURI PENTRU BUTOANE                  -->
+    <!-- STILURI PENTRU BUTOANE                  -->
     <!-- ========================================== -->
 
     <!-- Buton Modern (Login) -->
@@ -145,5 +145,82 @@
         </Setter>
     </Style>
 
-</ResourceDictionary>
 
+    <!-- ========================================== -->
+    <!-- Stil DataGridView(universal)               -->
+    <!-- ========================================== -->
+
+    <Style x:Key="ModernColumnHeaderStyle" TargetType="DataGridColumnHeader">
+        <Setter Property="Background" Value="#7db5ff"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Padding" Value="20,12"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+        <Setter Property="BorderBrush" Value="#2563EB"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="DataGridColumnHeader">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Padding="{TemplateBinding Padding}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ModernCellStyle" TargetType="DataGridCell">
+        <Setter Property="Padding" Value="10"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="#0F172A"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="DataGridCell">
+                    <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="#DBEAFE"/>
+                <Setter Property="Foreground" Value="#1E40AF"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="ModernDataGridStyle" TargetType="DataGrid">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="RowHeight" Value="52"/>
+        <Setter Property="GridLinesVisibility" Value="None"/>
+        <Setter Property="HeadersVisibility" Value="Column"/>
+        <Setter Property="SelectionMode" Value="Single"/>
+        <Setter Property="AlternatingRowBackground" Value="#F8FAFC"/>
+        <Setter Property="ColumnHeaderStyle" Value="{StaticResource ModernColumnHeaderStyle}"/>
+        <Setter Property="CellStyle" Value="{StaticResource ModernCellStyle}"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="DataGrid">
+                    <Border Background="White" 
+                            CornerRadius="12" 
+                            BorderBrush="#CBD5E1" 
+                            BorderThickness="1" 
+                            ClipToBounds="True">
+                        <ScrollViewer x:Name="DG_ScrollViewer" Focusable="false">
+                            <ItemsPresenter />
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>
