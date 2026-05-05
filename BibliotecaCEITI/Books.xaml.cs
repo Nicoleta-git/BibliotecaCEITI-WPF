@@ -22,6 +22,17 @@ namespace BibliotecaCEITI
         public Books()
         {
             InitializeComponent();
+
+            // Test - datagrid
+            var dateTest = new List<object>
+            {
+                new { Cod = "001", Titlu = "Luceafarul", Autor = "Mihai Eminescu", Pret = 55.50 },
+                new { Cod = "002", Titlu = "Ion", Autor = "Liviu Rebreanu", Pret = 40.00 },
+                new { Cod = "003", Titlu = "Baltagul", Autor = "Mihail Sadoveanu", Pret = 35.25 },
+                new { Cod = "004", Titlu = "Enigma Otiliei", Autor = "George Calinescu", Pret = 48.00 }
+            };
+
+            BooksGrid.ItemsSource = dateTest;
         }
 
         private void EditBtn_Click(object sender, RoutedEventArgs e)
