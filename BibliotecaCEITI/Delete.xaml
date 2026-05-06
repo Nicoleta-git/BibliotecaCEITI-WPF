@@ -16,63 +16,6 @@
                 <ResourceDictionary Source="DefaultControls.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-            <!-- STYLE: Danger Button (Red) used for destructive actions -->
-            <Style x:Key="DangerButtonStyle" TargetType="Button">
-                <Setter Property="Background" Value="#DC2626"/>
-                <Setter Property="Foreground" Value="White"/>
-                <Setter Property="Padding" Value="20,8"/>
-                <Setter Property="Height" Value="38"/>
-                <Setter Property="FontWeight" Value="SemiBold"/>
-                <Setter Property="BorderThickness" Value="0"/>
-                <Setter Property="Cursor" Value="Hand"/>
-                <Style.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="6"/>
-                    </Style>
-                </Style.Resources>
-                <Style.Triggers>
-                    <!-- Visual feedback when the button is disabled (e.g., checkbox not ticked) -->
-                    <Trigger Property="IsEnabled" Value="False">
-                        <Setter Property="Background" Value="#FCA5A5"/>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-
-            <!-- STYLE: Secondary Button (Gray) for neutral actions like 'Cancel' -->
-            <Style x:Key="SecondaryButtonStyle" TargetType="Button">
-                <Setter Property="Background" Value="#F1F5F9"/>
-                <Setter Property="Foreground" Value="#475569"/>
-                <Setter Property="Padding" Value="20,8"/>
-                <Setter Property="Height" Value="38"/>
-                <Setter Property="BorderBrush" Value="#E2E8F0"/>
-                <Setter Property="Cursor" Value="Hand"/>
-                <Style.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="6"/>
-                    </Style>
-                </Style.Resources>
-            </Style>
-
-            <!-- STYLE: Navigation Link Button with hover effect -->
-            <Style x:Key="BackButtonStyle" TargetType="Button">
-                <Setter Property="Background" Value="Transparent"/>
-                <Setter Property="Foreground" Value="#3B82F6"/>
-                <Setter Property="BorderThickness" Value="0"/>
-                <Setter Property="Cursor" Value="Hand"/>
-                <Setter Property="FontWeight" Value="SemiBold"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="Button">
-                            <ContentPresenter />
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Foreground" Value="#2563EB"/>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -81,10 +24,10 @@
             <StackPanel Margin="40,30">
 
                 <!-- NAVIGATION: Back to list link -->
-                <Button x:Name="btnBack" Style="{StaticResource BackButtonStyle}" Margin="0,0,0,15" HorizontalAlignment="Left" Click="BackBtn_Click">
+                <Button x:Name="btnBack" Background="Transparent" BorderThickness="0" Cursor="Hand" Click="BackBtn_Click" HorizontalAlignment="Left">
                     <StackPanel Orientation="Horizontal">
-                        <fa5:ImageAwesome Icon="Solid_ArrowLeft" Width="12" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" Margin="0,0,8,0"/>
-                        <TextBlock Text="Înapoi la listă" FontSize="14" VerticalAlignment="Center"/>
+                        <fa5:ImageAwesome Icon="Solid_ArrowLeft" Width="10" Margin="0,0,8,0" Foreground="#4483EC"/>
+                        <TextBlock Text="Înapoi la listă" Foreground="#4483EC" FontSize="13" FontWeight="Medium" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
 
@@ -112,7 +55,7 @@
                                  Background="#F8FAFC" Padding="10" Margin="0,0,0,20" BorderBrush="#E2E8F0"/>
 
                         <!-- SELECTION FIELD: Mandatory reason for deletion (scrapping) -->
-                        <TextBlock Text="Motiv casare *" FontWeight="SemiBold" Foreground="#64748B" Margin="0,0,0,8"/>
+                        <TextBlock Text="Motiv stergere *" FontWeight="SemiBold" Foreground="#64748B" Margin="0,0,0,8"/>
                         <ComboBox x:Name="cbMotiv" 
                                   Style="{StaticResource ModernComboBox}"
                                   Margin="0,0,0,20">
