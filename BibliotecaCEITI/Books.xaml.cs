@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MySql.Data.MySqlClient;
+
 
 namespace BibliotecaCEITI
 {
@@ -19,22 +22,80 @@ namespace BibliotecaCEITI
     /// </summary>
     public partial class Books : UserControl
     {
+        string connectionString = "Server=127.0.0.1;Port=3306;Database=biblioteca_ceiti_go;Uid=root;Pwd=Mihail2026;";
         public Books()
         {
             InitializeComponent();
+            //TestConnection();
+            SelectBooks();
 
-            // Test - datagrid
-            var dateTest = new List<object>
-            {
-                new { Cod = "001", Titlu = "Luceafarul", Autor = "Mihai Eminescu", Pret = 55.50 },
-                new { Cod = "002", Titlu = "Ion", Autor = "Liviu Rebreanu", Pret = 40.00 },
-                new { Cod = "003", Titlu = "Baltagul", Autor = "Mihail Sadoveanu", Pret = 35.25 },
-                new { Cod = "004", Titlu = "Enigma Otiliei", Autor = "George Calinescu", Pret = 48.00 }
-            };
-
-            BooksGrid.ItemsSource = dateTest;
         }
 
+        private void TestConnection()
+        {
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(this.connectionString))
+                {
+                    conn.Open();
+                    MessageBox.Show("Succes connection");
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Error MySQL: " + ex.Message + "\nError code: " + ex.Number);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("General error: " + ex.Message);
+            }
+        }
+
+        private void SelectBooks()
+        {
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(this.connectionString))
+                {
+                    conn.Open();
+                    string query = "CALL sp_raport_exemplare_manuale();";
+                    MySqlDataAdapter da = new MySqlDataAdapter(query, conn);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    BooksGrid.ItemsSource = dt.DefaultView;
+                }
+            } catch (Exception ex)
+            {
+                MessageBox.Show("Error loading data: " + ex.Message);
+            }
+        }
+
+        private void SelectBooks_Title_Isbn_Author(string titlu = null, string isbn = null, string autor = null)
+        {
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(this.connectionString))
+                {
+                    conn.Open();
+
+                    MySqlCommand cmd = new MySqlCommand("sp_raport_exemplare_manuale", conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("p_titlu", string.IsNullOrWhiteSpace(titlu) ? DBNull.Value : titlu);
+                    cmd.Parameters.AddWithValue("p_isbn", string.IsNullOrWhiteSpace(isbn) ? DBNull.Value : isbn);
+                    cmd.Parameters.AddWithValue("p_autor", string.IsNullOrWhiteSpace(autor) ? DBNull.Value : autor);
+
+                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    BooksGrid.ItemsSource = dt.DefaultView;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Eroare la apelarea procedurii: " + ex.Message);
+            }
+        }
 
         private void StergeBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -66,6 +127,76 @@ namespace BibliotecaCEITI
             if (parentWindow is MainWindow mainWindow) {
                 mainWindow.ChangeView(addBook);
             }
+        }
+
+        // 1. READ (Afișare în DataGrid)
+        private void LoadData()
+        {
+            try
+            {
+                using (var conn = new MySqlConnection(this.connectionString))
+                {
+                    string query = "SELECT id, cod_inventar, titlu, isbn FROM carti";
+                    MySqlDataAdapter da = new MySqlDataAdapter(query, conn);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    BooksGrid.ItemsSource = dt.DefaultView;
+                }
+            }
+            catch (Exception ex) { MessageBox.Show("Error loading: " + ex.Message); }
+        }
+
+        // 2. CREATE (Inserare)
+        private void AddBook(string titlu, string isbn)
+        {
+            using (var conn = new MySqlConnection(this.connectionString))
+            {
+                string query = "INSERT INTO carti (titlu, isbn) VALUES (@titlu, @isbn)";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@titlu", titlu);
+                cmd.Parameters.AddWithValue("@isbn", isbn);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            LoadData(); // Reîmprospătăm tabelul
+        }
+
+        // 3. UPDATE (Modificare)
+        private void UpdateBook(int id, string titlu)
+        {
+            using (var conn = new MySqlConnection(this.connectionString))
+            {
+                string query = "UPDATE carti SET titlu = @titlu WHERE id = @id";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@titlu", titlu);
+                cmd.Parameters.AddWithValue("@id", id);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            LoadData();
+        }
+
+        // 4. DELETE (Ștergere)
+        private void DeleteBook(int id)
+        {
+            using (var conn = new MySqlConnection(this.connectionString))
+            {
+                string query = "DELETE FROM carti WHERE id = @id";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@id", id);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            LoadData();
+        }
+
+        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string textCautat = SearchTextBox.Text;
+            SelectBooks_Title_Isbn_Author(textCautat);
         }
     }
 }
