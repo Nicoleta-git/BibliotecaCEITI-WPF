@@ -35,16 +35,6 @@ namespace BibliotecaCEITI
             BooksGrid.ItemsSource = dateTest;
         }
 
-        private void EditBtn_Click(object sender, RoutedEventArgs e)
-        {
-            UpdateBook updateControl = new UpdateBook();
-            Window parentWindow = Window.GetWindow(this);
-
-            if (parentWindow is MainWindow mainWindow)
-            {
-                mainWindow.ChangeView(updateControl);
-            }
-        }
 
         private void StergeBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -55,9 +45,22 @@ namespace BibliotecaCEITI
                 mainWindow.ChangeView(delete);
             }
         }
+
+        // Need to unify logic!
+        private void EditBtn_Click(object sender, RoutedEventArgs e)
+        {
+            BookDetails updateControl = new BookDetails();
+            Window parentWindow = Window.GetWindow(this);
+
+            if (parentWindow is MainWindow mainWindow)
+            {
+                mainWindow.ChangeView(updateControl);
+            }
+        }
+
         private void AddBook_Click(object sender, RoutedEventArgs e)
         {
-            AddBook addBook = new AddBook();
+            BookDetails addBook = new BookDetails();
             Window parentWindow = Window.GetWindow(this);
 
             if (parentWindow is MainWindow mainWindow) {

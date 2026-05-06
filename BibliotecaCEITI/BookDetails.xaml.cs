@@ -15,23 +15,30 @@ using System.Windows.Shapes;
 namespace BibliotecaCEITI
 {
     /// <summary>
-    /// Interaction logic for AddBook.xaml
+    /// Interaction logic for UpdateBook.xaml
     /// </summary>
-    public partial class AddBook : UserControl
+    public partial class BookDetails : UserControl
     {
-        public AddBook()
+        public BookDetails()
         {
             InitializeComponent();
+
+            // Testing ComboBox functionality
+            cbEditura.Items.Add("Editura Cartier");
+            cbEditura.Items.Add("Editura Litera");
+            cbEditura.Items.Add("Editura ARC");
+            cbEditura.Items.Add("Editura Știința");
+
+            cbEditura.SelectedIndex = 0;
         }
 
-        private void BackBtn_Click(object sender, RoutedEventArgs e)
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
             var mainWindow = Window.GetWindow(this) as MainWindow;
             if (mainWindow != null)
             {
                 mainWindow.MainContentContainer.Content = new Books();
             }
-
         }
     }
 }
