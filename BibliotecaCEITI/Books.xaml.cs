@@ -70,30 +70,34 @@ namespace BibliotecaCEITI
             }
         }
 
-        private void SelectBooks_Title_Isbn_Author(string titlu = null, string isbn = null, string autor = null)
+        private async Task SelectBooks_Title_Isbn_AuthorAsync(string titlu = null, string isbn = null, string autor = null)
         {
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(this.connectionString))
+                DataTable dt = await Task.Run(() =>
                 {
-                    conn.Open();
+                    using (MySqlConnection conn = new MySqlConnection(this.connectionString))
+                    {
+                        conn.Open();
+                        MySqlCommand cmd = new MySqlCommand("sp_raport_exemplare_manuale", conn);
+                        cmd.CommandType = CommandType.StoredProcedure;
 
-                    MySqlCommand cmd = new MySqlCommand("sp_raport_exemplare_manuale", conn);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("p_titlu", string.IsNullOrWhiteSpace(titlu) ? DBNull.Value : titlu);
-                    cmd.Parameters.AddWithValue("p_isbn", string.IsNullOrWhiteSpace(isbn) ? DBNull.Value : isbn);
-                    cmd.Parameters.AddWithValue("p_autor", string.IsNullOrWhiteSpace(autor) ? DBNull.Value : autor);
+                        cmd.Parameters.AddWithValue("p_titlu", string.IsNullOrWhiteSpace(titlu) ? DBNull.Value : titlu);
+                        cmd.Parameters.AddWithValue("p_isbn", string.IsNullOrWhiteSpace(isbn) ? DBNull.Value : isbn);
+                        cmd.Parameters.AddWithValue("p_autor", string.IsNullOrWhiteSpace(autor) ? DBNull.Value : autor);
 
-                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
+                        MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                        DataTable tempDt = new DataTable();
+                        da.Fill(tempDt);
+                        return tempDt;
+                    }
+                });
 
-                    BooksGrid.ItemsSource = dt.DefaultView;
-                }
+                BooksGrid.ItemsSource = dt.DefaultView;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare la apelarea procedurii: " + ex.Message);
+                System.Diagnostics.Debug.WriteLine("Eroare filtrare: " + ex.Message);
             }
         }
 
@@ -193,10 +197,10 @@ namespace BibliotecaCEITI
             LoadData();
         }
 
-        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private async void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             string textCautat = SearchTextBox.Text;
-            SelectBooks_Title_Isbn_Author(textCautat);
+            await SelectBooks_Title_Isbn_AuthorAsync(textCautat);
         }
     }
 }
