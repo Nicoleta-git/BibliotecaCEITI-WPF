@@ -29,11 +29,10 @@ namespace BibliotecaCEITI
 
             MainContentContainer.Content = dashView;
             // Initialize timer
-           // timer = new DispatcherTimer();
-           // timer.Interval = TimeSpan.FromSeconds(1);
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
             //timer.Tick += Timer_Tick;
             timer.Start();
->>>>>>> 182d611c19026e72ab6370e065047b7d46f11961
         }
 
         
