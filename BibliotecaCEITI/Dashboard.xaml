@@ -193,7 +193,6 @@
                             <TextBlock Grid.Column="2" Text="86" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PrimaryPurple}"/>
                         </Grid>
 
-                        <Button Content="Vezi tot raportul" Margin="0,20,0,0" Style="{StaticResource ModernButtonStyle}"/>
                     </StackPanel>
                 </Border>
             </Grid>
