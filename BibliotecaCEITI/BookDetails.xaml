@@ -40,14 +40,14 @@
 
                 <!-- Primary Action Buttons (Cancel / Save) -->
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,5">
-                    <Button Content="Anulează" Width="100" Height="38" Background="White" Margin="0,0,10,0">
+                    <Button Content="Anulează" Width="100" Height="38" Background="White" Margin="0,0,10,0" Click="Button_Click_1">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="8"/>
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Button x:Name="btnSalveazaModificari" Width="200" Height="38" Style="{StaticResource PrimaryButtonStyle}">
+                    <Button x:Name="btnSalveazaModificari" Width="200" Height="38" Style="{StaticResource PrimaryButtonStyle}" Click="btnSalveazaModificari_Click">
                         <StackPanel Orientation="Horizontal">
                             <fa5:ImageAwesome Icon="Solid_Save" Width="14" Foreground="White" Margin="0,0,10,0"/>
                             <TextBlock Text="Salvează modificările"/>
@@ -76,7 +76,7 @@
                                 <Image x:Name="imgCoperta" Stretch="Uniform"/>
                             </Border>
                             <!-- Cover Actions -->
-                            <Button Background="#F1F5F9" BorderThickness="0" Height="36" Cursor="Hand">
+                            <Button Background="#F1F5F9" BorderThickness="0" Height="36" Cursor="Hand" Click="Button_Click">
                                 <Button.Resources>
                                     <Style TargetType="Border">
                                         <Setter Property="CornerRadius" Value="6"/>
@@ -89,7 +89,7 @@
                             </Button>
                             <!-- Cover URL Link -->
                             <TextBlock Text="URL Imagine" FontWeight="SemiBold" Foreground="#1B2559" Margin="0,20,0,8"/>
-                            <TextBox x:Name="txtCopertaUrl" FontSize="11" VerticalContentAlignment="Center" Height="35"/>
+                            <TextBox x:Name="txtCopertaUrl" FontSize="11" VerticalContentAlignment="Center" Height="35" IsEnabled="False"/>
                         </StackPanel>
                     </Border>
                 </StackPanel>

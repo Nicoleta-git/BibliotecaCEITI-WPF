@@ -133,39 +133,6 @@ namespace BibliotecaCEITI
             }
         }
 
-        // 1. READ (Afișare în DataGrid)
-        private void LoadData()
-        {
-            try
-            {
-                using (var conn = new MySqlConnection(this.connectionString))
-                {
-                    string query = "SELECT id, cod_inventar, titlu, isbn FROM carti";
-                    MySqlDataAdapter da = new MySqlDataAdapter(query, conn);
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-                    BooksGrid.ItemsSource = dt.DefaultView;
-                }
-            }
-            catch (Exception ex) { MessageBox.Show("Error loading: " + ex.Message); }
-        }
-
-        // 2. CREATE (Inserare)
-        private void AddBook(string titlu, string isbn)
-        {
-            using (var conn = new MySqlConnection(this.connectionString))
-            {
-                string query = "INSERT INTO carti (titlu, isbn) VALUES (@titlu, @isbn)";
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@titlu", titlu);
-                cmd.Parameters.AddWithValue("@isbn", isbn);
-
-                conn.Open();
-                cmd.ExecuteNonQuery();
-            }
-            LoadData(); // Reîmprospătăm tabelul
-        }
-
         // 3. UPDATE (Modificare)
         private void UpdateBook(int id, string titlu)
         {
@@ -179,7 +146,7 @@ namespace BibliotecaCEITI
                 conn.Open();
                 cmd.ExecuteNonQuery();
             }
-            LoadData();
+            //LoadData();
         }
 
         // 4. DELETE (Ștergere)
@@ -194,7 +161,7 @@ namespace BibliotecaCEITI
                 conn.Open();
                 cmd.ExecuteNonQuery();
             }
-            LoadData();
+            //LoadData();
         }
 
         private async void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -324,6 +291,26 @@ namespace BibliotecaCEITI
                             locatie.Text = "N/A";
                         }
                     }
+                    using (MySqlConnection conn = new MySqlConnection(this.connectionString))
+                    {
+                        conn.Open();
+                        MySqlCommand cmd = new MySqlCommand("sp_imagine_carte", conn);
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@p_id", id_CarteSelectata);
+
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read() && reader["Imagine"] != DBNull.Value)
+                            {
+                                byte[] rawData = (byte[])reader["Imagine"];
+                                imagine.Source = ToWpfImage(rawData);
+                            }
+                            else
+                            {
+                                imagine.Source = null;
+                            }
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -331,5 +318,23 @@ namespace BibliotecaCEITI
                 }
             }
         }
+
+        private BitmapImage ToWpfImage(byte[] array)
+        {
+            if (array == null || array.Length == 0) return null;
+
+            var image = new BitmapImage();
+            using (var ms = new System.IO.MemoryStream(array))
+            {
+                image.BeginInit();
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.StreamSource = ms;
+                image.EndInit();
+            }
+            image.Freeze();
+            return image;
+        }
+
+
     }
 }
