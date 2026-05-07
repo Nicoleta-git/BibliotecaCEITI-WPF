@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace BibliotecaCEITI
 {
@@ -19,6 +20,7 @@ namespace BibliotecaCEITI
     /// </summary>
     public partial class MainWindow : Window
     {
+        private DispatcherTimer timer;
         public MainWindow()
         {
             InitializeComponent();
@@ -26,7 +28,15 @@ namespace BibliotecaCEITI
             Dashboard dashView = new Dashboard();
 
             MainContentContainer.Content = dashView;
+
+            // Initialize timer
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            //timer.Tick += Timer_Tick;
+            timer.Start();
         }
+
+        
 
         private void BtnMaximize_Click(object sender, RoutedEventArgs e)
         {
