@@ -1,0 +1,187 @@
+﻿<UserControl x:Class="BibliotecaCEITI.CheckInBorrowStep_3"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:fa5="http://schemas.fontawesome.com/icons/"
+             xmlns:local="clr-namespace:BibliotecaCEITI"
+             mc:Ignorable="d"  Background="#F4F7FE"
+             d:DesignHeight="550" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Info Bar Style -->
+            <Style x:Key="InfoBarStyle" TargetType="Border">
+                <Setter Property="Background" Value="#FFFBEB"/>
+                <Setter Property="BorderBrush" Value="#FEF3C7"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="CornerRadius" Value="8"/>
+                <Setter Property="Padding" Value="15,12"/>
+            </Style>
+
+            <!-- Custom DatePicker Style -->
+            <Style TargetType="DatePicker">
+                <Setter Property="Foreground" Value="{StaticResource TextDark}"/>
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="BorderBrush" Value="#E2E8F0"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="FontFamily" Value="Segoe UI"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Padding" Value="10,0"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="DatePicker">
+                            <Border x:Name="DatePickerRoot"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="8">
+                                <Grid x:Name="InternalGrid">
+                                    <!-- Explicit column definitions to support older XAML designers -->
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <DatePickerTextBox x:Name="PART_TextBox"
+                                                       Grid.Column="0"
+                                                       HorizontalContentAlignment="Stretch"
+                                                       VerticalContentAlignment="Center"
+                                                       Focusable="False"
+                                                       Background="Transparent"
+                                                       BorderThickness="0"
+                                                       Padding="{TemplateBinding Padding}"
+                                                       Foreground="{TemplateBinding Foreground}"/>
+
+                                    <Button x:Name="PART_Button"
+                                            Grid.Column="1"
+                                            Width="40"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Cursor="Hand"
+                                            Focusable="False">
+                                        <fa5:ImageAwesome Icon="Solid_CalendarAlt" 
+                                                         Width="16" 
+                                                         Foreground="{StaticResource PrimaryBlue}"/>
+                                    </Button>
+
+                                    <Popup x:Name="PART_Popup"
+                                           Placement="Bottom"
+                                           AllowsTransparency="True"
+                                           StaysOpen="False"/>
+                                </Grid>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="BorderBrush" Value="{StaticResource PrimaryBlue}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Background="{StaticResource BackgroundGray}" Padding="20">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Step Title -->
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,25">
+                <TextBlock Text="3. Detalii carte" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextDark}"/>
+            </StackPanel>
+
+            <!-- Main Content Area -->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Left Column: Dates and Duration Form -->
+                <StackPanel Grid.Column="0" Margin="0,0,20,0">
+                    <StackPanel Margin="0,0,0,20">
+                        <TextBlock Text="Data împrumut" Margin="0,0,0,8" FontSize="13" FontWeight="Medium" Foreground="{StaticResource TextMuted}"/>
+                        <DatePicker Height="45" VerticalContentAlignment="Center"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,0,0,20">
+                        <TextBlock Text="Termen de returnare" Margin="0,0,0,8" FontSize="13" FontWeight="Medium" Foreground="{StaticResource TextMuted}"/>
+                        <DatePicker Height="45" VerticalContentAlignment="Center"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,0,0,20">
+                        <TextBlock Text="Durata împrumut" Margin="0,0,0,8" FontSize="13" FontWeight="Medium" Foreground="{StaticResource TextMuted}"/>
+                        <ComboBox Height="45" VerticalContentAlignment="Center">
+                            <ComboBoxItem Content="14 zile" IsSelected="True"/>
+                            <ComboBoxItem Content="21 zile"/>
+                            <ComboBoxItem Content="30 zile"/>
+                        </ComboBox>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Right Column: Book Details Card -->
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="Cartea selectată" Margin="0,0,0,8" FontSize="13" FontWeight="Medium" Foreground="{StaticResource TextMuted}"/>
+                    <Border Style="{StaticResource StatCardStyle}" Margin="0" Padding="20">
+                        <StackPanel>
+                            <Grid Margin="0,0,0,20">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Book Cover Visual -->
+                                <Border Grid.Column="0" Width="70" Height="100" Background="#E2E8F0" CornerRadius="4" Margin="0,0,15,0"/>
+
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock Text="Amintiri din copilărie" FontSize="18" FontWeight="Bold" Foreground="{StaticResource TextDark}" TextWrapping="Wrap"/>
+                                    <TextBlock Text="Ion Creangă" FontSize="14" Foreground="{StaticResource TextGray}" Margin="0,4,0,0"/>
+                                </StackPanel>
+                            </Grid>
+
+                            <StackPanel Margin="0,0,0,15">
+                                <Grid Margin="0,4">
+                                    <TextBlock Text="ISBN:" Foreground="{StaticResource TextGray}" FontWeight="Medium"/>
+                                    <TextBlock Text="978-973-31-0070-6" HorizontalAlignment="Right" Foreground="{StaticResource TextDark}"/>
+                                </Grid>
+                                <Grid Margin="0,4">
+                                    <TextBlock Text="Categorie:" Foreground="{StaticResource TextGray}" FontWeight="Medium"/>
+                                    <TextBlock Text="Literatură română" HorizontalAlignment="Right" Foreground="{StaticResource TextDark}"/>
+                                </Grid>
+                                <Grid Margin="0,4">
+                                    <TextBlock Text="Cod:" Foreground="{StaticResource TextGray}" FontWeight="Medium"/>
+                                    <TextBlock Text="C12345" HorizontalAlignment="Right" Foreground="{StaticResource TextDark}"/>
+                                </Grid>
+                            </StackPanel>
+
+                            <Border HorizontalAlignment="Left" Background="{StaticResource StockGreenBg}" CornerRadius="6" Padding="12,6">
+                                <TextBlock Text="Disponibilă" Foreground="{StaticResource StockGreen}" FontWeight="Bold" FontSize="12"/>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Grid>
+
+            <!-- Warning/Information Bar -->
+            <Border Grid.Row="2" Style="{StaticResource InfoBarStyle}" Margin="0,20,0,0">
+                <StackPanel Orientation="Horizontal">
+                    <fa5:ImageAwesome Icon="Solid_InfoCircle" Width="16" Foreground="#B45309" Margin="0,0,12,0" VerticalAlignment="Center"/>
+                    <TextBlock VerticalAlignment="Center" Foreground="#92400E" FontSize="13">
+                        <Run Text="Elevul este responsabil pentru carte până la data de "/>
+                        <Run Text="04.06.2025." FontWeight="Bold"/>
+                    </TextBlock>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>

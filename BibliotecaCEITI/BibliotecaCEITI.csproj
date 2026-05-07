@@ -24,8 +24,4 @@
     <Resource Include="Assets\Logo_bib.png" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
-
 </Project>

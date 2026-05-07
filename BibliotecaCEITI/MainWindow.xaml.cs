@@ -26,6 +26,8 @@ namespace BibliotecaCEITI
             Dashboard dashView = new Dashboard();
 
             MainContentContainer.Content = dashView;
+
+
         }
 
         private void BtnMaximize_Click(object sender, RoutedEventArgs e)
@@ -68,6 +70,10 @@ namespace BibliotecaCEITI
             MainContentContainer.Content = newView;
         }
 
-
+        private void Imprumuturi_Btn(object sender, RoutedEventArgs e)
+        {
+            Borrow cb = new Borrow();
+            MainContentContainer.Content = cb;
+        }
     }
 }

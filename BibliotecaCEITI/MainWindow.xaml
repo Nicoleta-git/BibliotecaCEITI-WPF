@@ -76,7 +76,7 @@
                                     </StackPanel>
                                 </Button>
 
-                                <Button Style="{StaticResource MenuButtonStyle}">
+                                <Button Style="{StaticResource MenuButtonStyle}" Click="Imprumuturi_Btn">
                                     <StackPanel Orientation="Horizontal">
                                         <fa5:ImageAwesome Icon="Solid_ExchangeAlt" Width="16" Foreground="White" Margin="0,0,15,0"/>
                                         <TextBlock Text="Împrumuturi"/>
