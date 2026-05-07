@@ -158,8 +158,8 @@
                             <StackPanel Orientation="Horizontal" Margin="0,0,25,0" VerticalAlignment="Center">
                                 <fa5:ImageAwesome Icon="Solid_Clock" Width="18" Foreground="{StaticResource TextGray}" Margin="0,0,10,0" VerticalAlignment="Center"/>
                                 <StackPanel VerticalAlignment="Center">
-                                    <TextBlock Text="2 Mai 2026" FontSize="13" FontWeight="Bold" Foreground="#1B2559"/>
-                                    <TextBlock Text="17:11" FontSize="12" Foreground="{StaticResource TextGray}"/>
+                                    <TextBlock x:Name="data_curenta" Text="2 Mai 2026" FontSize="13" FontWeight="Bold" Foreground="#1B2559"/>
+                                    <TextBlock x:Name="ora_actuala" Text="17:11" FontSize="12" Foreground="{StaticResource TextGray}"/>
                                 </StackPanel>
                             </StackPanel>
 
