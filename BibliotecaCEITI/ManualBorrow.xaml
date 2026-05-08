@@ -1,0 +1,133 @@
+﻿<UserControl x:Class="BibliotecaCEITI.ManualBorrow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:fa5="http://schemas.fontawesome.com/icons/"
+             mc:Ignorable="d" 
+             Background="#F4F7FE"
+             FontFamily="Segoe UI"
+             d:DesignHeight="800" d:DesignWidth="1000">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="DefaultControls.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,0,60">
+            <StackPanel Margin="40,30">
+
+                <!-- NAVIGATION: Back button -->
+                <Button x:Name="btnBack" Background="Transparent" BorderThickness="0" Cursor="Hand"
+                        Click="BtnInapoi_Click" HorizontalAlignment="Left">
+                    <StackPanel Orientation="Horizontal">
+                        <fa5:ImageAwesome Icon="Solid_ArrowLeft" Width="10" Margin="0,0,8,0" Foreground="#4483EC"/>
+                        <TextBlock Text="Înapoi la împrumuturi" Foreground="#4483EC" FontSize="13"
+                                   FontWeight="Medium" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
+                <!-- PAGE TITLE -->
+                <TextBlock Text="Manuale" FontSize="22" FontWeight="Bold" Foreground="#1E293B" Margin="0,10,0,5"/>
+                <TextBlock Text="Selectează un manual sau o grupă pentru a gestiona împrumuturile."
+                           Foreground="#718096" FontSize="13" Margin="0,0,0,25"/>
+
+                <!-- FILTERS -->
+                <Border Background="White" CornerRadius="8" BorderBrush="#E2E8F0" BorderThickness="1"
+                        Padding="20" Margin="0,0,0,15">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Margin="0,0,20,0">
+                            <TextBlock Text="Selectează" FontSize="12" Foreground="#64748B" Margin="0,0,0,6"/>
+                            <ComboBox x:Name="CmbSelecteaza" Width="200" Height="40"
+                                      SelectionChanged="CmbSelecteaza_SelectionChanged">
+                                <ComboBoxItem Content="Grupa"/>
+                                <ComboBoxItem Content="Manual"/>
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel>
+                            <TextBlock x:Name="TxtComboLabel" Text="Grupa" FontSize="12"
+                                       Foreground="#64748B" Margin="0,0,0,6"/>
+                            <ComboBox x:Name="CmbGrupa" Width="180" Height="40"
+                                      SelectionChanged="CmbGrupa_SelectionChanged"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- STUDENTS LIST -->
+                <Border Background="White" CornerRadius="8" BorderBrush="#E2E8F0" BorderThickness="1"
+                        Padding="20" Margin="0,0,0,15">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock x:Name="TxtGrupLabel" Grid.Row="0"
+                                   Text="Elevi în grupa A" FontSize="15" FontWeight="SemiBold"
+                                   Foreground="#1E293B" Margin="0,0,0,12"/>
+
+                        <DataGrid x:Name="DgElevi" Grid.Row="1"
+                                  Style="{StaticResource ModernDataGridStyle}"
+                                  AutoGenerateColumns="False"
+                                  CanUserAddRows="False"
+                                  MinHeight="300">
+                            <DataGrid.Columns>
+
+                                <DataGridTemplateColumn Header="Elev" Width="650">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0">
+                                                <Border Width="36" Height="36" CornerRadius="18"
+                                                        Background="{Binding AvatarColor}" Margin="0,0,10,0">
+                                                    <TextBlock Text="{Binding Initiale}" Foreground="White"
+                                                               FontSize="12" FontWeight="Bold"
+                                                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                                <TextBlock Text="{Binding NumeElev}" VerticalAlignment="Center"
+                                                           FontSize="14" Foreground="#2D3748"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Header="Manual împrumutat" Width="200">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <RadioButton IsChecked="{Binding AreManual, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                         HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </Border>
+
+                <!-- FOOTER -->
+                <Border Background="White" CornerRadius="8" BorderBrush="#E2E8F0" BorderThickness="1"
+                        Padding="20,12">
+                    <Grid>
+                        <TextBox x:Name="TxtSearch" Width="300" Height="38"
+                                 Style="{StaticResource ModernInputStyle}"
+                                 HorizontalAlignment="Left" Margin="0,1,0,1" Text="Elevi selectati:"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                            <CheckBox x:Name="ChkBifeazaToti" Content="Bifeaza toti"
+                                      VerticalAlignment="Center" Margin="0,0,20,0"
+                                      FontSize="14" Foreground="#2D3748"
+                                      Checked="ChkBifeazaToti_Changed" Unchecked="ChkBifeazaToti_Changed"/>
+                            <Button Content="Salvează" Width="120" Height="40"
+                                    Style="{StaticResource GlobalActionButtonStyle}"
+                                    Click="BtnSalveaza_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
