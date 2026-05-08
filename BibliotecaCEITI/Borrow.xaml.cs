@@ -25,9 +25,15 @@ namespace BibliotecaCEITI
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ImprumutNou_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Manuale_Click(object sender, RoutedEventArgs e)
+        {
+            var mainWindow = Window.GetWindow(this) as MainWindow;
+            mainWindow?.ChangeView(new ManualBorrow());
         }
     }
 }
