@@ -35,8 +35,6 @@ namespace BibliotecaCEITI
             timer.Start();
         }
 
-        
-
         private void BtnMaximize_Click(object sender, RoutedEventArgs e)
         {
             if (this.WindowState == WindowState.Maximized)
