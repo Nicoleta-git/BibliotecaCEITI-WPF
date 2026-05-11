@@ -80,5 +80,11 @@ namespace BibliotecaCEITI
             Borrow cb = new Borrow();
             MainContentContainer.Content = cb;
         }
+
+        private void SttingsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Settings settings = new Settings();
+            MainContentContainer.Content = settings;
+        }
     }
 }
