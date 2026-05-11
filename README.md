@@ -5,4 +5,7 @@
 framework - .NET 8.0
 DB - MySql
 
-TEST COMMIT
+Installationg guide v1.0
+Add an Environment variable:
+Name: GEMINI_API_KEY
+Value: (your Ai studio API Key)
