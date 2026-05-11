@@ -6,8 +6,7 @@
              xmlns:fa5="http://schemas.fontawesome.com/icons/"
              mc:Ignorable="d" 
              Background="#F4F7FE"
-             FontFamily="Segoe UI"
-             d:DesignHeight="800" d:DesignWidth="1000">
+             FontFamily="Segoe UI" d:DesignWidth="1000" Height="732">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -17,8 +16,8 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,0,60">
+    <Grid Margin="0,0,0,10">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,0,10">
             <StackPanel Margin="40,30">
 
                 <!-- NAVIGATION: Back button -->
