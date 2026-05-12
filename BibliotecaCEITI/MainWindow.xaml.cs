@@ -17,6 +17,11 @@ namespace BibliotecaCEITI
 {
     public partial class MainWindow : Window
     {
+        public static string NumeUtilizator { get; set; }
+        public static string Rol { get; set; }
+        public static int IdBibliotecar { get; set; }
+        public static string TokenSesiune { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -37,6 +42,14 @@ namespace BibliotecaCEITI
             // Poți afișa numele utilizatorului în interfață
             // Decomentează linia de jos dacă ai un TextBlock numit txtNume în XAML
             // txtNume.Text = $"Bun venit, {nume}!";
+        }
+        private void EfectueazaLogout()
+        {
+            // Exemplu: curățare sesiune
+            TokenSesiune = null;
+            NumeUtilizator = null;
+            Rol = null;
+            IdBibliotecar = 0;
         }
 
         // ── Logout la închiderea ferestrei ───────────────────────────────
@@ -87,6 +100,11 @@ namespace BibliotecaCEITI
         {
             Borrow cb = new Borrow();
             MainContentContainer.Content = cb;
+        }
+
+        private void SettingsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            // Deschide panoul de setări
         }
     }
 }

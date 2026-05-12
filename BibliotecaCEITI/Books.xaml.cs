@@ -22,7 +22,10 @@ namespace BibliotecaCEITI
     /// </summary>
     public partial class Books : UserControl
     {
-        string connectionString = "Server=127.0.0.1;Port=3306;Database=biblioteca_ceiti_go;Uid=root;Pwd=Biblioteca2026!@#;";
+        string connectionString = "Server=localhost;Port=3306;Database=biblioteca_ceiti_go;" +
+            "Uid=root;Pwd=Biblioteca2026!@#;CharSet=utf8mb4;SslMode=Disabled;";
+
+        private CancellationTokenSource _cancellationTokenSource;
         public Books()
         {
             InitializeComponent();
