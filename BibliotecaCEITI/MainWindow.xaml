@@ -115,8 +115,14 @@
                             </StackPanel>
                         </ScrollViewer>
 
+                 
                         <!-- Logout Button -->
-                        <Button Grid.Row="2" Style="{StaticResource MenuButtonStyle}" Background="#33FF5252" Foreground="#FFFF8E8E" Margin="15,20">
+                        <Button Grid.Row="2" 
+                            Style="{StaticResource MenuButtonStyle}" 
+                            Background="#33FF5252" 
+                            Foreground="#FFFF8E8E" 
+                            Margin="15,20"
+                            Click="DeconectareBtn_Click">
                             <StackPanel Orientation="Horizontal">
                                 <fa5:ImageAwesome Icon="Solid_SignOutAlt" Width="16" Foreground="#FFFF8E8E" Margin="0,0,15,0"/>
                                 <TextBlock Text="Deconectare"/>
