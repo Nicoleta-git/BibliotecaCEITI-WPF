@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BibliotecaCEITI"
         mc:Ignorable="d"
-        Title="Login Biblioteca" Height="500" Width="850"
+        Title="Login Biblioteca" Height="650" Width="850"
         WindowStyle="None" AllowsTransparency="True" 
         Background="Transparent" WindowStartupLocation="CenterScreen">
 
@@ -103,6 +103,93 @@
                             Height="45" 
                             Style="{StaticResource ModernButtonStyle}" 
                             Click="ConectareBtn_Click"/>
+
+                    <Grid Margin="0,20,0,20">
+                        <Separator Margin="33,-1,33,5"/>
+                        <Border Background="White" HorizontalAlignment="Center" Padding="12,0">
+                            <TextBlock Text="sau" Foreground="{StaticResource TextGray}" FontSize="13" Margin="0,-4,0,4"/>
+                        </Border>
+                    </Grid>
+
+                    <Button x:Name="googleBtn"
+        Height="45"
+        Cursor="Hand"
+        Click="GoogleBtn_Click" Width="330">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background"      Value="White"/>
+                                <Setter Property="BorderBrush"     Value="#DADCE0"/>
+                                <Setter Property="BorderThickness" Value="1"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="22">
+                                                <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="border" Property="Background"  Value="#F8FBFF"/>
+                                                    <Setter TargetName="border" Property="BorderBrush" Value="#AECBFA"/>
+                                                </Trigger>
+                                                <Trigger Property="IsPressed" Value="True">
+                                                    <Setter TargetName="border" Property="Background"  Value="#EEF3FC"/>
+                                                </Trigger>
+                                                <Trigger Property="IsEnabled" Value="False">
+                                                    <Setter TargetName="border" Property="Background"  Value="#F8F8F8"/>
+                                                    <Setter TargetName="border" Property="BorderBrush" Value="#E0E0E0"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter Property="Foreground" Value="#BDBDBD"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <!-- Logo Google -->
+                            <Viewbox Width="20" Height="20" Margin="0,0,10,0">
+                                <Canvas Width="46" Height="46">
+                                    <Path Fill="#4285F4"
+                      Data="M46.145 23.5c0-1.57-.14-3.08-.4-4.54H23.5v8.59h12.73
+                            c-.55 2.97-2.21 5.48-4.71 7.17v5.96h7.63
+                            c4.46-4.11 7.03-10.17 7.03-17.18z"/>
+                                    <Path Fill="#34A853"
+                      Data="M23.5 47c6.39 0 11.75-2.12 15.66-5.75l-7.63-5.96
+                            c-2.12 1.42-4.83 2.26-8.03 2.26-6.18 0-11.41-4.17-13.28-9.77
+                            H2.36v6.15C6.24 41.77 14.3 47 23.5 47z"/>
+                                    <Path Fill="#FBBC05"
+                      Data="M10.22 27.78A14.04 14.04 0 0 1 9.7 23.5
+                            c0-1.49.26-2.93.52-4.28V13.07H2.36
+                            A23.49 23.49 0 0 0 0 23.5c0 3.78.9 7.36 2.36 10.43l7.86-6.15z"/>
+                                    <Path Fill="#EA4335"
+                      Data="M23.5 9.45c3.48 0 6.6 1.2 9.06 3.55l6.8-6.8
+                            C35.24 2.39 29.88 0 23.5 0 14.3 0 6.24 5.23 2.36 13.07
+                            l7.86 6.15C12.09 13.62 17.32 9.45 23.5 9.45z"/>
+                                </Canvas>
+                            </Viewbox>
+
+                            <TextBlock Text="Continuă cu Google"
+                   VerticalAlignment="Center"
+                   FontFamily="Segoe UI"
+                   FontSize="14"
+                   FontWeight="SemiBold"
+                   Foreground="#3C4043"/>
+                        </StackPanel>
+                    </Button>
+                    
+                    
+
+
                 </StackPanel>
             </Grid>
             <Image Source="/Assets/Logo_bib.png" 
