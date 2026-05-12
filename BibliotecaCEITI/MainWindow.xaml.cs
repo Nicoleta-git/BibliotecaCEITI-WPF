@@ -11,40 +11,49 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Windows.Threading;
+using MySql.Data.MySqlClient;
 
 namespace BibliotecaCEITI
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
-        private DispatcherTimer timer;
         public MainWindow()
         {
             InitializeComponent();
-
             Dashboard dashView = new Dashboard();
-
             MainContentContainer.Content = dashView;
-            // Initialize timer
-            timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1);
-            //timer.Tick += Timer_Tick;
-            timer.Start();
+        }
+
+        // ── Constructor nou pentru login cu sesiune ──────────────────────
+        public MainWindow(string nume, string rol, int id, string token) : this()
+        {
+            // Salvează datele sesiunii în proprietăți statice
+            // (accesibile din orice UserControl cu MainWindow.Rol etc.)
+            NumeUtilizator = nume;
+            Rol = rol;
+            IdBibliotecar = id;
+            TokenSesiune = token;
+
+            // Poți afișa numele utilizatorului în interfață
+            // Decomentează linia de jos dacă ai un TextBlock numit txtNume în XAML
+            // txtNume.Text = $"Bun venit, {nume}!";
+        }
+
+        // ── Logout la închiderea ferestrei ───────────────────────────────
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(TokenSesiune))
+                EfectueazaLogout();
+
+            base.OnClosing(e);
         }
 
         private void BtnMaximize_Click(object sender, RoutedEventArgs e)
         {
             if (this.WindowState == WindowState.Maximized)
-            {
                 this.WindowState = WindowState.Normal;
-            }
             else
-            {
                 this.WindowState = WindowState.Maximized;
-            }
         }
 
         private void BtnMinimize_Click(object sender, RoutedEventArgs e)
@@ -60,7 +69,6 @@ namespace BibliotecaCEITI
         private void DashBoardBtn_Click(object sender, RoutedEventArgs e)
         {
             Dashboard dashView = new Dashboard();
-
             MainContentContainer.Content = dashView;
         }
 
@@ -79,12 +87,6 @@ namespace BibliotecaCEITI
         {
             Borrow cb = new Borrow();
             MainContentContainer.Content = cb;
-        }
-
-        private void SttingsBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Settings settings = new Settings();
-            MainContentContainer.Content = settings;
         }
     }
 }
