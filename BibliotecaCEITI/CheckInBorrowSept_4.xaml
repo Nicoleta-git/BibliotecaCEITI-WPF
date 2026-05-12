@@ -33,7 +33,7 @@
                     <TextBlock Text="072 434 375" FontSize="16" Foreground="#303030" Margin="0,0,0,15"/>
                 </StackPanel>
             </Border>
-            <Border Padding="30,30,30,0" Height="348">
+            <Border Padding="30,30,30,0" Height="343" Width="399">
                 <StackPanel Width="710" Margin="0,0,0,57">
                     <TextBlock Text="Carte" FontWeight="bold" FontSize="18" Foreground="#303030" Margin="0,0,0,30"/>
                     <TextBlock Text="Titlu" Foreground="#707070" FontSize="12"/>
