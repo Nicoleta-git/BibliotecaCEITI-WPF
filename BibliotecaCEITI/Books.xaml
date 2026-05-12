@@ -63,7 +63,7 @@
             </Border>
 
             <!-- Add New Book Button -->
-            <Button Grid.Column="1" Margin="15,0,0,0" Style="{StaticResource ActionButtonStyle}" Background="{StaticResource PrimaryBlue}" Foreground="White" Click="AddBook_Click">
+            <Button Grid.Column="1" Margin="15,0,0,0" Style="{StaticResource GlobalActionButtonStyle}" Foreground="White" Click="AddBook_Click">
                 <StackPanel Orientation="Horizontal">
                     <fa5:ImageAwesome Icon="Solid_Plus" Foreground="White" Width="12" Margin="0,0,10,0"/>
                     <TextBlock Text="Adauga carte"/>
