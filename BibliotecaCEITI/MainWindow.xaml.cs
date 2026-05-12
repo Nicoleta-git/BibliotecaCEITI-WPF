@@ -48,26 +48,6 @@ namespace BibliotecaCEITI
             base.OnClosing(e);
         }
 
-        private void EfectueazaLogout()
-        {
-            try
-            {
-                using var conn = new MySqlConnection(CONNECTION_STRING);
-                conn.Open();
-
-                using var cmd = new MySqlCommand("sp_logout", conn);
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
-
-                cmd.Parameters.AddWithValue("p_token", TokenSesiune);
-
-                var pCod = cmd.Parameters.Add("p_cod", MySqlDbType.Int32);
-                var pMesaj = cmd.Parameters.Add("p_mesaj", MySqlDbType.VarChar, 255);
-                pCod.Direction = System.Data.ParameterDirection.Output;
-                pMesaj.Direction = System.Data.ParameterDirection.Output;
-
-            MainContentContainer.Content = dashView;
-        }
-
         private void BtnMaximize_Click(object sender, RoutedEventArgs e)
         {
             if (this.WindowState == WindowState.Maximized)
@@ -103,6 +83,10 @@ namespace BibliotecaCEITI
             MainContentContainer.Content = newView;
         }
 
-
+        private void Imprumuturi_Btn(object sender, RoutedEventArgs e)
+        {
+            Borrow cb = new Borrow();
+            MainContentContainer.Content = cb;
+        }
     }
 }
