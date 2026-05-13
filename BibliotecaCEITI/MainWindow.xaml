@@ -78,7 +78,7 @@
                                     </StackPanel>
                                 </Button>
                                 <Separator Background="White" Margin="30,15" Opacity="0.2"/>
-                                <Button Style="{StaticResource MenuButtonStyle}">
+                                <Button Style="{StaticResource MenuButtonStyle}" Click="ReserveBook_Click">
                                     <StackPanel Orientation="Horizontal">
                                         <fa5:ImageAwesome Icon="Solid_CalendarCheck" Width="16" Foreground="White" Margin="0,0,15,0"/>
                                         <TextBlock Text="Rezervări"/>

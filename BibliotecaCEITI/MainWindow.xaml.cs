@@ -104,7 +104,13 @@ namespace BibliotecaCEITI
 
         private void SettingsBtn_Click(object sender, RoutedEventArgs e)
         {
-            // Deschide panoul de setări
+           Settings settings = new Settings();
+            MainContentContainer.Content = settings;
+        }
+        private void ReserveBook_Click(object sender, RoutedEventArgs e)
+        {
+            BookReservation reservation = new BookReservation();
+            MainContentContainer.Content = reservation;
         }
     }
 }
