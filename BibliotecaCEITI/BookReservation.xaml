@@ -5,19 +5,29 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BibliotecaCEITI"
              xmlns:fa5="http://schemas.fontawesome.com/icons/"
-             mc:Ignorable="d" d:DesignWidth="1100"
-             Background="{StaticResource BackgroundGray}" Height="Auto">
+             mc:Ignorable="d" d:DesignWidth="1100" d:Height="1400"
+             Background="{StaticResource BackgroundGray}">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="20">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <!-- Titlu -->
+                <RowDefinition Height="Auto"/>
+                <!-- Sectiunea 1: Carti -->
+                <RowDefinition Height="Auto"/>
+                <!-- Sectiunea 2 & 3: Elevi si Confirmare -->
+                <RowDefinition Height="Auto"/>
+                <!-- Sectiunea 4: Info Coada -->
+            </Grid.RowDefinitions>
 
-            <StackPanel>
-                <TextBlock Text="Rezervare carte" FontSize="28" FontWeight="Bold" Foreground="{StaticResource TextDark}" Margin="0,0,0,15"/>
-            </StackPanel>
+            <TextBlock Grid.Row="0" Text="Rezervare carte" FontSize="28" FontWeight="Bold" 
+                       Foreground="{StaticResource TextDark}" Margin="0,0,0,25"/>
 
-            <Border Style="{StaticResource StatCardStyle}" Margin="0,0,0,20">
+            <Border Grid.Row="1" Style="{StaticResource StatCardStyle}" Margin="0,0,0,20">
                 <StackPanel>
-                    <TextBlock Text="1. Caută și selectează cartea" FontWeight="Bold" FontSize="18" Foreground="{StaticResource TextDark}" Margin="0,0,0,15"/>
+                    <TextBlock Text="1. Caută și selectează cartea" FontWeight="Bold" FontSize="18" 
+                               Foreground="{StaticResource TextDark}" Margin="0,0,0,15"/>
                     <Grid Margin="0,0,0,20">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -30,7 +40,8 @@
                                  VerticalContentAlignment="Center"
                                  Padding="10,0" Height="43" />
 
-                        <Button Grid.Column="1" Style="{StaticResource GlobalActionButtonStyle}" Width="130" Margin="15,0,0,4">
+                        <Button x:Name="BtnSearchBook" Grid.Column="1" Style="{StaticResource GlobalActionButtonStyle}" 
+                                MinWidth="130" Margin="15,0,0,0">
                             <StackPanel Orientation="Horizontal">
                                 <fa5:ImageAwesome Icon="Solid_Search" Foreground="White" Width="14" Margin="0,0,8,0"/>
                                 <TextBlock Text="Caută"/>
@@ -39,17 +50,18 @@
                     </Grid>
 
                     <DataGrid x:Name="BooksDataGrid" Style="{StaticResource ModernDataGridStyle}" 
-                              Height="200" AutoGenerateColumns="False" IsReadOnly="True"/>
+                              MinHeight="150" MaxHeight="300" AutoGenerateColumns="False" IsReadOnly="True" Height="312"/>
                 </StackPanel>
             </Border>
 
-            <Grid Margin="0,0,0,20">
+            <Grid Grid.Row="2" Margin="0,0,0,20">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="141*"/>
-                    <ColumnDefinition Width="71*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Border Grid.Column="0" Style="{StaticResource StatCardStyle}" Margin="10,10,10,10">
+                <!-- Sectiunea Elev -->
+                <Border Grid.Column="0" Style="{StaticResource StatCardStyle}" Margin="0,0,10,0">
                     <StackPanel>
                         <TextBlock Text="2. Selectează elevul pentru rezervare" FontWeight="Bold" FontSize="16" Margin="0,0,0,15"/>
                         <TextBox x:Name="SearchStudentBox" 
@@ -58,63 +70,92 @@
                                  Margin="0,0,0,10" Height="40"/>
 
                         <DataGrid x:Name="StudentsDataGrid" Style="{StaticResource ModernDataGridStyle}" 
-                                  Height="358" AutoGenerateColumns="False" IsReadOnly="True"/>
+                                  MinHeight="200" MaxHeight="400" AutoGenerateColumns="False" IsReadOnly="True" Height="300"/>
                     </StackPanel>
                 </Border>
 
-                <Border Grid.Column="1" Style="{StaticResource StatCardStyle}" Margin="10,10,10,10">
-                    <StackPanel VerticalAlignment="Center" Margin="20,0,28,0" >
-                        <TextBlock Text="3. Confirmare" FontWeight="Bold" FontSize="16" Margin="0,0,0,15"/>
-                        <Border Height="280" CornerRadius="20" Background="#ebebeb" Margin="0,0,0,15">
-                            <Image x:Name="imgCoperta" Stretch="Uniform"/>
-                        </Border>
-                        <Grid Margin="0,5">
-                            <TextBlock Text="Elev:" Foreground="{StaticResource TextGray}"/>
-                            <TextBlock x:Name="TxtFinalStudent" Text="-" HorizontalAlignment="Right" FontWeight="SemiBold"/>
-                        </Grid>
-                        <Grid Margin="0,5">
-                            <TextBlock Text="Carte:" Foreground="{StaticResource TextGray}"/>
-                            <TextBlock x:Name="TxtSelectedBook" Text="Neselectat" HorizontalAlignment="Right" FontWeight="SemiBold" MaxWidth="150" TextTrimming="CharacterEllipsis"/>
-                        </Grid>
+                <Border Grid.Column="1" Style="{StaticResource StatCardStyle}" Margin="10,0,0,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <!-- Titlu -->
+                            <RowDefinition Height="*"/>
+                            <!-- Imagine -->
+                            <RowDefinition Height="Auto"/>
+                            <!-- Detalii Text -->
+                            <RowDefinition Height="Auto"/>
+                            <!-- Buton -->
+                        </Grid.RowDefinitions>
 
-                        <Button Style="{StaticResource GlobalActionButtonStyle}" Margin="0,20,0,0" Height="45" Padding="5,10,5,10" Width="242">
+                        <TextBlock Grid.Row="0" Text="3. Confirmare" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
+
+                        <Border Grid.Row="1" Height="200" CornerRadius="10" Background="#F4F7FE" Margin="0,0,0,15">
+                            <Image x:Name="imgCoperta" Stretch="Uniform" Margin="5"/>
+                        </Border>
+
+                        <StackPanel Grid.Row="2" Margin="0,0,0,15">
+                            <Grid Margin="0,5">
+                                <TextBlock Text="Elev:" Foreground="{StaticResource TextGray}"/>
+                                <TextBlock x:Name="TxtFinalStudent" Text="-" HorizontalAlignment="Right" FontWeight="SemiBold"/>
+                            </Grid>
+                            <Grid Margin="0,5">
+                                <TextBlock Text="Carte:" Foreground="{StaticResource TextGray}"/>
+                                <TextBlock x:Name="TxtSelectedBook" Text="Neselectat" HorizontalAlignment="Right" 
+                                           FontWeight="SemiBold" MaxWidth="150" TextTrimming="CharacterEllipsis"/>
+                            </Grid>
+                        </StackPanel>
+
+                        <Button x:Name="BtnSaveReservation" Grid.Row="3"
+                                Style="{StaticResource GlobalActionButtonStyle}" 
+                                Height="45" Cursor="Hand"
+                                Click="BtnSaveReservation_Click">
                             <StackPanel Orientation="Horizontal">
                                 <fa5:ImageAwesome Icon="Solid_Check" Foreground="White" Width="14" Margin="0,0,8,0"/>
                                 <TextBlock Text="Salvează Rezervarea" FontWeight="Bold"/>
                             </StackPanel>
                         </Button>
-                    </StackPanel>
+                    </Grid>
                 </Border>
             </Grid>
 
-            <Border Style="{StaticResource StatCardStyle}" Background="#FFFFFF" Height="476">
+            <Border Grid.Row="3" Style="{StaticResource StatCardStyle}" Margin="0,0,0,20">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="109*"/>
-                        <ColumnDefinition Width="141*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.Column="0" Margin="0,0,20,0">
-                        <TextBlock Text="Deținută în prezent de:" FontWeight="Bold" FontSize="15" Margin="0,0,0,10" Foreground="{StaticResource TextDark}"/>
-                        <DataGrid x:Name="CurrentLoanGrid" Style="{StaticResource ModernDataGridStyle}" Height="309" IsReadOnly="True"/>
+                    <Grid Grid.Column="0" Margin="0,0,20,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
 
-                        <Border Background="#FFF5F5" CornerRadius="8" Padding="12" Margin="0,15,0,0" BorderBrush="#FEB2B2" BorderThickness="1">
+                        <TextBlock Grid.Row="0" Text="Deținută în prezent de:" FontWeight="Bold" FontSize="15" 
+                                   Margin="0,0,0,10" Foreground="{StaticResource TextDark}"/>
+
+                        <DataGrid Grid.Row="1" x:Name="CurrentLoanGrid" Style="{StaticResource ModernDataGridStyle}" 
+                                  MinHeight="150" MaxHeight="250" IsReadOnly="True"/>
+
+                        <Border Grid.Row="2" Background="#FFF5F5" CornerRadius="8" Padding="12" Margin="0,15,0,0" 
+                                BorderBrush="#FEB2B2" BorderThickness="1">
                             <StackPanel Orientation="Horizontal">
                                 <fa5:ImageAwesome Icon="Solid_ExclamationCircle" Foreground="#C53030" Width="14" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                                <TextBlock Text="Cand o carte se va returna, elevul va primi un mesaj." 
-                                           Foreground="#9B2C2C" FontSize="15" TextWrapping="Wrap" Width="325"/>
+                                <TextBlock Text="Când o carte se va returna, elevul va primi un mesaj." 
+                                           Foreground="#9B2C2C" FontSize="13" TextWrapping="Wrap"/>
                             </StackPanel>
                         </Border>
-                    </StackPanel>
+                    </Grid>
 
                     <StackPanel Grid.Column="1">
-                        <TextBlock Text="Coada de așteptare (Alte rezervări active)" FontWeight="Bold" FontSize="15" Margin="0,0,0,10" Foreground="{StaticResource TextDark}"/>
+                        <TextBlock Text="Coada de așteptare" FontWeight="Bold" FontSize="15" 
+                                   Margin="0,0,0,10" Foreground="{StaticResource TextDark}"/>
                         <DataGrid x:Name="WaitListGrid" Style="{StaticResource ModernDataGridStyle}" 
-                                  Height="401" AutoGenerateColumns="False" IsReadOnly="True"/>
+                                  MinHeight="150" MaxHeight="320" AutoGenerateColumns="False" IsReadOnly="True" Height="308"/>
                     </StackPanel>
                 </Grid>
             </Border>
-
-        </StackPanel>
+        </Grid>
     </ScrollViewer>
 </UserControl>
