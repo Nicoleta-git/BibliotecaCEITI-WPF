@@ -54,8 +54,8 @@ namespace BibliotecaCEITI
 
             try
             {
-                response.Text = "Se gândește..."; // Show loading state
-                input.Text = ""; // Clear input field
+                response.Text = "Se gândește...";
+                input.Text = "";
 
                 // Call the API and wait for the result
                 string aiResult = await GetGeminiResponse(userPrompt);
@@ -87,14 +87,36 @@ namespace BibliotecaCEITI
             // Instructions to force the AI to return plain text without formatting
             string systemInstruction = "Raspunde clar si concis in text simplu. NU folosi formatare Markdown (fara bold cu **, fara titluri cu #). ";
 
-            // Created a JSON object for the request body
+            //  JSON object for the request body
+            // Creating the "package" (object) exactly as Google's API requires it
             var requestBody = new
             {
+                // 1.Google requires a list called "contents" (it can hold multiple messages)
                 contents = new[]
                 {
-                    new { parts = new[] { new { text = systemInstruction + promptText } } }
-                }
-            };
+                // 2. Each message needs a list of "parts" (can include text, images, or video)
+                new {
+                    parts = new[]
+                    { 
+                        // 3. we provide the actual text (system instructions + your question)
+                         new { text = systemInstruction + promptText }
+                        }
+                    }
+                  }
+                 };
+
+            // JSON example
+            //            {
+            //                "contents": [
+            //                  {
+            //                    "parts": [
+            //                      {
+            //                        "text": "Raspunde clar... Care este capitala Franței?"
+            //                      }
+            //                   ]
+            //                  }
+            //                ]
+            //              }
 
             // Convert object to JSON string and prepare the HTTP content
             string jsonPayload = JsonSerializer.Serialize(requestBody);
@@ -104,7 +126,7 @@ namespace BibliotecaCEITI
             var httpResponse = await client.PostAsync(url, content);
             var rawJson = await httpResponse.Content.ReadAsStringAsync();
 
-            // Check if the server returned a success code (200 OK)
+            // Check if the server returned success
             if (!httpResponse.IsSuccessStatusCode)
             {
                 return $"API Error ({httpResponse.StatusCode}): {rawJson}";
