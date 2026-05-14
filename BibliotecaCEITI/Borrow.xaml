@@ -38,7 +38,7 @@
                 <TextBlock Text="Împrumuturi" FontSize="28" FontWeight="Bold" Foreground="#1E293B"/>
                 <TextBlock Text="Gestionarea manualelor și cărților împrumutate." Foreground="#64748B" Margin="0,5,0,0"/>
             </StackPanel>
-            
+
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                 <Button Style="{StaticResource GlobalActionButtonStyle}" Click="Manuale_Click" Margin="0,0,10,0">
                     <StackPanel Orientation="Horizontal">
@@ -57,26 +57,26 @@
         </Grid>
 
         <!-- FILTERS SECTION -->
-        <Grid Grid.Row="1" Margin="0,0,0,20">
+        <Grid Margin="0,88,0,0" Grid.RowSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
             <!-- Search box container -->
             <Border Grid.Column="0" Margin="0,0,20,0" BorderBrush="#E2E8F0" BorderThickness="1" Background="White" CornerRadius="8" Padding="10,5">
                 <Grid>
                     <fa5:ImageAwesome Icon="Solid_Search" Foreground="#94A3B8" Width="14" HorizontalAlignment="Left"/>
-                    <TextBox BorderThickness="0" Margin="25,0,0,0" VerticalContentAlignment="Center" x:Name="txtSearch" Height="30" Background="Transparent"/>
+                    <TextBox BorderThickness="0" Margin="25,0,0,0" VerticalContentAlignment="Center" x:Name="txtSearch" FontSize="14" Background="Transparent" TextChanged="txtSearch_TextChanged"/>
                 </Grid>
             </Border>
 
-            <ComboBox Grid.Column="1" Margin="0,0,20,0" Height="42" SelectedIndex="0" VerticalContentAlignment="Center">
+            <ComboBox x:Name="cbGrupe" Grid.Column="1" Margin="0,0,20,0" Height="NaN" SelectedIndex="0" VerticalContentAlignment="Center" SelectionChanged="cbGrupe_SelectionChanged">
                 <ComboBoxItem Content="Toate Grupele"/>
             </ComboBox>
 
-            <ComboBox Grid.Column="2" Height="42" SelectedIndex="0" VerticalContentAlignment="Center">
+            <ComboBox x:Name="cbStari" Grid.Column="2" Height="NaN" SelectedIndex="0" VerticalContentAlignment="Center">
                 <ComboBoxItem Content="Toate Stările"/>
             </ComboBox>
         </Grid>
@@ -88,7 +88,8 @@
             AutoGenerateColumns="True"
             ColumnWidth="*"
             CanUserAddRows="False"
-            Margin="0,20,0,20">
+            IsReadOnly="True"
+            Margin="0,33,0,20" AutoGeneratingColumn="BooksGrid_AutoGeneratingColumn" SelectionChanged="BooksGrid_SelectionChanged">
         </DataGrid>
 
         <!-- 4. SELECTED ITEM DETAILS SECTION -->
@@ -101,14 +102,14 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Visual placeholder for book cover -->
-                <Border Width="70" Height="90" Background="#F8FAFC" CornerRadius="10" Margin="0,0,25,0"/>
+                <Border x:Name="imgCoperta" Width="70" Height="90" Background="#F8FAFC" CornerRadius="10" Margin="0,0,25,0"/>
 
                 <!-- Information panel bound to selected grid row -->
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
                     <TextBlock Text="DETALII ÎMPRUMUT SELECTAT" FontSize="11" FontWeight="Bold" Foreground="#94A3B8" Margin="0,0,0,8" />
 
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
-                        <TextBlock Text="{Binding SelectedItem.TitluCarte, ElementName=dgImprumuturi, FallbackValue='Selectați o înregistrare'}" 
+                    <StackPanel x:Name="titlu1" Orientation="Horizontal" Margin="0,0,0,12">
+                        <TextBlock x:Name="titlu" Text="{Binding SelectedItem.TitluCarte, ElementName=dgImprumuturi, FallbackValue='Selectați o înregistrare'}" 
                                    FontSize="22" FontWeight="Bold" Foreground="#1E293B"/>
                         <TextBlock Text="{Binding SelectedItem.Autor, ElementName=dgImprumuturi, StringFormat=' de \{0\}'}" 
                                    FontSize="18" Foreground="#64748B" VerticalAlignment="Bottom" Margin="5,0,0,2"/>
@@ -119,7 +120,7 @@
                         <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
                             <fa5:ImageAwesome Icon="Solid_User" Width="12" Foreground="#3B82F6" Margin="0,0,8,0"/>
                             <TextBlock Text="Împrumutat de: " Foreground="#64748B"/>
-                            <TextBlock Text="{Binding SelectedItem.NumeElev, ElementName=dgImprumuturi, FallbackValue='N/A'}" FontWeight="SemiBold" Foreground="#1E293B"/>
+                            <TextBlock x:Name="persoana" Text="{Binding SelectedItem.NumeElev, ElementName=dgImprumuturi, FallbackValue='N/A'}" FontWeight="SemiBold" Foreground="#1E293B"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
@@ -127,6 +128,7 @@
                             <TextBlock Text="Termen: " Foreground="#64748B"/>
                             <TextBlock Text="{Binding SelectedItem.termen_returnare, ElementName=dgImprumuturi, StringFormat=\{0:dd.MM.yyyy\}}" FontWeight="SemiBold" Foreground="#EF4444"/>
                         </StackPanel>
+                        <TextBlock x:Name="termen_limita" Text="Nespecificat" FontWeight="SemiBold" Foreground="#1E293B"/>
                     </StackPanel>
 
                     <!-- Return Date and Status info -->
@@ -134,7 +136,7 @@
                         <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
                             <fa5:ImageAwesome Icon="Solid_Clock" Width="12" Foreground="#64748B" Margin="0,0,8,0"/>
                             <TextBlock Text="Data Returnării: " Foreground="#64748B"/>
-                            <TextBlock Text="{Binding SelectedItem.data_returnare, ElementName=dgImprumuturi, StringFormat=\{0:dd.MM.yyyy\}, FallbackValue='Nerestituit'}" FontWeight="SemiBold" Foreground="#1E293B"/>
+                            <TextBlock x:Name="returnare" Text="{Binding SelectedItem.data_returnare, ElementName=dgImprumuturi, StringFormat=\{0:dd.MM.yyyy\}, FallbackValue='Nerestituit'}" FontWeight="SemiBold" Foreground="#1E293B"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
@@ -142,16 +144,17 @@
                             <TextBlock Text="Stare: " Foreground="#64748B"/>
                             <TextBlock Text="{Binding SelectedItem.stare, ElementName=dgImprumuturi}" FontWeight="Black" Foreground="#1E293B"/>
                         </StackPanel>
+                        <TextBlock x:Name="stare_imprumut" Text="Nespecificat" FontWeight="SemiBold" Foreground="#1E293B"/>
                     </StackPanel>
                 </StackPanel>
 
                 <!-- Return action button -->
-                <Button Grid.Column="2" 
+                <Button x:Name="returneaza" Grid.Column="2" 
                         Style="{StaticResource GlobalActionButtonStyle}" 
                         Background="#FEF2F2" 
                         Width="120" 
                         Height="50"
-                        VerticalAlignment="Center">
+                        VerticalAlignment="Center" Click="Button_Click">
                     <StackPanel Orientation="Horizontal">
                         <fa5:ImageAwesome Icon="Solid_CheckCircle" Width="16" Foreground="#EF4444" Margin="0,0,8,0"/>
                         <TextBlock Text="RETURN" Foreground="#EF4444" FontWeight="Black" VerticalAlignment="Center"/>

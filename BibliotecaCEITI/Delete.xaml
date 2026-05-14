@@ -85,10 +85,10 @@
 
                             <!-- The button is only enabled when chkConfirmare.IsChecked is True -->
                             <Button x:Name="btnCaseaza" 
-                                    Content="Sterge" 
+                                    Content="Șterge" 
                                     Style="{StaticResource DangerButtonStyle}" 
                                     Width="160"
-                                    IsEnabled="{Binding IsChecked, ElementName=chkConfirmare}"/>
+                                    IsEnabled="{Binding IsChecked, ElementName=chkConfirmare}" Click="btnCaseaza_Click"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>

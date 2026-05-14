@@ -74,6 +74,7 @@
         <!-- MAIN DATA GRID-->
         <DataGrid x:Name="BooksGrid"
           Grid.Row="2"
+          IsReadOnly="True"
           Style="{StaticResource ModernDataGridStyle}"
           AutoGenerateColumns="True"
           ColumnWidth="*"
@@ -94,7 +95,7 @@
 
                 <!-- Book Thumbnail Preview -->
                 <Border Width="70" Height="95" Background="#F7FAFC" CornerRadius="8" BorderBrush="#EDF2F7" BorderThickness="1" Margin="0,0,20,0">
-                    <Image x:Name="imagine" Source="{Binding SelectedItem.CopertaUrl, ElementName=BooksGrid}"/>
+                    <Image x:Name="imgCoperta" Stretch="Uniform"/>
                 </Border>
 
                 <!-- Expanded Book Details -->
