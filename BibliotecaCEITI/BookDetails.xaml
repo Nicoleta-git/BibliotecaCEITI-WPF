@@ -47,7 +47,7 @@
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Button x:Name="btnSalveazaModificari" Width="200" Height="38" Style="{StaticResource PrimaryButtonStyle}" Click="btnSalveazaModificari_Click">
+                    <Button x:Name="btnSalveazaModificari" Width="200" Height="38" Style="{StaticResource GlobalActionButtonStyle}" Click="btnSalveazaModificari_Click">
                         <StackPanel Orientation="Horizontal">
                             <fa5:ImageAwesome Icon="Solid_Save" Width="14" Foreground="White" Margin="0,0,10,0"/>
                             <TextBlock Text="Salvează modificările"/>

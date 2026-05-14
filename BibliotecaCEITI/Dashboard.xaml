@@ -4,11 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:BibliotecaCEITI"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
              xmlns:fa5="http://schemas.fontawesome.com/icons/"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="900">
 
     <UserControl.Resources>
+        <!-- Modern Color Palette -->
         <SolidColorBrush x:Key="PrimaryPurple" Color="#6210CC"/>
         <SolidColorBrush x:Key="SecondaryBlue" Color="#4318FF"/>
         <SolidColorBrush x:Key="BackgroundGray" Color="#F4F7FE"/>
@@ -17,7 +19,7 @@
         <SolidColorBrush x:Key="SuccessGreen" Color="#05CD99"/>
         <SolidColorBrush x:Key="WarningOrange" Color="#FFA043"/>
 
-        <!-- Card Style -->
+        <!-- Card Style with Shadow -->
         <Style x:Key="StatCardStyle" TargetType="Border">
             <Setter Property="Background" Value="White"/>
             <Setter Property="CornerRadius" Value="20"/>
@@ -26,27 +28,6 @@
             <Setter Property="Effect">
                 <Setter.Value>
                     <DropShadowEffect BlurRadius="20" ShadowDepth="1" Opacity="0.05" Color="Black"/>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <!-- Button Style Custom -->
-        <Style x:Key="ModernButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderBrush" Value="{StaticResource PrimaryPurple}"/>
-            <Setter Property="Foreground" Value="{StaticResource PrimaryPurple}"/>
-            <Setter Property="Height" Value="35"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" 
-                                BorderBrush="{TemplateBinding BorderBrush}" 
-                                BorderThickness="1" 
-                                CornerRadius="10">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
@@ -126,19 +107,32 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <!-- Activity Chart -->
+                <!-- Activity Chart Border -->
                 <Border Grid.Column="0" Style="{StaticResource StatCardStyle}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
+
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
                             <TextBlock Text="Activitate Împrumuturi" FontWeight="Bold" FontSize="18" Foreground="{StaticResource TextDark}"/>
-                            <TextBlock Text="(Ultimele 6 luni)" Foreground="{StaticResource TextGray}" FontSize="12" VerticalAlignment="Bottom" Margin="10,0,0,3"/>
+                            <TextBlock Text="(Ultimele luni)" Foreground="{StaticResource TextGray}" FontSize="12" VerticalAlignment="Bottom" Margin="10,0,0,3"/>
                         </StackPanel>
 
-                        <!-- Chart Space -->
+                        <!-- Chart Component -->
+                        <lvc:CartesianChart Grid.Row="1" 
+                                            SeriesSource="{Binding MonthlyStats}"
+                                            XAxes="{Binding XAxes}">
+                            <lvc:CartesianChart.SeriesTemplate>
+                                <DataTemplate>
+                                    <lvc:XamlColumnSeries SeriesName="{Binding MonthName}"
+                                                         Values="{Binding Count}"
+                                                         Fill="#6210CC"
+                                                         Rx="8" Ry="8"/>
+                                </DataTemplate>
+                            </lvc:CartesianChart.SeriesTemplate>
+                        </lvc:CartesianChart>
                     </Grid>
                 </Border>
 
@@ -192,7 +186,6 @@
                             </StackPanel>
                             <TextBlock x:Name="imprumuturi_3" Grid.Column="2" Text="86" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PrimaryPurple}"/>
                         </Grid>
-
                     </StackPanel>
                 </Border>
             </Grid>

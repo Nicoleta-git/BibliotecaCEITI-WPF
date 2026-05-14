@@ -1,59 +1,41 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.IO;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+using System.Collections.ObjectModel;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using LiveChartsCore;
+using LiveChartsCore.SkiaSharpView;
+using MySql.Data.MySqlClient;
 
 namespace BibliotecaCEITI
 {
-    /// <summary>
-    /// Interaction logic for Dashboard.xaml
-    /// </summary>
+    public class MonthStat
+    {
+        public string MonthName { get; set; }
+        public double[] Count { get; set; }
+
+        public MonthStat(string name, double total)
+        {
+            MonthName = name;
+            Count = new double[] { total };
+        }
+    }
+
     public partial class Dashboard : UserControl
     {
+        public ObservableCollection<MonthStat> MonthlyStats { get; set; } = new();
+
+        public Axis[] XAxes { get; set; } = new Axis[]
+        {
+            new Axis
+            {
+                IsVisible = false 
+            }
+        };
+
         public Dashboard()
         {
             InitializeComponent();
-            AfiseazaNumarTotal_Carti();
-            AfiseazaNumarTotal_Disponibile();
-            AfiseazaNumarTotal_Imprumuturi();
-            AfiseazaNumarTotal_Rezervari();
-            Top3Carti();
-        }
-
-        private void AfiseazaNumarTotal_Carti()
-        {
-            string query = "CALL sp_total_carti();";
-
-            try
-            {
-                MySqlConnection conn = DatabaseConfig.GetConnection();
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                conn.Open();
-
-                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                total_carti.Text = dt.Rows[0]["TotalCarti"].ToString();
-                conn.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Eroare: " + ex.Message);
-            }
+ 
         }
 
         private void AfiseazaNumarTotal_Disponibile()
