@@ -1,10 +1,16 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
+using System.Data;
+using System.IO;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore.SkiaSharpView.Painting;
 using MySql.Data.MySqlClient;
+
 
 namespace BibliotecaCEITI
 {
@@ -28,14 +34,40 @@ namespace BibliotecaCEITI
         {
             new Axis
             {
-                IsVisible = false 
+                IsVisible = false
             }
         };
 
         public Dashboard()
         {
             InitializeComponent();
- 
+            Top3Carti();
+            AfiseazaNumarTotal_Disponibile();
+            AfiseazaNumarTotal_Imprumuturi();
+            AfiseazaNumarTotal_Rezervari();
+            AfiseazaNumarTotal_Carti();
+        }
+
+        private void AfiseazaNumarTotal_Carti()
+        {
+            string query = "CALL sp_total_carti();";
+
+            try
+            {
+                MySqlConnection conn = DatabaseConfig.GetConnection();
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                conn.Open();
+
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                total_carti.Text = dt.Rows[0]["TotalCarti"].ToString();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Eroare: " + ex.Message);
+            }
         }
 
         private void AfiseazaNumarTotal_Disponibile()
@@ -120,7 +152,7 @@ namespace BibliotecaCEITI
                             string titlu = reader["Carte"].ToString();
                             string autor = reader["Autor"].ToString();
                             int imprumuturi = Convert.ToInt32(reader["Imprumuturi"]);
-                            byte[] copertaBytes = reader["Coperta"] == DBNull.Value? null : (byte[])reader["Coperta"];
+                            byte[] copertaBytes = reader["Coperta"] == DBNull.Value ? null : (byte[])reader["Coperta"];
                             ImageBrush brush = ConvertToImageBrush(copertaBytes);
 
                             if (index == 0)
