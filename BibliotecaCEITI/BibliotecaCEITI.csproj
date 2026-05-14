@@ -30,10 +30,4 @@
     <Resource Include="Assets\Logo_bib.png" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="connection.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>
