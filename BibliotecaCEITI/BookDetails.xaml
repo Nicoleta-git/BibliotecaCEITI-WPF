@@ -89,7 +89,7 @@
                             </Button>
                             <!-- Cover URL Link -->
                             <TextBlock Text="URL Imagine" FontWeight="SemiBold" Foreground="#1B2559" Margin="0,20,0,8"/>
-                            <TextBox x:Name="txtCopertaUrl" FontSize="11" VerticalContentAlignment="Center" Height="35" IsEnabled="False"/>
+                            <TextBox x:Name="txtCopertaUrl" FontSize="11" VerticalContentAlignment="Center" Height="35" IsReadOnly="True"/>
                         </StackPanel>
                     </Border>
                 </StackPanel>
@@ -109,7 +109,7 @@
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Margin="0,0,10,0">
                                     <TextBlock Text="Autor *" Style="{StaticResource FieldLabel}"/>
-                                    <ComboBox x:Name="cbAutor" DisplayMemberPath="Nume" Height="38"/>
+                                    <ComboBox x:Name="cbAutor" Height="38"/>
                                 </StackPanel>
                                 <StackPanel Grid.Column="1" Margin="10,0,0,0">
                                     <TextBlock Text="Categorie *" Style="{StaticResource FieldLabel}"/>
