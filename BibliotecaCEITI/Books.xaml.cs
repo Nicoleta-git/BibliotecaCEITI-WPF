@@ -1,6 +1,8 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +14,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using MySql.Data.MySqlClient;
 
 
 namespace BibliotecaCEITI
@@ -22,21 +23,20 @@ namespace BibliotecaCEITI
     /// </summary>
     public partial class Books : UserControl
     {
-        string connectionString = "Server=127.0.0.1;Port=3306;Database=biblioteca_ceiti_go;Uid=root;Pwd=Biblioteca2026!@#";
         private CancellationTokenSource _cancellationTokenSource;
+        private int id_CarteSelectata, id_categorie_CarteSelectata, id_editura_CarteSelectata, id_locatie_CarteSelectata;
         public Books()
         {
             InitializeComponent();
             //TestConnection();
             SelectBooks();
-
         }
 
         private void TestConnection()
         {
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(this.connectionString))
+                using (MySqlConnection conn = DatabaseConfig.GetConnection())
                 {
                     conn.Open();
                     MessageBox.Show("Succes connection");
@@ -56,7 +56,7 @@ namespace BibliotecaCEITI
         {
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(this.connectionString))
+                using (MySqlConnection conn = DatabaseConfig.GetConnection())
                 {
                     conn.Open();
                     string query = "CALL sp_raport_exemplare_manuale();";
@@ -77,7 +77,7 @@ namespace BibliotecaCEITI
             {
                 DataTable dt = await Task.Run(() =>
                 {
-                    using (MySqlConnection conn = new MySqlConnection(this.connectionString))
+                    using (MySqlConnection conn = DatabaseConfig.GetConnection())
                     {
                         conn.Open();
                         MySqlCommand cmd = new MySqlCommand("sp_raport_exemplare_manuale_titlu_isbn_autori", conn);
@@ -103,7 +103,7 @@ namespace BibliotecaCEITI
 
         private void StergeBtn_Click(object sender, RoutedEventArgs e)
         {
-            Delete delete = new Delete();
+            Delete delete = new Delete(id_CarteSelectata);
             Window parentWindow = Window.GetWindow(this);
 
             if (parentWindow is MainWindow mainWindow) {
@@ -111,10 +111,14 @@ namespace BibliotecaCEITI
             }
         }
 
-        // Need to unify logic!
         private void EditBtn_Click(object sender, RoutedEventArgs e)
         {
-            BookDetails updateControl = new BookDetails();
+            if (id_CarteSelectata <= 0)
+            {
+                MessageBox.Show("Vă rugăm să selectați o carte din listă pentru a o edita.", "Atenție", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            BookDetails updateControl = new BookDetails(id_CarteSelectata);
             Window parentWindow = Window.GetWindow(this);
 
             if (parentWindow is MainWindow mainWindow)
@@ -125,78 +129,35 @@ namespace BibliotecaCEITI
 
         private void AddBook_Click(object sender, RoutedEventArgs e)
         {
-            BookDetails addBook = new BookDetails();
+            BookDetails addBook = new BookDetails(0);
             Window parentWindow = Window.GetWindow(this);
 
-            if (parentWindow is MainWindow mainWindow) {
+            if (parentWindow is MainWindow mainWindow) 
+            {
                 mainWindow.ChangeView(addBook);
             }
-        }
-
-        // 3. UPDATE (Modificare)
-        private void UpdateBook(int id, string titlu)
-        {
-            using (var conn = new MySqlConnection(this.connectionString))
-            {
-                string query = "UPDATE carti SET titlu = @titlu WHERE id = @id";
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@titlu", titlu);
-                cmd.Parameters.AddWithValue("@id", id);
-
-                conn.Open();
-                cmd.ExecuteNonQuery();
-            }
-            //LoadData();
-        }
-
-        // 4. DELETE (Ștergere)
-        private void DeleteBook(int id)
-        {
-            using (var conn = new MySqlConnection(this.connectionString))
-            {
-                string query = "DELETE FROM carti WHERE id = @id";
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@id", id);
-
-                conn.Open();
-                cmd.ExecuteNonQuery();
-            }
-            //LoadData();
         }
 
         private async void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             string textCautat = SearchTextBox.Text;
-
-            // 1. Anulăm căutarea precedentă dacă utilizatorul scrie repede
             if (_cancellationTokenSource != null)
             {
                 _cancellationTokenSource.Cancel();
                 _cancellationTokenSource.Dispose();
             }
-
-            // 2. Creăm un nou token
             _cancellationTokenSource = new CancellationTokenSource();
             var token = _cancellationTokenSource.Token;
 
             try
             {
-                // 3. AȘTEPTĂM 300 milisecunde. Dacă utilizatorul mai apasă o tastă, 
-                // acest delay va fi anulat și o va lua de la capăt.
                 await Task.Delay(300, token);
-
-                // 4. ATENȚIE AICI: Trimitem textul la TOATE cele 3 argumente!
-                // Altfel, va căuta textul doar în coloana 'titlu'.
                 await SelectBooks_Title_Isbn_AuthorAsync(textCautat, textCautat, textCautat);
             }
             catch (TaskCanceledException)
             {
-                // Ignorăm eroarea. Înseamnă doar că utilizatorul a tastat altă literă 
-                // înainte să se termine cele 300ms.
             }
         }
-
-        private int id_CarteSelectata, id_categorie_CarteSelectata, id_editura_CarteSelectata, id_locatie_CarteSelectata;
 
         private void BooksGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
@@ -215,126 +176,104 @@ namespace BibliotecaCEITI
         {
             if (BooksGrid.SelectedItem is DataRowView row)
             {
+                id_CarteSelectata = int.TryParse(row["ID_CARTE"].ToString(), out int idCarte) ? idCarte : 0;
+                id_categorie_CarteSelectata = int.TryParse(row["ID_categorie"].ToString(), out int idCat) ? idCat : 0;
+                id_editura_CarteSelectata = int.TryParse(row["ID_editura"].ToString(), out int idEd) ? idEd : 0;
+                id_locatie_CarteSelectata = int.TryParse(row["ID_locatie"].ToString(), out int idLoc) ? idLoc : 0;
+
+                cod_Inventar_CarteSelectata = row["Cod_Inventar"].ToString();
+                titlu_CarteSelectata = row["Titlu"].ToString();
+                titlu_exemplar.Text = titlu_CarteSelectata;
+                autor_CarteSelectata = row["Autor"].ToString();
+                isbn_CarteSelectata = row["ISBN"].ToString();
+                stare_CarteSelectata = row["Stare"].ToString();
+                pret_CarteSelectata = double.TryParse(row["Pret"].ToString(), out double pret) ? pret : 0;
+
                 try
                 {
-                    id_CarteSelectata = Convert.ToInt32(row["ID_CARTE"].ToString()); // hiden
-                    id_categorie_CarteSelectata = Convert.ToInt32(row["ID_categorie"].ToString()); // hiden
-                    id_editura_CarteSelectata = Convert.ToInt32(row["ID_locatie"].ToString()); // hiden
-                    id_locatie_CarteSelectata = Convert.ToInt32(row["ID_editura"].ToString()); // hiden
-
-                    cod_Inventar_CarteSelectata = row["Cod_Inventar"].ToString(); // hiden
-                    titlu_CarteSelectata = row["Titlu"].ToString();
-                    titlu_exemplar.Text = titlu_CarteSelectata;
-
-                    autor_CarteSelectata = row["Autor"].ToString();
-                    isbn_CarteSelectata = row["ISBN"].ToString();
-                    stare_CarteSelectata = row["Stare"].ToString(); // hiden
-
-                    pret_CarteSelectata = Convert.ToDouble(row["Pret"].ToString());
-
-                    using (MySqlConnection conn = new MySqlConnection(this.connectionString))
+                    using (MySqlConnection conn = DatabaseConfig.GetConnection())
                     {
                         conn.Open();
                         MySqlCommand cmd = new MySqlCommand("sp_date_categorie", conn);
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@p_id", id_categorie_CarteSelectata == 0 ? DBNull.Value : id_categorie_CarteSelectata);
-
                         MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                         DataTable dt = new DataTable();
                         da.Fill(dt);
-                        if (dt.Rows.Count > 0)
-                        {
-                            tip.Text = dt.Rows[0]["Tip"].ToString();
-                        }
-                        else
-                        {
-                            tip.Text = "Carte";
-                        }
+                        tip.Text = dt.Rows.Count > 0 ? dt.Rows[0]["Tip"].ToString() : "Carte";
                     }
+                }
+                catch { tip.Text = "Carte"; }
 
-                    using (MySqlConnection conn = new MySqlConnection(this.connectionString))
+                try
+                {
+                    using (MySqlConnection conn = DatabaseConfig.GetConnection())
                     {
                         conn.Open();
                         MySqlCommand cmd = new MySqlCommand("sp_editura_cartii", conn);
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@p_id", id_editura_CarteSelectata == 0 ? DBNull.Value : id_editura_CarteSelectata);
-
                         MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                         DataTable dt = new DataTable();
                         da.Fill(dt);
-                        if (dt.Rows.Count > 0)
-                        {
-                            editura.Text = dt.Rows[0]["Denumire"].ToString();
-                        }
-                        else
-                        {
-                            editura.Text = "Nespecificat";
-                        }
+                        editura.Text = dt.Rows.Count > 0 ? dt.Rows[0]["Denumire"].ToString() : "Nespecificat";
                     }
+                }
+                catch { editura.Text = "Nespecificat"; }
 
-                    using (MySqlConnection conn = new MySqlConnection(this.connectionString))
+                try
+                {
+                    using (MySqlConnection conn = DatabaseConfig.GetConnection())
                     {
                         conn.Open();
                         MySqlCommand cmd = new MySqlCommand("sp_date_locatia_cartii", conn);
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@p_id", id_locatie_CarteSelectata == 0 ? DBNull.Value : id_locatie_CarteSelectata);
-
                         MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                         DataTable dt = new DataTable();
                         da.Fill(dt);
-                        if (dt.Rows.Count > 0)
-                        {
-                            locatie.Text = dt.Rows[0]["Sector"].ToString() + ", " + dt.Rows[0]["Sala"].ToString() + ", " + dt.Rows[0]["Raft"].ToString() + ", " + dt.Rows[0]["Polita"].ToString();
-                        }
-                        else
-                        {
-                            locatie.Text = "N/A";
-                        }
+                        locatie.Text = dt.Rows.Count > 0? $"{dt.Rows[0]["Sector"]}, {dt.Rows[0]["Sala"]}, {dt.Rows[0]["Raft"]}, {dt.Rows[0]["Polita"]}" : "N/A";
                     }
-                    using (MySqlConnection conn = new MySqlConnection(this.connectionString))
+                }
+                catch { locatie.Text = "N/A"; }
+
+                try
+                {
+                    using (MySqlConnection conn = DatabaseConfig.GetConnection())
                     {
                         conn.Open();
-                        MySqlCommand cmd = new MySqlCommand("sp_imagine_carte", conn);
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@p_id", id_CarteSelectata);
-
-                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        using (MySqlCommand cmd = new MySqlCommand("sp_imagine_carte", conn))
                         {
-                            if (reader.Read() && reader["Imagine"] != DBNull.Value)
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.AddWithValue("@p_id", id_CarteSelectata);
+
+                            using (MySqlDataReader reader = cmd.ExecuteReader())
                             {
-                                byte[] rawData = (byte[])reader["Imagine"];
-                                imagine.Source = ToWpfImage(rawData);
-                            }
-                            else
-                            {
-                                imagine.Source = null;
+                                if (reader.Read() && !reader.IsDBNull(0))
+                                {
+                                    byte[] copertaBytes = (byte[])reader["Imagine"];
+                                    using (MemoryStream ms = new MemoryStream(copertaBytes))
+                                    {
+                                        BitmapImage bitmap = new BitmapImage();
+                                        bitmap.BeginInit();
+                                        bitmap.StreamSource = ms;
+                                        bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                                        bitmap.EndInit();
+                                        bitmap.Freeze();
+                                        imgCoperta.Source = bitmap;
+                                    }
+                                }
+                                else
+                                {
+                                    imgCoperta.Source = null;
+                                }
                             }
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine("Eroare detalii: " + ex.Message);
-                }
+                catch { imgCoperta.Source = null; }
             }
         }
-
-        private BitmapImage ToWpfImage(byte[] array)
-        {
-            if (array == null || array.Length == 0) return null;
-
-            var image = new BitmapImage();
-            using (var ms = new System.IO.MemoryStream(array))
-            {
-                image.BeginInit();
-                image.CacheOption = BitmapCacheOption.OnLoad;
-                image.StreamSource = ms;
-                image.EndInit();
-            }
-            image.Freeze();
-            return image;
-        }
-
-
+        
     }
 }

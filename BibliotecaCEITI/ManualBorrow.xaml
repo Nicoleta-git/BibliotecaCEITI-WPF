@@ -38,22 +38,30 @@
 
                 <!-- FILTERS -->
                 <Border Background="White" CornerRadius="8" BorderBrush="#E2E8F0" BorderThickness="1"
-                        Padding="20" Margin="0,0,0,15">
+        Padding="20" Margin="0,0,0,15">
                     <StackPanel Orientation="Horizontal">
+
+                        <!-- COMBOBOX 1: Categoria -->
                         <StackPanel Margin="0,0,20,0">
-                            <TextBlock Text="Selectează" FontSize="12" Foreground="#64748B" Margin="0,0,0,6"/>
-                            <ComboBox x:Name="CmbSelecteaza" Width="200" Height="40"
-                                      SelectionChanged="CmbSelecteaza_SelectionChanged">
-                                <ComboBoxItem Content="Grupa"/>
-                                <ComboBoxItem Content="Manual"/>
-                            </ComboBox>
+                            <TextBlock Text="Categoria" FontSize="12" Foreground="#64748B" Margin="0,0,0,6"/>
+                            <ComboBox x:Name="CmbCategorie" Width="180" Height="40"
+                      DisplayMemberPath="NumeCategorie" SelectionChanged="CmbCategorie_SelectionChanged"/>
                         </StackPanel>
+
+                        <!-- COMBOBOX 2: Manualul specific -->
+                        <StackPanel Margin="0,0,20,0">
+                            <TextBlock Text="Manual" FontSize="12" Foreground="#64748B" Margin="0,0,0,6"/>
+                            <ComboBox x:Name="CmbManual" Width="250" Height="40"
+                      DisplayMemberPath="TitluManual"/>
+                        </StackPanel>
+
+                        <!-- COMBOBOX 3: Group -->
                         <StackPanel>
-                            <TextBlock x:Name="TxtComboLabel" Text="Grupa" FontSize="12"
-                                       Foreground="#64748B" Margin="0,0,0,6"/>
-                            <ComboBox x:Name="CmbGrupa" Width="180" Height="40"
-                                      SelectionChanged="CmbGrupa_SelectionChanged"/>
+                            <TextBlock Text="Grupa" FontSize="12" Foreground="#64748B" Margin="0,0,0,6"/>
+                            <ComboBox x:Name="CmbGrupa" Width="150" Height="40"
+                      DisplayMemberPath="NumeGrupa" RenderTransformOrigin="350993.66,438329.289" SelectionChanged="CmbGrupa_SelectionChanged"/>
                         </StackPanel>
+
                     </StackPanel>
                 </Border>
 
@@ -61,6 +69,10 @@
                 <Border Background="White" CornerRadius="8" BorderBrush="#E2E8F0" BorderThickness="1"
                         Padding="20" Margin="0,0,0,15">
                     <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="284*"/>
+                            <ColumnDefinition Width="155*"/>
+                        </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
@@ -68,13 +80,14 @@
 
                         <TextBlock x:Name="TxtGrupLabel" Grid.Row="0"
                                    Text="Elevi în grupa A" FontSize="15" FontWeight="SemiBold"
-                                   Foreground="#1E293B" Margin="0,0,0,12"/>
+                                   Foreground="#1E293B" Margin="0,0,0,12" Grid.ColumnSpan="2"/>
 
                         <DataGrid x:Name="DgElevi" Grid.Row="1"
                                   Style="{StaticResource ModernDataGridStyle}"
                                   AutoGenerateColumns="False"
                                   CanUserAddRows="False"
-                                  MinHeight="300">
+                                  Foreground="Black"
+                                  MinHeight="360" Grid.ColumnSpan="2">
                             <DataGrid.Columns>
 
                                 <DataGridTemplateColumn Header="Elev" Width="650">
@@ -97,8 +110,8 @@
                                 <DataGridTemplateColumn Header="Manual împrumutat" Width="200">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <RadioButton IsChecked="{Binding AreManual, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                         HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            <RadioButton x:Name="areManual" IsChecked="{Binding AreManual, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                         HorizontalAlignment="Center" VerticalAlignment="Center" Checked="areManual_Checked"/>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -112,7 +125,7 @@
                 <Border Background="White" CornerRadius="8" BorderBrush="#E2E8F0" BorderThickness="1"
                         Padding="20,12">
                     <Grid>
-                        <TextBox x:Name="TxtSearch" Width="300" Height="38"
+                        <TextBox x:Name="TxtEleviSelectati" Width="300" Height="38" IsReadOnly="True"
                                  Style="{StaticResource ModernInputStyle}"
                                  HorizontalAlignment="Left" Margin="0,1,0,1" Text="Elevi selectati:"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
