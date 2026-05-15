@@ -112,6 +112,18 @@ namespace BibliotecaCEITI
             BookReservation reservation = new BookReservation();
             MainContentContainer.Content = reservation;
         }
+        private void BtnAtention_Click(object sender, RoutedEventArgs e)
+        {
+            Attention attention = new Attention();
+            MainContentContainer.Content = attention;
+        }
+        private void BtnDeconectare_Click(object sender, RoutedEventArgs e)
+        {
+            var login = new LoginWindow();
+            login.Show();
+
+            Window.GetWindow(this)?.Close();
+        }
         private void Student_Click(object sender, RoutedEventArgs e)
         {
             Students students = new Students();
