@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:fa5="http://schemas.fontawesome.com/icons/"
              mc:Ignorable="d"
-             Background="#F5F7FA" FontFamily="Segoe UI" 
+             Background="{DynamicResource WindowBackground}" FontFamily="Segoe UI" 
              d:DesignHeight="600" d:DesignWidth="900">
 
     <UserControl.Resources>
@@ -14,11 +14,10 @@
                 <ResourceDictionary Source="Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-            <!-- SEARCH BAR STYLE: Visual container for the search input -->
             <Style x:Key="SearchBorderStyle" TargetType="Border">
-                <Setter Property="Background" Value="White"/>
+                <Setter Property="Background" Value="{DynamicResource CardBackground}"/>
                 <Setter Property="CornerRadius" Value="8"/>
-                <Setter Property="BorderBrush" Value="{StaticResource BorderLight}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource BorderBrushLight}"/>
                 <Setter Property="BorderThickness" Value="1"/>
                 <Setter Property="Height" Value="45"/>
             </Style>
@@ -32,41 +31,34 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- Title Section -->
             <RowDefinition Height="Auto"/>
-            <!-- Search & Add Section -->
             <RowDefinition Height="*"/>
-            <!-- Data Table Section -->
             <RowDefinition Height="Auto"/>
-            <!-- Details Panel Section -->
         </Grid.RowDefinitions>
 
-        <!-- PAGE HEADER -->
         <StackPanel Grid.Row="0" Margin="0,0,0,25" Grid.ColumnSpan="2">
-            <TextBlock Text="Gestiune Inventar (Carti)" FontSize="28" FontWeight="Bold" Foreground="{StaticResource TextDark}"/>
+            <TextBlock Text="Gestiune Inventar (Carti)" FontSize="28" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
         </StackPanel>
 
-        <!-- SEARCH AND ADD ACTIONS -->
         <Grid Margin="0,62,0,20" Grid.ColumnSpan="2" Grid.RowSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Search Input with Icon -->
             <Border Style="{StaticResource SearchBorderStyle}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="45"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <fa5:ImageAwesome Icon="Solid_Search" Foreground="#A0AEC0" Width="14" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <fa5:ImageAwesome Icon="Solid_Search" Foreground="{DynamicResource TextMuted}" Width="14" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     <TextBox x:Name="SearchTextBox" Grid.Column="1" VerticalContentAlignment="Center" BorderThickness="0" Background="Transparent" 
-                             Tag="Caută după Titlu, Autor sau ISBN..." Padding="5,0" FontSize="14" Margin="0,2,3,3" TextChanged="SearchTextBox_TextChanged"/>
+                             Foreground="{DynamicResource TextPrimary}" CaretBrush="{DynamicResource TextPrimary}"
+                             Tag="Caută după Titlu, Autor sau ISBN..." Padding="5,0" FontSize="14" Margin="0,2,3,3"/>
                 </Grid>
             </Border>
 
-            <!-- Add New Book Button -->
             <Button Grid.Column="1" Margin="15,0,0,0" Style="{StaticResource GlobalActionButtonStyle}" Foreground="White" Click="AddBook_Click">
                 <StackPanel Orientation="Horizontal">
                     <fa5:ImageAwesome Icon="Solid_Plus" Foreground="White" Width="12" Margin="0,0,10,0"/>
@@ -75,71 +67,62 @@
             </Button>
         </Grid>
 
-        <!-- MAIN DATA GRID-->
         <DataGrid x:Name="BooksGrid"
-          Grid.Row="2"
-          IsReadOnly="True"
-          Style="{StaticResource ModernDataGridStyle}"
-          AutoGenerateColumns="True"
-          ColumnWidth="*"
-          CanUserAddRows="False"
-          Margin="0,20,0,20" SelectionChanged="BooksGrid_SelectionChanged" AutoGeneratingColumn="BooksGrid_AutoGeneratingColumn" Grid.ColumnSpan="2"/>
+                  Grid.Row="2"
+                  IsReadOnly="True"
+                  Style="{StaticResource ModernDataGridStyle}"
+                  AutoGenerateColumns="True"
+                  ColumnWidth="*"
+                  CanUserAddRows="False"
+                  Margin="0,20,0,20" SelectionChanged="BooksGrid_SelectionChanged" AutoGeneratingColumn="BooksGrid_AutoGeneratingColumn" Grid.ColumnSpan="2"/>
 
-        <!-- SELECTION DETAILS PANEL: Shows info about the currently selected book -->
-        <Border Grid.Row="3" Background="White" CornerRadius="12" BorderBrush="{StaticResource BorderLight}" BorderThickness="1" Padding="25" Grid.ColumnSpan="2">
+        <Border Grid.Row="3" Background="{DynamicResource CardBackground}" CornerRadius="12" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" Padding="25" Grid.ColumnSpan="2">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
-                    <!-- Thumbnail -->
                     <ColumnDefinition Width="*"/>
-                    <!-- Main Info -->
                     <ColumnDefinition Width="Auto"/>
-                    <!-- Quick Actions -->
                 </Grid.ColumnDefinitions>
 
-                <!-- Book Thumbnail Preview -->
-                <Border Width="70" Height="95" Background="#F7FAFC" CornerRadius="8" BorderBrush="#EDF2F7" BorderThickness="1" Margin="0,0,20,0">
+                <Border Width="70" Height="95" Background="{DynamicResource WindowBackground}" CornerRadius="8" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" Margin="0,0,20,0">
                     <Image x:Name="imgCoperta" Stretch="Uniform"/>
                 </Border>
 
-                <!-- Expanded Book Details -->
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                    <TextBlock Text="LOCALIZARE ȘI DETALII EXEMPLAR" FontSize="10" FontWeight="Black" Foreground="#A0AEC0" Margin="0,0,0,5"/>
+                    <TextBlock Text="LOCALIZARE ȘI DETALII EXEMPLAR" FontSize="10" FontWeight="Black" Foreground="{DynamicResource TextMuted}" Margin="0,0,0,5"/>
                     <TextBlock x:Name="titlu_exemplar" Text="{Binding SelectedItem.Titlu, ElementName=BooksGrid, FallbackValue='Selectați un exemplar'}" 
-                               FontSize="22" FontWeight="Bold" Foreground="{StaticResource TextDark}"/>
+                               FontSize="22" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
 
-                    <!-- Info Badges (Location, Publisher, Type) -->
                     <WrapPanel Margin="0,8,0,0">
                         <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
-                            <fa5:ImageAwesome Icon="Solid_MapMarkerAlt" Width="12" Foreground="{StaticResource PrimaryBlue}" Margin="0,0,5,0"/>
-                            <TextBlock Text="Locație: " Foreground="{StaticResource TextMuted}"/>
-                            <TextBlock x:Name="locatie" Text="{Binding SelectedItem.LocatieCompleta, FallbackValue='N/A'}" Foreground="{StaticResource TextDark}" FontWeight="SemiBold"/>
+                            <fa5:ImageAwesome Icon="Solid_MapMarkerAlt" Width="12" Foreground="{DynamicResource PrimaryBlue}" Margin="0,0,5,0"/>
+                            <TextBlock Text="Locație: " Foreground="{DynamicResource TextMuted}"/>
+                            <TextBlock x:Name="locatie" Text="{Binding SelectedItem.LocatieCompleta, FallbackValue='N/A'}" Foreground="{DynamicResource TextPrimary}" FontWeight="SemiBold"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
-                            <fa5:ImageAwesome Icon="Solid_Building" Width="12" Foreground="{StaticResource TextMuted}" Margin="0,0,5,0"/>
-                            <TextBlock Text="Editura: " Foreground="{StaticResource TextMuted}"/>
-                            <TextBlock x:Name="editura" Text="{Binding SelectedItem.EdituraDenumire, FallbackValue='Nespecificat'}" Foreground="{StaticResource TextDark}" FontWeight="SemiBold"/>
+                            <fa5:ImageAwesome Icon="Solid_Building" Width="12" Foreground="{DynamicResource TextMuted}" Margin="0,0,5,0"/>
+                            <TextBlock Text="Editura: " Foreground="{DynamicResource TextMuted}"/>
+                            <TextBlock x:Name="editura" Text="{Binding SelectedItem.EdituraDenumire, FallbackValue='Nespecificat'}" Foreground="{DynamicResource TextPrimary}" FontWeight="SemiBold"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
-                            <fa5:ImageAwesome Icon="Solid_Tag" Width="12" Foreground="{StaticResource TextMuted}" Margin="0,0,5,0"/>
-                            <TextBlock Text="Tip: " Foreground="{StaticResource TextMuted}"/>
-                            <TextBlock x:Name="tip" Text="{Binding SelectedItem.CategorieTip, FallbackValue='Carte'}" Foreground="{StaticResource TextDark}" FontWeight="SemiBold"/>
+                            <fa5:ImageAwesome Icon="Solid_Tag" Width="12" Foreground="{DynamicResource TextMuted}" Margin="0,0,5,0"/>
+                            <TextBlock Text="Tip: " Foreground="{DynamicResource TextMuted}"/>
+                            <TextBlock x:Name="tip" Text="{Binding SelectedItem.CategorieTip, FallbackValue='Carte'}" Foreground="{DynamicResource TextPrimary}" FontWeight="SemiBold"/>
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
 
-                <!-- CONTEXTUAL ACTIONS: Edit and Delete buttons for the selected item -->
                 <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
-                    <Button Style="{StaticResource ActionButtonStyle}" Click="EditBtn_Click" Background="#EDF2F7" Foreground="#2B6CB0" Margin="0,0,10,0">
+                    <Button Style="{StaticResource ActionButtonStyle}" Click="EditBtn_Click" Background="#223B82F6" Foreground="{DynamicResource PrimaryBlue}" Margin="0,0,10,0">
                         <StackPanel Orientation="Horizontal">
-                            <fa5:ImageAwesome Icon="Solid_Edit" Width="14" Margin="0,0,10,0" Foreground="#2B6CB0"/>
+                            <fa5:ImageAwesome Icon="Solid_Edit" Width="14" Margin="0,0,10,0" Foreground="{DynamicResource PrimaryBlue}"/>
                             <TextBlock Text="Editare"/>
                         </StackPanel>
                     </Button>
-                    <Button Style="{StaticResource ActionButtonStyle}" Background="#FFF5F5" Foreground="#C53030" Click="StergeBtn_Click">
-                        <fa5:ImageAwesome Icon="Solid_Archive" Width="14" Foreground="#C53030"/>
+                    <Button Style="{StaticResource ActionButtonStyle}" Background="#22EF4444" Foreground="#EF4444" Click="StergeBtn_Click">
+                        <fa5:ImageAwesome Icon="Solid_Archive" Width="14" Foreground="#EF4444"/>
                     </Button>
                 </StackPanel>
             </Grid>

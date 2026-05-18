@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:fa5="http://schemas.fontawesome.com/icons/"
              mc:Ignorable="d" 
-             Background="#F4F7FE" FontFamily="Segoe UI"
+            Background="{DynamicResource WindowBackground}" FontFamily="Segoe UI"
              d:DesignHeight="850" d:DesignWidth="1000">
 
     <UserControl.Resources>
@@ -18,25 +18,18 @@
     </UserControl.Resources>
 
     <Grid Margin="30">
-        <!-- Main layout structure -->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- Header -->
             <RowDefinition Height="Auto"/>
-            <!-- Filters -->
             <RowDefinition Height="*"/>
-            <!-- Table -->
             <RowDefinition Height="Auto"/>
-            <!-- Details -->
             <RowDefinition Height="Auto"/>
-            <!-- Pagination -->
         </Grid.RowDefinitions>
 
-        <!-- HEADER SECTION -->
         <Grid Grid.Row="0" Margin="0,0,0,30">
             <StackPanel HorizontalAlignment="Left">
-                <TextBlock Text="Împrumuturi" FontSize="28" FontWeight="Bold" Foreground="#1E293B"/>
-                <TextBlock Text="Gestionarea manualelor și cărților împrumutate." Foreground="#64748B" Margin="0,5,0,0"/>
+                <TextBlock Text="Împrumuturi" FontSize="28" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
+                <TextBlock Text="Gestionarea manualelor și cărților împrumutate." Foreground="{DynamicResource TextPrimary}" Margin="0,5,0,0"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
@@ -53,10 +46,8 @@
                     </StackPanel>
                 </Button>
             </StackPanel>
-
         </Grid>
 
-        <!-- FILTERS SECTION -->
         <Grid Margin="0,88,0,0" Grid.RowSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
@@ -64,36 +55,33 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <!-- Search box container -->
-            <Border Grid.Column="0" Margin="0,0,20,0" BorderBrush="#E2E8F0" BorderThickness="1" Background="White" CornerRadius="8" Padding="10,5">
+            <Border Grid.Column="0" Margin="0,0,20,0" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" Background="{DynamicResource CardBackground}" CornerRadius="8" Padding="10,5">
                 <Grid>
-                    <fa5:ImageAwesome Icon="Solid_Search" Foreground="#94A3B8" Width="14" HorizontalAlignment="Left"/>
-                    <TextBox BorderThickness="0" Margin="25,0,0,0" VerticalContentAlignment="Center" x:Name="txtSearch" FontSize="14" Background="Transparent" TextChanged="txtSearch_TextChanged"/>
+                    <fa5:ImageAwesome Icon="Solid_Search" Foreground="{DynamicResource TextMuted}" Width="14" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBox BorderThickness="0" Margin="25,0,0,0" VerticalContentAlignment="Center" x:Name="txtSearch" FontSize="14" Background="Transparent" Foreground="{DynamicResource TextPrimary}" CaretBrush="{DynamicResource TextPrimary}" TextChanged="txtSearch_TextChanged"/>
                 </Grid>
             </Border>
 
-            <ComboBox x:Name="cbGrupe" Grid.Column="1" Margin="0,0,20,0" Height="NaN" SelectedIndex="0" VerticalContentAlignment="Center" SelectionChanged="cbGrupe_SelectionChanged">
+            <ComboBox x:Name="cbGrupe" Grid.Column="1" Margin="0,0,20,0" Height="45" SelectedIndex="0" VerticalContentAlignment="Center" SelectionChanged="cbGrupe_SelectionChanged">
                 <ComboBoxItem Content="Toate Grupele"/>
             </ComboBox>
 
-            <ComboBox x:Name="cbStari" Grid.Column="2" Height="NaN" SelectedIndex="0" VerticalContentAlignment="Center">
+            <ComboBox x:Name="cbStari" Grid.Column="2" Height="45" SelectedIndex="0" VerticalContentAlignment="Center">
                 <ComboBoxItem Content="Toate Stările"/>
             </ComboBox>
         </Grid>
 
-        <!-- 3. DATAGRID SECTION -->
         <DataGrid x:Name="BooksGrid"
-            Grid.Row="2"
-            Style="{StaticResource ModernDataGridStyle}"
-            AutoGenerateColumns="True"
-            ColumnWidth="*"
-            CanUserAddRows="False"
-            IsReadOnly="True"
-            Margin="0,33,0,20" AutoGeneratingColumn="BooksGrid_AutoGeneratingColumn" SelectionChanged="BooksGrid_SelectionChanged">
+                  Grid.Row="2"
+                  Style="{StaticResource ModernDataGridStyle}"
+                  AutoGenerateColumns="True"
+                  ColumnWidth="*"
+                  CanUserAddRows="False"
+                  IsReadOnly="True"
+                  Margin="0,33,0,172" AutoGeneratingColumn="BooksGrid_AutoGeneratingColumn" SelectionChanged="BooksGrid_SelectionChanged" Grid.RowSpan="2">
         </DataGrid>
 
-        <!-- 4. SELECTED ITEM DETAILS SECTION -->
-        <Border Grid.Row="3" Margin="0,25,0,0" Background="White" CornerRadius="15" BorderBrush="#E2E8F0" BorderThickness="1" Padding="25">
+        <Border Grid.Row="3" Margin="0,25,0,0" Background="{DynamicResource CardBackground}" CornerRadius="15" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" Padding="25">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -101,57 +89,52 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <!-- Visual placeholder for book cover -->
-                <Border x:Name="imgCoperta" Width="70" Height="90" Background="#F8FAFC" CornerRadius="10" Margin="0,0,25,0"/>
+                <Border x:Name="imgCoperta" Width="70" Height="90" Background="{DynamicResource WindowBackground}" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" CornerRadius="10" Margin="0,0,25,0"/>
 
-                <!-- Information panel bound to selected grid row -->
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                    <TextBlock Text="DETALII ÎMPRUMUT SELECTAT" FontSize="11" FontWeight="Bold" Foreground="#94A3B8" Margin="0,0,0,8" />
+                    <TextBlock Text="DETALII ÎMPRUMUT SELECTAT" FontSize="11" FontWeight="Bold" Foreground="{DynamicResource TextMuted}" Margin="0,0,0,8" />
 
                     <StackPanel x:Name="titlu1" Orientation="Horizontal" Margin="0,0,0,12">
-                        <TextBlock x:Name="titlu" Text="{Binding SelectedItem.TitluCarte, ElementName=dgImprumuturi, FallbackValue='Selectați o înregistrare'}" 
-                                   FontSize="22" FontWeight="Bold" Foreground="#1E293B"/>
-                        <TextBlock Text="{Binding SelectedItem.Autor, ElementName=dgImprumuturi, StringFormat=' de \{0\}'}" 
-                                   FontSize="18" Foreground="#64748B" VerticalAlignment="Bottom" Margin="5,0,0,2"/>
+                        <TextBlock x:Name="titlu" Text="{Binding SelectedItem.TitluCarte, ElementName=BooksGrid, FallbackValue='Selectați o înregistrare'}" 
+                                   FontSize="22" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
+                        <TextBlock Text="{Binding SelectedItem.Autor, ElementName=BooksGrid, StringFormat=' de \{0\}'}" 
+                                   FontSize="18" Foreground="{DynamicResource TextMuted}" VerticalAlignment="Bottom" Margin="5,0,0,2"/>
                     </StackPanel>
 
-                    <!-- Student and Due Date info -->
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                         <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
-                            <fa5:ImageAwesome Icon="Solid_User" Width="12" Foreground="#3B82F6" Margin="0,0,8,0"/>
-                            <TextBlock Text="Împrumutat de: " Foreground="#64748B"/>
-                            <TextBlock x:Name="persoana" Text="{Binding SelectedItem.NumeElev, ElementName=dgImprumuturi, FallbackValue='N/A'}" FontWeight="SemiBold" Foreground="#1E293B"/>
+                            <fa5:ImageAwesome Icon="Solid_User" Width="12" Foreground="{DynamicResource PrimaryBlue}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="Împrumutat de: " Foreground="{DynamicResource TextMuted}" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="persoana" Text="{Binding SelectedItem.NumeElev, ElementName=BooksGrid, FallbackValue='N/A'}" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}" VerticalAlignment="Center"/>
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal">
-                            <fa5:ImageAwesome Icon="Solid_Calendar" Width="12" Foreground="#64748B" Margin="0,0,8,0"/>
-                            <TextBlock Text="Termen: " Foreground="#64748B"/>
-                            <TextBlock Text="{Binding SelectedItem.termen_returnare, ElementName=dgImprumuturi, StringFormat=\{0:dd.MM.yyyy\}}" FontWeight="SemiBold" Foreground="#EF4444"/>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <fa5:ImageAwesome Icon="Solid_Calendar" Width="12" Foreground="{DynamicResource TextMuted}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="Termen: " Foreground="{DynamicResource TextMuted}" VerticalAlignment="Center"/>
+                            <TextBlock Text="{Binding SelectedItem.termen_returnare, ElementName=BooksGrid, StringFormat=\{0:dd.MM.yyyy\}}" FontWeight="SemiBold" Foreground="#EF4444" VerticalAlignment="Center"/>
                         </StackPanel>
-                        <TextBlock x:Name="termen_limita" Text="Nespecificat" FontWeight="SemiBold" Foreground="#1E293B"/>
+                        <TextBlock x:Name="termen_limita" Text="Nespecificat" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}" Margin="5,0,0,0" VerticalAlignment="Center"/>
                     </StackPanel>
 
-                    <!-- Return Date and Status info -->
                     <StackPanel Orientation="Horizontal">
-                        <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
-                            <fa5:ImageAwesome Icon="Solid_Clock" Width="12" Foreground="#64748B" Margin="0,0,8,0"/>
-                            <TextBlock Text="Data Returnării: " Foreground="#64748B"/>
-                            <TextBlock x:Name="returnare" Text="{Binding SelectedItem.data_returnare, ElementName=dgImprumuturi, StringFormat=\{0:dd.MM.yyyy\}, FallbackValue='Nerestituit'}" FontWeight="SemiBold" Foreground="#1E293B"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,20,0" VerticalAlignment="Center">
+                            <fa5:ImageAwesome Icon="Solid_Clock" Width="12" Foreground="{DynamicResource TextMuted}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="Data Returnării: " Foreground="{DynamicResource TextMuted}" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="returnare" Text="{Binding SelectedItem.data_returnare, ElementName=BooksGrid, StringFormat=\{0:dd.MM.yyyy\}, FallbackValue='Nerestituit'}" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}" VerticalAlignment="Center"/>
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal">
-                            <fa5:ImageAwesome Icon="Solid_Tag" Width="12" Foreground="#64748B" Margin="0,0,8,0"/>
-                            <TextBlock Text="Stare: " Foreground="#64748B"/>
-                            <TextBlock Text="{Binding SelectedItem.stare, ElementName=dgImprumuturi}" FontWeight="Black" Foreground="#1E293B"/>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <fa5:ImageAwesome Icon="Solid_Tag" Width="12" Foreground="{DynamicResource TextMuted}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="Stare: " Foreground="{DynamicResource TextMuted}" VerticalAlignment="Center"/>
+                            <TextBlock Text="{Binding SelectedItem.stare, ElementName=BooksGrid}" FontWeight="Black" Foreground="{DynamicResource TextPrimary}" VerticalAlignment="Center"/>
                         </StackPanel>
-                        <TextBlock x:Name="stare_imprumut" Text="Nespecificat" FontWeight="SemiBold" Foreground="#1E293B"/>
+                        <TextBlock x:Name="stare_imprumut" Text="Nespecificat" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}" Margin="5,0,0,0" VerticalAlignment="Center"/>
                     </StackPanel>
                 </StackPanel>
 
-                <!-- Return action button -->
                 <Button x:Name="returneaza" Grid.Column="2" 
                         Style="{StaticResource GlobalActionButtonStyle}" 
-                        Background="#FEF2F2" 
+                        Background="#22EF4444" 
                         Width="120" 
                         Height="50"
                         VerticalAlignment="Center" Click="Button_Click">
