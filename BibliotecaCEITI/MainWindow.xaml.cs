@@ -22,6 +22,8 @@ namespace BibliotecaCEITI
         public static int IdBibliotecar { get; set; }
         public static string TokenSesiune { get; set; }
 
+        private bool _isDarkTheme = false;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -117,5 +119,43 @@ namespace BibliotecaCEITI
             Students students = new Students();
             MainContentContainer.Content = students;
         }
+
+        private void ThemeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            _isDarkTheme = !_isDarkTheme;
+
+            string targetThemePath = _isDarkTheme ? "DarkTheme.xaml" : "LightTheme.xaml";
+
+            try
+            {
+                ResourceDictionary loadedTheme = new ResourceDictionary
+                {
+                    Source = new Uri(targetThemePath, UriKind.RelativeOrAbsolute)
+                };
+
+                Application.Current.Resources.MergedDictionaries[0] = loadedTheme;
+
+                if (_isDarkTheme)
+                {
+                    ThemeBtn.Background = (Brush)new BrushConverter().ConvertFromString("#F59E0B");
+                    ThemeIcon.Foreground = Brushes.White;
+                    ThemeIcon.Icon = FontAwesome5.EFontAwesomeIcon.Solid_CloudSun;
+                    ThemeIcon.Width = 18;
+                }
+                else
+                {
+                    ThemeBtn.Background = (Brush)new BrushConverter().ConvertFromString("#4F46E5");
+                    ThemeIcon.Foreground = Brushes.White;
+                    ThemeIcon.Icon = FontAwesome5.EFontAwesomeIcon.Solid_Moon;
+                    ThemeIcon.Width = 14;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to apply runtime theme layout: {ex.Message}", "Theme Switcher Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+
     }
 }
