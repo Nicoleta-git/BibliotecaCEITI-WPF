@@ -51,7 +51,9 @@ namespace BibliotecaCEITI
                 IncarcaClase();
                 ActualizeazaStatCarduri();
                 AplicaFiltre();
-                ActualizeazaPrevizualizare();
+                //ActualizeazaPrevizualizare();
+                IncarcaIstoricNotificari();
+
             }
             catch (Exception ex)
             {
@@ -367,7 +369,7 @@ namespace BibliotecaCEITI
             };
 
             // Click pe rand selectează item în previzualizare
-            rand.MouseLeftButtonUp += (_, _) => ActualizeazaPrevizualizarePentru(item);
+          //  rand.MouseLeftButtonUp += (_, _) => ActualizeazaPrevizualizarePentru(item);
 
             return rand;
         }
@@ -494,75 +496,165 @@ namespace BibliotecaCEITI
         }
 
         // ══════════════════════════════════════════════════════════════════════
-        // PREVIZUALIZARE EMAIL
+        // Istoric Notificari EMAIL
         // ══════════════════════════════════════════════════════════════════════
-        private void ActualizeazaPrevizualizare()
+
+        private void IncarcaIstoricNotificari()
         {
-            if (rtbPrevizualizare == null) return;
+            if (spIstoricNotificari == null || bdIstoricPlaceholder == null) return;
 
-            var primul = _filtrate.FirstOrDefault();
-            if (primul != null)
-                ActualizeazaPrevizualizarePentru(primul);
-            else
-                rtbPrevizualizare.Document.Blocks.Clear();
-        }
+            // Șterge rândurile vechi, dar păstrează placeholder-ul
+            var deElim = spIstoricNotificari.Children
+                .OfType<Border>()
+                .Where(b => b.Name != "bdIstoricPlaceholder")
+                .ToList();
+            foreach (var b in deElim)
+                spIstoricNotificari.Children.Remove(b);
 
-        private void ActualizeazaPrevizualizarePentru(AttentionItemViewModel item)
-        {
-            if (rtbPrevizualizare == null) return;
+            List<(string NumeElev, string TitluCarte, DateTime TrimisLa)> istoric = new();
 
-            string subiect = GetSetare("email_subiect");
-            string corpHtml = GetSetare("email_corp_html");
-
-            if (string.IsNullOrEmpty(subiect))
-                subiect = $"[Bibliotecă] Returnare carte: {item.TitluCarte}";
-            if (string.IsNullOrEmpty(corpHtml))
-                corpHtml = $"Stimate/ă {item.NumeElev},\n\n" +
-                           $"Vă reamintim că ați împrumutat cartea \"{item.TitluCarte}\" de {item.AutorCarte}.\n" +
-                           $"Termenul de returnare a fost {item.TermenReturnareText} " +
-                           $"(acum {item.ZileIntarziereText}).\n\n" +
-                           "Vă rugăm să returnați cartea cât mai curând.\n\nBiblioteca CEITI";
-
-            string corp = corpHtml
-                .Replace("{nume_elev}", item.NumeElev)
-                .Replace("{titlu_carte}", item.TitluCarte)
-                .Replace("{autor_carte}", item.AutorCarte)
-                .Replace("{termen_returnare}", item.TermenReturnareText)
-                .Replace("{zile_intarziere}", item.ZileIntarziereText);
-
-            var doc = new FlowDocument();
-            doc.Blocks.Add(new Paragraph(new Bold(new Run($"Subiect: {subiect}")))
+            try
             {
-                Margin = new Thickness(0, 0, 0, 8),
-            });
-            doc.Blocks.Add(new Paragraph(new Run("─────────────────────────────────────"))
-            {
-                Margin = new Thickness(0, 0, 0, 8),
-                Foreground = new SolidColorBrush(Color.FromRgb(0xE2, 0xE8, 0xF0)),
-            });
+                const string sql = @"
+                            SELECT
+                    CONCAT(e.prenume, ' ', e.nume)  AS nume_elev,
+                    c.titlu                          AS titlu_carte,
+                    n.data_creare                    AS trimis_la
+                FROM notificari n
+                JOIN elevi e       ON n.id_elev = e.id
+                LEFT JOIN imprumuturi i ON n.id_imprumut = i.id
+                LEFT JOIN exemplare ex  ON i.id_exemplar = ex.id
+                LEFT JOIN carti c       ON ex.id_carte   = c.id
+                WHERE n.tip = 'intarziere'
+                ORDER BY n.data_creare DESC
+                LIMIT 7";
 
-            string textCurat = corp
-                .Replace("<br>", "\n").Replace("<br/>", "\n").Replace("<br />", "\n")
-                .Replace("&nbsp;", " ");
-            while (textCurat.Contains('<') && textCurat.Contains('>'))
-            {
-                int start = textCurat.IndexOf('<');
-                int end = textCurat.IndexOf('>', start);
-                if (end < 0) break;
-                textCurat = textCurat.Remove(start, end - start + 1);
-            }
-
-            foreach (var linie in textCurat.Split('\n'))
-            {
-                doc.Blocks.Add(new Paragraph(new Run(linie))
+                using var conn = DatabaseConfig.GetConnection();
+                conn.Open();
+                using var cmd = new MySqlCommand(sql, conn);
+                using var rdr = cmd.ExecuteReader();
+                while (rdr.Read())
                 {
-                    Margin = new Thickness(0, 1, 0, 1),
-                    FontSize = 12,
-                });
+                    istoric.Add((
+                        rdr["nume_elev"]?.ToString() ?? "—",
+                        rdr["titlu_carte"]?.ToString() ?? "—",
+                        rdr.GetDateTime("trimis_la")
+                    ));
+                }
             }
+            catch { /* tabelul poate lipsi în dev */ }
 
-            rtbPrevizualizare.Document = doc;
+            bdIstoricPlaceholder.Visibility = istoric.Count == 0
+                ? Visibility.Visible : Visibility.Collapsed;
+
+            bool primul = true;
+            foreach (var (numeElev, titluCarte, trimisLa) in istoric)
+            {
+                // Separator între rânduri (nu înainte de primul)
+                if (!primul)
+                {
+                    spIstoricNotificari.Children.Add(new Border
+                    {
+                        BorderBrush = new SolidColorBrush(Color.FromRgb(0xF1, 0xF5, 0xF9)),
+                        BorderThickness = new Thickness(0, 1, 0, 0),
+                        Margin = new Thickness(0, 4, 0, 4),
+                    });
+                }
+                primul = false;
+
+                // Formatare timestamp: "azi 14:32" / "ieri 09:15" / "12 mai 10:00"
+                string timestamp = FormatTimestamp(trimisLa);
+
+                // Inițiale pentru avatar
+                string initiale = numeElev.Length >= 2
+                    ? $"{numeElev[0]}{numeElev.SkipWhile(c => c != ' ').Skip(1).FirstOrDefault()}"
+                          .ToUpper().Trim()
+                    : numeElev.Substring(0, 1).ToUpper();
+
+                var rand = new Border { Padding = new Thickness(4, 6, 4, 6) };
+
+                var grid = new Grid();
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(32) });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(8) });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+
+                // Avatar mic
+                var avatar = new Border
+                {
+                    Width = 32,
+                    Height = 32,
+                    CornerRadius = new CornerRadius(16),
+                    Background = new SolidColorBrush(Color.FromRgb(0xEE, 0xE6, 0xFF)),
+                    Child = new TextBlock
+                    {
+                        Text = initiale,
+                        FontSize = 11,
+                        FontWeight = FontWeights.Bold,
+                        Foreground = new SolidColorBrush(Color.FromRgb(0x62, 0x10, 0xCC)),
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center,
+                    }
+                };
+                Grid.SetColumn(avatar, 0);
+
+                // Info text
+                var info = new StackPanel { VerticalAlignment = VerticalAlignment.Center };
+
+                // Titlu carte (trunchiat dacă e prea lung)
+                info.Children.Add(new TextBlock
+                {
+                    Text = titluCarte,
+                    FontSize = 12,
+                    FontWeight = FontWeights.SemiBold,
+                    Foreground = new SolidColorBrush(Color.FromRgb(0x1E, 0x29, 0x3B)),
+                    TextTrimming = TextTrimming.CharacterEllipsis,
+                });
+
+                // Nume elev + timestamp pe același rând
+                var subRand = new StackPanel { Orientation = Orientation.Horizontal };
+                subRand.Children.Add(new TextBlock
+                {
+                    Text = numeElev,
+                    FontSize = 11,
+                    Foreground = new SolidColorBrush(Color.FromRgb(0x8A, 0x92, 0xA6)),
+                    TextTrimming = TextTrimming.CharacterEllipsis,
+                    MaxWidth = 100,
+                });
+                subRand.Children.Add(new TextBlock
+                {
+                    Text = $"  ·  {timestamp}",
+                    FontSize = 11,
+                    Foreground = new SolidColorBrush(Color.FromRgb(0xA0, 0xAE, 0xC0)),
+                });
+                info.Children.Add(subRand);
+
+                Grid.SetColumn(info, 2);
+
+                grid.Children.Add(avatar);
+                grid.Children.Add(info);
+                rand.Child = grid;
+
+                // Hover subtil
+                rand.MouseEnter += (_, _) =>
+                    rand.Background = new SolidColorBrush(Color.FromRgb(0xF8, 0xFA, 0xFC));
+                rand.MouseLeave += (_, _) =>
+                    rand.Background = Brushes.Transparent;
+
+                spIstoricNotificari.Children.Add(rand);
+            }
         }
+
+        // Formatează data într-un format compact și uman
+        private static string FormatTimestamp(DateTime dt)
+        {
+            var azi = DateTime.Today;
+            if (dt.Date == azi)
+                return $"azi {dt:HH:mm}";
+            if (dt.Date == azi.AddDays(-1))
+                return $"ieri {dt:HH:mm}";
+            return dt.ToString("d MMM HH:mm");
+        }
+
 
         // ══════════════════════════════════════════════════════════════════════
         // TRIMITERE EMAIL
@@ -767,13 +859,6 @@ namespace BibliotecaCEITI
                 item.Selectat = selectat;
             RandariazaPagina();
             ActualizeazaBtnTrimite();
-        }
-
-        private void BtnPrevizualizeaza_Click(object sender, RoutedEventArgs e)
-        {
-            var primul = _filtrate.FirstOrDefault(x => x.Selectat) ?? _filtrate.FirstOrDefault();
-            if (primul != null)
-                ActualizeazaPrevizualizarePentru(primul);
         }
 
         private void BtnAnuleaza_Click(object sender, RoutedEventArgs e)
