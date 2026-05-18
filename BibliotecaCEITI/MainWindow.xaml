@@ -81,7 +81,7 @@
                                         <TextBlock Text="Rezervări" Foreground="White"/>
                                     </StackPanel>
                                 </Button>
-                                <Button Style="{StaticResource MenuButtonStyle}">
+                                <Button Style="{StaticResource MenuButtonStyle}" Click="BtnAtention_Click">
                                     <StackPanel Orientation="Horizontal">
                                         <fa5:ImageAwesome Icon="Solid_ExclamationTriangle" Width="16" Foreground="White" Margin="0,0,15,0"/>
                                         <TextBlock Text="Atenționări" Foreground="White"/>
