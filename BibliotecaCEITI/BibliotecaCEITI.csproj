@@ -18,8 +18,10 @@
     <PackageReference Include="BCrypt.Net-Next" Version="4.2.0" />
     <PackageReference Include="DotnetGeminiSDK" Version="2.0.0" />
     <PackageReference Include="FontAwesome5" Version="2.1.11" />
-    <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0" />
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.2" />
     <PackageReference Include="Google.Apis.Auth" Version="1.74.0" />
+    <PackageReference Include="MailKit" Version="4.16.0" />
+    <PackageReference Include="MimeKit" Version="4.16.0" />
     <PackageReference Include="MySql.Data" Version="9.7.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.18.0" />
   </ItemGroup>
@@ -28,12 +30,6 @@
     <Resource Include="Assets\Loading\BibliotecaCEITI-logo.png" />
     <Resource Include="Assets\Loading\pc-loading.png" />
     <Resource Include="Assets\Logo_bib.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="connection.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>
