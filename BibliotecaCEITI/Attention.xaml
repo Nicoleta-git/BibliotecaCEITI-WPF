@@ -57,6 +57,34 @@
                 <Setter Property="FontWeight" Value="SemiBold"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
             </Style>
+
+            <!-- Stil buton actiune panel dreapta -->
+            <Style x:Key="ActionPanelButtonStyle" TargetType="Button">
+                <Setter Property="Height" Value="40"/>
+                <Setter Property="Margin" Value="0,0,0,8"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="bd" Background="{TemplateBinding Background}"
+                                    CornerRadius="8" Padding="12,0">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="bd" Property="Opacity" Value="0.85"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="bd" Property="Opacity" Value="0.7"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -84,9 +112,7 @@
                                Foreground="{StaticResource TextGray}" FontSize="13" Margin="0,4,0,0"/>
                 </StackPanel>
 
-                <!-- Dreapta: buton Reîncarcă + badge -->
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <!-- Badge număr întârzieri active -->
                     <Border x:Name="bdgIntarzieri" Background="#FEF2F2" CornerRadius="20"
                             Padding="14,6" Margin="0,0,12,0" VerticalAlignment="Center">
                         <StackPanel Orientation="Horizontal">
@@ -99,7 +125,6 @@
                         </StackPanel>
                     </Border>
 
-                    <!-- Buton Reîncarcă -->
                     <Button x:Name="btnReincarca" Click="BtnReincarca_Click"
                             Style="{StaticResource ActionButtonStyle}"
                             Background="#EEF2FF" Foreground="#6210CC" Height="38">
@@ -117,7 +142,6 @@
             <!-- ═══════════════════════════════════════════════════ -->
             <UniformGrid Grid.Row="1" Columns="4" Margin="0,0,0,16">
 
-                <!-- Card 1: Întârzieri -->
                 <Border Style="{StaticResource StatCardStyle}">
                     <StackPanel Orientation="Horizontal">
                         <Border Width="45" Height="45" Background="#FFF5EB" CornerRadius="12" Margin="0,0,15,0">
@@ -132,7 +156,6 @@
                     </StackPanel>
                 </Border>
 
-                <!-- Card 2: Notificări trimise -->
                 <Border Style="{StaticResource StatCardStyle}">
                     <StackPanel Orientation="Horizontal">
                         <Border Width="45" Height="45" Background="#EEE6FF" CornerRadius="12" Margin="0,0,15,0">
@@ -147,7 +170,6 @@
                     </StackPanel>
                 </Border>
 
-                <!-- Card 3: În așteptare -->
                 <Border Style="{StaticResource StatCardStyle}">
                     <StackPanel Orientation="Horizontal">
                         <Border Width="45" Height="45" Background="#FFF5EB" CornerRadius="12" Margin="0,0,15,0">
@@ -162,7 +184,6 @@
                     </StackPanel>
                 </Border>
 
-                <!-- Card 4: Rezolvate -->
                 <Border Style="{StaticResource StatCardStyle}">
                     <StackPanel Orientation="Horizontal">
                         <Border Width="45" Height="45" Background="#E6F9F4" CornerRadius="12" Margin="0,0,15,0">
@@ -191,7 +212,6 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <!-- Căutare -->
                     <Border Grid.Column="0" Background="#F8FAFC" CornerRadius="10"
                             BorderBrush="#E2E8F0" BorderThickness="1" Height="40" Margin="0,0,12,0">
                         <Grid>
@@ -208,12 +228,10 @@
                         </Grid>
                     </Border>
 
-                    <!-- ComboBox Clase -->
-                    <ComboBox x:Name="cbxClasa" Grid.Column="1" Width="140" Height="40" Margin="0,0,12,0"
+                    <ComboBox x:Name="cbxClasa" Grid.Column="1" Width="150" Height="40" Margin="0,0,12,0"
                               FontSize="13" Background="#F8FAFC" BorderBrush="#E2E8F0"
                               SelectionChanged="CbxClasa_SelectionChanged"/>
 
-                    <!-- ComboBox Status -->
                     <ComboBox x:Name="cbxStatus" Grid.Column="2" Width="200" Height="40" Margin="0,0,12,0"
                               FontSize="13" Background="#F8FAFC" BorderBrush="#E2E8F0"
                               SelectionChanged="CbxStatus_SelectionChanged">
@@ -222,7 +240,6 @@
                         <ComboBoxItem Content="Întârziere 1-4 zile"/>
                     </ComboBox>
 
-                    <!-- Buton Reset -->
                     <Button Grid.Column="3" Style="{StaticResource ActionButtonStyle}"
                             Height="40" Click="BtnReset_Click"
                             Background="#F1F5F9" Foreground="#475569">
@@ -241,7 +258,8 @@
             <Grid Grid.Row="3" Margin="10,0,10,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="300"/>
+                    <!-- FIX: coloana dreapta mai lată + se poate redimensiona -->
+                    <ColumnDefinition Width="320"/>
                 </Grid.ColumnDefinitions>
 
                 <!-- ─── TABEL ─── -->
@@ -259,7 +277,6 @@
                             <!-- Paginare -->
                         </Grid.RowDefinitions>
 
-                        <!-- Header selectie globala -->
                         <Border Grid.Row="0" Background="#F8FAFC"
                                 BorderBrush="#E2E8F0" BorderThickness="0,0,0,1" Padding="16,10">
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
@@ -273,7 +290,6 @@
                             </StackPanel>
                         </Border>
 
-                        <!-- Header coloane -->
                         <Border Grid.Row="1" Background="#F8FAFC"
                                 BorderBrush="#E2E8F0" BorderThickness="0,0,0,1" Padding="16,10">
                             <Grid>
@@ -296,12 +312,8 @@
                             </Grid>
                         </Border>
 
-                        <!-- Rânduri (generate dinamic) -->
                         <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
                             <StackPanel x:Name="spRanduri">
-                                <!-- Rânduri adăugate din code-behind -->
-
-                                <!-- Placeholder când nu sunt date -->
                                 <Border x:Name="bdPlaceholder" Padding="40" Visibility="Collapsed">
                                     <StackPanel HorizontalAlignment="Center">
                                         <fa5:ImageAwesome Icon="Solid_CheckCircle" Width="48"
@@ -319,7 +331,6 @@
                             </StackPanel>
                         </ScrollViewer>
 
-                        <!-- Footer paginare -->
                         <Border Grid.Row="3" BorderBrush="#E2E8F0" BorderThickness="0,1,0,0" Padding="16,10">
                             <Grid>
                                 <TextBlock x:Name="txtPaginareInfo"
@@ -327,75 +338,101 @@
                                            Foreground="{StaticResource TextGray}" FontSize="12"
                                            VerticalAlignment="Center"/>
                                 <StackPanel x:Name="spPaginator" Orientation="Horizontal"
-                                            HorizontalAlignment="Right">
-                                    <!-- Butoanele de pagini sunt generate dinamic -->
-                                </StackPanel>
+                                            HorizontalAlignment="Right"/>
                             </Grid>
                         </Border>
                     </Grid>
                 </Border>
 
                 <!-- ─── PANEL ACTIUNI DREAPTA ─── -->
-                <StackPanel Grid.Column="1" Margin="16,0,0,0">
+                <!-- FIX: Grid cu rânduri în loc de StackPanel, ca previzualizarea să se extindă -->
+                <Grid Grid.Column="1" Margin="16,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <!-- Butoane actiuni -->
+                        <RowDefinition Height="*"/>
+                        <!-- Previzualizare email — se extinde -->
+                    </Grid.RowDefinitions>
 
-                    <!-- Buton Trimite notificări -->
-                    <Button x:Name="btnTrimite" Style="{StaticResource GlobalActionButtonStyle}"
-                            Width="Auto" Height="45" Margin="0,0,0,10"
-                            Background="#6210CC"
-                            Click="BtnTrimite_Click">
-                        <StackPanel Orientation="Horizontal">
-                            <fa5:ImageAwesome Icon="Solid_Envelope" Foreground="White" Width="14"
-                                             Margin="0,0,8,0" VerticalAlignment="Center"/>
-                            <TextBlock x:Name="txtBtnTrimite" Text="Trimite notificări (0)"
-                                       FontWeight="SemiBold" FontSize="13"/>
-                        </StackPanel>
-                    </Button>
+                    <!-- Butoane actiuni -->
+                    <StackPanel Grid.Row="0">
 
-                    <!-- Buton Previzualizează email -->
-                    <Button x:Name="btnPrevizualizeaza" Style="{StaticResource ActionButtonStyle}"
-                            Width="Auto" Height="40" Margin="0,0,0,10"
-                            Background="#EEF2FF" Foreground="#6210CC"
-                            Click="BtnPrevizualizeaza_Click">
-                        <StackPanel Orientation="Horizontal">
-                            <fa5:ImageAwesome Icon="Solid_Eye" Foreground="#6210CC" Width="13"
-                                             Margin="0,0,8,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Previzualizează email" FontWeight="SemiBold" FontSize="13"/>
-                        </StackPanel>
-                    </Button>
-
-                    <!-- Buton Anulează selecția -->
-                    <Button x:Name="btnAnuleaza" Style="{StaticResource DangerButtonStyle}"
-                            Width="Auto" Margin="0,0,0,16"
-                            Click="BtnAnuleaza_Click">
-                        <StackPanel Orientation="Horizontal">
-                            <fa5:ImageAwesome Icon="Solid_Times" Foreground="White" Width="12"
-                                             Margin="0,0,8,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Anulează selecția" FontWeight="SemiBold" FontSize="13"/>
-                        </StackPanel>
-                    </Button>
-
-                    <!-- Separator -->
-                    <Border BorderBrush="#E2E8F0" BorderThickness="0,1,0,0" Margin="0,0,0,16"/>
-
-                    <!-- Previzualizare email -->
-                    <Border Background="White" CornerRadius="15" Effect="{StaticResource CardShadow}"
-                            Padding="16">
-                        <StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                                <fa5:ImageAwesome Icon="Solid_Envelope" Width="14" Foreground="#6210CC"
+                        <!-- Buton Trimite notificări -->
+                        <Button x:Name="btnTrimite"
+                                Style="{StaticResource ActionPanelButtonStyle}"
+                                Background="#6210CC" Foreground="White"
+                                Height="45" Margin="0,0,0,8"
+                                Click="BtnTrimite_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <fa5:ImageAwesome Icon="Solid_Envelope" Foreground="White" Width="14"
                                                  Margin="0,0,8,0" VerticalAlignment="Center"/>
-                                <TextBlock Text="Previzualizare email" FontWeight="Bold" FontSize="14"
+                                <TextBlock x:Name="txtBtnTrimite" Text="Trimite notificări (0)"
+                                           FontWeight="SemiBold" FontSize="13"/>
+                            </StackPanel>
+                        </Button>
+
+                        <!-- Buton Anulează selecția -->
+                        <Button x:Name="btnAnuleaza"
+                                Style="{StaticResource ActionPanelButtonStyle}"
+                                Background="#FEE2E2" Foreground="#DC2626"
+                                Click="BtnAnuleaza_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <fa5:ImageAwesome Icon="Solid_Times" Foreground="#DC2626" Width="12"
+                                                 Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                <TextBlock Text="Anulează selecția" FontWeight="SemiBold" FontSize="13"/>
+                            </StackPanel>
+                        </Button>
+
+                        <!-- Separator -->
+                        <Border BorderBrush="#E2E8F0" BorderThickness="0,1,0,0" Margin="0,8,0,12"/>
+                    </StackPanel>
+
+                    <!-- Istoric notificări recente -->
+                    <Border Grid.Row="1"
+                            Background="White" CornerRadius="15"
+                            Effect="{StaticResource CardShadow}"
+                            Padding="16">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <!-- titlu -->
+                                <RowDefinition Height="*"/>
+                                <!-- lista scrollabila -->
+                            </Grid.RowDefinitions>
+
+                            <!-- Titlu -->
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,12">
+                                <fa5:ImageAwesome Icon="Solid_History" Width="13" Foreground="#6210CC"
+                                                 Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                <TextBlock Text="Notificări recente" FontWeight="Bold" FontSize="14"
                                            Foreground="{StaticResource TextDark}"/>
                             </StackPanel>
 
-                            <RichTextBox x:Name="rtbPrevizualizare"
-                                         IsReadOnly="True" BorderThickness="0"
-                                         Background="Transparent" MinHeight="250"
-                                         Foreground="{StaticResource TextDark}"
-                                         FontSize="12" Padding="0"/>
-                        </StackPanel>
+                            <!-- Lista notificari — rânduri generate din code-behind -->
+                            <ScrollViewer Grid.Row="1"
+                                          VerticalScrollBarVisibility="Auto"
+                                          HorizontalScrollBarVisibility="Disabled">
+                                <StackPanel x:Name="spIstoricNotificari">
+
+                                    <!-- Placeholder când nu există notificări -->
+                                    <Border x:Name="bdIstoricPlaceholder" Padding="10,20" Visibility="Collapsed">
+                                        <StackPanel HorizontalAlignment="Center">
+                                            <fa5:ImageAwesome Icon="Regular_Bell" Width="28"
+                                                             Foreground="#CBD5E1"
+                                                             HorizontalAlignment="Center"
+                                                             Margin="0,0,0,10"/>
+                                            <TextBlock Text="Nicio notificare trimisă încă."
+                                                       FontSize="12" Foreground="{StaticResource TextGray}"
+                                                       HorizontalAlignment="Center"
+                                                       TextAlignment="Center"/>
+                                        </StackPanel>
+                                    </Border>
+
+                                </StackPanel>
+                            </ScrollViewer>
+                        </Grid>
                     </Border>
-                </StackPanel>
+                </Grid>
             </Grid>
         </Grid>
 
@@ -416,4 +453,3 @@
         </Border>
     </Grid>
 </UserControl>
-
