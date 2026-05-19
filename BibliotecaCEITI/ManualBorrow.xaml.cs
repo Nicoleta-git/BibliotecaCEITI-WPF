@@ -1,9 +1,8 @@
 ﻿using MySql.Data.MySqlClient;
+using System;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
-using System.Collections.Generic;
-using System;
 
 namespace BibliotecaCEITI
 {
@@ -12,85 +11,96 @@ namespace BibliotecaCEITI
         public ManualBorrow()
         {
             InitializeComponent();
-            SelectCatagories_of_Books();
             PopuleazaGrupe();
+            SelectCatagories_of_Books();
         }
 
-        private void BtnInapoi_Click(object sender, RoutedEventArgs e)
+        private void BtnAdaugaExemplare_Click(object sender, RoutedEventArgs e)
         {
-            var mainWindow = Window.GetWindow(this) as MainWindow;
-            mainWindow?.ChangeView(new Borrow());
+            if (CmbManual.SelectedValue == null || Convert.ToInt32(CmbManual.SelectedValue) <= 0)
+{
+    MessageBox.Show("Selectează mai întâi un manual valid din listă.", "Atenție");
+    return;
+}
+
+            int idCarte = Convert.ToInt32(CmbManual.SelectedValue);
+            string input = Microsoft.VisualBasic.Interaction.InputBox("Câte exemplare dorești să adaugi?", "Adaugă exemplare", "1");
+
+            if (string.IsNullOrEmpty(input)) return;
+
+            int cantitate = 0;
+            try
+            {
+                cantitate = Convert.ToInt32(input);
+            }
+            catch
+            {
+                MessageBox.Show("Te rog să introduci doar numere!", "Eroare");
+                return;
+            }
+
+            if (cantitate <= 0)
+            {
+                MessageBox.Show("Cantitatea trebuie să fie mai mare ca 0.", "Eroare");
+                return;
+            }
+
+            try
+            {
+                using (MySqlConnection conn = DatabaseConfig.GetConnection())
+                using (MySqlCommand cmd = new MySqlCommand("sp_adauga_exemplare_manual", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@p_id_carte", idCarte);
+                    cmd.Parameters.AddWithValue("@p_cantitate", cantitate);
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+
+                    MessageBox.Show(cantitate + " exemplare au fost adăugate cu succes!", "Succes");
+                }
+                PopuleazaExemplareDisponibile(idCarte);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Eroare la baza de date: " + ex.Message, "Eroare");
+            }
         }
 
-        private void SelectCatagories_of_Books()
+        private void PopuleazaExemplareDisponibile(int idCarte)
         {
             try
             {
                 using (MySqlConnection conn = DatabaseConfig.GetConnection())
-                using (MySqlCommand cmd = new MySqlCommand("sp_categorii_de_manuale", conn))
+                using (MySqlCommand cmd = new MySqlCommand("sp_numara_exemplare_disponibile", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@p_id_carte", idCarte);
+
                     conn.Open();
-
-                    using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
-                    {
-                        DataTable dt = new DataTable();
-                        da.Fill(dt);
-
-                        List<ComboItem> lista = new List<ComboItem>();
-                        foreach (DataRow rand in dt.Rows)
-                        {
-                            lista.Add(new ComboItem { Denumire = rand["Categorie"].ToString() });
-                        }
-
-                        CmbCategorie.ItemsSource = lista;
-                        CmbCategorie.DisplayMemberPath = "Denumire";
-                    }
+                    int total = Convert.ToInt32(cmd.ExecuteScalar());
+                    TxtNumarExemplare.Text = "Exemplare disponibile: " + total;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare la încărcarea categoriilor: " + ex.Message);
+                MessageBox.Show("Nu am putut încărca numărul de exemplare: " + ex.Message);
             }
         }
 
-        private void CmbGrupa_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CmbManual_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string selectedGrupa = (CmbGrupa.SelectedItem as ComboItem)?.Denumire;
-
-            if (!string.IsNullOrEmpty(selectedGrupa))
+            if (CmbManual.SelectedValue != null)
             {
-                SelectStudents(selectedGrupa);
-                TxtGrupLabel.Text = "Elevi în grupa " + selectedGrupa;
-            }
-        }
-
-        private void ChkBifeazaToti_Changed(object sender, RoutedEventArgs e)
-        {
-            var listaElevi = DgElevi.ItemsSource as List<ElevModel>;
-            if (listaElevi == null) return;
-            foreach (ElevModel elev in listaElevi)
-            {
-                elev.AreManual = true;
-            }
-            DgElevi.Items.Refresh();
-
-            int nrSelectati = listaElevi.Count(e => e.AreManual);
-            TxtEleviSelectati.Text = "Elevi selectați: " + nrSelectati;
-        }
-
-        private void BtnSalveaza_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void CmbCategorie_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            string selectedCategorie = (CmbCategorie.SelectedItem as ComboItem)?.Denumire;
-
-            if (!string.IsNullOrEmpty(selectedCategorie))
-            {
-                SorteazaManuale_perCategorie(selectedCategorie);
+                int idCarte = Convert.ToInt32(CmbManual.SelectedValue);
+                if (idCarte > 0)
+                {
+                    PopuleazaExemplareDisponibile(idCarte);
+                }
+                else
+                {
+                    TxtNumarExemplare.Text = "Exemplare disponibile: 0";
+                }
             }
         }
 
@@ -112,6 +122,7 @@ namespace BibliotecaCEITI
                         da.Fill(dt);
 
                         List<ComboItem> lista = new List<ComboItem>();
+                        lista.Add(new ComboItem { Id = -1, Denumire = "Selectează manualul..." });
                         foreach (DataRow rand in dt.Rows)
                         {
                             lista.Add(new ComboItem
@@ -124,12 +135,64 @@ namespace BibliotecaCEITI
                         CmbManual.ItemsSource = lista;
                         CmbManual.DisplayMemberPath = "Denumire";
                         CmbManual.SelectedValuePath = "Id";
+                        CmbManual.SelectedIndex = 0;
                     }
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Eroare la sortarea manualelor: " + ex.Message);
+            }
+        }
+
+        private void SelectCatagories_of_Books()
+        {
+            try
+            {
+                using (MySqlConnection conn = DatabaseConfig.GetConnection())
+                using (MySqlCommand cmd = new MySqlCommand("sp_categorii_de_manuale", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    conn.Open();
+
+                    using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+
+                        List<ComboItem> lista = new List<ComboItem>();
+                        lista.Add(new ComboItem { Denumire = "Selectează categoria..." });
+
+                        foreach (DataRow rand in dt.Rows)
+                        {
+                            lista.Add(new ComboItem { Denumire = rand["Categorie"].ToString() });
+                        }
+
+                        CmbCategorie.ItemsSource = lista;
+                        CmbCategorie.DisplayMemberPath = "Denumire";
+                        CmbCategorie.SelectedIndex = 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Eroare la încărcarea categoriilor: " + ex.Message);
+            }
+        }
+
+        private void BtnInapoi_Click(object sender, RoutedEventArgs e)
+        {
+            var mainWindow = Window.GetWindow(this) as MainWindow;
+            mainWindow?.ChangeView(new Borrow());
+        }
+
+        private void CmbCategorie_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string selectedCategorie = (CmbCategorie.SelectedItem as ComboItem)?.Denumire;
+
+            if (!string.IsNullOrEmpty(selectedCategorie) && selectedCategorie != "Selectează categoria...")
+            {
+                SorteazaManuale_perCategorie(selectedCategorie);
             }
         }
 
@@ -149,6 +212,7 @@ namespace BibliotecaCEITI
                         da.Fill(dt);
 
                         List<ComboItem> lista = new List<ComboItem>();
+                        lista.Add(new ComboItem { Denumire = "Selectează grupa..." });
                         foreach (DataRow rand in dt.Rows)
                         {
                             lista.Add(new ComboItem { Denumire = rand["Grupa"].ToString() });
@@ -156,6 +220,7 @@ namespace BibliotecaCEITI
 
                         CmbGrupa.ItemsSource = lista;
                         CmbGrupa.DisplayMemberPath = "Denumire";
+                        CmbGrupa.SelectedIndex = 0;
                     }
                 }
             }
@@ -192,17 +257,20 @@ namespace BibliotecaCEITI
                             string initiale = "";
                             if (!string.IsNullOrEmpty(nume) && !string.IsNullOrEmpty(prenume))
                             {
-                                initiale = $"{nume[0]}{prenume[0]}".ToUpper();
+                                initiale = (nume[0].ToString() + prenume[0].ToString()).ToUpper();
                             }
 
-                            listaElevi.Add(new ElevModel
-                            {
-                                NumeElev = numeComplet,
-                                Initiale = initiale,
-                                AvatarColor = "#4483EC",
-                                AreManual = false
-                            });
+                            ElevModel elev = new ElevModel(
+                                Convert.ToInt32(rand["ID_elev"]),
+                                numeComplet,
+                                initiale,
+                                "#4483EC",
+                                false
+                            );
+
+                            listaElevi.Add(elev);
                         }
+
                         DgElevi.ItemsSource = listaElevi;
                     }
                 }
@@ -213,51 +281,205 @@ namespace BibliotecaCEITI
             }
         }
 
+        private void CmbGrupa_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string selectedGrupa = (CmbGrupa.SelectedItem as ComboItem)?.Denumire;
+
+            if (!string.IsNullOrEmpty(selectedGrupa) && selectedGrupa != "Selectează grupa...")
+            {
+                SelectStudents(selectedGrupa);
+                TxtGrupLabel.Text = "Elevi în grupa " + selectedGrupa;
+            }
+        }
+
         private void areManual_Checked(object sender, RoutedEventArgs e)
         {
-            var radio = sender as RadioButton;
-            var elev = radio?.DataContext as ElevModel;
-            if (elev == null) return;
+            var checkBox = sender as CheckBox;
+            var elev = checkBox?.DataContext as ElevModel;
 
-            elev.AreManual = true;
+            if (elev == null) return;
 
             var listaElevi = DgElevi.ItemsSource as List<ElevModel>;
             if (listaElevi != null)
             {
-                int nrSelectati = listaElevi.Count(x => x.AreManual);
+                int nrSelectati = 0;
+                foreach (ElevModel el in listaElevi)
+                {
+                    if (el.AreManual)
+                    {
+                        nrSelectati++;
+                    }
+                }
+
                 TxtEleviSelectati.Text = "Elevi selectați: " + nrSelectati;
             }
         }
 
-
-        private void SalveazaEleviManual()
+        private void ChkBifeazaToti_Changed(object sender, RoutedEventArgs e)
         {
+            var chkToate = sender as CheckBox;
+            if (chkToate == null) return;
+            bool isChecked = chkToate.IsChecked ?? false;
+
+            var listaElevi = DgElevi.ItemsSource as List<ElevModel>;
+            if (listaElevi == null) return;
+
+            foreach (ElevModel elev in listaElevi)
+            {
+                elev.AreManual = isChecked;
+            }
+
+            DgElevi.Items.Refresh();
+            int nrSelectati = 0;
+            foreach (ElevModel elev in listaElevi)
+            {
+                if (elev.AreManual)
+                {
+                    nrSelectati++;
+                }
+            }
+
+            TxtEleviSelectati.Text = "Elevi selectați: " + nrSelectati;
+        }
+
+        private void BtnSalveaza_Click(object sender, RoutedEventArgs e)
+        {
+            var listaElevi = DgElevi.ItemsSource as List<ElevModel>;
+            if (listaElevi == null || listaElevi.Count == 0)
+            {
+                MessageBox.Show("Nu există elevi încărcați.");
+                return;
+            }
+
+            if (CmbManual.SelectedValue == null)
+            {
+                MessageBox.Show("Selectează mai întâi un manual din listă.");
+                return;
+            }
+            int idCarte = Convert.ToInt32(CmbManual.SelectedValue);
+            List<ElevModel> eleviBifati = new List<ElevModel>();
+            foreach (ElevModel elev in listaElevi)
+            {
+                if (elev.AreManual)
+                    eleviBifati.Add(elev);
+            }
+
+            if (eleviBifati.Count == 0)
+            {
+                MessageBox.Show("Niciun elev nu a fost selectat pentru a primi manualul.");
+                return;
+            }
+
+            int idBibliotecar = 1;
+            int reusit = 0;
+            int esuat = 0;
+            System.Text.StringBuilder erori = new System.Text.StringBuilder();
+
             try
             {
                 using (MySqlConnection conn = DatabaseConfig.GetConnection())
                 {
                     conn.Open();
-
-                    foreach (ElevModel elev in (List<ElevModel>)DgElevi.ItemsSource)
+                    int idAnScolar = 0;
+                    using (MySqlCommand cmdAn = new MySqlCommand("sp_an_scolar_activ", conn))
                     {
-                        using (MySqlCommand cmd = new MySqlCommand("sp_update_elev_manual", conn))
+                        cmdAn.CommandType = CommandType.StoredProcedure;
+
+                        MySqlParameter pAnScolar = new MySqlParameter("@p_id_an_scolar", MySqlDbType.Int32);
+                        pAnScolar.Direction = ParameterDirection.Output;
+                        cmdAn.Parameters.Add(pAnScolar);
+
+                        cmdAn.ExecuteNonQuery();
+                        idAnScolar = Convert.ToInt32(pAnScolar.Value);
+                    }
+
+                    if (idAnScolar == 0)
+                    {
+                        MessageBox.Show("Nu există un an școlar activ în baza de date.");
+                        return;
+                    }
+
+                    foreach (ElevModel elev in eleviBifati)
+                    {
+                        int idExemplarDisponibil = 0;
+                        string queryExemplar = "SELECT id FROM exemplare WHERE id_carte = @idCarte AND stare = 'disponibil' AND arhivat = 0 LIMIT 1";
+
+                        using (MySqlCommand cmdEx = new MySqlCommand(queryExemplar, conn))
+                        {
+                            cmdEx.Parameters.AddWithValue("@idCarte", idCarte);
+                            object result = cmdEx.ExecuteScalar();
+                            if (result != null && result != DBNull.Value)
+                            {
+                                idExemplarDisponibil = Convert.ToInt32(result);
+                            }
+                        }
+
+                        if (idExemplarDisponibil == 0)
+                        {
+                            esuat++;
+                            erori.AppendLine("• " + elev.NumeElev + ": Stoc epuizat. Nu mai sunt exemplare disponibile.");
+                            continue;
+                        }
+
+                        using (MySqlCommand cmd = new MySqlCommand("sp_distribuie_manual", conn))
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.Parameters.AddWithValue("@p_nume_elev", elev.NumeElev);
-                            cmd.Parameters.AddWithValue("@p_are_manual", elev.AreManual);
+
+                            cmd.Parameters.AddWithValue("@p_id_exemplar", idExemplarDisponibil);
+                            cmd.Parameters.AddWithValue("@p_id_elev", elev.Id);
+                            cmd.Parameters.AddWithValue("@p_id_an_scolar", idAnScolar);
+                            cmd.Parameters.AddWithValue("@p_id_bibliotecar", idBibliotecar);
+
+                            MySqlParameter pIdImprumut = new MySqlParameter("@p_id_imprumut_manual", MySqlDbType.Int32);
+                            pIdImprumut.Direction = ParameterDirection.Output;
+                            cmd.Parameters.Add(pIdImprumut);
+
+                            MySqlParameter pCod = new MySqlParameter("@p_cod", MySqlDbType.Int32);
+                            pCod.Direction = ParameterDirection.Output;
+                            cmd.Parameters.Add(pCod);
+
+                            MySqlParameter pMesaj = new MySqlParameter("@p_mesaj", MySqlDbType.VarChar, 255);
+                            pMesaj.Direction = ParameterDirection.Output;
+                            cmd.Parameters.Add(pMesaj);
 
                             cmd.ExecuteNonQuery();
+
+                            int cod = Convert.ToInt32(pCod.Value);
+                            string mesaj = pMesaj.Value != null ? pMesaj.Value.ToString() : "";
+
+                            if (cod == 0)
+                            {
+                                reusit++;
+                            }
+                            else
+                            {
+                                esuat++;
+                                erori.AppendLine("• " + elev.NumeElev + ": " + mesaj);
+                            }
                         }
                     }
                 }
-
-                MessageBox.Show("Elevii au fost actualizați cu succes!");
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Eroare la salvare: " + ex.Message);
+                return;
             }
-        }
 
+            PopuleazaExemplareDisponibile(idCarte);
+            string summary = "Salvat cu succes: " + reusit + " elevi.";
+            if (esuat > 0)
+                summary += "\nEșuat: " + esuat + " elevi:\n" + erori.ToString();
+
+            MessageBox.Show(summary, "Rezultat Împrumut");
+
+            foreach (ElevModel elev in listaElevi)
+            {
+                elev.AreManual = false;
+            }
+            DgElevi.Items.Refresh();
+            TxtEleviSelectati.Text = "Elevi selectați: 0";
+            ChkBifeazaToti.IsChecked = false;
+        }
     }
 }

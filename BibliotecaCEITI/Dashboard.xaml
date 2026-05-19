@@ -10,104 +10,91 @@
              d:DesignHeight="600" d:DesignWidth="900">
 
     <UserControl.Resources>
-        <!-- Modern Color Palette -->
-        <SolidColorBrush x:Key="PrimaryPurple" Color="#6210CC"/>
-        <SolidColorBrush x:Key="SecondaryBlue" Color="#4318FF"/>
-        <SolidColorBrush x:Key="BackgroundGray" Color="#F4F7FE"/>
-        <SolidColorBrush x:Key="TextGray" Color="#8A92A6"/>
-        <SolidColorBrush x:Key="TextDark" Color="#1B2559"/>
-        <SolidColorBrush x:Key="SuccessGreen" Color="#05CD99"/>
-        <SolidColorBrush x:Key="WarningOrange" Color="#FFA043"/>
-
-        <!-- Card Style with Shadow -->
         <Style x:Key="StatCardStyle" TargetType="Border">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="CornerRadius" Value="20"/>
+            <Setter Property="Background" Value="{DynamicResource CardBackground}"/>
+            <Setter Property="CornerRadius" Value="16"/>
             <Setter Property="Padding" Value="20"/>
-            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Margin" Value="8"/>
             <Setter Property="Effect">
                 <Setter.Value>
-                    <DropShadowEffect BlurRadius="20" ShadowDepth="1" Opacity="0.05" Color="Black"/>
+                    <DropShadowEffect BlurRadius="15" ShadowDepth="2" Opacity="0.2" Color="{DynamicResource ShadowColor}"/>
                 </Setter.Value>
             </Setter>
         </Style>
     </UserControl.Resources>
 
-    <Grid Background="{StaticResource BackgroundGray}">
-        <Grid Margin="25">
+    <Grid Background="{DynamicResource WindowBackground}">
+        <Grid Margin="24">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <!-- Header Section -->
-            <Grid Grid.Row="0" Margin="10,0,10,25">
+            <Grid Grid.Row="0" Margin="8,0,8,20">
                 <StackPanel>
-                    <TextBlock Text="Bun venit, Admin!" FontSize="28" FontWeight="Bold" Foreground="{StaticResource TextDark}"/>
-                    <TextBlock Text="Dashboard - Sistem Gestiune Biblioteca CEITI" Foreground="{StaticResource TextGray}" FontSize="14" Margin="0,5,0,0"/>
+                    <TextBlock Text="Bun venit, Admin!" FontSize="28" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
+                    <TextBlock Text="Dashboard - Sistem Gestiune Biblioteca CEITI" Foreground="{DynamicResource TextMuted}" FontSize="14" Margin="0,4,0,0"/>
                 </StackPanel>
             </Grid>
 
-            <!-- Stats Cards Row -->
             <UniformGrid Grid.Row="1" Columns="4">
+
                 <Border Style="{StaticResource StatCardStyle}">
                     <StackPanel Orientation="Horizontal">
-                        <Border Width="45" Height="45" Background="#F4F7FE" CornerRadius="12" Margin="0,0,15,0">
-                            <fa5:ImageAwesome Icon="Solid_Book" Foreground="{StaticResource SecondaryBlue}" Width="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Border Width="46" Height="46" Background="{DynamicResource TotalBlueBg}" CornerRadius="12" Margin="0,0,16,0">
+                            <fa5:ImageAwesome Icon="Solid_Book" Foreground="{DynamicResource TotalBlue}" Width="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Border>
                         <StackPanel VerticalAlignment="Center">
-                            <TextBlock Text="Cărți totale" Foreground="{StaticResource TextGray}" FontSize="13"/>
-                            <TextBlock x:Name="total_carti" Text="1,248" FontSize="22" FontWeight="Bold" Foreground="{StaticResource TextDark}"/>
+                            <TextBlock Text="Cărți totale" Foreground="{DynamicResource TextMuted}" FontSize="13" FontWeight="Medium"/>
+                            <TextBlock x:Name="total_carti" Text="1,248" FontSize="22" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>
 
                 <Border Style="{StaticResource StatCardStyle}">
                     <StackPanel Orientation="Horizontal">
-                        <Border Width="45" Height="45" Background="#E6F9F4" CornerRadius="12" Margin="0,0,15,0">
-                            <fa5:ImageAwesome Icon="Solid_CheckCircle" Foreground="{StaticResource SuccessGreen}" Width="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Border Width="46" Height="46" Background="{DynamicResource StockGreenBg}" CornerRadius="12" Margin="0,0,16,0">
+                            <fa5:ImageAwesome Icon="Solid_CheckCircle" Foreground="{DynamicResource StockGreen}" Width="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Border>
                         <StackPanel VerticalAlignment="Center">
-                            <TextBlock Text="Disponibile" Foreground="{StaticResource TextGray}" FontSize="13"/>
-                            <TextBlock x:Name="numar_disponibile" Text="842" FontSize="22" FontWeight="Bold" Foreground="{StaticResource SuccessGreen}"/>
+                            <TextBlock Text="Disponibile" Foreground="{DynamicResource TextMuted}" FontSize="13" FontWeight="Medium"/>
+                            <TextBlock x:Name="numar_disponibile" Text="842" FontSize="22" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>
 
                 <Border Style="{StaticResource StatCardStyle}">
                     <StackPanel Orientation="Horizontal">
-                        <Border Width="45" Height="45" Background="#FFF5EB" CornerRadius="12" Margin="0,0,15,0">
-                            <fa5:ImageAwesome Icon="Solid_Clock" Foreground="{StaticResource WarningOrange}" Width="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Border Width="46" Height="46" Background="{DynamicResource BorrowedOrangeBg}" CornerRadius="12" Margin="0,0,16,0">
+                            <fa5:ImageAwesome Icon="Solid_Clock" Foreground="{DynamicResource BorrowedOrange}" Width="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Border>
                         <StackPanel VerticalAlignment="Center">
-                            <TextBlock Text="Împrumutate" Foreground="{StaticResource TextGray}" FontSize="13"/>
-                            <TextBlock x:Name="imprumuturi" Text="312" FontSize="22" FontWeight="Bold" Foreground="{StaticResource WarningOrange}"/>
+                            <TextBlock Text="Împrumutate" Foreground="{DynamicResource TextMuted}" FontSize="13" FontWeight="Medium"/>
+                            <TextBlock x:Name="imprumuturi" Text="312" FontSize="22" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>
 
                 <Border Style="{StaticResource StatCardStyle}">
                     <StackPanel Orientation="Horizontal">
-                        <Border Width="45" Height="45" Background="#EEE6FF" CornerRadius="12" Margin="0,0,15,0">
-                            <fa5:ImageAwesome Icon="Solid_Bookmark" Foreground="{StaticResource PrimaryPurple}" Width="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Border Width="46" Height="46" Background="{DynamicResource ReservedPurpleBg}" CornerRadius="12" Margin="0,0,16,0">
+                            <fa5:ImageAwesome Icon="Solid_Bookmark" Foreground="{DynamicResource ReservedPurple}" Width="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Border>
                         <StackPanel VerticalAlignment="Center">
-                            <TextBlock Text="Rezervate" Foreground="{StaticResource TextGray}" FontSize="13"/>
-                            <TextBlock x:Name="rezervari" Text="94" FontSize="22" FontWeight="Bold" Foreground="{StaticResource PrimaryPurple}"/>
+                            <TextBlock Text="Rezervate" Foreground="{DynamicResource TextMuted}" FontSize="13" FontWeight="Medium"/>
+                            <TextBlock x:Name="rezervari" Text="94" FontSize="22" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>
             </UniformGrid>
 
-            <!-- Lower Section -->
-            <Grid Grid.Row="2" Margin="0,10,0,0">
+            <Grid Grid.Row="2" Margin="0,8,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1.7*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <!-- Activity Chart Border -->
                 <Border Grid.Column="0" Style="{StaticResource StatCardStyle}">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -115,76 +102,67 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                            <TextBlock Text="Activitate Împrumuturi" FontWeight="Bold" FontSize="18" Foreground="{StaticResource TextDark}"/>
-                            <TextBlock Text="(Ultimele luni)" Foreground="{StaticResource TextGray}" FontSize="12" VerticalAlignment="Bottom" Margin="10,0,0,3"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                            <TextBlock Text="Activitate Împrumuturi" FontWeight="Bold" FontSize="18" Foreground="{DynamicResource TextPrimary}"/>
+                            <TextBlock Text="(Ultimele luni)" Foreground="{DynamicResource TextMuted}" FontSize="12" VerticalAlignment="Bottom" Margin="8,0,0,2"/>
                         </StackPanel>
 
-                        <!-- Chart Component -->
                         <lvc:CartesianChart Grid.Row="1" 
-                                            SeriesSource="{Binding MonthlyStats}"
-                                            XAxes="{Binding XAxes}">
-                            <lvc:CartesianChart.SeriesTemplate>
-                                <DataTemplate>
-                                    <lvc:XamlColumnSeries SeriesName="{Binding MonthName}"
-                                                         Values="{Binding Count}"
-                                                         Fill="#6210CC"
-                                                         Rx="8" Ry="8"/>
-                                </DataTemplate>
-                            </lvc:CartesianChart.SeriesTemplate>
-                        </lvc:CartesianChart>
+                                            Background="Transparent"
+                                            Series="{Binding Series}"
+                                            XAxes="{Binding XAxes}"
+                                            YAxes="{Binding YAxes}"/>
                     </Grid>
                 </Border>
 
-                <!-- Top Books List -->
                 <Border Grid.Column="1" Style="{StaticResource StatCardStyle}">
                     <StackPanel>
-                        <TextBlock Text="Top Cărți" FontWeight="Bold" FontSize="18" Foreground="{StaticResource TextDark}" Margin="0,0,0,20"/>
+                        <TextBlock Text="Top Cărți" FontWeight="Bold" FontSize="18" Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,16"/>
 
-                        <Grid Margin="0,8">
+                        <Grid Margin="0,6">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Border x:Name="coperta_1" Width="45" Height="60" Background="#F4F7FE" CornerRadius="8"/>
-                            <StackPanel Grid.Column="1" Margin="15,0" VerticalAlignment="Center">
-                                <TextBlock x:Name="titlu_1" Text="Amintiri din copilărie" FontWeight="SemiBold" FontSize="14" Foreground="{StaticResource TextDark}"/>
-                                <TextBlock x:Name="autor_1" Text="Ion Creangă" FontSize="12" Foreground="{StaticResource TextGray}"/>
+                            <Border x:Name="coperta_1" Width="44" Height="58" Background="{DynamicResource WindowBackground}" CornerRadius="6"/>
+                            <StackPanel Grid.Column="1" Margin="14,0" VerticalAlignment="Center">
+                                <TextBlock x:Name="titlu_1" Text="Amintiri din copilărie" FontWeight="SemiBold" FontSize="14" Foreground="{DynamicResource TextPrimary}"/>
+                                <TextBlock x:Name="autor_1" Text="Ion Creangă" FontSize="12" Foreground="{DynamicResource TextMuted}"/>
                             </StackPanel>
-                            <TextBlock x:Name="imprumuturi_1" Grid.Column="2" Text="128" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PrimaryPurple}"/>
+                            <TextBlock x:Name="imprumuturi_1" Grid.Column="2" Text="128" VerticalAlignment="Center" FontWeight="Bold" Foreground="{DynamicResource TextSecondary}"/>
                         </Grid>
 
-                        <Separator Background="#F4F7FE" Margin="0,5"/>
+                        <Separator Background="{DynamicResource WindowBackground}" Margin="0,4"/>
 
-                        <Grid Margin="0,8">
+                        <Grid Margin="0,6">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Border x:Name="coperta_2" Width="45" Height="60" Background="#F4F7FE" CornerRadius="8"/>
-                            <StackPanel Grid.Column="1" Margin="15,0" VerticalAlignment="Center">
-                                <TextBlock x:Name="titlu_2" Text="Enigma Otiliei" FontWeight="SemiBold" FontSize="14" Foreground="{StaticResource TextDark}"/>
-                                <TextBlock x:Name="autor_2" Text="G. Călinescu" FontSize="12" Foreground="{StaticResource TextGray}"/>
+                            <Border x:Name="coperta_2" Width="44" Height="58" Background="{DynamicResource WindowBackground}" CornerRadius="6"/>
+                            <StackPanel Grid.Column="1" Margin="14,0" VerticalAlignment="Center">
+                                <TextBlock x:Name="titlu_2" Text="Enigma Otiliei" FontWeight="SemiBold" FontSize="14" Foreground="{DynamicResource TextPrimary}"/>
+                                <TextBlock x:Name="autor_2" Text="G. Călinescu" FontSize="12" Foreground="{DynamicResource TextMuted}"/>
                             </StackPanel>
-                            <TextBlock x:Name="imprumuturi_2" Grid.Column="2" Text="97" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PrimaryPurple}"/>
+                            <TextBlock x:Name="imprumuturi_2" Grid.Column="2" Text="97" VerticalAlignment="Center" FontWeight="Bold" Foreground="{DynamicResource TextSecondary}"/>
                         </Grid>
 
-                        <Separator Background="#F4F7FE" Margin="0,5"/>
+                        <Separator Background="{DynamicResource WindowBackground}" Margin="0,4"/>
 
-                        <Grid Margin="0,8">
+                        <Grid Margin="0,6">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Border x:Name="coperta_3" Width="45" Height="60" Background="#F4F7FE" CornerRadius="8"/>
-                            <StackPanel Grid.Column="1" Margin="15,0" VerticalAlignment="Center">
-                                <TextBlock x:Name="titlu_3" Text="Moromeții" FontWeight="SemiBold" FontSize="14" Foreground="{StaticResource TextDark}"/>
-                                <TextBlock x:Name="autor_3" Text="Marin Preda" FontSize="12" Foreground="{StaticResource TextGray}"/>
+                            <Border x:Name="coperta_3" Width="44" Height="58" Background="{DynamicResource WindowBackground}" CornerRadius="6"/>
+                            <StackPanel Grid.Column="1" Margin="14,0" VerticalAlignment="Center">
+                                <TextBlock x:Name="titlu_3" Text="Moromeții" FontWeight="SemiBold" FontSize="14" Foreground="{DynamicResource TextPrimary}"/>
+                                <TextBlock x:Name="autor_3" Text="Marin Preda" FontSize="12" Foreground="{DynamicResource TextMuted}"/>
                             </StackPanel>
-                            <TextBlock x:Name="imprumuturi_3" Grid.Column="2" Text="86" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PrimaryPurple}"/>
+                            <TextBlock x:Name="imprumuturi_3" Grid.Column="2" Text="86" VerticalAlignment="Center" FontWeight="Bold" Foreground="{DynamicResource TextSecondary}"/>
                         </Grid>
                     </StackPanel>
                 </Border>
