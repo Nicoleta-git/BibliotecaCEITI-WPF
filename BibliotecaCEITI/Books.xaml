@@ -76,7 +76,7 @@
         <DataGrid x:Name="BooksGrid"
                   Grid.Row="2"
                   IsReadOnly="True"
-                  Style="{StaticResource ModernDataGridStyle}"
+                  Style="{DynamicResource ModernDataGridStyle}"
                   AutoGenerateColumns="True"
                   ColumnWidth="*"
                   CanUserAddRows="False"

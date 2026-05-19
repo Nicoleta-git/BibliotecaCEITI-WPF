@@ -179,7 +179,7 @@
     </Style>
 
     <Style x:Key="GlobalActionButtonStyle" TargetType="Button">
-        <Setter Property="Background" Value="{DynamicResource PrimaryBlue}"/>
+        <Setter Property="Background" Value="{DynamicResource PrimaryEmerald}"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="Width" Value="160"/>
         <Setter Property="Height" Value="45"/>
@@ -190,16 +190,17 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border x:Name="border" 
-                            Background="{TemplateBinding Background}" 
-                            CornerRadius="8" 
-                            BorderThickness="0">
+                        Background="{TemplateBinding Background}" 
+                        CornerRadius="8" 
+                        BorderThickness="0">
                         <ContentPresenter HorizontalAlignment="Center" 
-                                          VerticalAlignment="Center"/>
+                                      VerticalAlignment="Center"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource PrimaryBlueHover}"/>
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource PrimaryEmeraldHover}"/>
                         </Trigger>
+
                         <Trigger Property="IsPressed" Value="True">
                             <Setter TargetName="border" Property="RenderTransform">
                                 <Setter.Value>
@@ -213,22 +214,24 @@
         </Setter>
     </Style>
 
+
+
     <Style x:Key="ModernColumnHeaderStyle" TargetType="DataGridColumnHeader">
-        <Setter Property="Background" Value="{DynamicResource PrimaryBlue}"/>
-        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="{DynamicResource DataGridHeaderBackground}"/>
+        <Setter Property="Foreground" Value="{DynamicResource DataGridHeaderForeground}"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="Padding" Value="20,12"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="BorderThickness" Value="0,0,0,1"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource BorderBrushDark}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource DataGridHeaderBorder}"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="DataGridColumnHeader">
                     <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            Padding="{TemplateBinding Padding}">
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Padding="{TemplateBinding Padding}">
                         <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>
@@ -252,8 +255,8 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="{DynamicResource PrimaryBlueSelected}"/>
-                <Setter Property="Foreground" Value="{DynamicResource TextBlueSelected}"/>
+                <Setter Property="Background" Value="{DynamicResource DataGridRowSelectedBackground}"/>
+                <Setter Property="Foreground" Value="{DynamicResource DataGridRowSelectedForeground}"/>
                 <Setter Property="FontWeight" Value="SemiBold"/>
             </Trigger>
         </Style.Triggers>
@@ -266,18 +269,18 @@
         <Setter Property="GridLinesVisibility" Value="None"/>
         <Setter Property="HeadersVisibility" Value="Column"/>
         <Setter Property="SelectionMode" Value="Single"/>
-        <Setter Property="RowBackground" Value="{DynamicResource CardBackground}"/>
-        <Setter Property="AlternatingRowBackground" Value="{DynamicResource InputBackground}"/>
-        <Setter Property="ColumnHeaderStyle" Value="{StaticResource ModernColumnHeaderStyle}"/>
-        <Setter Property="CellStyle" Value="{StaticResource ModernCellStyle}"/>
+        <Setter Property="RowBackground" Value="{DynamicResource DataGridRowBackground}"/>
+        <Setter Property="AlternatingRowBackground" Value="{DynamicResource DataGridRowAlternatingBackground}"/>
+        <Setter Property="ColumnHeaderStyle" Value="{DynamicResource ModernColumnHeaderStyle}"/>
+        <Setter Property="CellStyle" Value="{DynamicResource ModernCellStyle}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="DataGrid">
                     <Border Background="{DynamicResource CardBackground}" 
-                            CornerRadius="12" 
-                            BorderBrush="{DynamicResource BorderBrushDark}" 
-                            BorderThickness="1" 
-                            ClipToBounds="True">
+                        CornerRadius="12" 
+                        BorderBrush="{DynamicResource BorderBrushDark}" 
+                        BorderThickness="1" 
+                        ClipToBounds="True">
                         <ScrollViewer x:Name="DG_ScrollViewer" Focusable="false">
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -285,8 +288,8 @@
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
                                 <DataGridColumnHeadersPresenter x:Name="PART_ColumnHeadersPresenter" 
-                                                                Grid.Row="0"
-                                                                Visibility="{TemplateBinding HeadersVisibility}"/>
+                                                          Grid.Row="0"
+                                                          Visibility="{TemplateBinding HeadersVisibility}"/>
                                 <ItemsPresenter Grid.Row="1" />
                             </Grid>
                         </ScrollViewer>
@@ -295,6 +298,8 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+
 
     <Style x:Key="ModernDatePicker" TargetType="{x:Type DatePicker}">
         <Setter Property="Background" Value="Transparent"/>
@@ -466,4 +471,10 @@
         </Setter>
     </Style>
 
+    
+    
+    
+    
+    
+    
 </ResourceDictionary>
