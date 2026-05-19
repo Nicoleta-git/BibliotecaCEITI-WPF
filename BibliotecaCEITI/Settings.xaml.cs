@@ -25,6 +25,15 @@ namespace BibliotecaCEITI
             InitializeComponent();
         }
 
+        private void BtnSys_Click(object sender, RoutedEventArgs e)
+        {
+            var mainWindow = Window.GetWindow(this) as MainWindow;
+            if (mainWindow != null)
+            {
+                mainWindow.MainContentContainer.Content = new SystemSettings();
+            }
+        }
+
         private void btnSalveazaSetari_Click(object sender, RoutedEventArgs e)
         {
 
