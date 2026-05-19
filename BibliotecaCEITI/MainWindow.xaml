@@ -22,82 +22,80 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Border CornerRadius="25" Background="{StaticResource BackgroundGray}" ClipToBounds="True">
+    <Border CornerRadius="25" Background="{DynamicResource WindowBackground}" ClipToBounds="True">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="280"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Border Grid.Column="0">
-                <Border.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="#6210CC" Offset="0"/>
-                        <GradientStop Color="#2E70FF" Offset="1"/>
-                    </LinearGradientBrush>
-                </Border.Background>
+            <Border Grid.Column="0" Style="{DynamicResource SidebarBorderStyle}">
                 <Grid ClipToBounds="True">
-                    <Ellipse Width="300" Height="300" Fill="White" Opacity="0.1" Margin="-150,-150,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                    <Ellipse Width="200" Height="200" Fill="White" Opacity="0.1" Margin="0,0,-100,-50" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+                    <Ellipse Width="300" Height="300" Fill="White" Opacity="0.05" Margin="-150,-150,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Ellipse Width="200" Height="200" Fill="White" Opacity="0.05" Margin="0,0,-100,-50" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+
                     <Grid Margin="0,30">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
+
                         <StackPanel Grid.Row="0" Margin="0,10,0,30">
                             <TextBlock Text="BIBLIOTECA" Foreground="White" FontSize="20" FontWeight="ExtraBold" HorizontalAlignment="Center"/>
                             <TextBlock Text="CEITI" Foreground="White" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,-5,0,0"/>
                             <Border Background="White" Width="40" Height="2" CornerRadius="1" Margin="0,10" Opacity="0.4"/>
                             <TextBlock Text="Sistem de management" Foreground="White" Opacity="0.7" FontSize="11" HorizontalAlignment="Center"/>
                         </StackPanel>
+
                         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden">
                             <StackPanel>
                                 <Button Style="{StaticResource MenuButtonStyle}" Click="DashBoardBtn_Click">
                                     <StackPanel Orientation="Horizontal">
                                         <fa5:ImageAwesome Icon="Solid_ChartPie" Width="16" Foreground="White" Margin="0,0,15,0"/>
-                                        <TextBlock Text="Dashboard"/>
+                                        <TextBlock Text="Dashboard" Foreground="White"/>
                                     </StackPanel>
                                 </Button>
                                 <Button Style="{StaticResource MenuButtonStyle}" Click="CartiBtn_Click">
                                     <StackPanel Orientation="Horizontal">
                                         <fa5:ImageAwesome Icon="Solid_Book" Width="16" Foreground="White" Margin="0,0,15,0"/>
-                                        <TextBlock Text="Cărți"/>
+                                        <TextBlock Text="Cărți" Foreground="White"/>
                                     </StackPanel>
                                 </Button>
                                 <Button Style="{StaticResource MenuButtonStyle}" Click="Imprumuturi_Btn">
                                     <StackPanel Orientation="Horizontal">
                                         <fa5:ImageAwesome Icon="Solid_ExchangeAlt" Width="16" Foreground="White" Margin="0,0,15,0"/>
-                                        <TextBlock Text="Împrumuturi"/>
+                                        <TextBlock Text="Împrumuturi" Foreground="White"/>
                                     </StackPanel>
                                 </Button>
                                 <Button Style="{StaticResource MenuButtonStyle}" Click="Student_Click">
                                     <StackPanel Orientation="Horizontal">
                                         <fa5:ImageAwesome Icon="Solid_UserGraduate" Width="16" Foreground="White" Margin="0,0,15,0"/>
-                                        <TextBlock Text="Elevi"/>
+                                        <TextBlock Text="Elevi" Foreground="White"/>
                                     </StackPanel>
                                 </Button>
                                 <Separator Background="White" Margin="30,15" Opacity="0.2"/>
                                 <Button Style="{StaticResource MenuButtonStyle}" Click="ReserveBook_Click">
                                     <StackPanel Orientation="Horizontal">
                                         <fa5:ImageAwesome Icon="Solid_CalendarCheck" Width="16" Foreground="White" Margin="0,0,15,0"/>
-                                        <TextBlock Text="Rezervări"/>
+                                        <TextBlock Text="Rezervări" Foreground="White"/>
                                     </StackPanel>
                                 </Button>
-                                <Button Style="{StaticResource MenuButtonStyle}">
+                                <Button Style="{StaticResource MenuButtonStyle}" Click="BtnAtention_Click">
                                     <StackPanel Orientation="Horizontal">
                                         <fa5:ImageAwesome Icon="Solid_ExclamationTriangle" Width="16" Foreground="White" Margin="0,0,15,0"/>
-                                        <TextBlock Text="Atenționări"/>
+                                        <TextBlock Text="Atenționări" Foreground="White"/>
                                     </StackPanel>
                                 </Button>
                                 <Button Style="{StaticResource MenuButtonStyle}">
                                     <StackPanel Orientation="Horizontal">
                                         <fa5:ImageAwesome Icon="Solid_FileAlt" Width="16" Foreground="White" Margin="0,0,15,0"/>
-                                        <TextBlock Text="Rapoarte"/>
+                                        <TextBlock Text="Rapoarte" Foreground="White"/>
                                     </StackPanel>
                                 </Button>
                             </StackPanel>
                         </ScrollViewer>
+
                         <Button Grid.Row="2" Style="{StaticResource MenuButtonStyle}" Background="#33FF5252" Foreground="#FFFF8E8E" Margin="15,20">
                             <StackPanel Orientation="Horizontal">
                                 <fa5:ImageAwesome Icon="Solid_SignOutAlt" Width="16" Foreground="#FFFF8E8E" Margin="0,0,15,0"/>
@@ -121,25 +119,49 @@
                     <Button Content="✕" Style="{StaticResource ControlButtonStyle}" Click="BtnClose_Click"/>
                 </StackPanel>
 
-                <Border Grid.Row="1" Background="{StaticResource HeaderWhite}" Margin="20,5,20,10" CornerRadius="15" Effect="{StaticResource CardShadow}">
+                <Border Grid.Row="1" Background="{DynamicResource HeaderWhite}" Margin="20,5,20,10" CornerRadius="15" Effect="{StaticResource CardShadow}">
                     <Grid Margin="25,0">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+
                             <StackPanel Orientation="Horizontal" Margin="0,0,25,0" VerticalAlignment="Center">
-                                <fa5:ImageAwesome Icon="Solid_Clock" Width="18" Foreground="{StaticResource TextGray}" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                                <fa5:ImageAwesome Icon="Solid_Clock" Width="18" Foreground="{DynamicResource TextSecondary}" Margin="0,0,10,0" VerticalAlignment="Center"/>
                                 <StackPanel VerticalAlignment="Center">
-                                    <TextBlock x:Name="data_curenta" Text="2 Mai 2026" FontSize="13" FontWeight="Bold" Foreground="#1B2559"/>
-                                    <TextBlock x:Name="ora_actuala" Text="17:11" FontSize="12" Foreground="{StaticResource TextGray}"/>
+                                    <TextBlock x:Name="data_curenta" Text="2 Mai 2026" FontSize="13" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
+                                    <TextBlock x:Name="ora_actuala" Text="17:11" FontSize="12" Foreground="{DynamicResource TextSecondary}"/>
                                 </StackPanel>
                             </StackPanel>
+
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,20,0">
-                                <Border Width="45" Height="45" CornerRadius="22.5" Background="#F4F7FE" Margin="0,0,12,0">
-                                    <fa5:ImageAwesome Icon="Solid_UserCircle" Width="25" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Border Width="45" Height="45" CornerRadius="22.5" Background="{DynamicResource CardBackground}" Margin="0,0,12,0">
+                                    <fa5:ImageAwesome Icon="Solid_UserCircle" Width="25" Foreground="{DynamicResource TextPrimary}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Border>
                                 <StackPanel VerticalAlignment="Center">
-                                    <TextBlock Text="Bibliotecara" FontSize="14" FontWeight="Bold" Foreground="#1B2559"/>
-                                    <TextBlock Text="Administrator" FontSize="12" Foreground="{StaticResource TextGray}"/>
+                                    <TextBlock Text="Bibliotecara" FontSize="14" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
+                                    <TextBlock Text="Administrator" FontSize="12" Foreground="{DynamicResource TextSecondary}"/>
                                 </StackPanel>
                             </StackPanel>
+
+                            <Button x:Name="ThemeBtn" 
+                                    Style="{StaticResource GlobalActionButtonStyle}" 
+                                    Padding="0" 
+                                    Height="30" 
+                                    Width="30" 
+                                    Background="#4F46E5" 
+                                    Margin="0,0,8,0" 
+                                    Click="ThemeBtn_Click" 
+                                    ToolTip="Schimbă Tema">
+                                <fa5:ImageAwesome x:Name="ThemeIcon" 
+                      Icon="Solid_Moon" 
+                      Width="14" 
+                      Foreground="White" 
+                      VerticalAlignment="Center" 
+                      HorizontalAlignment="Center"/>
+                            </Button>
+
                             <Button Style="{StaticResource GlobalActionButtonStyle}" Padding="0" Height="30" Width="30" Background="#8a8a8a" Click="SettingsBtn_Click">
                                 <fa5:ImageAwesome Icon="Solid_Cog" Width="16" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Button>
