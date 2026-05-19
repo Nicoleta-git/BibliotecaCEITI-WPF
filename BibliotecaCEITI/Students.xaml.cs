@@ -287,6 +287,12 @@ namespace BibliotecaCEITI
 
         private int id_elevSelectat;
         private string elev, telefon, email, grupa, initiale;
+
+        private void RefreshButton_Click(object sender, RoutedEventArgs e)
+        {
+            SelectStudentsAsync();
+        }
+
         private bool activ;
 
         private void StudentsGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)

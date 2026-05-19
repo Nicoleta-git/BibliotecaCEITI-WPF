@@ -31,13 +31,13 @@
             <ColumnDefinition Width="839*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" MinHeight="65"/>
+            <RowDefinition Height="Auto" MinHeight="50"/>
+            <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Margin="0,0,0,25" Grid.ColumnSpan="2">
+        <StackPanel Grid.Row="0" Margin="0,0,0,24" Grid.ColumnSpan="2">
             <TextBlock Text="Gestionare Studenti" FontSize="28" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
         </StackPanel>
 
@@ -60,12 +60,18 @@
                 </Grid>
             </Border>
 
-            <Button Grid.Column="1" Margin="15,0,0,0" Style="{StaticResource GlobalActionButtonStyle}" Foreground="White" Click="Button_Click">
-                <StackPanel Orientation="Horizontal">
-                    <fa5:ImageAwesome Icon="Solid_Plus" Foreground="White" Width="12" Margin="0,0,10,0"/>
-                    <TextBlock Text="Adauga elev"/>
-                </StackPanel>
-            </Button>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="15,0,0,0">
+                <Button Style="{StaticResource ActionButtonStyle}" ToolTip="Actualizează datele" Margin="0,0,10,0" Click="RefreshButton_Click">
+                    <fa5:ImageAwesome Icon="Solid_SyncAlt" Foreground="{DynamicResource TextPrimary}" Width="14"/>
+                </Button>
+
+                <Button Style="{StaticResource GlobalActionButtonStyle}" Foreground="White" Click="Button_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <fa5:ImageAwesome Icon="Solid_Plus" Foreground="White" Width="12" Margin="0,0,10,0"/>
+                        <TextBlock Text="Adauga elev"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
         </Grid>
 
         <DataGrid x:Name="StudentsGrid"
