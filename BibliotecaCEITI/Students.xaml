@@ -118,26 +118,26 @@
 
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
                     <TextBlock Text="DETALII ELEV" FontSize="10" FontWeight="Black" Foreground="{DynamicResource TextMuted}" Margin="0,0,0,5"/>
-                    <TextBlock x:Name="titlu_exemplar" Text="Selectează un elev" 
+                    <TextBlock x:Name="nume_elev" Text="Selectează un elev" 
                        FontSize="22" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
 
                     <WrapPanel Margin="0,8,0,0">
                         <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
                             <fa5:ImageAwesome Icon="Solid_User" Width="12" Foreground="{DynamicResource PrimaryBlue}" Margin="0,0,5,0"/>
                             <TextBlock Text="Nume: " Foreground="{DynamicResource TextMuted}"/>
-                            <TextBlock x:Name="locatie" Text="{Binding SelectedItem.LocatieCompleta, FallbackValue='N/A'}" Foreground="{DynamicResource TextPrimary}" FontWeight="SemiBold"/>
+                            <TextBlock x:Name="nume" Text="{Binding SelectedItem.LocatieCompleta, FallbackValue='N/A'}" Foreground="{DynamicResource TextPrimary}" FontWeight="SemiBold"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
                             <fa5:ImageAwesome Icon="Solid_GraduationCap" Width="12" Foreground="{DynamicResource TextMuted}" Margin="0,0,5,0"/>
                             <TextBlock Text="Clasa: " Foreground="{DynamicResource TextMuted}"/>
-                            <TextBlock x:Name="editura" Text="{Binding SelectedItem.EdituraDenumire, FallbackValue='Nespecificat'}" Foreground="{DynamicResource TextPrimary}" FontWeight="SemiBold"/>
+                            <TextBlock x:Name="grupa_e" Text="{Binding SelectedItem.EdituraDenumire, FallbackValue='Nespecificat'}" Foreground="{DynamicResource TextPrimary}" FontWeight="SemiBold"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
                             <fa5:ImageAwesome Icon="Solid_Book" Width="12" Foreground="{DynamicResource TextMuted}" Margin="0,0,5,0"/>
                             <TextBlock Text="Nr cărți împrumutate: " Foreground="{DynamicResource TextMuted}"/>
-                            <TextBlock x:Name="tip" Text="{Binding SelectedItem.CategorieTip, FallbackValue='0'}" Foreground="{DynamicResource TextPrimary}" FontWeight="SemiBold"/>
+                            <TextBlock x:Name="nr_carti_imprumutate" Text="{Binding SelectedItem.CategorieTip, FallbackValue='0'}" Foreground="{DynamicResource TextPrimary}" FontWeight="SemiBold"/>
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
