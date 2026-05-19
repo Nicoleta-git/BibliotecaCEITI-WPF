@@ -55,7 +55,7 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <fa5:ImageAwesome Icon="Solid_Search" Width="14" Foreground="#94A3B8" Margin="0,0,10,0"/>
-                                    <TextBox x:Name="SearchBox" Grid.Column="1" BorderThickness="0" VerticalContentAlignment="Center" Foreground="#1E293B" FontSize="14" HorizontalAlignment="Stretch" />
+                                    <TextBox x:Name="SearchBox" Grid.Column="1" BorderThickness="0" VerticalContentAlignment="Center" Foreground="#1E293B" FontSize="14" HorizontalAlignment="Stretch" TextChanged="SearchBox_TextChanged" />
                                     
                                 </Grid>
                             </Border>
@@ -76,9 +76,10 @@
                             Style="{StaticResource ModernDataGridStyle}"
                             AutoGenerateColumns="True"
                             ColumnWidth="*"
+                            IsReadOnly="True"
                             CanUserAddRows="False" 
                             MaxHeight="250"
-                            MinHeight="150"/>
+                            MinHeight="150" AutoGeneratingColumn="BooksGrid_AutoGeneratingColumn" SelectionChanged="BooksGrid_SelectionChanged"/>
 
                 <TextBlock Text="Carte selectată" FontSize="14" FontWeight="SemiBold" Foreground="#64748B" Margin="0,20,0,10"/>
                 <Border Background="White" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="12" Padding="20" Margin="0,0,0,10">
@@ -91,15 +92,15 @@
 
                         <StackPanel Grid.Column="1" VerticalAlignment="Center">
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                                <TextBlock Text="{Binding SelectedItem.Titlu, ElementName=BooksGrid, FallbackValue='Titlu Carte'}" FontSize="18" FontWeight="Bold" Foreground="#1E293B" Margin="0,0,10,0"/>
-                                <Border Background="#F0FDF4" CornerRadius="4" Padding="8,2">
-                                    <TextBlock Text="Disponibilă" Foreground="#16A34A" FontSize="11" FontWeight="SemiBold"/>
+                                <TextBlock x:Name="titlu_carte_selectata" Text="{Binding SelectedItem.Titlu, ElementName=BooksGrid, FallbackValue='Titlu Carte'}" FontSize="18" FontWeight="Bold" Foreground="#1E293B" Margin="0,0,10,0"/>
+                                <Border x:Name="fon_disponibilitate" Background="#F0FDF4" CornerRadius="4" Padding="8,2">
+                                    <TextBlock x:Name="disponibilitate_carte_selectata" Text="Disponibilă" Foreground="#16A34A" FontSize="11" FontWeight="SemiBold"/>
                                 </Border>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding SelectedItem.Autor, ElementName=BooksGrid, FallbackValue='Autor: N/A', StringFormat='Autor: \{0\}'}" Foreground="#64748B" FontSize="13"/>
+                                <TextBlock x:Name="autor_carte_selectata" Text="{Binding SelectedItem.Autor, ElementName=BooksGrid, FallbackValue='Autor: N/A', StringFormat='Autor: \{0\}'}" Foreground="#64748B" FontSize="13"/>
                                 <TextBlock Text=" • " Foreground="#CBD5E1"/>
-                                <TextBlock Text="{Binding SelectedItem.Cod, ElementName=BooksGrid, FallbackValue='Cod: 0000', StringFormat='Cod: \{0\}'}" Foreground="#64748B" FontSize="13"/>
+                                <TextBlock x:Name="cod_inventar_carte_selectata" Text="{Binding SelectedItem.Cod, ElementName=BooksGrid, FallbackValue='Cod: 0000', StringFormat='Cod: \{0\}'}" Foreground="#64748B" FontSize="13"/>
                             </StackPanel>
                         </StackPanel>
 
