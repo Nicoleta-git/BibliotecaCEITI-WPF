@@ -59,12 +59,18 @@
                 </Grid>
             </Border>
 
-            <Button Grid.Column="1" Margin="15,0,0,0" Style="{StaticResource GlobalActionButtonStyle}" Foreground="White" Click="AddBook_Click">
-                <StackPanel Orientation="Horizontal">
-                    <fa5:ImageAwesome Icon="Solid_Plus" Foreground="White" Width="12" Margin="0,0,10,0"/>
-                    <TextBlock Text="Adauga carte"/>
-                </StackPanel>
-            </Button>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="15,0,0,0">
+                <Button Style="{StaticResource ActionButtonStyle}" ToolTip="Actualizează inventarul" Margin="0,0,10,0" Click="RefreshBooks_Click">
+                    <fa5:ImageAwesome Icon="Solid_SyncAlt" Foreground="{DynamicResource TextPrimary}" Width="14"/>
+                </Button>
+
+                <Button Style="{StaticResource GlobalActionButtonStyle}" Foreground="White" Click="AddBook_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <fa5:ImageAwesome Icon="Solid_Plus" Foreground="White" Width="12" Margin="0,0,10,0"/>
+                        <TextBlock Text="Adauga carte"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
         </Grid>
 
         <DataGrid x:Name="BooksGrid"
