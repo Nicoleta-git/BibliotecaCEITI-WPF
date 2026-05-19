@@ -68,7 +68,7 @@
             <Border Grid.Column="0" Margin="0,0,20,0" BorderBrush="#E2E8F0" BorderThickness="1" Background="White" CornerRadius="8" Padding="10,5">
                 <Grid>
                     <fa5:ImageAwesome Icon="Solid_Search" Foreground="#94A3B8" Width="14" HorizontalAlignment="Left"/>
-                    <TextBox BorderThickness="0" Margin="25,0,0,0" VerticalContentAlignment="Center" x:Name="txtSearch" FontSize="14" Background="Transparent" TextChanged="txtSearch_TextChanged"/>
+                    <TextBox Text="Caută un elev..." Foreground="Gray" BorderThickness="0" Margin="25,0,0,0" VerticalContentAlignment="Center" x:Name="txtSearch" FontSize="14" Background="Transparent" TextChanged="txtSearch_TextChanged" GotFocus="txtSearch_GotFocus" LostFocus="txtSearch_LostFocus"/>
                 </Grid>
             </Border>
 

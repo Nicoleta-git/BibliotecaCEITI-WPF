@@ -1,8 +1,10 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -11,7 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using MySql.Data.MySqlClient;
+using System.Windows.Threading;
 
 namespace BibliotecaCEITI
 {
@@ -22,11 +24,14 @@ namespace BibliotecaCEITI
         public static int IdBibliotecar { get; set; }
         public static string TokenSesiune { get; set; }
 
+        private DispatcherTimer timer;
+
         public MainWindow()
         {
             InitializeComponent();
             Dashboard dashView = new Dashboard();
             MainContentContainer.Content = dashView;
+            InitTimer();
         }
 
         // ── Constructor nou pentru login cu sesiune ──────────────────────
@@ -116,6 +121,20 @@ namespace BibliotecaCEITI
         {
             Students students = new Students();
             MainContentContainer.Content = students;
+        }
+
+        private void InitTimer()
+        {
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += Timer_Tick;
+            timer.Start();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            data_curenta.Text = DateTime.Now.ToString("dd MMMM yyyy");
+            ora_actuala.Text = DateTime.Now.ToString("HH:mm:ss");
         }
     }
 }
