@@ -27,7 +27,7 @@
     <Grid Margin="30">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="839*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -40,7 +40,7 @@
             <TextBlock Text="Gestiune Inventar (Carti)" FontSize="28" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
         </StackPanel>
 
-        <Grid Margin="0,62,0,20" Grid.ColumnSpan="2" Grid.RowSpan="2">
+        <Grid Grid.Row="1" Margin="0,10,0,20" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
@@ -75,12 +75,58 @@
 
         <DataGrid x:Name="BooksGrid"
                   Grid.Row="2"
+                  Grid.ColumnSpan="2"
                   IsReadOnly="True"
                   Style="{DynamicResource ModernDataGridStyle}"
-                  AutoGenerateColumns="True"
+                  AutoGenerateColumns="False" 
                   ColumnWidth="*"
                   CanUserAddRows="False"
-                  Margin="0,20,0,20" SelectionChanged="BooksGrid_SelectionChanged" AutoGeneratingColumn="BooksGrid_AutoGeneratingColumn" Grid.ColumnSpan="2"/>
+                  Margin="0,10,0,20" 
+                  SelectionChanged="BooksGrid_SelectionChanged" 
+                  HorizontalAlignment="Stretch"
+                  Width="NaN">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Denumire" 
+                                    Binding="{Binding Titlu}" 
+                                    Width="3*" />
+
+                <DataGridTextColumn Header="Autor" 
+                                    Binding="{Binding Autor}" 
+                                    Width="1.8*" />
+
+                <DataGridTextColumn Header="ISBN" 
+                                    Binding="{Binding ISBN}" 
+                                    Width="1.7*" />
+
+                <DataGridTextColumn Header="Nr. Exemplare" 
+                                    Binding="{Binding Total_Exemplare}" 
+                                    Width="1*" />
+
+                <DataGridTemplateColumn Header="Actiuni" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="+ exemplar" 
+                                    Click="BtnAdaugaExemplar_Click" 
+                                    CommandParameter="{Binding Id_Carte}"
+                                    Foreground="White" 
+                                    Cursor="Hand">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="#2563EB" 
+                                                CornerRadius="5" 
+                                                Padding="8,4">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
 
         <Border Grid.Row="3" Background="{DynamicResource CardBackground}" CornerRadius="12" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" Padding="25" Grid.ColumnSpan="2">
             <Grid>
@@ -100,11 +146,7 @@
                                FontSize="22" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
 
                     <WrapPanel Margin="0,8,0,0">
-                        <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
-                            <fa5:ImageAwesome Icon="Solid_MapMarkerAlt" Width="12" Foreground="{DynamicResource PrimaryBlue}" Margin="0,0,5,0"/>
-                            <TextBlock Text="Locație: " Foreground="{DynamicResource TextMuted}"/>
-                            <TextBlock x:Name="locatie" Text="{Binding SelectedItem.LocatieCompleta, FallbackValue='N/A'}" Foreground="{DynamicResource TextPrimary}" FontWeight="SemiBold"/>
-                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,20,0"/>
 
                         <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
                             <fa5:ImageAwesome Icon="Solid_Building" Width="12" Foreground="{DynamicResource TextMuted}" Margin="0,0,5,0"/>
