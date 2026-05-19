@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:fa5="http://schemas.fontawesome.com/icons/"
-             mc:Ignorable="d"
+             mc:Ignorable="d" Background="Transparent"
              d:DesignHeight="800" d:DesignWidth="1200">
 
     <UserControl.Resources>
@@ -13,7 +13,6 @@
                 <ResourceDictionary Source="Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-            <!-- Stil paginator butoane -->
             <Style x:Key="PageButtonStyle" TargetType="Button">
                 <Setter Property="Width" Value="32"/>
                 <Setter Property="Height" Value="32"/>
@@ -50,7 +49,6 @@
                 <Setter Property="BorderBrush" Value="#6210CC"/>
             </Style>
 
-            <!-- Stil header coloana tabel -->
             <Style x:Key="ColHeaderStyle" TargetType="TextBlock">
                 <Setter Property="Foreground" Value="#6B7280"/>
                 <Setter Property="FontSize" Value="12"/>
@@ -58,7 +56,6 @@
                 <Setter Property="VerticalAlignment" Value="Center"/>
             </Style>
 
-            <!-- Stil buton actiune panel dreapta -->
             <Style x:Key="ActionPanelButtonStyle" TargetType="Button">
                 <Setter Property="Height" Value="40"/>
                 <Setter Property="Margin" Value="0,0,0,8"/>
@@ -88,22 +85,15 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid Background="{StaticResource BackgroundGray}">
+    <Grid Background="Transparent">
         <Grid Margin="25">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <!-- Row 0: Header -->
                 <RowDefinition Height="Auto"/>
-                <!-- Row 1: Stat Cards -->
                 <RowDefinition Height="Auto"/>
-                <!-- Row 2: Filter Bar -->
                 <RowDefinition Height="*"/>
-                <!-- Row 3: Tabel + Actiuni -->
             </Grid.RowDefinitions>
 
-            <!-- ═══════════════════════════════════════════════════ -->
-            <!-- ROW 0 — HEADER                                      -->
-            <!-- ═══════════════════════════════════════════════════ -->
             <Grid Grid.Row="0" Margin="10,0,10,20">
                 <StackPanel>
                     <TextBlock Text="Atenționări" FontSize="26" FontWeight="Bold"
@@ -137,9 +127,6 @@
                 </StackPanel>
             </Grid>
 
-            <!-- ═══════════════════════════════════════════════════ -->
-            <!-- ROW 1 — STAT CARDS                                  -->
-            <!-- ═══════════════════════════════════════════════════ -->
             <UniformGrid Grid.Row="1" Columns="4" Margin="0,0,0,16">
 
                 <Border Style="{StaticResource StatCardStyle}">
@@ -199,9 +186,6 @@
                 </Border>
             </UniformGrid>
 
-            <!-- ═══════════════════════════════════════════════════ -->
-            <!-- ROW 2 — FILTER BAR                                  -->
-            <!-- ═══════════════════════════════════════════════════ -->
             <Border Grid.Row="2" Background="White" CornerRadius="15"
                     Effect="{StaticResource CardShadow}" Padding="16" Margin="10,0,10,16">
                 <Grid>
@@ -252,29 +236,20 @@
                 </Grid>
             </Border>
 
-            <!-- ═══════════════════════════════════════════════════ -->
-            <!-- ROW 3 — TABEL + PANEL ACTIUNI                       -->
-            <!-- ═══════════════════════════════════════════════════ -->
             <Grid Grid.Row="3" Margin="10,0,10,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <!-- FIX: coloana dreapta mai lată + se poate redimensiona -->
                     <ColumnDefinition Width="320"/>
                 </Grid.ColumnDefinitions>
 
-                <!-- ─── TABEL ─── -->
                 <Border Grid.Column="0" Background="White" CornerRadius="15"
                         Effect="{StaticResource CardShadow}" ClipToBounds="True">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
-                            <!-- Header selectie -->
                             <RowDefinition Height="Auto"/>
-                            <!-- Header coloane -->
                             <RowDefinition Height="*"/>
-                            <!-- Rânduri -->
                             <RowDefinition Height="Auto"/>
-                            <!-- Paginare -->
                         </Grid.RowDefinitions>
 
                         <Border Grid.Row="0" Background="#F8FAFC"
@@ -344,20 +319,14 @@
                     </Grid>
                 </Border>
 
-                <!-- ─── PANEL ACTIUNI DREAPTA ─── -->
-                <!-- FIX: Grid cu rânduri în loc de StackPanel, ca previzualizarea să se extindă -->
                 <Grid Grid.Column="1" Margin="16,0,0,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
-                        <!-- Butoane actiuni -->
                         <RowDefinition Height="*"/>
-                        <!-- Previzualizare email — se extinde -->
                     </Grid.RowDefinitions>
 
-                    <!-- Butoane actiuni -->
                     <StackPanel Grid.Row="0">
 
-                        <!-- Buton Trimite notificări -->
                         <Button x:Name="btnTrimite"
                                 Style="{StaticResource ActionPanelButtonStyle}"
                                 Background="#6210CC" Foreground="White"
@@ -371,7 +340,6 @@
                             </StackPanel>
                         </Button>
 
-                        <!-- Buton Anulează selecția -->
                         <Button x:Name="btnAnuleaza"
                                 Style="{StaticResource ActionPanelButtonStyle}"
                                 Background="#FEE2E2" Foreground="#DC2626"
@@ -383,11 +351,9 @@
                             </StackPanel>
                         </Button>
 
-                        <!-- Separator -->
                         <Border BorderBrush="#E2E8F0" BorderThickness="0,1,0,0" Margin="0,8,0,12"/>
                     </StackPanel>
 
-                    <!-- Istoric notificări recente -->
                     <Border Grid.Row="1"
                             Background="White" CornerRadius="15"
                             Effect="{StaticResource CardShadow}"
@@ -395,12 +361,9 @@
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
-                                <!-- titlu -->
                                 <RowDefinition Height="*"/>
-                                <!-- lista scrollabila -->
                             </Grid.RowDefinitions>
 
-                            <!-- Titlu -->
                             <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,12">
                                 <fa5:ImageAwesome Icon="Solid_History" Width="13" Foreground="#6210CC"
                                                  Margin="0,0,8,0" VerticalAlignment="Center"/>
@@ -408,13 +371,11 @@
                                            Foreground="{StaticResource TextDark}"/>
                             </StackPanel>
 
-                            <!-- Lista notificari — rânduri generate din code-behind -->
                             <ScrollViewer Grid.Row="1"
                                           VerticalScrollBarVisibility="Auto"
                                           HorizontalScrollBarVisibility="Disabled">
                                 <StackPanel x:Name="spIstoricNotificari">
 
-                                    <!-- Placeholder când nu există notificări -->
                                     <Border x:Name="bdIstoricPlaceholder" Padding="10,20" Visibility="Collapsed">
                                         <StackPanel HorizontalAlignment="Center">
                                             <fa5:ImageAwesome Icon="Regular_Bell" Width="28"
@@ -436,7 +397,6 @@
             </Grid>
         </Grid>
 
-        <!-- Overlay loading -->
         <Border x:Name="overlayLoading" Background="#88FFFFFF" Visibility="Collapsed">
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                 <fa5:ImageAwesome Icon="Solid_Spinner" Width="40" Foreground="#6210CC"
