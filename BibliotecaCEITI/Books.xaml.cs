@@ -161,7 +161,7 @@ namespace BibliotecaCEITI
 
         private void BooksGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            string[] coloaneDeAscuns = { "ID_CARTE", "Cod_Inventar", "Stare", "ID_categorie", "ID_locatie", "ID_editura" };
+            string[] coloaneDeAscuns = { "Id_carte", "Cod_Inventar", "Stare", "ID_categorie", "ID_locatie", "ID_editura" };
 
             if (coloaneDeAscuns.Contains(e.Column.Header.ToString()))
             {
@@ -176,7 +176,7 @@ namespace BibliotecaCEITI
         {
             if (BooksGrid.SelectedItem is DataRowView row)
             {
-                id_CarteSelectata = int.TryParse(row["ID_CARTE"].ToString(), out int idCarte) ? idCarte : 0;
+                id_CarteSelectata = int.TryParse(row["Id_carte"].ToString(), out int idCarte) ? idCarte : 0;
                 id_categorie_CarteSelectata = int.TryParse(row["ID_categorie"].ToString(), out int idCat) ? idCat : 0;
                 id_editura_CarteSelectata = int.TryParse(row["ID_editura"].ToString(), out int idEd) ? idEd : 0;
                 id_locatie_CarteSelectata = int.TryParse(row["ID_locatie"].ToString(), out int idLoc) ? idLoc : 0;

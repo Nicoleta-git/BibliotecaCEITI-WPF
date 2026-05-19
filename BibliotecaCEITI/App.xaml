@@ -6,8 +6,12 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Styles.xaml"/>
+                <!-- Default theme loaded at startup -->
+                <ResourceDictionary Source="LightTheme.xaml"/>
+
+                <!-- Global shared styles and control templates -->
                 <ResourceDictionary Source="DefaultControls.xaml"/>
+                <ResourceDictionary Source="Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -5,17 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:fa5="http://schemas.fontawesome.com/icons/"
              mc:Ignorable="d" 
-             Background="#F4F7FE"
+             Background="{DynamicResource WindowBackground}"
              FontFamily="Segoe UI"
              d:DesignHeight="650" d:DesignWidth="900">
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <!-- Import shared global styles for consistent UI -->
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="DefaultControls.xaml"/>
+                <ResourceDictionary Source="Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -23,7 +21,6 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="40,30">
 
-                <!-- NAVIGATION: Back to list link -->
                 <Button x:Name="btnBack" Background="Transparent" BorderThickness="0" Cursor="Hand" Click="BackBtn_Click" HorizontalAlignment="Left">
                     <StackPanel Orientation="Horizontal">
                         <fa5:ImageAwesome Icon="Solid_ArrowLeft" Width="10" Margin="0,0,8,0" Foreground="#4483EC"/>
@@ -31,31 +28,30 @@
                     </StackPanel>
                 </Button>
 
-                <!-- PAGE TITLE -->
-                <TextBlock Text="Ștergere carte" FontSize="22" FontWeight="Bold" Foreground="#1E293B" Margin="0,0,0,25"/>
+                <TextBlock Text="Ștergere carte" FontSize="22" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,25"/>
 
-                <!-- MAIN FORM CONTAINER -->
-                <Border Background="White" CornerRadius="8" BorderBrush="#E2E8F0" BorderThickness="1" Padding="30" Height="575">
+                <Border Background="{DynamicResource CardBackground}" CornerRadius="8" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" Padding="30" Height="575">
                     <StackPanel>
 
-                        <!-- WARNING MESSAGE: Warns the user about irreversible data loss -->
-                        <Border Background="#FEF2F2" BorderBrush="#FEE2E2" BorderThickness="1" CornerRadius="6" Padding="15" Margin="0,0,0,25">
-                            <StackPanel Orientation="Horizontal">
-                                <fa5:ImageAwesome Icon="Solid_ExclamationTriangle" Width="14" Foreground="#DC2626" Margin="0,0,12,0"/>
-                                <TextBlock Foreground="#991B1B" VerticalAlignment="Center">
+                        <Border Background="#22EF4444" BorderBrush="#44EF4444" BorderThickness="1" CornerRadius="6" Padding="15" Margin="0,0,0,25">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <fa5:ImageAwesome Icon="Solid_ExclamationTriangle" Width="14" Foreground="#EF4444" Margin="0,0,12,0" VerticalAlignment="Center"/>
+                                <TextBlock Grid.Column="1" Foreground="#EF4444" TextWrapping="Wrap" VerticalAlignment="Center">
                                     <Run Text="Atenție!" FontWeight="Bold"/>
-                                    <Run Text=" Această acțiune este ireversibilă." Foreground="#DC2626"/>
+                                    <Run Text=" Această acțiune este ireversibilă."/>
                                 </TextBlock>
-                            </StackPanel>
+                            </Grid>
                         </Border>
 
-                        <!-- READ-ONLY FIELD: Shows which book is being targeted -->
-                        <TextBlock Text="Carte" FontWeight="SemiBold" Foreground="#64748B" Margin="0,0,0,8"/>
+                        <TextBlock Text="Carte" FontWeight="SemiBold" Foreground="{DynamicResource TextMuted}" Margin="0,0,0,8"/>
                         <TextBox x:Name="txtNumeCarte" Text="Enigma Otiliei - George Călinescu" IsReadOnly="True" 
-                                 Background="#F8FAFC" Padding="10" Margin="0,0,0,20" BorderBrush="#E2E8F0"/>
+                                 Background="{DynamicResource WindowBackground}" Foreground="{DynamicResource TextPrimary}" Padding="10" Margin="0,0,0,20" BorderBrush="{DynamicResource BorderBrushLight}"/>
 
-                        <!-- SELECTION FIELD: Mandatory reason for deletion (scrapping) -->
-                        <TextBlock Text="Motiv stergere *" FontWeight="SemiBold" Foreground="#64748B" Margin="0,0,0,8"/>
+                        <TextBlock Text="Motiv stergere *" FontWeight="SemiBold" Foreground="{DynamicResource TextMuted}" Margin="0,0,0,8"/>
                         <ComboBox x:Name="cbMotiv" 
                                   Style="{StaticResource ModernComboBox}"
                                   Margin="0,0,0,20">
@@ -66,24 +62,20 @@
                             <ComboBoxItem Content="Transfer către altă unitate"/>
                         </ComboBox>
 
-                        <!-- OPTIONAL FIELD: Additional observations -->
-                        <TextBlock Text="Observații" FontWeight="SemiBold" Foreground="#64748B" Margin="0,0,0,8"/>
+                        <TextBlock Text="Observații" FontWeight="SemiBold" Foreground="{DynamicResource TextMuted}" Margin="0,0,0,8"/>
                         <TextBox x:Name="txtObservatii" Height="80" TextWrapping="Wrap" AcceptsReturn="True" 
-                                 Padding="10" Margin="0,0,0,20" BorderBrush="#E2E8F0" VerticalContentAlignment="Top"/>
+                                 Padding="10" Margin="0,0,0,20" BorderBrush="{DynamicResource BorderBrushLight}" Background="{DynamicResource WindowBackground}" Foreground="{DynamicResource TextPrimary}" VerticalContentAlignment="Top"/>
 
-                        <!-- CONFIRMATION CHECKBOX: Required to enable the delete button -->
-                        <Border Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="6" Padding="12" Margin="0,0,0,30">
+                        <Border Background="{DynamicResource WindowBackground}" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" CornerRadius="6" Padding="12" Margin="0,0,0,30">
                             <CheckBox x:Name="chkConfirmare" Cursor="Hand">
                                 <TextBlock Text="Confirm că am verificat datele și doresc casarea definitivă a acestei cărți." 
-                                           TextWrapping="Wrap" Foreground="#475569" Margin="8,0,0,0"/>
+                                           TextWrapping="Wrap" Foreground="{DynamicResource TextPrimary}" Margin="8,0,0,0"/>
                             </CheckBox>
                         </Border>
 
-                        <!-- ACTION BUTTONS: Cancel vs. Permanent Delete -->
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                             <Button x:Name="btnAnuleaza" Content="Anulează" Style="{StaticResource SecondaryButtonStyle}" Width="120" Margin="0,0,15,0"/>
 
-                            <!-- The button is only enabled when chkConfirmare.IsChecked is True -->
                             <Button x:Name="btnCaseaza" 
                                     Content="Șterge" 
                                     Style="{StaticResource DangerButtonStyle}" 
