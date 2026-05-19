@@ -19,7 +19,6 @@
     <SolidColorBrush x:Key="PrimaryBlueHover" Color="#1D4ED8"/>
     <SolidColorBrush x:Key="PrimaryBlueSelected" Color="#DBEAFE"/>
     <SolidColorBrush x:Key="TextBlueSelected" Color="#1E40AF"/>
-
     <SolidColorBrush x:Key="PrimaryPurple" Color="#6210CC"/>
     <SolidColorBrush x:Key="LoginPurple" Color="#6a11cb"/>
     <SolidColorBrush x:Key="HoverBlue" Color="#2575fc"/>
@@ -32,6 +31,7 @@
     <SolidColorBrush x:Key="BorrowedOrangeBg" Color="#FFFAF0"/>
     <SolidColorBrush x:Key="ReservedPurple" Color="#6210CC"/>
     <SolidColorBrush x:Key="ReservedPurpleBg" Color="#F5F3FF"/>
+
     <Color x:Key="ShadowColor">#A3AED0</Color>
 
     <Style x:Key="SidebarBorderStyle" TargetType="Border">
