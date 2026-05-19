@@ -62,7 +62,7 @@ namespace BibliotecaCEITI
                     using (MySqlConnection conn = DatabaseConfig.GetConnection())
                     {
                         conn.Open();
-                        MySqlCommand cmd = new MySqlCommand("sp_raport_exemplare_manuale_titlu_isbn_autori", conn);
+                        MySqlCommand cmd = new MySqlCommand("sp_raport_exemplare_carti_sortat", conn);
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add("@p_titlu", MySqlDbType.VarChar).Value = string.IsNullOrWhiteSpace(titlu) ? DBNull.Value : titlu;
                         cmd.Parameters.Add("@p_isbn", MySqlDbType.VarChar).Value = string.IsNullOrWhiteSpace(isbn) ? DBNull.Value : isbn;
@@ -115,7 +115,7 @@ namespace BibliotecaCEITI
 
         private void BooksGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            string[] coloaneDeAscuns = { "Id_carte", "Cod_Inventar", "ID_categorie", "ID_locatie", "ID_editura", "Stare" };
+            string[] coloaneDeAscuns = { "Id_exemplar", "Cod_Inventar", "ID_categorie", "ID_locatie", "ID_editura", "Stare" };
 
             if (coloaneDeAscuns.Contains(e.Column.Header.ToString()))
             {
@@ -132,7 +132,7 @@ namespace BibliotecaCEITI
             {
                 try
                 {
-                    id_CarteSelectata = int.TryParse(row["Id_carte"].ToString(), out int idCarte) ? idCarte : 0;
+                    id_CarteSelectata = int.TryParse(row["Id_exemplar"].ToString(), out int idCarte) ? idCarte : 0;
                     titlu_carte = row["Titlu"].ToString();
                     cod_inventar = row["Cod_Inventar"].ToString();
                     autor = row["Autor"].ToString();
@@ -182,6 +182,7 @@ namespace BibliotecaCEITI
                     MessageBox.Show("Eroare la citirea rândului: " + ex.Message, "Eroare DataGrid", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
+
         }
     }
 }
