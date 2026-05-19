@@ -114,14 +114,11 @@
                         <DatePicker Height="45" VerticalContentAlignment="Center"/>
                     </StackPanel>
 
-                    <StackPanel Margin="0,0,0,20">
-                        <TextBlock Text="Termen de returnare" Margin="0,0,0,8" FontSize="13" FontWeight="Medium" Foreground="{StaticResource TextMuted}"/>
-                        <DatePicker Height="45" VerticalContentAlignment="Center"/>
-                    </StackPanel>
+                    <StackPanel Margin="0,0,0,20"/>
 
                     <StackPanel Margin="0,0,0,20">
                         <TextBlock Text="Durata împrumut" Margin="0,0,0,8" FontSize="13" FontWeight="Medium" Foreground="{StaticResource TextMuted}"/>
-                        <ComboBox Height="45" VerticalContentAlignment="Center">
+                        <ComboBox x:Name="cbDurataImprumut" Height="45" VerticalContentAlignment="Center" SelectionChanged="cbDurataImprumut_SelectionChanged">
                             <ComboBoxItem Content="14 zile" IsSelected="True"/>
                             <ComboBoxItem Content="21 zile"/>
                             <ComboBoxItem Content="30 zile"/>
@@ -141,31 +138,31 @@
                                 </Grid.ColumnDefinitions>
 
                                 <!-- Book Cover Visual -->
-                                <Border Grid.Column="0" Width="70" Height="100" Background="#E2E8F0" CornerRadius="4" Margin="0,0,15,0"/>
+                                <Border x:Name="imgCoperta" Grid.Column="0" Width="70" Height="100" Background="#E2E8F0" CornerRadius="4" Margin="0,0,15,0"/>
 
                                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                    <TextBlock Text="Amintiri din copilărie" FontSize="18" FontWeight="Bold" Foreground="{StaticResource TextDark}" TextWrapping="Wrap"/>
-                                    <TextBlock Text="Ion Creangă" FontSize="14" Foreground="{StaticResource TextGray}" Margin="0,4,0,0"/>
+                                    <TextBlock x:Name="titlu_carte" Text="Amintiri din copilărie" FontSize="18" FontWeight="Bold" Foreground="{StaticResource TextDark}" TextWrapping="Wrap"/>
+                                    <TextBlock x:Name="autor_carte" Text="Ion Creangă" FontSize="14" Foreground="{StaticResource TextGray}" Margin="0,4,0,0"/>
                                 </StackPanel>
                             </Grid>
 
                             <StackPanel Margin="0,0,0,15">
                                 <Grid Margin="0,4">
                                     <TextBlock Text="ISBN:" Foreground="{StaticResource TextGray}" FontWeight="Medium"/>
-                                    <TextBlock Text="978-973-31-0070-6" HorizontalAlignment="Right" Foreground="{StaticResource TextDark}"/>
+                                    <TextBlock x:Name="isbn_carte" Text="978-973-31-0070-6" HorizontalAlignment="Right" Foreground="{StaticResource TextDark}"/>
                                 </Grid>
                                 <Grid Margin="0,4">
                                     <TextBlock Text="Categorie:" Foreground="{StaticResource TextGray}" FontWeight="Medium"/>
-                                    <TextBlock Text="Literatură română" HorizontalAlignment="Right" Foreground="{StaticResource TextDark}"/>
+                                    <TextBlock x:Name="denumire_categorie" Text="Literatură română" HorizontalAlignment="Right" Foreground="{StaticResource TextDark}"/>
                                 </Grid>
                                 <Grid Margin="0,4">
                                     <TextBlock Text="Cod:" Foreground="{StaticResource TextGray}" FontWeight="Medium"/>
-                                    <TextBlock Text="C12345" HorizontalAlignment="Right" Foreground="{StaticResource TextDark}"/>
+                                    <TextBlock x:Name="cod_inventar" Text="C12345" HorizontalAlignment="Right" Foreground="{StaticResource TextDark}"/>
                                 </Grid>
                             </StackPanel>
 
-                            <Border HorizontalAlignment="Left" Background="{StaticResource StockGreenBg}" CornerRadius="6" Padding="12,6">
-                                <TextBlock Text="Disponibilă" Foreground="{StaticResource StockGreen}" FontWeight="Bold" FontSize="12"/>
+                            <Border x:Name="fon_disponibilitate" HorizontalAlignment="Left" Background="{StaticResource StockGreenBg}" CornerRadius="6" Padding="12,6">
+                                <TextBlock x:Name="disponibilitate_exemplar" Text="Disponibilă" Foreground="{StaticResource StockGreen}" FontWeight="Bold" FontSize="12"/>
                             </Border>
                         </StackPanel>
                     </Border>
@@ -173,10 +170,10 @@
             </Grid>
 
             <!-- Warning/Information Bar -->
-            <Border Grid.Row="2" Style="{StaticResource InfoBarStyle}" Margin="0,20,0,0">
+            <Border x:Name="atentionare" Grid.Row="2" Style="{StaticResource InfoBarStyle}" Margin="0,20,0,0">
                 <StackPanel Orientation="Horizontal">
                     <fa5:ImageAwesome Icon="Solid_InfoCircle" Width="16" Foreground="#B45309" Margin="0,0,12,0" VerticalAlignment="Center"/>
-                    <TextBlock VerticalAlignment="Center" Foreground="#92400E" FontSize="13">
+                    <TextBlock x:Name="atentionare_elev" VerticalAlignment="Center" Foreground="#92400E" FontSize="13">
                         <Run Text="Elevul este responsabil pentru carte până la data de "/>
                         <Run Text="04.06.2025." FontWeight="Bold"/>
                     </TextBlock>

@@ -107,11 +107,13 @@ namespace BibliotecaCEITI
                 return;
             } else if (_idExemplarSelectat != 0 && step == 2)
             {
-                CheckInBorrowStep_3 checkIn_3 = new CheckInBorrowStep_3();
+                CheckInBorrowStep_3 checkIn_3 = new CheckInBorrowStep_3(_idExemplarSelectat);
                 ActiveBorrowContent.Content = checkIn_3;
                 step = 3;
             }
             MessageBox.Show("Suntem la pasul " + step);
         }
+
+
     }
 }
