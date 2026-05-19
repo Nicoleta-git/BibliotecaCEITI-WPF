@@ -1,0 +1,166 @@
+﻿<UserControl x:Class="BibliotecaCEITI.Reports"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BibliotecaCEITI"
+             xmlns:fa5="http://schemas.fontawesome.com/icons/"
+             mc:Ignorable="d" 
+             Background="#F4F7FE" 
+             FontFamily="Segoe UI" 
+             d:DesignHeight="741" d:DesignWidth="1000">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="DefaultControls.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Margin="0,0,0,25">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="Transparent" Padding="40,30,40,10">
+            <Grid>
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <TextBlock Text="Rapoarte și Statistici" FontSize="28" FontWeight="Bold" Foreground="#1B2559"/>
+                    <TextBlock Text="Generează și exportă rapoartele activității bibliotecii" FontSize="14" Foreground="#A3AED0" Margin="0,4,0,0"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,5">
+                    <Button x:Name="btnExportPdf" Width="140" Height="38" Background="White" Margin="0,0,10,0">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="8"/>
+                            </Style>
+                        </Button.Resources>
+                        <StackPanel Orientation="Horizontal">
+                            <fa5:ImageAwesome Icon="Solid_FilePdf" Width="13" Foreground="#EE2B2B" Margin="0,0,8,0"/>
+                            <TextBlock Text="Export PDF" Foreground="#1B2559" FontWeight="Medium"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button x:Name="btnGenereazaRaport" Width="180" Height="38" Style="{StaticResource GlobalActionButtonStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa5:ImageAwesome Icon="Solid_Sync" Width="13" Foreground="White" Margin="0,0,8,0"/>
+                            <TextBlock Text="Generează Raport"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <UniformGrid Grid.Row="1" Columns="3" Margin="40,15,40,10">
+            <Border Background="White" CornerRadius="12" BorderBrush="{StaticResource BorderLight}" BorderThickness="1" Padding="20" Margin="0,0,15,0">
+                <Grid>
+                    <StackPanel HorizontalAlignment="Left">
+                        <TextBlock Text="Total Cărți Împrumutate" FontSize="14" Foreground="#A3AED0" FontWeight="Medium"/>
+                        <TextBlock x:Name="txtStatTotalImprumuturi" Text="0" FontSize="24" FontWeight="Bold" Foreground="#1B2559" Margin="0,5,0,0"/>
+                    </StackPanel>
+                    <Border Background="#F4F7FE" Width="48" Height="48" CornerRadius="24" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <fa5:ImageAwesome Icon="Solid_BookReader" Width="18" Foreground="#4483EC" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <Border Background="White" CornerRadius="12" BorderBrush="{StaticResource BorderLight}" BorderThickness="1" Padding="20" Margin="10,0,10,0">
+                <Grid>
+                    <StackPanel HorizontalAlignment="Left">
+                        <TextBlock Text="Cititori Activi" FontSize="14" Foreground="#A3AED0" FontWeight="Medium"/>
+                        <TextBlock x:Name="txtStatCititoriActivi" Text="0" FontSize="24" FontWeight="Bold" Foreground="#1B2559" Margin="0,5,0,0"/>
+                    </StackPanel>
+                    <Border Background="#F4F7FE" Width="48" Height="48" CornerRadius="24" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <fa5:ImageAwesome Icon="Solid_Users" Width="18" Foreground="#05CD99" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <Border Background="White" CornerRadius="12" BorderBrush="{StaticResource BorderLight}" BorderThickness="1" Padding="20" Margin="15,0,0,0">
+                <Grid>
+                    <StackPanel HorizontalAlignment="Left">
+                        <TextBlock Text="Termen Depășit" FontSize="14" Foreground="#A3AED0" FontWeight="Medium"/>
+                        <TextBlock x:Name="txtStatTermenDepasit" Text="0" FontSize="24" FontWeight="Bold" Foreground="#EE2B2B" Margin="0,5,0,0"/>
+                    </StackPanel>
+                    <Border Background="#FEEAEA" Width="48" Height="48" CornerRadius="24" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <fa5:ImageAwesome Icon="Solid_ExclamationTriangle" Width="18" Foreground="#EE2B2B" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </Grid>
+            </Border>
+        </UniformGrid>
+
+        <Grid Grid.Row="2" Margin="40,15">
+            <Border Background="White" CornerRadius="12" BorderBrush="{StaticResource BorderLight}" BorderThickness="1" Padding="25">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Margin="0,0,0,20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="1.5*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" Margin="0,0,15,0">
+                            <TextBlock Text="Tipul Raportului" Style="{StaticResource FieldLabel}"/>
+                            <ComboBox x:Name="cbTipRaport" Height="38" SelectedIndex="0">
+                                <ComboBoxItem Content="Activitate Împrumuturi Generale"/>
+                                <ComboBoxItem Content="Cele mai citite cărți"/>
+                                <ComboBoxItem Content="Cititori cu penalități / restanțe"/>
+                                <ComboBoxItem Content="Inventar cărți noi adăugate"/>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Margin="10,0,10,0">
+                            <TextBlock Text="De la Data" Style="{StaticResource FieldLabel}"/>
+                            <DatePicker x:Name="dpDataInceput" Height="38" VerticalContentAlignment="Center"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2" Margin="15,0,0,0">
+                            <TextBlock Text="Până la Data" Style="{StaticResource FieldLabel}"/>
+                            <DatePicker x:Name="dpDataSfarsit" Height="38" VerticalContentAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <DataGrid Grid.Row="1" x:Name="dgRaportRezultate" AutoGenerateColumns="False" 
+                              Background="Transparent" BorderThickness="0" CanUserAddRows="False"
+                              GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#F4F7FE"
+                              RowHeight="40">
+                        <DataGrid.Resources>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="Background" Value="#F4F7FE"/>
+                                <Setter Property="Foreground" Value="#A3AED0"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                                <Setter Property="Padding" Value="10,0"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Height" Value="40"/>
+                            </Style>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="Padding" Value="10,0"/>
+                                <Setter Property="Foreground" Value="#1B2559"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGrid.Resources>
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="60"/>
+                            <DataGridTextColumn Header="Utilizator / Student" Binding="{Binding NumeCititor}" Width="2*"/>
+                            <DataGridTextColumn Header="Titlu Carte" Binding="{Binding TitluCarte}" Width="3*"/>
+                            <DataGridTextColumn Header="Data Împrumut" Binding="{Binding DataImprumut, StringFormat=d}" Width="1.5*"/>
+                            <DataGridTextColumn Header="Data Scadență" Binding="{Binding DataScadenta, StringFormat=d}" Width="1.5*"/>
+                            <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="1*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

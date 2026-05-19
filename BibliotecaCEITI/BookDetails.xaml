@@ -5,13 +5,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:fa5="http://schemas.fontawesome.com/icons/"
              mc:Ignorable="d"
-             Background="#F4F7FE" 
+             Background="{DynamicResource WindowBackground}" 
              FontFamily="Segoe UI" d:DesignWidth="1000" Height="741">
 
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="DefaultControls.xaml"/>
+                <ResourceDictionary Source="Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -19,15 +19,11 @@
     <Grid Margin="0,0,0,25">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- Header Section -->
             <RowDefinition Height="*"/>
-            <!-- Main Content Section -->
         </Grid.RowDefinitions>
 
-        <!-- TOP NAVIGATION & ACTIONS HEADER -->
         <Border Grid.Row="0" Background="Transparent" Padding="40,30,40,10">
             <Grid>
-                <!-- Title and Return link -->
                 <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
                     <Button x:Name="btnBack" Background="Transparent" BorderThickness="0" Cursor="Hand" Click="BtnBack_Click" HorizontalAlignment="Left">
                         <StackPanel Orientation="Horizontal">
@@ -35,12 +31,11 @@
                             <TextBlock Text="Înapoi la listă" Foreground="#4483EC" FontSize="13" FontWeight="Medium" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
-                    <TextBlock Text="Editare detalii carte" FontSize="28" FontWeight="Bold" Foreground="#1B2559" Margin="0,5,0,0"/>
+                    <TextBlock Text="Editare detalii carte" FontSize="28" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}" Margin="0,5,0,0"/>
                 </StackPanel>
 
-                <!-- Primary Action Buttons (Cancel / Save) -->
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,5">
-                    <Button Content="Anulează" Width="100" Height="38" Background="White" Margin="0,0,10,0" Click="Button_Click_1">
+                    <Button Content="Anulează" Width="100" Height="38" Background="{DynamicResource CardBackground}" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}" Margin="0,0,10,0" Click="Button_Click_1">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="8"/>
@@ -50,7 +45,7 @@
                     <Button x:Name="btnSalveazaModificari" Width="200" Height="38" Style="{StaticResource GlobalActionButtonStyle}" Click="btnSalveazaModificari_Click">
                         <StackPanel Orientation="Horizontal">
                             <fa5:ImageAwesome Icon="Solid_Save" Width="14" Foreground="White" Margin="0,0,10,0"/>
-                            <TextBlock Text="Salvează modificările"/>
+                            <TextBlock Text="Salvează modificările" Foreground="White"/>
                         </StackPanel>
                     </Button>
                 </StackPanel>
@@ -61,46 +56,38 @@
             <Grid Margin="40,15">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="300"/>
-                    <!-- Left Column: Book Cover -->
                     <ColumnDefinition Width="*"/>
-                    <!-- Right Column: Forms & Details -->
                 </Grid.ColumnDefinitions>
 
-                <!-- BOOK COVER MANAGEMENT -->
                 <StackPanel Grid.Column="0" Margin="0,0,30,0">
-                    <Border CornerRadius="12" Background="White" BorderBrush="{StaticResource BorderLight}" BorderThickness="1" Padding="20">
+                    <Border CornerRadius="12" Background="{DynamicResource CardBackground}" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" Padding="20">
                         <StackPanel>
-                            <TextBlock Text="Coperta curentă" FontWeight="SemiBold" Foreground="#1B2559" Margin="0,0,0,15"/>
-                            <!-- Image Preview Container -->
-                            <Border Height="380" CornerRadius="8" Background="#F8FAFC" Margin="0,0,0,15">
+                            <TextBlock Text="Coperta curentă" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,15"/>
+                            <Border Height="380" CornerRadius="8" Background="{DynamicResource WindowBackground}" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" Margin="0,0,0,15">
                                 <Image x:Name="imgCoperta" Stretch="Uniform"/>
                             </Border>
-                            <!-- Cover Actions -->
-                            <Button Background="#F1F5F9" BorderThickness="0" Height="36" Cursor="Hand" Click="Button_Click">
+                            <Button Background="{DynamicResource WindowBackground}" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" Height="36" Cursor="Hand" Click="Button_Click">
                                 <Button.Resources>
                                     <Style TargetType="Border">
                                         <Setter Property="CornerRadius" Value="6"/>
                                     </Style>
                                 </Button.Resources>
                                 <StackPanel Orientation="Horizontal">
-                                    <fa5:ImageAwesome Icon="Solid_Upload" Width="12" Margin="0,0,8,0" Foreground="#1B2559"/>
-                                    <TextBlock Text="Încarcă altă imagine" Foreground="#1B2559" FontWeight="Medium"/>
+                                    <fa5:ImageAwesome Icon="Solid_Upload" Width="12" Margin="0,0,8,0" Foreground="{DynamicResource TextPrimary}"/>
+                                    <TextBlock Text="Încarcă altă imagine" Foreground="{DynamicResource TextPrimary}" FontWeight="Medium"/>
                                 </StackPanel>
                             </Button>
-                            <!-- Cover URL Link -->
-                            <TextBlock Text="URL Imagine" FontWeight="SemiBold" Foreground="#1B2559" Margin="0,20,0,8"/>
-                            <TextBox x:Name="txtCopertaUrl" FontSize="11" VerticalContentAlignment="Center" Height="35" IsReadOnly="True"/>
+                            <TextBlock Text="URL Imagine" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}" Margin="0,20,0,8"/>
+                            <TextBox x:Name="txtCopertaUrl" FontSize="11" VerticalContentAlignment="Center" Height="35" IsReadOnly="True" Background="{DynamicResource WindowBackground}" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}"/>
                         </StackPanel>
                     </Border>
                 </StackPanel>
 
-                <!-- MAIN DATA FORM -->
                 <StackPanel Grid.Column="1">
-                    <Border Background="White" CornerRadius="12" BorderBrush="{StaticResource BorderLight}" BorderThickness="1" Padding="25">
+                    <Border Background="{DynamicResource CardBackground}" CornerRadius="12" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" Padding="25">
                         <StackPanel>
-                            <!-- TOP FORM: Basic Information -->
-                            <TextBlock Text="Titlu carte *" Style="{StaticResource FieldLabel}"/>
-                            <TextBox x:Name="txtTitlu" Margin="0,0,0,15" Height="38" VerticalContentAlignment="Center"/>
+                            <TextBlock Text="Titlu carte *" Style="{StaticResource FieldLabel}" Foreground="{DynamicResource TextPrimary}"/>
+                            <TextBox x:Name="txtTitlu" Margin="0,0,0,15" Height="38" VerticalContentAlignment="Center" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}"/>
 
                             <Grid Margin="0,0,0,15">
                                 <Grid.ColumnDefinitions>
@@ -108,43 +95,42 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Margin="0,0,10,0">
-                                    <TextBlock Text="Autor *" Style="{StaticResource FieldLabel}"/>
-                                    <ComboBox x:Name="cbAutor" Height="38"/>
+                                    <TextBlock Text="Autor *" Style="{StaticResource FieldLabel}" Foreground="{DynamicResource TextPrimary}"/>
+                                    <ComboBox x:Name="cbAutor"  Height="38" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}"/>
                                 </StackPanel>
                                 <StackPanel Grid.Column="1" Margin="10,0,0,0">
-                                    <TextBlock Text="Categorie *" Style="{StaticResource FieldLabel}"/>
-                                    <ComboBox x:Name="cbCategorie" Height="38"/>
+                                    <TextBlock Text="Categorie *" Style="{StaticResource FieldLabel}" Foreground="{DynamicResource TextPrimary}"/>
+                                    <ComboBox x:Name="cbCategorie" Height="38" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}"/>
                                 </StackPanel>
                             </Grid>
 
-                            <TextBlock Text="Descriere" Style="{StaticResource FieldLabel}"/>
-                            <TextBox x:Name="txtDescriere" Height="100" TextWrapping="Wrap" AcceptsReturn="True" VerticalContentAlignment="Top" Padding="10" Margin="0,0,0,20"/>
+                            <TextBlock Text="Descriere" Style="{StaticResource FieldLabel}" Foreground="{DynamicResource TextPrimary}"/>
+                            <TextBox x:Name="txtDescriere" Height="100" TextWrapping="Wrap" AcceptsReturn="True" VerticalContentAlignment="Top" Padding="10" Margin="0,0,0,20" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}"/>
 
-                            <!-- BOTTOM FORM: Technical Details & Pricing -->
                             <UniformGrid Columns="2">
                                 <StackPanel Margin="0,0,10,15">
-                                    <TextBlock Text="ISBN" Style="{StaticResource FieldLabel}"/>
-                                    <TextBox x:Name="txtIsbn" Height="38" VerticalContentAlignment="Center"/>
+                                    <TextBlock Text="ISBN" Style="{StaticResource FieldLabel}" Foreground="{DynamicResource TextPrimary}"/>
+                                    <TextBox x:Name="txtIsbn" Height="38" VerticalContentAlignment="Center" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}"/>
                                 </StackPanel>
                                 <StackPanel Margin="10,0,0,15">
-                                    <TextBlock Text="Editura" Style="{StaticResource FieldLabel}"/>
-                                    <ComboBox x:Name="cbEditura" Height="38"/>
+                                    <TextBlock Text="Editura" Style="{StaticResource FieldLabel}" Foreground="{DynamicResource TextPrimary}"/>
+                                    <ComboBox x:Name="cbEditura" Height="38" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}"/>
                                 </StackPanel>
                                 <StackPanel Margin="0,0,10,15">
-                                    <TextBlock Text="An publicare" Style="{StaticResource FieldLabel}"/>
-                                    <TextBox x:Name="txtAnPublicare" Height="38" VerticalContentAlignment="Center"/>
+                                    <TextBlock Text="An publicare" Style="{StaticResource FieldLabel}" Foreground="{DynamicResource TextPrimary}"/>
+                                    <TextBox x:Name="txtAnPublicare" Height="38" VerticalContentAlignment="Center" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}"/>
                                 </StackPanel>
                                 <StackPanel Margin="10,0,0,15">
-                                    <TextBlock Text="Limba" Style="{StaticResource FieldLabel}"/>
-                                    <ComboBox x:Name="cbLimba" Height="38"/>
+                                    <TextBlock Text="Limba" Style="{StaticResource FieldLabel}" Foreground="{DynamicResource TextPrimary}"/>
+                                    <ComboBox x:Name="cbLimba" Height="38" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}"/>
                                 </StackPanel>
                                 <StackPanel Margin="0,0,10,0">
-                                    <TextBlock Text="Preț Vânzare (MDL)" Style="{StaticResource FieldLabel}"/>
-                                    <TextBox x:Name="txtPretMdl" Height="38" VerticalContentAlignment="Center"/>
+                                    <TextBlock Text="Preț Vânzare (MDL)" Style="{StaticResource FieldLabel}" Foreground="{DynamicResource TextPrimary}"/>
+                                    <TextBox x:Name="txtPretMdl" Height="38" VerticalContentAlignment="Center" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}"/>
                                 </StackPanel>
                                 <StackPanel Margin="10,0,0,0">
-                                    <TextBlock Text="Preț Chirie" Style="{StaticResource FieldLabel}"/>
-                                    <TextBox x:Name="txtPretChirie" Height="38" VerticalContentAlignment="Center"/>
+                                    <TextBlock Text="Preț Chirie" Style="{StaticResource FieldLabel}" Foreground="{DynamicResource TextPrimary}"/>
+                                    <TextBox x:Name="txtPretChirie" Height="38" VerticalContentAlignment="Center" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}"/>
                                 </StackPanel>
                             </UniformGrid>
                         </StackPanel>

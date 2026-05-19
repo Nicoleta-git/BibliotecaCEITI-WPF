@@ -6,45 +6,64 @@
              xmlns:local="clr-namespace:BibliotecaCEITI"
              xmlns:fa5="http://schemas.fontawesome.com/icons/"
              mc:Ignorable="d" d:DesignWidth="1100" d:Height="1400"
-             Background="{StaticResource BackgroundGray}">
+             Background="{DynamicResource WindowBackground}" FontFamily="Segoe UI">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key="SearchBorderStyle" TargetType="Border">
+                <Setter Property="Background" Value="{DynamicResource CardBackground}"/>
+                <Setter Property="CornerRadius" Value="8"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource BorderBrushLight}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Height" Value="45"/>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
 
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-        <Grid Margin="20">
+        <Grid Margin="30">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <!-- Titlu -->
                 <RowDefinition Height="Auto"/>
-                <!-- Sectiunea 1: Carti -->
                 <RowDefinition Height="Auto"/>
-                <!-- Sectiunea 2 & 3: Elevi si Confirmare -->
                 <RowDefinition Height="Auto"/>
-                <!-- Sectiunea 4: Info Coada -->
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" Text="Rezervare carte" FontSize="28" FontWeight="Bold" 
-                       Foreground="{StaticResource TextDark}" Margin="0,0,0,25"/>
+                       Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,25"/>
 
-            <Border Grid.Row="1" Style="{StaticResource StatCardStyle}" Margin="0,0,0,20">
+            <Border Grid.Row="1" Background="{DynamicResource CardBackground}" CornerRadius="12" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" Padding="25" Margin="0,0,0,25">
                 <StackPanel>
                     <TextBlock Text="1. Caută și selectează cartea" FontWeight="Bold" FontSize="18" 
-                               Foreground="{StaticResource TextDark}" Margin="0,0,0,15"/>
+                               Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,15"/>
+
                     <Grid Margin="0,0,0,20">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBox x:Name="SearchBookBox" 
-                                 Style="{StaticResource ModernInputStyle}"
-                                 Tag="Caută după titlu, autor, ISBN..." 
-                                 VerticalContentAlignment="Center"
-                                 Padding="10,0" Height="43" />
+                        <Border Grid.Column="0" Style="{StaticResource SearchBorderStyle}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="45"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <fa5:ImageAwesome Icon="Solid_Search" Foreground="{DynamicResource TextMuted}" Width="14" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBox x:Name="SearchTextBox" Grid.Column="1" VerticalContentAlignment="Center" BorderThickness="0" Background="Transparent" 
+                                         Foreground="{DynamicResource TextPrimary}" CaretBrush="{DynamicResource TextPrimary}"
+                                         Tag="Caută după Titlu, Autor sau ISBN..." Padding="5,0" FontSize="14" Margin="0,2,3,3"/>
+                            </Grid>
+                        </Border>
 
-                        <Button x:Name="BtnSearchBook" Grid.Column="1" Style="{StaticResource GlobalActionButtonStyle}" 
-                                MinWidth="130" Margin="15,0,0,0">
+                        <Button x:Name="BtnSearchBook" Grid.Column="1" Margin="15,0,0,0" Style="{StaticResource GlobalActionButtonStyle}" Foreground="White">
                             <StackPanel Orientation="Horizontal">
                                 <fa5:ImageAwesome Icon="Solid_Search" Foreground="White" Width="14" Margin="0,0,8,0"/>
-                                <TextBlock Text="Caută"/>
+                                <TextBlock Text="Caută" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
                     </Grid>
@@ -54,54 +73,58 @@
                 </StackPanel>
             </Border>
 
-            <Grid Grid.Row="2" Margin="0,0,0,20">
+            <Grid Grid.Row="2" Margin="0,0,0,25">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <!-- Sectiunea Elev -->
-                <Border Grid.Column="0" Style="{StaticResource StatCardStyle}" Margin="0,0,10,0">
+                <Border Grid.Column="0" Background="{DynamicResource CardBackground}" CornerRadius="12" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" Padding="25" Margin="0,0,12,0">
                     <StackPanel>
-                        <TextBlock Text="2. Selectează elevul pentru rezervare" FontWeight="Bold" FontSize="16" Margin="0,0,0,15"/>
-                        <TextBox x:Name="SearchStudentBox" 
-                                 Style="{StaticResource ModernInputStyle}"
-                                 Tag="Caută elev după nume..."
-                                 Margin="0,0,0,10" Height="40"/>
+                        <TextBlock Text="2. Selectează elevul pentru rezervare" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,15"/>
+
+                        <Border Style="{StaticResource SearchBorderStyle}" Margin="0,0,0,15">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="45"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <fa5:ImageAwesome Icon="Solid_User" Foreground="{DynamicResource TextMuted}" Width="14" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBox x:Name="SearchStudentBox" Grid.Column="1" VerticalContentAlignment="Center" BorderThickness="0" Background="Transparent" 
+                                         Foreground="{DynamicResource TextPrimary}" CaretBrush="{DynamicResource TextPrimary}"
+                                         Tag="Caută elev după nume..." Padding="5,0" FontSize="14" Margin="0,2,3,3"/>
+                            </Grid>
+                        </Border>
 
                         <DataGrid x:Name="StudentsDataGrid" Style="{StaticResource ModernDataGridStyle}" 
                                   MinHeight="200" MaxHeight="400" AutoGenerateColumns="False" IsReadOnly="True" Height="300"/>
                     </StackPanel>
                 </Border>
 
-                <Border Grid.Column="1" Style="{StaticResource StatCardStyle}" Margin="10,0,0,0">
+                <Border Grid.Column="1" Background="{DynamicResource CardBackground}" CornerRadius="12" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" Padding="25" Margin="12,0,0,0">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
-                            <!-- Titlu -->
                             <RowDefinition Height="*"/>
-                            <!-- Imagine -->
                             <RowDefinition Height="Auto"/>
-                            <!-- Detalii Text -->
                             <RowDefinition Height="Auto"/>
-                            <!-- Buton -->
                         </Grid.RowDefinitions>
 
-                        <TextBlock Grid.Row="0" Text="3. Confirmare" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
+                        <TextBlock Grid.Row="0" Text="3. Confirmare" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,15"/>
 
-                        <Border Grid.Row="1" Height="200" CornerRadius="10" Background="#F4F7FE" Margin="0,0,0,15">
+                        <Border Grid.Row="1" Height="200" CornerRadius="10" Background="{DynamicResource WindowBackground}" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" Margin="0,0,0,15">
                             <Image x:Name="imgCoperta" Stretch="Uniform" Margin="5"/>
                         </Border>
 
                         <StackPanel Grid.Row="2" Margin="0,0,0,15">
-                            <Grid Margin="0,5">
-                                <TextBlock Text="Elev:" Foreground="{StaticResource TextGray}"/>
-                                <TextBlock x:Name="TxtFinalStudent" Text="-" HorizontalAlignment="Right" FontWeight="SemiBold"/>
+                            <Grid Margin="0,6">
+                                <TextBlock Text="Elev:" Foreground="{DynamicResource TextMuted}" FontSize="14"/>
+                                <TextBlock x:Name="TxtFinalStudent" Text="-" HorizontalAlignment="Right" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}" FontSize="14"/>
                             </Grid>
-                            <Grid Margin="0,5">
-                                <TextBlock Text="Carte:" Foreground="{StaticResource TextGray}"/>
+                            <Grid Margin="0,6">
+                                <TextBlock Text="Carte:" Foreground="{DynamicResource TextMuted}" FontSize="14"/>
                                 <TextBlock x:Name="TxtSelectedBook" Text="Neselectat" HorizontalAlignment="Right" 
-                                           FontWeight="SemiBold" MaxWidth="150" TextTrimming="CharacterEllipsis"/>
+                                           FontWeight="Bold" MaxWidth="160" TextTrimming="CharacterEllipsis" Foreground="{DynamicResource TextPrimary}" FontSize="14"/>
                             </Grid>
                         </StackPanel>
 
@@ -111,14 +134,14 @@
                                 Click="BtnSaveReservation_Click">
                             <StackPanel Orientation="Horizontal">
                                 <fa5:ImageAwesome Icon="Solid_Check" Foreground="White" Width="14" Margin="0,0,8,0"/>
-                                <TextBlock Text="Salvează Rezervarea" FontWeight="Bold"/>
+                                <TextBlock Text="Salvează Rezervarea" FontWeight="Bold" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
                     </Grid>
                 </Border>
             </Grid>
 
-            <Border Grid.Row="3" Style="{StaticResource StatCardStyle}" Margin="0,0,0,20">
+            <Border Grid.Row="3" Background="{DynamicResource CardBackground}" CornerRadius="12" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" Padding="25">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -133,24 +156,24 @@
                         </Grid.RowDefinitions>
 
                         <TextBlock Grid.Row="0" Text="Deținută în prezent de:" FontWeight="Bold" FontSize="15" 
-                                   Margin="0,0,0,10" Foreground="{StaticResource TextDark}"/>
+                                   Margin="0,0,0,10" Foreground="{DynamicResource TextPrimary}"/>
 
                         <DataGrid Grid.Row="1" x:Name="CurrentLoanGrid" Style="{StaticResource ModernDataGridStyle}" 
                                   MinHeight="150" MaxHeight="250" IsReadOnly="True"/>
 
-                        <Border Grid.Row="2" Background="#FFF5F5" CornerRadius="8" Padding="12" Margin="0,15,0,0" 
-                                BorderBrush="#FEB2B2" BorderThickness="1">
+                        <Border Grid.Row="2" Background="{DynamicResource BorrowedOrangeBg}" CornerRadius="8" Padding="12" Margin="0,15,0,0" 
+                                BorderBrush="{DynamicResource BorrowedOrange}" BorderThickness="1">
                             <StackPanel Orientation="Horizontal">
-                                <fa5:ImageAwesome Icon="Solid_ExclamationCircle" Foreground="#C53030" Width="14" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                                <TextBlock Text="Când o carte se va returna, elevul va primi un mesaj." 
-                                           Foreground="#9B2C2C" FontSize="13" TextWrapping="Wrap"/>
+                                <fa5:ImageAwesome Icon="Solid_ExclamationCircle" Foreground="{DynamicResource BorrowedOrange}" Width="14" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                                <TextBlock Text="Când o carte se va returna, elevul va primi un mesaj automat." 
+                                           Foreground="{DynamicResource TextPrimary}" FontSize="13" TextWrapping="Wrap" FontWeight="Medium"/>
                             </StackPanel>
                         </Border>
                     </Grid>
 
-                    <StackPanel Grid.Column="1">
+                    <StackPanel Grid.Column="1" Margin="20,0,0,0">
                         <TextBlock Text="Coada de așteptare" FontWeight="Bold" FontSize="15" 
-                                   Margin="0,0,0,10" Foreground="{StaticResource TextDark}"/>
+                                   Margin="0,0,0,10" Foreground="{DynamicResource TextPrimary}"/>
                         <DataGrid x:Name="WaitListGrid" Style="{StaticResource ModernDataGridStyle}" 
                                   MinHeight="150" MaxHeight="320" AutoGenerateColumns="False" IsReadOnly="True" Height="308"/>
                     </StackPanel>

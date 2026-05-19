@@ -10,11 +10,6 @@ namespace BibliotecaCEITI
 {
     public partial class LoginWindow : Window
     {
-        // ── Șir de conexiune BD ───────────────────────────────────────────
-        private const string ConnStr =
-            "Server=localhost;Port=3306;Database=biblioteca_ceiti_go;" +
-            "Uid=root;Pwd=Biblioteca2026!@#;CharSet=utf8mb4;SslMode=Disabled;";
-
         // ── Token de anulare — anulat la închiderea ferestrei ─────────────
         private CancellationTokenSource _cts = new();
 
@@ -25,20 +20,15 @@ namespace BibliotecaCEITI
         {
             InitializeComponent();
 
-            // Dezactivează butonul Google până când configurarea e încărcată din BD
             googleBtn.IsEnabled = false;
 
-            // Curăță orice token Google rămas pe disk de la sesiuni anterioare
-            // (ex: aplicația a fost închisă forțat fără logout)
             _ = GoogleAuthService.Instance.LogoutAsync();
 
-            // Încarcă credențialele OAuth din BD asincron
             _ = InitializeOAuthAsync();
         }
 
         // ─────────────────────────────────────────────────────────────────
         //  Inițializare OAuth — citește ClientId și ClientSecret din BD
-        //  via procedura stocată sp_get_oauth_config
         // ─────────────────────────────────────────────────────────────────
         private async Task InitializeOAuthAsync()
         {
@@ -46,19 +36,16 @@ namespace BibliotecaCEITI
             {
                 string? clientId = null, clientSecret = null;
 
-                using (var conn = new MySqlConnection(ConnStr))
+                using (var conn = DatabaseConfig.GetConnection())
                 {
                     await conn.OpenAsync();
 
-                    // Folosim query direct în loc de procedura stocată
-                    // pentru a evita problemele de tip cu parametrii OUT
                     using var cmd = new MySqlCommand(
                         "SELECT client_id, client_secret FROM configurare_oauth WHERE provider = 'google' AND activ = 1 LIMIT 1", conn);
 
                     using var reader = await cmd.ExecuteReaderAsync();
                     if (await reader.ReadAsync())
                     {
-                        // FIX: verifică NULL explicit înainte de GetString
                         clientId = reader.IsDBNull(0) ? null : reader.GetString(0);
                         clientSecret = reader.IsDBNull(1) ? null : reader.GetString(1);
                     }
@@ -95,6 +82,7 @@ namespace BibliotecaCEITI
                 });
             }
         }
+
         // ─────────────────────────────────────────────────────────────────
         //  Autentificare clasică — email + parolă
         // ─────────────────────────────────────────────────────────────────
@@ -115,12 +103,11 @@ namespace BibliotecaCEITI
 
             try
             {
-                // ── Pasul 1: Obține hash-ul BCrypt din BD via sp_login_parola ──
                 int cod;
                 int? id;
                 string? hash, rol, mesaj;
 
-                using (var conn = new MySqlConnection(ConnStr))
+                using (var conn = DatabaseConfig.GetConnection())
                 {
                     await conn.OpenAsync();
                     using var cmd = new MySqlCommand("sp_login_parola", conn)
@@ -147,7 +134,6 @@ namespace BibliotecaCEITI
                     mesaj = cmd.Parameters["p_mesaj"].Value?.ToString();
                 }
 
-                // ── Pasul 2: Tratează codurile de eroare din procedura stocată ─
                 switch (cod)
                 {
                     case 1:
@@ -159,7 +145,7 @@ namespace BibliotecaCEITI
                     case 3:
                         MessageBox.Show(
                             "Acest cont folosește autentificarea Google.\n" +
-                            "Apăsați „Continuă cu Google pentru a vă conecta.",
+                            "Apăsați [Continuă cu Google] pentru a vă conecta.",
                             "Informație", MessageBoxButton.OK, MessageBoxImage.Information);
                         return;
                     case 4:
@@ -167,7 +153,6 @@ namespace BibliotecaCEITI
                         return;
                 }
 
-                // ── Pasul 3: Verificare BCrypt în C# (NICIODATĂ în SQL) ────────
                 bool parolaValida = await Task.Run(() =>
                     BCrypt.Net.BCrypt.Verify(parola, hash));
 
@@ -177,11 +162,9 @@ namespace BibliotecaCEITI
                     return;
                 }
 
-                // ── Pasul 4: Creează sesiunea în BD ───────────────────────────
                 string token = Guid.NewGuid().ToString("N");
                 await CreeazaSesiuneAsync(id!.Value, "parola", token);
 
-                // ── Succes ────────────────────────────────────────────────────
                 DeschideMainWindow();
             }
             catch (Exception ex)
@@ -201,8 +184,6 @@ namespace BibliotecaCEITI
         // ─────────────────────────────────────────────────────────────────
         private async void GoogleBtn_Click(object sender, RoutedEventArgs e)
         {
-            // Protecție suplimentară — dacă cumva butonul e apăsat înainte
-            // ca InitializeOAuthAsync să fi terminat cu succes
             if (!_oauthConfigurat)
             {
                 MessageBox.Show(
@@ -216,7 +197,6 @@ namespace BibliotecaCEITI
 
             try
             {
-                // ── Pasul 1: Autentificare OAuth ──────────────────────────────
                 var result = await GoogleAuthService.Instance.LoginAsync(_cts.Token);
 
                 if (!result.Success)
@@ -227,10 +207,9 @@ namespace BibliotecaCEITI
                     return;
                 }
 
-                // ── Pasul 2: Verificare cont în BD via sp_login_google ─────────
                 int cod; int? idBib; string? mesaj;
 
-                using (var conn = new MySqlConnection(ConnStr))
+                using (var conn = DatabaseConfig.GetConnection())
                 {
                     await conn.OpenAsync();
                     using var cmd = new MySqlCommand("sp_login_google", conn)
@@ -256,16 +235,15 @@ namespace BibliotecaCEITI
                     mesaj = cmd.Parameters["p_mesaj"].Value?.ToString();
                 }
 
-                // ── Pasul 3: Tratează răspunsul BD ───────────────────────────
                 switch (cod)
                 {
-                    case 2: // cont dezactivat
+                    case 2:
                         await GoogleAuthService.Instance.LogoutAsync();
                         MessageBox.Show(mesaj ?? "Contul este dezactivat.",
                             "Acces refuzat", MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
 
-                    case 5: // email Google necunoscut în BD
+                    case 5:
                         await GoogleAuthService.Instance.LogoutAsync();
                         MessageBox.Show(
                             "Nu există niciun cont de bibliotecar asociat acestui email Google.\n" +
@@ -273,7 +251,7 @@ namespace BibliotecaCEITI
                             "Acces refuzat", MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
 
-                    case 0: // succes
+                    case 0:
                         break;
 
                     default:
@@ -283,16 +261,11 @@ namespace BibliotecaCEITI
                         return;
                 }
 
-                // ── Pasul 4: Creează sesiunea în BD ───────────────────────────
                 string token = Guid.NewGuid().ToString("N");
                 await CreeazaSesiuneAsync(idBib!.Value, "google", token);
 
-                // ── Pasul 5: Logout Google IMEDIAT ────────────────────────────
-                // Aplicația gestionează sesiunile propriu prin tabelul `sesiuni`.
-                // Nu avem nevoie de token-ul Google activ după autentificare.
                 await GoogleAuthService.Instance.LogoutAsync();
 
-                // ── Succes ────────────────────────────────────────────────────
                 DeschideMainWindow();
             }
             catch (OperationCanceledException) { /* fereastra s-a închis */ }
@@ -343,7 +316,7 @@ namespace BibliotecaCEITI
         // ─────────────────────────────────────────────────────────────────
         private async Task CreeazaSesiuneAsync(int idBib, string metoda, string token)
         {
-            using var conn = new MySqlConnection(ConnStr);
+            using var conn = DatabaseConfig.GetConnection();
             await conn.OpenAsync();
             using var cmd = new MySqlCommand("sp_creeaza_sesiune", conn)
             { CommandType = System.Data.CommandType.StoredProcedure };
