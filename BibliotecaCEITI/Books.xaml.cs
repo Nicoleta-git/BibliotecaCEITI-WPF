@@ -169,6 +169,11 @@ namespace BibliotecaCEITI
             }
         }
 
+        private void RefreshBooks_Click(object sender, RoutedEventArgs e)
+        {
+            SelectBooks();
+        }
+
         private string cod_Inventar_CarteSelectata, titlu_CarteSelectata, autor_CarteSelectata, isbn_CarteSelectata, stare_CarteSelectata;
         private double pret_CarteSelectata;
 

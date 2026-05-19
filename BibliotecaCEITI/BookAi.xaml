@@ -8,6 +8,15 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+
+            <Storyboard x:Key="BubbleIntroAnimation">
+                <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.25"/>
+                <DoubleAnimation Storyboard.TargetProperty="(RenderTransform).(TranslateTransform.Y)" From="20" To="0" Duration="0:0:0.3">
+                    <DoubleAnimation.EasingFunction>
+                        <CubicEase EasingMode="EaseOut"/>
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+            </Storyboard>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -27,17 +36,37 @@
                 </StackPanel>
             </StackPanel>
 
-            <Border Grid.Row="1" Background="{DynamicResource ControlBackground}" CornerRadius="15" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" Padding="15" Margin="0,0,0,15">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <TextBox x:Name="response" 
-                             TextWrapping="Wrap" 
-                             BorderThickness="0" 
-                             Background="Transparent" 
-                             IsReadOnly="True"
-                             FontSize="14" 
-                             Foreground="{DynamicResource TextSecondary}" 
-                             Text="Rezultatul va apărea aici..." 
-                             MinHeight="360"/>
+            <Border Grid.Row="1" Background="{DynamicResource ControlBackground}" CornerRadius="15" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" Padding="10" Margin="0,0,0,15">
+                <ScrollViewer x:Name="ChatScrollViewer" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl x:Name="ChatItemsControl" Margin="0,5">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,6,0,6" HorizontalAlignment="{Binding Alignment}">
+                                    <Grid.RenderTransform>
+                                        <TranslateTransform Y="0"/>
+                                    </Grid.RenderTransform>
+
+                                    <Border Background="{Binding BackgroundBrush}" 
+                                            CornerRadius="{Binding BubbleRadius}" 
+                                            Padding="14,10" 
+                                            MaxWidth="340"
+                                            BorderThickness="{Binding BorderThickness}"
+                                            BorderBrush="{Binding BorderBrush}">
+                                        <TextBlock Text="{Binding MessageText}" 
+                                                   TextWrapping="Wrap" 
+                                                   FontSize="14" 
+                                                   Foreground="{Binding TextBrush}"/>
+                                    </Border>
+
+                                    <Grid.Triggers>
+                                        <EventTrigger RoutedEvent="Grid.Loaded">
+                                            <BeginStoryboard Storyboard="{StaticResource BubbleIntroAnimation}"/>
+                                        </EventTrigger>
+                                    </Grid.Triggers>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </ScrollViewer>
             </Border>
 

@@ -31,12 +31,22 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,5">
+                    <Button x:Name="btnSys" Width="120" Height="38" Margin="0,0,10,0"
+                        Style="{StaticResource GlobalActionButtonStyle}"
+                        Click="BtnSys_Click">       
+                        <StackPanel Orientation="Horizontal">
+                            <fa5:ImageAwesome Icon="Solid_Cogs" Width="14" Foreground="White" Margin="0,0,8,0"/>
+                            <TextBlock Text="SYS"/>
+                        </StackPanel>
+                    </Button>
+
                     <Button x:Name="btnSalveazaSetari" Width="180" Height="38" Style="{StaticResource GlobalActionButtonStyle}" Click="btnSalveazaSetari_Click">
                         <StackPanel Orientation="Horizontal">
                             <fa5:ImageAwesome Icon="Solid_Check" Width="14" Foreground="White" Margin="0,0,10,0"/>
                             <TextBlock Text="Salvează modificările"/>
                         </StackPanel>
                     </Button>
+                    
                 </StackPanel>
             </Grid>
         </Border>
