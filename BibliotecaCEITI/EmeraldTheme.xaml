@@ -13,6 +13,8 @@
     <SolidColorBrush x:Key="TextMuted" Color="#52796F"/>
     <SolidColorBrush x:Key="TextGray" Color="#718F84"/>
     <SolidColorBrush x:Key="LabelGray" Color="#4A6B5D"/>
+    <SolidColorBrush x:Key="TotalBlue" Color="#34D399"/>
+    <SolidColorBrush x:Key="TotalBlueBg" Color="#1F4434"/>
 
     <SolidColorBrush x:Key="PrimaryEmerald" Color="#059669"/>
     <SolidColorBrush x:Key="PrimaryEmeraldHover" Color="#047857"/>
@@ -40,10 +42,16 @@
 
     <SolidColorBrush x:Key="AccentTeal" Color="#0D9488"/>
     <SolidColorBrush x:Key="AccentTealBg" Color="#CCFBF1"/>
-    <SolidColorBrush x:Key="BorrowedOrange" Color="#D97706"/>
-    <SolidColorBrush x:Key="BorrowedOrangeBg" Color="#FEF3C7"/>
     <SolidColorBrush x:Key="HeaderWhite" Color="White"/>
 
+
+    <SolidColorBrush x:Key="StockGreen" Color="#34D399"/>
+    <SolidColorBrush x:Key="StockGreenBg" Color="#064E3B"/>
+    <SolidColorBrush x:Key="BorrowedOrange" Color="#C05621"/>
+    <SolidColorBrush x:Key="BorrowedOrangeBg" Color="#FFFAF0"/>
+    <SolidColorBrush x:Key="PrimaryPurple" Color="#A78BFA"/>
+    <SolidColorBrush x:Key="ReservedPurple" Color="#A78BFA"/>
+    <SolidColorBrush x:Key="ReservedPurpleBg" Color="#2E1065"/>
 
 
     <Color x:Key="ShadowColor">#8EA89D</Color>

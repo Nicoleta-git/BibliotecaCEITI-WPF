@@ -113,7 +113,7 @@
                                     Cursor="Hand">
                                 <Button.Template>
                                     <ControlTemplate TargetType="Button">
-                                        <Border Background="#2563EB" 
+                                        <Border Background="{DynamicResource PrimaryEmerald}" 
                                                 CornerRadius="5" 
                                                 Padding="8,4">
                                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
