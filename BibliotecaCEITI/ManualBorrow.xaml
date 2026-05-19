@@ -6,7 +6,7 @@
              xmlns:fa5="http://schemas.fontawesome.com/icons/"
              mc:Ignorable="d" 
              Background="#F4F7FE"
-             FontFamily="Segoe UI" d:DesignWidth="1000" Height="753">
+             FontFamily="Segoe UI" d:DesignWidth="1000" Height="853">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -125,7 +125,7 @@
                         Padding="20,12">
                     <Grid>
                         <TextBox x:Name="TxtEleviSelectati" Width="300" Height="38" IsReadOnly="True"
-                                 Style="{StaticResource ModernInputStyle}"
+                                 
                                  HorizontalAlignment="Left" Margin="0,1,0,1" Text="Elevi selectati:"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                             <CheckBox x:Name="ChkBifeazaToti" Content="Bifeaza toti"
