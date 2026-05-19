@@ -87,12 +87,6 @@
                                         <TextBlock Text="Atenționări" Foreground="White"/>
                                     </StackPanel>
                                 </Button>
-                                <Button Style="{StaticResource MenuButtonStyle}">
-                                    <StackPanel Orientation="Horizontal">
-                                        <fa5:ImageAwesome Icon="Solid_FileAlt" Width="16" Foreground="White" Margin="0,0,15,0"/>
-                                        <TextBlock Text="Rapoarte" Foreground="White"/>
-                                    </StackPanel>
-                                </Button>
                             </StackPanel>
                         </ScrollViewer>
 

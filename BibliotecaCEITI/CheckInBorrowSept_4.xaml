@@ -1,52 +1,62 @@
-﻿<UserControl x:Class="BibliotecaCEITI.CheckInBorrowSept_4"
+﻿<UserControl x:Class="BibliotecaCEITI.CheckInBorrowStep_4"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BibliotecaCEITI"
-             mc:Ignorable="d" Background="#F4F7FE"
+             mc:Ignorable="d" Background="Transparent"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
 
+    <Border Background="{DynamicResource CardBackground}" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" CornerRadius="12" Margin="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Margin="25">
-            <Border BorderBrush="#d7d8de" BorderThickness="0,0,0,2">
-                <TextBlock Text="4. Confirmă împrumut" FontSize="20" FontWeight="Bold" Padding="10"/>
-            </Border>
-        </StackPanel>
+            <StackPanel Grid.Row="0" Margin="25,25,25,10">
+                <Border BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="0,0,0,1" Margin="0,0,0,15">
+                    <TextBlock Text="4. Confirmă împrumut" FontSize="20" FontWeight="Bold" Padding="10" Foreground="{DynamicResource TextPrimary}"/>
+                </Border>
+            </StackPanel>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" Height="300">
-            <Border Padding="30,30,30,0" Width="394" BorderBrush="#d7d8de" BorderThickness="0,0,2,0">
-                <StackPanel Height="324" Margin="6,0,-32,0">
-                    <TextBlock Text="Elev" FontWeight="bold" FontSize="18" Foreground="#303030" Margin="0,0,0,30"/>
-                    <TextBlock Text="Nume" Foreground="#707070" FontSize="12"/>
-                    <TextBlock Text="Tite Nicoleta" FontSize="16" Foreground="#303030" Margin="0,0,0,15"/>
-                    <TextBlock Text="Clasa" Foreground="#707070" FontSize="12"/>
-                    <TextBlock Text="XII" FontSize="16" Foreground="#303030" Margin="0,0,0,15"/>
-                    <TextBlock Text="ID Elev" Foreground="#707070" FontSize="12"/>
-                    <TextBlock Text="8978724" FontSize="16" Foreground="#303030" Margin="0,0,0,15"/>
-                    <TextBlock Text="Telefon" Foreground="#707070" FontSize="12"/>
-                    <TextBlock Text="072 434 375" FontSize="16" Foreground="#303030" Margin="0,0,0,15"/>
-                </StackPanel>
-            </Border>
-            <Border Padding="30,30,30,0" Height="343" Width="399">
-                <StackPanel Width="710" Margin="0,0,0,57">
-                    <TextBlock Text="Carte" FontWeight="bold" FontSize="18" Foreground="#303030" Margin="0,0,0,30"/>
-                    <TextBlock Text="Titlu" Foreground="#707070" FontSize="12"/>
-                    <TextBlock Text="Amintiri din copilarie" FontSize="16" Foreground="#303030" Margin="0,0,0,15"/>
-                    <TextBlock Text="Autor" Foreground="#707070" FontSize="12"/>
-                    <TextBlock Text="Ion Creanga" FontSize="16" Foreground="#303030" Margin="0,0,0,15"/>
-                    <TextBlock Text="ISBN" Foreground="#707070" FontSize="12"/>
-                    <TextBlock Text="746-4636-654" FontSize="16" Foreground="#303030" Margin="0,0,0,15"/>
-                    <TextBlock Text="Termen de returnare" Foreground="#707070" FontSize="12"/>
-                    <TextBlock Text="04.06.2025 (14 zile)" FontSize="16" Foreground="#303030" Margin="0,0,0,15"/>
-                </StackPanel>
-            </Border>
-        </StackPanel>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="25,0">
+                <Border Padding="0,0,30,0" Width="380" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="0,0,1,0">
+                    <StackPanel>
+                        <TextBlock Text="Elev" FontWeight="Bold" FontSize="18" Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,20"/>
 
-    </Grid>
+                        <TextBlock Text="Nume" Foreground="{DynamicResource TextMuted}" FontSize="12"/>
+                        <TextBlock Text="Tite Nicoleta" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
+
+                        <TextBlock Text="Clasa" Foreground="{DynamicResource TextMuted}" FontSize="12"/>
+                        <TextBlock Text="XII" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
+
+                        <TextBlock Text="ID Elev" Foreground="{DynamicResource TextMuted}" FontSize="12"/>
+                        <TextBlock Text="8978724" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
+
+                        <TextBlock Text="Telefon" Foreground="{DynamicResource TextMuted}" FontSize="12"/>
+                        <TextBlock Text="072 434 375" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Padding="30,0,0,0" Width="380">
+                    <StackPanel>
+                        <TextBlock Text="Carte" FontWeight="Bold" FontSize="18" Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,20"/>
+
+                        <TextBlock Text="Titlu" Foreground="{DynamicResource TextMuted}" FontSize="12"/>
+                        <TextBlock Text="Amintiri din copilărie" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
+
+                        <TextBlock Text="Autor" Foreground="{DynamicResource TextMuted}" FontSize="12"/>
+                        <TextBlock Text="Ion Creangă" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
+
+                        <TextBlock Text="ISBN" Foreground="{DynamicResource TextMuted}" FontSize="12"/>
+                        <TextBlock Text="746-4636-654" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
+
+                        <TextBlock Text="Termen de returnare" Foreground="{DynamicResource TextMuted}" FontSize="12"/>
+                        <TextBlock Text="04.06.2025 (14 zile)" FontSize="16" Foreground="{DynamicResource TotalBlue}" FontWeight="Medium" Margin="0,0,0,15"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </Border>
 </UserControl>
