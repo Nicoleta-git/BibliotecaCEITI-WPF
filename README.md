@@ -1,4 +1,5 @@
 # BibliotecaCEITI
+<img width="1536" height="1024" alt="Biblioteca CEITI" src="https://github.com/user-attachments/assets/207212b1-86ba-4d6d-9ec1-b85b58f3eb8e" />
 
 [![.NET Core Desktop](https://github.com/Nicoleta-git/BibliotecaCEITI-WPF/actions/workflows/dotnet-desktop.yml/badge.svg)](https://github.com/Nicoleta-git/BibliotecaCEITI-WPF/actions/workflows/dotnet-desktop.yml)
 
