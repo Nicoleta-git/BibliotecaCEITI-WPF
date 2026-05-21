@@ -19,9 +19,9 @@ using System.Windows.Shapes;
 namespace BibliotecaCEITI
 {
     /// <summary>
-    /// Interaction logic for CheckInBorrowSept_4.xaml
+    /// Interaction logic for CheckInBorrowStep_4.xaml
     /// </summary>
-    public partial class CheckInBorrowSept_4 : UserControl
+    public partial class CheckInBorrowStep_4 : UserControl 
     {
         private int _idElev, _idEx;
         private DateTime _d_impr, _d_return;

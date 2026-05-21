@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:fa5="http://schemas.fontawesome.com/icons/"
              xmlns:local="clr-namespace:BibliotecaCEITI"
-             mc:Ignorable="d" Background="#F4F7FE"
+             mc:Ignorable="d" Background="Transparent"
              d:DesignHeight="550" d:DesignWidth="800">
 
     <UserControl.Resources>
@@ -15,7 +15,7 @@
             </ResourceDictionary.MergedDictionaries>
 
             <Style x:Key="SearchButtonStyle" TargetType="Button">
-                <Setter Property="Background" Value="#2563EB"/>
+                <Setter Property="Background" Value="{DynamicResource TotalBlue}"/>
                 <Setter Property="Foreground" Value="White"/>
                 <Setter Property="FontWeight" Value="SemiBold"/>
                 <Setter Property="Padding" Value="25,10"/>
@@ -33,11 +33,11 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Border Background="White" BorderBrush="#E2E8F0" BorderThickness="1">
+    <Border Background="{DynamicResource CardBackground}" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" CornerRadius="12">
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="25">
 
-                <TextBlock Text="2. Caută și selectează carte" FontSize="20" FontWeight="Bold" Foreground="#1E293B" Margin="0,0,0,25"/>
+                <TextBlock Text="2. Caută și selectează carte" FontSize="20" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,25"/>
 
                 <Grid Margin="0,0,0,20">
                     <Grid.RowDefinitions>
@@ -46,43 +46,56 @@
                     </Grid.RowDefinitions>
 
                     <StackPanel Grid.Row="0">
-                        <TextBlock Text="Căutare după autor" FontSize="13" Foreground="#64748B" Margin="0,0,0,8" FontWeight="Medium"/>
-                        <StackPanel Orientation="Horizontal">
-                            <Border BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Margin="0,0,10,0" Padding="12,5" Width="584">
+                        <TextBlock Text="Căutare după autor" FontSize="13" Foreground="{DynamicResource TextMuted}" Margin="0,0,0,8" FontWeight="Medium"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Grid.Column="0" Background="{DynamicResource InputBackground}" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" CornerRadius="8" Margin="0,0,15,0" Padding="12,5">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <fa5:ImageAwesome Icon="Solid_Search" Width="14" Foreground="#94A3B8" Margin="0,0,10,0"/>
-                                    <TextBox x:Name="SearchBox" Grid.Column="1" BorderThickness="0" VerticalContentAlignment="Center" Foreground="#1E293B" FontSize="14" HorizontalAlignment="Stretch" TextChanged="SearchBox_TextChanged" />
-                                    
+                                    <fa5:ImageAwesome Icon="Solid_Search" Width="14" Foreground="{DynamicResource TextMuted}" Margin="0,0,10,0"/>
+                                    <TextBox x:Name="SearchBox" Grid.Column="1" BorderThickness="0" Background="Transparent" VerticalContentAlignment="Center" Foreground="{DynamicResource TextPrimary}" FontSize="14" HorizontalAlignment="Stretch" TextChanged="SearchBox_TextChanged" />
                                 </Grid>
                             </Border>
-                            <Button x:Name="BtnCauta" Width="127" Height="46" Style="{StaticResource SearchButtonStyle}">
+
+                            <Button x:Name="BtnCauta" Grid.Column="1" Width="127" Height="46" Style="{StaticResource SearchButtonStyle}">
                                 <StackPanel Orientation="Horizontal">
                                     <fa5:ImageAwesome Icon="Solid_Search" Width="11" Foreground="White" Height="11"/>
                                     <TextBlock Text="Caută" Margin="10,0,0,0" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
-                        </StackPanel>
+                        </Grid>
                     </StackPanel>
 
                     <StackPanel Grid.Row="1" Margin="0,15,0,0"/>
                 </Grid>
 
-                <TextBlock Text="Rezultate căutare" FontSize="14" FontWeight="SemiBold" Foreground="#64748B" Margin="0,0,0,10"/>
+                <TextBlock Text="Rezultate căutare" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource TextMuted}" Margin="0,0,0,10"/>
                 <DataGrid x:Name="BooksGrid"
-                            Style="{StaticResource ModernDataGridStyle}"
-                            AutoGenerateColumns="True"
-                            ColumnWidth="*"
-                            IsReadOnly="True"
-                            CanUserAddRows="False" 
-                            MaxHeight="250"
-                            MinHeight="150" AutoGeneratingColumn="BooksGrid_AutoGeneratingColumn" SelectionChanged="BooksGrid_SelectionChanged"/>
+                          Style="{StaticResource ModernDataGridStyle}"
+                          AutoGenerateColumns="True"
+                          ColumnWidth="*"
+                          IsReadOnly="True"
+                          CanUserAddRows="False" 
+                          MaxHeight="250"
+                          MinHeight="150" 
+                          HeadersVisibility="Column"
+                          GridLinesVisibility="Horizontal"
+                          HorizontalGridLinesBrush="{DynamicResource BorderBrushLight}"
+                          BorderThickness="0"
+                          Background="Transparent"
+                          RowBackground="{DynamicResource DataGridRowBackground}"
+                          AutoGeneratingColumn="BooksGrid_AutoGeneratingColumn" 
+                          SelectionChanged="BooksGrid_SelectionChanged"/>
 
-                <TextBlock Text="Carte selectată" FontSize="14" FontWeight="SemiBold" Foreground="#64748B" Margin="0,20,0,10"/>
-                <Border Background="White" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="12" Padding="20" Margin="0,0,0,10">
+                <TextBlock Text="Carte selectată" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource TextMuted}" Margin="0,20,0,10"/>
+                <Border Background="{DynamicResource WindowBackground}" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" CornerRadius="12" Padding="20" Margin="0,0,0,10">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -92,15 +105,15 @@
 
                         <StackPanel Grid.Column="1" VerticalAlignment="Center">
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                                <TextBlock x:Name="titlu_carte_selectata" Text="{Binding SelectedItem.Titlu, ElementName=BooksGrid, FallbackValue='Titlu Carte'}" FontSize="18" FontWeight="Bold" Foreground="#1E293B" Margin="0,0,10,0"/>
-                                <Border x:Name="fon_disponibilitate" Background="#F0FDF4" CornerRadius="4" Padding="8,2">
-                                    <TextBlock x:Name="disponibilitate_carte_selectata" Text="Disponibilă" Foreground="#16A34A" FontSize="11" FontWeight="SemiBold"/>
+                                <TextBlock x:Name="titlu_carte_selectata" Text="{Binding SelectedItem.Titlu, ElementName=BooksGrid, FallbackValue='Titlu Carte'}" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}" Margin="0,0,10,0"/>
+                                <Border x:Name="fon_disponibilitate" Background="{DynamicResource StockGreenBg}" CornerRadius="4" Padding="8,2">
+                                    <TextBlock x:Name="disponibilitate_carte_selectata" Text="Disponibilă" Foreground="{DynamicResource StockGreen}" FontSize="11" FontWeight="SemiBold"/>
                                 </Border>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock x:Name="autor_carte_selectata" Text="{Binding SelectedItem.Autor, ElementName=BooksGrid, FallbackValue='Autor: N/A', StringFormat='Autor: \{0\}'}" Foreground="#64748B" FontSize="13"/>
-                                <TextBlock Text=" • " Foreground="#CBD5E1"/>
-                                <TextBlock x:Name="cod_inventar_carte_selectata" Text="{Binding SelectedItem.Cod, ElementName=BooksGrid, FallbackValue='Cod: 0000', StringFormat='Cod: \{0\}'}" Foreground="#64748B" FontSize="13"/>
+                                <TextBlock x:Name="autor_carte_selectata" Text="{Binding SelectedItem.Autor, ElementName=BooksGrid, FallbackValue='Autor: N/A', StringFormat='Autor: \{0\}'}" Foreground="{DynamicResource TextMuted}" FontSize="13"/>
+                                <TextBlock Text=" • " Foreground="{DynamicResource BorderBrushDark}"/>
+                                <TextBlock x:Name="cod_inventar_carte_selectata" Text="{Binding SelectedItem.Cod, ElementName=BooksGrid, FallbackValue='Cod: 0000', StringFormat='Cod: \{0\}'}" Foreground="{DynamicResource TextMuted}" FontSize="13"/>
                             </StackPanel>
                         </StackPanel>
 
