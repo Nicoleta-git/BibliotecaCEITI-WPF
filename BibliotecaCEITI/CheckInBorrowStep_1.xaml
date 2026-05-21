@@ -70,6 +70,7 @@
                           EnableRowVirtualization="True"
                           VirtualizingPanel.IsVirtualizing="True"
                           VirtualizingPanel.VirtualizationMode="Recycling"
+                          IsReadOnly="True"
                           CanUserAddRows="False"
                           Height="157" SelectionChanged="StudentsGrid_SelectionChanged">
 

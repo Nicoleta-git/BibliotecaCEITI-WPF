@@ -115,7 +115,7 @@ namespace BibliotecaCEITI
 
         private void BooksGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            string[] coloaneDeAscuns = { "Id_exemplar", "Cod_Inventar", "ID_categorie", "ID_locatie", "ID_editura", "Stare" };
+            string[] coloaneDeAscuns = { "Id_carte", "Id_exemplar", "Cod_Inventar", "ID_categorie", "ID_locatie", "ID_editura", "Stare" };
 
             if (coloaneDeAscuns.Contains(e.Column.Header.ToString()))
             {

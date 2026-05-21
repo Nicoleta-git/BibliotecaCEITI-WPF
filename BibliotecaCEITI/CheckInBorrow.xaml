@@ -56,7 +56,7 @@
                     <Button Content="Anuleaza" Width="93" Margin="0,0,10,0" Style="{StaticResource GlobalActionButtonStyle}" Background="#e66250" Click="Button_Click"/>
                     <Button x:Name="btnNext" Style="{StaticResource GlobalActionButtonStyle}" Background="#1DA154" Width="154" Click="btnNext_Click">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Continuă" Foreground="White" FontSize="15" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="salveaza" Text="Continuă" Foreground="White" FontSize="15" FontWeight="SemiBold" VerticalAlignment="Center"/>
                             <fa5:ImageAwesome Icon="Solid_ChevronRight" Width="10" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>

@@ -39,11 +39,14 @@ namespace BibliotecaCEITI
             if (_idCarte > 0)
             {
                 functie = "editare";
+                action_book.Text = "Editare detalii carte";
                 IncarcaDateEditare();
             } else
             {
                 functie = "salvare";
+                action_book.Text = "Salvare carte";
             }
+
         }
 
         private void IncarcaDateEditare()
