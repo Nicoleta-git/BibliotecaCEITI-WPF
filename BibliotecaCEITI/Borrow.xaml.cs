@@ -173,18 +173,21 @@ namespace BibliotecaCEITI
                             da.Fill(dt);
 
                             List<ComboItem> lista = new List<ComboItem>();
-                            lista.Add(new ComboItem { Id = -1, Denumire = "Selectează starea..."});
+                            lista.Add(new ComboItem { Id = -1, Denumire = "Selectează starea..." });
+
+                            int index = 0;
                             foreach (DataRow rand in dt.Rows)
                             {
-                                ComboItem item = new ComboItem
+                                lista.Add(new ComboItem
                                 {
+                                    Id = index++,
                                     Denumire = rand["Stare"].ToString()
-                                };
-                                lista.Add(item);
+                                });
                             }
 
                             cbStari.ItemsSource = lista;
                             cbStari.DisplayMemberPath = "Denumire";
+                            cbStari.SelectedValuePath = "Id";
                             cbStari.SelectedIndex = 0;
                         }
                     }
@@ -346,37 +349,32 @@ namespace BibliotecaCEITI
             }
         }
 
+        private async void cbGrupe_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            await AplicaFiltreDB();
+        }
+
+        private async void cbStari_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            await AplicaFiltreDB();
+        }
+
         private async Task AplicaFiltreDB()
         {
             if (txtSearch == null || cbGrupe == null || cbStari == null || BooksGrid == null)
-            {
                 return;
-            }
 
             string textCautat = txtSearch.Text.Trim();
             if (textCautat == "Caută un elev...")
-            {
                 textCautat = "";
-            }
 
             int? idGrupa = null;
-            if (cbGrupe.SelectedValue != null && int.TryParse(cbGrupe.SelectedValue.ToString(), out int Id))
-            {
-                if (Id > 0)
-                {
-                    idGrupa = Id;
-                }
-            }
+            if (cbGrupe.SelectedItem is ComboItem itemGrupa && itemGrupa.Id > 0)
+                idGrupa = itemGrupa.Id;
 
             string stareSelectata = null;
-            if (cbStari.SelectedItem is ComboItem itemStare)
-            {
+            if (cbStari.SelectedItem is ComboItem itemStare && itemStare.Id != -1)
                 stareSelectata = itemStare.Denumire;
-                if (stareSelectata == "Selectează starea...")
-                {
-                    stareSelectata = null;
-                }
-            }
 
             try
             {
@@ -388,18 +386,9 @@ namespace BibliotecaCEITI
                         using (MySqlCommand cmd = new MySqlCommand("sp_filtrare_completa_imprumuturi", conn))
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
-
-                            var parametri = new Dictionary<string, object>
-                            {
-                                { "@p_text", string.IsNullOrWhiteSpace(textCautat) ? DBNull.Value : textCautat },
-                                { "@p_id_grupa", idGrupa == null ? DBNull.Value : idGrupa },
-                                { "@p_stare", string.IsNullOrWhiteSpace(stareSelectata) ? DBNull.Value : stareSelectata }
-                            };
-
-                            foreach (var p in parametri)
-                            {
-                                cmd.Parameters.AddWithValue(p.Key, p.Value);
-                            }
+                            cmd.Parameters.AddWithValue("@p_text", string.IsNullOrWhiteSpace(textCautat) ? (object)DBNull.Value : textCautat);
+                            cmd.Parameters.AddWithValue("@p_id_grupa", idGrupa == null ? (object)DBNull.Value : idGrupa);
+                            cmd.Parameters.AddWithValue("@p_stare", string.IsNullOrWhiteSpace(stareSelectata) ? (object)DBNull.Value : stareSelectata);
 
                             using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
                             {
@@ -412,32 +401,13 @@ namespace BibliotecaCEITI
                 });
 
                 BooksGrid.ItemsSource = dt.DefaultView;
+                BooksGrid.Items.Refresh();
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine("Eroare filtrare: " + ex.Message);
             }
-
         }
 
-        private async void cbGrupe_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            string selectedGrupa = (cbGrupe.SelectedItem as ComboItem)?.Denumire;
-
-            if (cbGrupe.SelectedItem != null && selectedGrupa != "Selectează grupa...")
-            {
-                await AplicaFiltreDB();
-            }
-        }
-
-        private async void cbStari_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            string selectedStatus = (cbStari.SelectedItem as ComboItem)?.Denumire;
-
-            if (cbStari.SelectedItem != null && selectedStatus != "Selectează starea...")
-            {
-                await AplicaFiltreDB();
-            }
-        }
     }
 }

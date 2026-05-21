@@ -42,7 +42,7 @@
                     <Button x:Name="btnAddStudent" Width="200" Height="38" Style="{StaticResource GlobalActionButtonStyle}" Click="btnSalveazaModificari_Click">
                         <StackPanel Orientation="Horizontal">
                             <fa5:ImageAwesome Icon="Solid_Save" Width="14" Foreground="White" Margin="0,0,10,0"/>
-                            <TextBlock Text="Salvează Modificări"/>
+                            <TextBlock Text="Salvează Elev"/>
                         </StackPanel>
                     </Button>
                 </StackPanel>
@@ -70,7 +70,7 @@
                             <TextBox x:Name="txtIdnp" Background="Transparent" Height="38" VerticalContentAlignment="Center" MaxLength="13" Margin="0,0,0,15"/>
 
                             <TextBlock Text="Grupă *" Style="{StaticResource FieldLabel}"/>
-                            <ComboBox x:Name="cbGrupa" Background="Transparent" Height="38" DisplayMemberPath="nume_grupa" SelectedValuePath="id" Margin="0,0,0,15"/>
+                            <ComboBox x:Name="cbGrupe" Background="Transparent" Foreground="{DynamicResource TextPrimary}" Height="38" DisplayMemberPath="Denumire" SelectedValuePath="Id" Margin="0,0,0,15"/>
 
                             <TextBlock Text="Data Nașterii" Style="{StaticResource FieldLabel}"/>
                             <DatePicker x:Name="dpDataNasterii" Background="Transparent" Height="38" Style="{StaticResource ModernDatePicker}" Margin="0,0,0,5"/>

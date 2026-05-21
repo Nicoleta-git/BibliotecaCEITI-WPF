@@ -75,8 +75,6 @@ namespace BibliotecaCEITI
                 MySqlCommand cmd = new MySqlCommand("sp_delete_carte", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@p_id", _idCarte);
-                //cmd.Parameters.AddWithValue("@p_motiv", motivul_stergerii);
-                //cmd.Parameters.AddWithValue("@p_observatie", observatie_stergere);
 
                 conn.Open();
                 cmd.ExecuteNonQuery();

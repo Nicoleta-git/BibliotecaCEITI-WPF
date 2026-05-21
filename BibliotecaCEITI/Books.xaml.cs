@@ -28,28 +28,7 @@ namespace BibliotecaCEITI
         public Books()
         {
             InitializeComponent();
-            //TestConnection();
             SelectBooks();
-        }
-
-        private void TestConnection()
-        {
-            try
-            {
-                using (MySqlConnection conn = DatabaseConfig.GetConnection())
-                {
-                    conn.Open();
-                    MessageBox.Show("Succes connection");
-                }
-            }
-            catch (MySqlException ex)
-            {
-                MessageBox.Show("Error MySQL: " + ex.Message + "\nError code: " + ex.Number);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("General error: " + ex.Message);
-            }
         }
 
         private void SelectBooks()

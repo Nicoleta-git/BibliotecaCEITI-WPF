@@ -38,7 +38,7 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,5">
                     <Button Content="Anulează" Width="100" Height="38" Style="{StaticResource SecondaryButtonStyle}" Margin="0,0,10,0" Click="Button_Click_1"/>
 
-                    <Button x:Name="btnAddStudent" Width="200" Height="38" Style="{StaticResource GlobalActionButtonStyle}" Click="btnSalveazaModificari_Click">
+                    <Button x:Name="btnEditStudent" Width="200" Height="38" Style="{StaticResource GlobalActionButtonStyle}" Click="btnSalveazaModificari_Click">
                         <StackPanel Orientation="Horizontal">
                             <fa5:ImageAwesome Icon="Solid_Save" Width="14" Foreground="White" Margin="0,0,10,0"/>
                             <TextBlock Text="Salvează Modificări"/>
@@ -67,7 +67,7 @@
                             <TextBlock Text="IDNP (13 cifre) *" Style="{StaticResource FieldLabel}"/>
                             <TextBox x:Name="txtIdnp" Background="Transparent" Foreground="{DynamicResource TextPrimary}" CaretBrush="{DynamicResource TextPrimary}" Height="38" VerticalContentAlignment="Center" MaxLength="13" Margin="0,0,0,15"/>
                             <TextBlock Text="Grupă *" Style="{StaticResource FieldLabel}"/>
-                            <ComboBox x:Name="cbGrupa" Background="Transparent" Foreground="{DynamicResource TextPrimary}" Height="38" DisplayMemberPath="nume_grupa" SelectedValuePath="id" Margin="0,0,0,15"/>
+                            <ComboBox x:Name="cbGrupe" Background="Transparent" Foreground="{DynamicResource TextPrimary}" Height="38" DisplayMemberPath="Denumire" SelectedValuePath="Id" Margin="0,0,0,15"/>
                             <TextBlock Text="Data Nașterii" Style="{StaticResource FieldLabel}"/>
                             <DatePicker x:Name="dpDataNasterii" Style="{StaticResource ModernDatePicker}" Height="38" Margin="0,0,0,5"/>
                         </StackPanel>
