@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
     <SolidColorBrush x:Key="WindowBackground" Color="#F4F7FE"/>
     <SolidColorBrush x:Key="CardBackground" Color="White"/>
     <SolidColorBrush x:Key="ControlBackground" Color="White"/>
@@ -15,14 +16,19 @@
     <SolidColorBrush x:Key="TextGray" Color="#8A92A6"/>
     <SolidColorBrush x:Key="LabelGray" Color="#64748B"/>
 
-    <SolidColorBrush x:Key="PrimaryBlue" Color="#2563EB"/>
-    <SolidColorBrush x:Key="PrimaryBlueHover" Color="#1D4ED8"/>
-    <SolidColorBrush x:Key="PrimaryBlueSelected" Color="#DBEAFE"/>
-    <SolidColorBrush x:Key="TextBlueSelected" Color="#1E40AF"/>
-    <SolidColorBrush x:Key="PrimaryPurple" Color="#6210CC"/>
-    <SolidColorBrush x:Key="LoginPurple" Color="#6a11cb"/>
-    <SolidColorBrush x:Key="HoverBlue" Color="#2575fc"/>
+    <SolidColorBrush x:Key="PrimaryEmerald" Color="#2563EB"/>
+    <SolidColorBrush x:Key="PrimaryEmeraldHover" Color="#1D4ED8"/>
 
+    <SolidColorBrush x:Key="DataGridHeaderBackground" Color="#2563EB"/>
+    <SolidColorBrush x:Key="DataGridHeaderForeground" Color="White"/>
+    <SolidColorBrush x:Key="DataGridHeaderBorder" Color="#1D4ED8"/>
+
+    <SolidColorBrush x:Key="DataGridRowBackground" Color="White"/>
+    <SolidColorBrush x:Key="DataGridRowAlternatingBackground" Color="#F8FAFC"/>
+    <SolidColorBrush x:Key="DataGridRowSelectedBackground" Color="#DBEAFE"/>
+    <SolidColorBrush x:Key="DataGridRowSelectedForeground" Color="#1E40AF"/>
+
+    <SolidColorBrush x:Key="PrimaryPurple" Color="#6210CC"/>
     <SolidColorBrush x:Key="TotalBlue" Color="#2563EB"/>
     <SolidColorBrush x:Key="TotalBlueBg" Color="#EFF6FF"/>
     <SolidColorBrush x:Key="StockGreen" Color="#2F855A"/>

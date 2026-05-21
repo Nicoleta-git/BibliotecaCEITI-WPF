@@ -6,7 +6,7 @@
              xmlns:fa5="http://schemas.fontawesome.com/icons/"
              xmlns:local="clr-namespace:BibliotecaCEITI"
              mc:Ignorable="d" 
-             Background="#F4F7FE" FontFamily="Segoe UI"
+             Background="{DynamicResource WindowBackground}" FontFamily="Segoe UI"
              d:DesignHeight="850" d:DesignWidth="1200">
 
     <UserControl.Resources>
@@ -23,23 +23,23 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="0" Background="White" BorderBrush="#E2E8F0" BorderThickness="0,0,0,1">
-            <StackPanel Margin="30,20,30,20" HorizontalAlignment="Left">
+        <Border Grid.Row="0" Background="Transparent" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="0,0,0,1">
+            <StackPanel Margin="30,12,30,12" HorizontalAlignment="Left">
                 <Button x:Name="btnBack" Background="Transparent" BorderThickness="0" 
-                        Padding="0" Cursor="Hand" Margin="0,0,0,10" HorizontalAlignment="Left" Click="btnBack_Click">
+                        Padding="0" Cursor="Hand" Margin="0,0,6,0" HorizontalAlignment="Left" Click="btnBack_Click">
                     <StackPanel Orientation="Horizontal">
-                        <fa5:ImageAwesome Icon="Solid_ArrowLeft" Width="12" Foreground="#2563EB" Margin="0,0,8,0"/>
-                        <TextBlock Text="Înapoi la listă" FontSize="14" Foreground="#2563EB" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                        <fa5:ImageAwesome Icon="Solid_ArrowLeft" Width="12" Foreground="{DynamicResource PrimaryEmerald}" Margin="0,0,8,0"/>
+                        <TextBlock Text="Înapoi la listă" FontSize="13" Foreground="{DynamicResource PrimaryEmerald}" FontWeight="SemiBold" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
-                <TextBlock Text="Procesare Împrumut" FontSize="28" FontWeight="Bold" Foreground="#1E293B"/>
+                <TextBlock Text="Procesare Împrumut" FontSize="22" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
             </StackPanel>
         </Border>
 
         <Grid Grid.Row="1" Margin="30">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="350"/>
+                <ColumnDefinition x:Name="RightColumn" Width="350"/>
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0" Margin="0,0,20,0">
@@ -49,7 +49,7 @@
                 </Grid.RowDefinitions>
 
                 <Border Grid.Row="0" VerticalAlignment="Top">
-                    <ContentControl x:Name="ActiveBorrowContent" Height="608" />
+                    <ContentControl x:Name="ActiveBorrowContent" Height="624" />
                 </Border>
 
                 <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0" Width="257">
@@ -63,7 +63,7 @@
                 </StackPanel>
             </Grid>
 
-            <Border Grid.Column="1" Background="White" CornerRadius="15" BorderBrush="#E2E8F0" BorderThickness="1">
+            <Border x:Name="RightSidePanel" Grid.Column="1" Background="{DynamicResource CardBackground}" CornerRadius="15" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1">
                 <Grid Margin="20">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -72,21 +72,21 @@
 
                     <Grid Grid.Row="0" Margin="0,0,0,20">
                         <TextBlock Text="Împrumuturi active ale elevului" 
-                                   FontWeight="Bold" Foreground="#1E293B" 
+                                   FontWeight="Bold" Foreground="{DynamicResource TextPrimary}" 
                                    VerticalAlignment="Center" FontSize="14"/>
                         <Button HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Cursor="Hand">
-                            <fa5:ImageAwesome Icon="Solid_Sync" Width="14" Foreground="#94A3B8"/>
+                            <fa5:ImageAwesome Icon="Solid_Sync" Width="14" Foreground="{DynamicResource TextMuted}"/>
                         </Button>
                     </Grid>
 
                     <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                         <StackPanel>
-                            <Border x:Name="EmptyStateBorder" Background="#F8FAFC" CornerRadius="10" BorderBrush="#F1F5F9" BorderThickness="1" Visibility="Collapsed">
+                            <Border x:Name="EmptyStateBorder" Background="{DynamicResource WindowBackground}" CornerRadius="10" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" Visibility="Collapsed">
                                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
-                                    <fa5:ImageAwesome Icon="Regular_FileAlt" Width="30" Foreground="#CBD5E1" Margin="0,0,0,15"/>
+                                    <fa5:ImageAwesome Icon="Regular_FileAlt" Width="30" Foreground="{DynamicResource TextGray}" Margin="0,0,0,15"/>
                                     <TextBlock Text="Elevul nu are împrumuturi active." 
                                                TextWrapping="Wrap" TextAlignment="Center"
-                                               Foreground="#94A3B8" FontSize="13"/>
+                                               Foreground="{DynamicResource TextMuted}" FontSize="13"/>
                                 </StackPanel>
                             </Border>
 
@@ -101,10 +101,10 @@
                                       CanUserAddRows="False"
                                       HeadersVisibility="Column"
                                       GridLinesVisibility="Horizontal"
-                                      HorizontalGridLinesBrush="#E2E8F0"
+                                      HorizontalGridLinesBrush="{DynamicResource BorderBrushLight}"
                                       BorderThickness="0"
                                       Background="Transparent"
-                                      RowBackground="White"
+                                      RowBackground="{DynamicResource DataGridRowBackground}"
                                       Height="600">
 
                                 <DataGrid.Columns>
@@ -112,7 +112,7 @@
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,5,10,5">
-                                                    <Border Width="70" Height="95" Background="#F7FAFC" CornerRadius="8" BorderBrush="#EDF2F7" BorderThickness="1" Margin="0,0,0,0">
+                                                    <Border Width="70" Height="95" Background="{DynamicResource InputBackground}" CornerRadius="8" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1">
                                                         <Image x:Name="imgCoperta" Source="{Binding Coperta_carte}" Stretch="Uniform"/>
                                                     </Border>
                                                 </Grid>
@@ -124,15 +124,15 @@
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <StackPanel VerticalAlignment="Center" Margin="10,0,10,0">
-                                                    <TextBlock Text="{Binding Carte}" FontWeight="SemiBold" Foreground="#2B6CB0" FontSize="14" TextWrapping="Wrap"/>
-                                                    <TextBlock Text="{Binding Autor}" Foreground="#718096" FontSize="12" Margin="0,4,0,0" TextWrapping="Wrap"/>
+                                                    <TextBlock Text="{Binding Carte}" FontWeight="SemiBold" Foreground="{DynamicResource PrimaryEmerald}" FontSize="14" TextWrapping="Wrap"/>
+                                                    <TextBlock Text="{Binding Autor}" Foreground="{DynamicResource TextMuted}" FontSize="12" Margin="0,4,0,0" TextWrapping="Wrap"/>
                                                 </StackPanel>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
                                 </DataGrid.Columns>
                             </DataGrid>
-                            
+
                         </StackPanel>
                     </ScrollViewer>
                 </Grid>

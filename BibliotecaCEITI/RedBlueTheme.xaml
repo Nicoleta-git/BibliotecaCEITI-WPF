@@ -1,0 +1,53 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <SolidColorBrush x:Key="WindowBackground" Color="#0F2038"/>
+    <SolidColorBrush x:Key="CardBackground" Color="#182E4B"/>
+    <SolidColorBrush x:Key="ControlBackground" Color="#182E4B"/>
+    <SolidColorBrush x:Key="InputBackground" Color="#1E375A"/>
+    <SolidColorBrush x:Key="HeaderWhite" Color="#182E4B"/>
+
+    <SolidColorBrush x:Key="BorderBrushLight" Color="#25436C"/>
+    <SolidColorBrush x:Key="BorderBrushDark" Color="#D91A36"/>
+
+    <SolidColorBrush x:Key="TextPrimary" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="TextSecondary" Color="#E2E8F0"/>
+    <SolidColorBrush x:Key="TextMuted" Color="#94A3B8"/>
+    <SolidColorBrush x:Key="TextGray" Color="#64748B"/>
+    <SolidColorBrush x:Key="LabelGray" Color="#A3AED0"/>
+
+    <SolidColorBrush x:Key="PrimaryEmerald" Color="#D91A36"/>
+    <SolidColorBrush x:Key="PrimaryEmeraldHover" Color="#FF2E4C"/>
+
+    <SolidColorBrush x:Key="DataGridHeaderBackground" Color="#D91A36"/>
+    <SolidColorBrush x:Key="DataGridHeaderForeground" Color="White"/>
+    <SolidColorBrush x:Key="DataGridHeaderBorder" Color="#FF2E4C"/>
+
+    <SolidColorBrush x:Key="DataGridRowBackground" Color="#182E4B"/>
+    <SolidColorBrush x:Key="DataGridRowAlternatingBackground" Color="#1E375A"/>
+    <SolidColorBrush x:Key="DataGridRowSelectedBackground" Color="#5A0B17"/>
+    <SolidColorBrush x:Key="DataGridRowSelectedForeground" Color="#FFEBEF"/>
+
+    <SolidColorBrush x:Key="PrimaryPurple" Color="#00AFA0"/>
+    <SolidColorBrush x:Key="TotalBlue" Color="#3B82F6"/>
+    <SolidColorBrush x:Key="TotalBlueBg" Color="#1D3557"/>
+    <SolidColorBrush x:Key="StockGreen" Color="#00AFA0"/>
+    <SolidColorBrush x:Key="StockGreenBg" Color="#033A35"/>
+    <SolidColorBrush x:Key="BorrowedOrange" Color="#FB923C"/>
+    <SolidColorBrush x:Key="BorrowedOrangeBg" Color="#542207"/>
+    <SolidColorBrush x:Key="ReservedPurple" Color="#A855F7"/>
+    <SolidColorBrush x:Key="ReservedPurpleBg" Color="#3B1766"/>
+
+    <Color x:Key="ShadowColor">#000000</Color>
+
+    <Style x:Key="SidebarBorderStyle" TargetType="Border">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#091424" Offset="0"/>
+                    <GradientStop Color="#D91A36" Offset="1"/>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

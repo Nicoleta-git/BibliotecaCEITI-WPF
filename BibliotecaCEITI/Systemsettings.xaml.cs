@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Shapes;
 
 namespace BibliotecaCEITI
@@ -412,5 +413,154 @@ namespace BibliotecaCEITI
             }
             return null;
         }
+
+        // ── Stare editare tematică ──────────────────────────────────────────
+        private bool _editTheme = false;
+
+        // ═══════════════════════════════════════════════════════════════════
+        //  DESCHIDERE CONTAINER ȘI GENERARE BUTOANE TEMATICI
+        // ═══════════════════════════════════════════════════════════════════
+        private void BtnEditTheme_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                _editTheme = !_editTheme;
+
+                if (_editTheme)
+                {
+                    // 1. Ascundem vizualizarea text și afișăm panoul de editare existent în XAML
+                    pnlThemeView.Visibility = Visibility.Collapsed;
+                    pnlThemeEdit.Visibility = Visibility.Visible;
+
+                    // 2. Schimbăm aspectul butonului principal în „Anulează” (Stilul tău nativ)
+                    btnEditTheme.Content = BuildButtonContent("Solid_Times", "Anulează", "#E53E3E");
+
+                    // 3. Înlocuim ComboBox-ul cu un container de butoane direct în interiorul pnlThemeEdit
+                    // Pentru a nu strica structura, curățăm ce este în pnlThemeEdit și punem butoanele
+                    pnlThemeEdit.Children.Clear();
+
+                    // Adăugăm un titlu discret deasupra butoanelor
+                    pnlThemeEdit.Children.Add(new TextBlock
+                    {
+                        Text = "Alege tematica vizuală direct din butoanele de mai jos:",
+                        Margin = new Thickness(0, 0, 0, 10),
+                        Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#4A5568")),
+                        FontSize = 13,
+                        FontWeight = FontWeights.Medium
+                    });
+
+                    // Creăm un WrapPanel dinamic pentru ca butoanele să stea aliniate frumos de la stânga la dreapta
+                    WrapPanel containerButoane = new WrapPanel { HorizontalAlignment = HorizontalAlignment.Left };
+
+                    // Definim cele 4 tematici cerute de tine
+                    var tematici = new Dictionary<string, (string Path, string ColorHex)>
+                    {
+                        { "Dark Theme",    ("DarkTheme.xaml",    "#1E1E24") },
+                        { "Light Theme",   ("LightTheme.xaml",   "#4483EC") },
+                        { "Emerald Theme", ("EmeraldTheme.xaml", "#10B981") },
+                        { "Red Blue",      ("RedBlueTheme.xaml", "#E53E3E") }
+                    };
+
+                    // Generăm fizic butoanele în container
+                    foreach (var tema in tematici)
+                    {
+                        Button btnNou = new Button
+                        {
+                            Width = 150,
+                            Height = 38,
+                            Margin = new Thickness(0, 0, 12, 8),
+                            Cursor = System.Windows.Input.Cursors.Hand,
+                            Background = Brushes.White,
+                            BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#C3D0E8")),
+                            BorderThickness = new Thickness(1),
+                            Tag = tema.Value.Path // Salvăm calea XAML în Tag
+                        };
+
+                        // Injectăm textul și iconița folosind funcția ta helper
+                        btnNou.Content = BuildButtonContent("Solid_Palette", tema.Key, tema.Value.ColorHex);
+
+                        // Atașăm evenimentul de click
+                        btnNou.Click += ButonSchimbaTema_Click;
+
+                        containerButoane.Children.Add(btnNou);
+                    }
+
+                    // Introducem panoul cu butoane în containerul principal XAML
+                    pnlThemeEdit.Children.Add(containerButoane);
+                }
+                else
+                {
+                    // Dacă se apasă „Anulează”, revenim la starea inițială de vizualizare
+                    pnlThemeView.Visibility = Visibility.Visible;
+                    pnlThemeEdit.Visibility = Visibility.Collapsed;
+                    btnEditTheme.Content = BuildButtonContent("Solid_Pen", "Editează", "#8B5CF6");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Eroare la deschiderea panoului de tematici: {ex.Message}",
+                    "Eroare Interfață", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        // ═══════════════════════════════════════════════════════════════════
+        //  SCHIMBARE TEMATICA
+        // ═══════════════════════════════════════════════════════════════════
+        private void ButonSchimbaTema_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button btnSelectat && btnSelectat.Tag != null)
+            {
+                try
+                {
+                    string themePath = btnSelectat.Tag.ToString(); // Ex: "EmeraldTheme.xaml"
+                    var newDict = new ResourceDictionary { Source = new Uri(themePath, UriKind.Relative) };
+
+                    var dictionaries = Application.Current.Resources.MergedDictionaries;
+                    bool themeReplaced = false;
+
+                    // Căutăm dicționarul vechi direct după cuvântul "Theme" din denumire
+                    for (int i = 0; i < dictionaries.Count; i++)
+                    {
+                        string sourceStr = dictionaries[i].Source?.OriginalString ?? "";
+
+                        // Verifică dacă fișierul conține "Theme" (ex: LightTheme.xaml, EmeraldTheme.xaml etc.)
+                        if (sourceStr.Contains("Theme"))
+                        {
+                            dictionaries[i] = newDict;
+                            themeReplaced = true;
+                            break;
+                        }
+                    }
+
+                    // Dacă din vreun motiv nu a găsit nicio temă activă anterioară, o adăugăm acum
+                    if (!themeReplaced)
+                    {
+                        dictionaries.Add(newDict);
+                    }
+
+                    // Extragem doar numele curat, eliminând extensia .xaml
+                    string themeName = themePath.Replace(".xaml", "");
+                    Application.Current.Properties["Theme"] = themeName;
+
+                    // Actualizăm textul din interfața grafică în funcție de ce s-a selectat
+                    lblActiveTheme.Text = themeName.Contains("Light") ? "Light Theme" :
+                                          themeName.Contains("Dark") ? "Dark Theme" :
+                                          themeName.Contains("Emerald") ? "Emerald Theme" : "Red Blue Theme";
+
+                    // Închidem panoul de editare și revenim la modul vizualizare
+                    _editTheme = false;
+                    pnlThemeView.Visibility = Visibility.Visible;
+                    pnlThemeEdit.Visibility = Visibility.Collapsed;
+                    btnEditTheme.Content = BuildButtonContent("Solid_Pen", "Editează", "#8B5CF6");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Eroare la aplicarea fișierului de tematică: {ex.Message}",
+                        "Eroare Resurse", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+
     }
 }

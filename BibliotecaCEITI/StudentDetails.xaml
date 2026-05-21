@@ -28,8 +28,8 @@
                 <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
                     <Button x:Name="btnBack" Background="Transparent" BorderThickness="0" Cursor="Hand" Click="BtnBack_Click" HorizontalAlignment="Left">
                         <StackPanel Orientation="Horizontal">
-                            <fa5:ImageAwesome Icon="Solid_ArrowLeft" Width="10" Margin="0,0,8,0" Foreground="{DynamicResource PrimaryBlue}"/>
-                            <TextBlock Text="Înapoi la listă" Foreground="{DynamicResource PrimaryBlue}" FontSize="13" FontWeight="Medium" VerticalAlignment="Center"/>
+                            <fa5:ImageAwesome Icon="Solid_ArrowLeft" Width="10" Margin="0,0,8,0" Foreground="{DynamicResource PrimaryEmerald}"/>
+                            <TextBlock Text="Înapoi la listă" Foreground="{DynamicResource PrimaryEmerald}" FontSize="13" FontWeight="Medium" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
                     <TextBlock Text="Detalii Elev" FontSize="28" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}" Margin="0,5,0,0"/>

@@ -6,9 +6,9 @@
              xmlns:fa5="http://schemas.fontawesome.com/icons/"
              xmlns:local="clr-namespace:BibliotecaCEITI"
              mc:Ignorable="d"
-             Background="#F4F7FE"
+             Background="{DynamicResource WindowBackground}"
              FontFamily="Segoe UI"
-             d:Height="700" d:DesignWidth="1000">
+             d:Height="1500" d:DesignWidth="1000">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -24,26 +24,27 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- HEADER -->
         <Border Grid.Row="0" Background="Transparent" Padding="40,30,40,10">
             <Grid>
                 <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
                     <Button x:Name="btnBack" Background="Transparent" BorderThickness="0" Cursor="Hand"
-                            Click="BtnInapoi_Click" HorizontalAlignment="Left" Margin="0,0,0,8">
+                    Click="BtnInapoi_Click" HorizontalAlignment="Left" Margin="0,0,0,8">
                         <StackPanel Orientation="Horizontal">
-                            <fa5:ImageAwesome Icon="Solid_ArrowLeft" Width="10" Margin="0,0,8,0" Foreground="#4483EC"/>
-                            <TextBlock Text="Înapoi la setări" Foreground="#4483EC" FontSize="15"
-                                       FontWeight="Medium" VerticalAlignment="Center"/>
+                            <fa5:ImageAwesome Icon="Solid_ArrowLeft" Width="10" Margin="0,0,8,0" Foreground="{DynamicResource TotalBlue}"/>
+                            <TextBlock Text="Înapoi la setări" Foreground="{DynamicResource TotalBlue}" FontSize="15"
+                               FontWeight="Medium" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
-                    <TextBlock Text="Setări avansate" FontSize="28" FontWeight="Bold" Foreground="#1B2559"/>
-                    <TextBlock Text="Configurarea bazei de date"
-                               Foreground="#A3AED0" FontSize="13" Margin="0,5,0,0"/>
+
+                    <TextBlock Text="Setări avansate" FontSize="28" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
+                    <TextBlock Text="Configurarea bazei de date și a sistemului"
+                       Foreground="{DynamicResource TextMuted}" FontSize="13" Margin="0,5,0,0"/>
                 </StackPanel>
+
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                     <Button x:Name="btnSalveazaSistem" Width="180" Height="38"
-                            Style="{StaticResource GlobalActionButtonStyle}"
-                            Click="BtnSalveazaSistem_Click">
+                    Style="{StaticResource GlobalActionButtonStyle}"
+                    Click="BtnSalveazaSistem_Click">
                         <StackPanel Orientation="Horizontal">
                             <fa5:ImageAwesome Icon="Solid_Check" Width="14" Foreground="White" Margin="0,0,8,0"/>
                             <TextBlock Text="Salvează modificările"/>
@@ -52,56 +53,42 @@
                 </StackPanel>
             </Grid>
         </Border>
-
-        <!-- CONTENT -->
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="40,0,40,40" Margin="-1,129,1,1" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5">
-            <ScrollViewer.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform AngleX="0.174"/>
-                    <RotateTransform/>
-                    <TranslateTransform X="1.33"/>
-                </TransformGroup>
-            </ScrollViewer.RenderTransform>
+        
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="40,0,40,40" Margin="-1,10,1,1" Grid.Row="1">
             <StackPanel>
 
-                <!-- ══════════════════════════════════════════ -->
-                <!-- SECTIUNEA: General                        -->
-                <!-- ══════════════════════════════════════════ -->
-                <Border Background="White" CornerRadius="12" BorderBrush="#E8EDF6"
-                        BorderThickness="1" Padding="25" Margin="0,0,0,16">
+                <Border Background="{DynamicResource CardBackground}" CornerRadius="12" BorderBrush="{DynamicResource BorderBrushLight}"
+        BorderThickness="1" Padding="25" Margin="0,0,0,16">
                     <StackPanel>
-                        <!-- Header card -->
                         <Grid Margin="0,0,0,18">
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                 <Border Width="36" Height="36" CornerRadius="8"
-                                        Background="#EEF2FF" Margin="0,0,12,0">
-                                    <fa5:ImageAwesome Icon="Solid_InfoCircle" Width="16" Foreground="#4483EC"
-                                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        Background="{DynamicResource TotalBlueBg}" Margin="0,0,12,0">
+                                    <fa5:ImageAwesome Icon="Solid_InfoCircle" Width="16" Foreground="{DynamicResource TotalBlue}"
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Border>
                                 <StackPanel VerticalAlignment="Center">
-                                    <TextBlock Text="General" FontSize="16" FontWeight="Bold" Foreground="#1B2559"/>
+                                    <TextBlock Text="General" FontSize="16" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
                                     <TextBlock Text="Informații generale despre bibliotecă și contact."
-                                               Foreground="#A3AED0" FontSize="12"/>
+                               Foreground="{DynamicResource TextMuted}" FontSize="12"/>
                                 </StackPanel>
                             </StackPanel>
                             <Button x:Name="btnEditGeneral" HorizontalAlignment="Right"
-                                    Width="110" Height="34"
-                                    Background="White" BorderBrush="#C3D0E8" BorderThickness="1"
-                                    Cursor="Hand" Click="BtnEditGeneral_Click">
+                    Width="110" Height="34"
+                    Background="{DynamicResource CardBackground}" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1"
+                    Cursor="Hand" Click="BtnEditGeneral_Click">
                                 <Button.Resources>
                                     <Style TargetType="Border">
                                         <Setter Property="CornerRadius" Value="8"/>
                                     </Style>
                                 </Button.Resources>
                                 <StackPanel Orientation="Horizontal">
-                                    <fa5:ImageAwesome Icon="Solid_Pen" Width="12" Foreground="#4483EC" Margin="0,0,7,0"/>
-                                    <TextBlock Text="Editează" Foreground="#4483EC" FontSize="13" FontWeight="SemiBold"/>
+                                    <fa5:ImageAwesome Icon="Solid_Pen" Width="12" Foreground="{DynamicResource TotalBlue}" Margin="0,0,7,0"/>
+                                    <TextBlock Text="Editează" Foreground="{DynamicResource TotalBlue}" FontSize="13" FontWeight="SemiBold"/>
                                 </StackPanel>
                             </Button>
                         </Grid>
 
-                        <!-- Fields - VIEW mode -->
                         <StackPanel x:Name="pnlGeneralView">
                             <Grid Margin="0,0,0,10">
                                 <Grid.ColumnDefinitions>
@@ -109,57 +96,56 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Nume bibliotecă / instituție" FontWeight="SemiBold"
-                                           Foreground="#4A5568" FontSize="13" VerticalAlignment="Center"/>
+                           Foreground="{DynamicResource TextMuted}" FontSize="13" VerticalAlignment="Center"/>
                                 <TextBlock x:Name="lblDenumireInstitutie" Grid.Column="1"
-                                           Foreground="#2D3748" FontSize="13" VerticalAlignment="Center"/>
+                           Foreground="{DynamicResource TextPrimary}" FontSize="13" VerticalAlignment="Center"/>
                             </Grid>
-                            <Separator Background="#F0F4F8" Margin="0,4,0,10"/>
+                            <Separator Background="{DynamicResource BorderBrushLight}" Margin="0,4,0,10"/>
                             <Grid Margin="0,0,0,10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="220"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Adresă bibliotecă" FontWeight="SemiBold"
-                                           Foreground="#4A5568" FontSize="13" VerticalAlignment="Center"/>
+                           Foreground="{DynamicResource TextMuted}" FontSize="13" VerticalAlignment="Center"/>
                                 <TextBlock x:Name="lblAdresa" Grid.Column="1"
-                                           Foreground="#2D3748" FontSize="13" VerticalAlignment="Center"/>
+                           Foreground="{DynamicResource TextPrimary}" FontSize="13" VerticalAlignment="Center"/>
                             </Grid>
-                            <Separator Background="#F0F4F8" Margin="0,4,0,10"/>
+                            <Separator Background="{DynamicResource BorderBrushLight}" Margin="0,4,0,10"/>
                             <Grid Margin="0,0,0,10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="220"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Telefon contact" FontWeight="SemiBold"
-                                           Foreground="#4A5568" FontSize="13" VerticalAlignment="Center"/>
+                           Foreground="{DynamicResource TextMuted}" FontSize="13" VerticalAlignment="Center"/>
                                 <TextBlock x:Name="lblTelefon" Grid.Column="1"
-                                           Foreground="#2D3748" FontSize="13" VerticalAlignment="Center"/>
+                           Foreground="{DynamicResource TextPrimary}" FontSize="13" VerticalAlignment="Center"/>
                             </Grid>
-                            <Separator Background="#F0F4F8" Margin="0,4,0,10"/>
+                            <Separator Background="{DynamicResource BorderBrushLight}" Margin="0,4,0,10"/>
                             <Grid Margin="0,0,0,10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="220"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Email bibliotecă" FontWeight="SemiBold"
-                                           Foreground="#4A5568" FontSize="13" VerticalAlignment="Center"/>
+                           Foreground="{DynamicResource TextMuted}" FontSize="13" VerticalAlignment="Center"/>
                                 <TextBlock x:Name="lblEmailBiblioteca" Grid.Column="1"
-                                           Foreground="#2D3748" FontSize="13" VerticalAlignment="Center"/>
+                           Foreground="{DynamicResource TextPrimary}" FontSize="13" VerticalAlignment="Center"/>
                             </Grid>
-                            <Separator Background="#F0F4F8" Margin="0,4,0,10"/>
+                            <Separator Background="{DynamicResource BorderBrushLight}" Margin="0,4,0,10"/>
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="220"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Website" FontWeight="SemiBold"
-                                           Foreground="#4A5568" FontSize="13" VerticalAlignment="Center"/>
+                           Foreground="{DynamicResource TextMuted}" FontSize="13" VerticalAlignment="Center"/>
                                 <TextBlock x:Name="lblWebsite" Grid.Column="1"
-                                           Foreground="#2D3748" FontSize="13" VerticalAlignment="Center"/>
+                           Foreground="{DynamicResource TextPrimary}" FontSize="13" VerticalAlignment="Center"/>
                             </Grid>
                         </StackPanel>
 
-                        <!-- Fields - EDIT mode (hidden by default) -->
                         <StackPanel x:Name="pnlGeneralEdit" Visibility="Collapsed">
                             <Grid Margin="0,0,0,12">
                                 <Grid.ColumnDefinitions>
@@ -198,82 +184,145 @@
                     </StackPanel>
                 </Border>
 
-                <!-- ══════════════════════════════════════════ -->
-                <!-- SECTIUNEA: SMTP                           -->
-                <!-- ══════════════════════════════════════════ -->
-                <Border Background="White" CornerRadius="12" BorderBrush="#E8EDF6"
-                        BorderThickness="1" Padding="25" Margin="0,0,0,16">
+
+                <Border Background="{DynamicResource CardBackground}" CornerRadius="12" BorderBrush="{DynamicResource BorderBrushLight}"
+        BorderThickness="1" Padding="25" Margin="0,0,0,16">
                     <StackPanel>
                         <Grid Margin="0,0,0,18">
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                 <Border Width="36" Height="36" CornerRadius="8"
-                                        Background="#EEF2FF" Margin="0,0,12,0">
-                                    <fa5:ImageAwesome Icon="Solid_Envelope" Width="16" Foreground="#4483EC"
-                                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        Background="{DynamicResource ReservedPurpleBg}" Margin="0,0,12,0">
+                                    <fa5:ImageAwesome Icon="Solid_Palette" Width="16" Foreground="{DynamicResource ReservedPurple}"
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Border>
                                 <StackPanel VerticalAlignment="Center">
-                                    <TextBlock Text="SMTP" FontSize="16" FontWeight="Bold" Foreground="#1B2559"/>
-                                    <TextBlock Text="Configurare server pentru trimiterea emailurilor."
-                                               Foreground="#A3AED0" FontSize="12"/>
+                                    <TextBlock Text="Personalizare Aspect" FontSize="16" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
+                                    <TextBlock Text="Schimbă tema vizuală și culorile de accent ale interfeței."
+                               Foreground="{DynamicResource TextMuted}" FontSize="12"/>
                                 </StackPanel>
                             </StackPanel>
-                            <Button x:Name="btnEditSmtp" HorizontalAlignment="Right"
-                                    Width="110" Height="34"
-                                    Background="White" BorderBrush="#C3D0E8" BorderThickness="1"
-                                    Cursor="Hand" Click="BtnEditSmtp_Click">
+
+                            <Button x:Name="btnEditTheme" HorizontalAlignment="Right"
+                    Width="110" Height="34"
+                    Background="{DynamicResource CardBackground}" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1"
+                    Cursor="Hand" Click="BtnEditTheme_Click">
                                 <Button.Resources>
                                     <Style TargetType="Border">
                                         <Setter Property="CornerRadius" Value="8"/>
                                     </Style>
                                 </Button.Resources>
                                 <StackPanel Orientation="Horizontal">
-                                    <fa5:ImageAwesome Icon="Solid_Pen" Width="12" Foreground="#4483EC" Margin="0,0,7,0"/>
-                                    <TextBlock Text="Editează" Foreground="#4483EC" FontSize="13" FontWeight="SemiBold"/>
+                                    <fa5:ImageAwesome Icon="Solid_Pen" Width="12" Foreground="{DynamicResource ReservedPurple}" Margin="0,0,7,0"/>
+                                    <TextBlock Text="Editează" Foreground="{DynamicResource ReservedPurple}" FontSize="13" FontWeight="SemiBold"/>
                                 </StackPanel>
                             </Button>
                         </Grid>
 
-                        <!-- VIEW -->
+                        <StackPanel x:Name="pnlThemeView">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="220"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Tematică activă" FontWeight="SemiBold" Foreground="{DynamicResource TextMuted}" FontSize="13" VerticalAlignment="Center"/>
+                                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Border Width="12" Height="12" CornerRadius="6" Background="{DynamicResource TotalBlue}" x:Name="themeIndicatorColor" Margin="0,0,8,0"/>
+                                    <TextBlock x:Name="lblActiveTheme" Text="Light Theme" Foreground="{DynamicResource TextSecondary}" FontSize="13" FontWeight="Medium"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+
+                        <StackPanel x:Name="pnlThemeEdit" Visibility="Collapsed">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel>
+                                    <TextBlock Text="Alege tematica vizuală" Style="{StaticResource FieldLabel}"/>
+                                    <ComboBox x:Name="cmbThemeSelection" Height="38" VerticalContentAlignment="Center" Padding="10,0">
+                                        <ComboBoxItem Content="Light Theme" IsSelected="True"/>
+                                        <ComboBoxItem Content="Dark Theme"/>
+                                        <ComboBoxItem Content="Emerald Reading (Oază Verde)"/>
+                                        <ComboBoxItem Content="Royal Amethyst (Ediție Colecție)"/>
+                                    </ComboBox>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <Border Background="{DynamicResource CardBackground}" CornerRadius="12" BorderBrush="{DynamicResource BorderBrushLight}"
+        BorderThickness="1" Padding="25" Margin="0,0,0,16">
+                    <StackPanel>
+                        <Grid Margin="0,0,0,18">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Border Width="36" Height="36" CornerRadius="8"
+                        Background="{DynamicResource TotalBlueBg}" Margin="0,0,12,0">
+                                    <fa5:ImageAwesome Icon="Solid_Envelope" Width="16" Foreground="{DynamicResource TotalBlue}"
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <StackPanel VerticalAlignment="Center">
+                                    <TextBlock Text="SMTP" FontSize="16" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
+                                    <TextBlock Text="Configurare server pentru trimiterea emailurilor."
+                               Foreground="{DynamicResource TextMuted}" FontSize="12"/>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <Button x:Name="btnEditSmtp" HorizontalAlignment="Right"
+                    Width="110" Height="34"
+                    Background="{DynamicResource CardBackground}" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1"
+                    Cursor="Hand" Click="BtnEditSmtp_Click">
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="8"/>
+                                    </Style>
+                                </Button.Resources>
+                                <StackPanel Orientation="Horizontal">
+                                    <fa5:ImageAwesome Icon="Solid_Pen" Width="12" Foreground="{DynamicResource TotalBlue}" Margin="0,0,7,0"/>
+                                    <TextBlock Text="Editează" Foreground="{DynamicResource TotalBlue}" FontSize="13" FontWeight="SemiBold"/>
+                                </StackPanel>
+                            </Button>
+                        </Grid>
+
                         <StackPanel x:Name="pnlSmtpView">
                             <Grid Margin="0,0,0,10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="220"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="Server SMTP" FontWeight="SemiBold" Foreground="#4A5568" FontSize="13" VerticalAlignment="Center"/>
-                                <TextBlock x:Name="lblSmtpServer" Grid.Column="1" Foreground="#2D3748" FontSize="13" VerticalAlignment="Center"/>
+                                <TextBlock Text="Server SMTP" FontWeight="SemiBold" Foreground="{DynamicResource TextMuted}" FontSize="13" VerticalAlignment="Center"/>
+                                <TextBlock x:Name="lblSmtpServer" Grid.Column="1" Foreground="{DynamicResource TextPrimary}" FontSize="13" VerticalAlignment="Center"/>
                             </Grid>
-                            <Separator Background="#F0F4F8" Margin="0,4,0,10"/>
+                            <Separator Background="{DynamicResource BorderBrushLight}" Margin="0,4,0,10"/>
                             <Grid Margin="0,0,0,10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="220"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="Port SMTP" FontWeight="SemiBold" Foreground="#4A5568" FontSize="13" VerticalAlignment="Center"/>
-                                <TextBlock x:Name="lblSmtpPort" Grid.Column="1" Foreground="#2D3748" FontSize="13" VerticalAlignment="Center"/>
+                                <TextBlock Text="Port SMTP" FontWeight="SemiBold" Foreground="{DynamicResource TextMuted}" FontSize="13" VerticalAlignment="Center"/>
+                                <TextBlock x:Name="lblSmtpPort" Grid.Column="1" Foreground="{DynamicResource TextPrimary}" FontSize="13" VerticalAlignment="Center"/>
                             </Grid>
-                            <Separator Background="#F0F4F8" Margin="0,4,0,10"/>
+                            <Separator Background="{DynamicResource BorderBrushLight}" Margin="0,4,0,10"/>
                             <Grid Margin="0,0,0,10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="220"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="Email expeditor" FontWeight="SemiBold" Foreground="#4A5568" FontSize="13" VerticalAlignment="Center"/>
-                                <TextBlock x:Name="lblSmtpEmail" Grid.Column="1" Foreground="#2D3748" FontSize="13" VerticalAlignment="Center"/>
+                                <TextBlock Text="Email expeditor" FontWeight="SemiBold" Foreground="{DynamicResource TextMuted}" FontSize="13" VerticalAlignment="Center"/>
+                                <TextBlock x:Name="lblSmtpEmail" Grid.Column="1" Foreground="{DynamicResource TextPrimary}" FontSize="13" VerticalAlignment="Center"/>
                             </Grid>
-                            <Separator Background="#F0F4F8" Margin="0,4,0,10"/>
+                            <Separator Background="{DynamicResource BorderBrushLight}" Margin="0,4,0,10"/>
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="220"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="Parolă aplicație*" FontWeight="SemiBold" Foreground="#4A5568" FontSize="13" VerticalAlignment="Center"/>
+                                <TextBlock Text="Parolă aplicație*" FontWeight="SemiBold" Foreground="{DynamicResource TextMuted}" FontSize="13" VerticalAlignment="Center"/>
                                 <TextBlock x:Name="lblSmtpParola" Text="●●●● ●●●● ●●●● ●●●●"
-                                           Grid.Column="1" Foreground="#2D3748" FontSize="13" VerticalAlignment="Center"/>
+                           Grid.Column="1" Foreground="{DynamicResource TextPrimary}" FontSize="13" VerticalAlignment="Center"/>
                             </Grid>
                         </StackPanel>
 
-                        <!-- EDIT -->
                         <StackPanel x:Name="pnlSmtpEdit" Visibility="Collapsed">
                             <Grid Margin="0,0,0,12">
                                 <Grid.ColumnDefinitions>
@@ -301,99 +350,100 @@
                                 <StackPanel Grid.Column="1" Margin="8,0,0,0">
                                     <TextBlock Text="Parolă aplicație" Style="{StaticResource FieldLabel}"/>
                                     <PasswordBox x:Name="txtSmtpParola" Height="36"
-                                                 VerticalContentAlignment="Center"
-                                                 BorderBrush="#CBD5E0" BorderThickness="1"
-                                                 Padding="8,0"/>
+                                 VerticalContentAlignment="Center"
+                                 BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1"
+                                 Padding="8,0"/>
                                 </StackPanel>
                             </Grid>
                         </StackPanel>
                     </StackPanel>
                 </Border>
 
-                <!-- ══════════════════════════════════════════ -->
-                <!-- SECTIUNEA: Setări aplicație               -->
-                <!-- ══════════════════════════════════════════ -->
-                <Border Background="White" CornerRadius="12" BorderBrush="#E8EDF6"
-                        BorderThickness="1" Padding="25" Margin="0,0,0,16">
+
+                <Border Background="{DynamicResource CardBackground}" CornerRadius="12" BorderBrush="{DynamicResource BorderBrushLight}"
+        BorderThickness="1" Padding="25" Margin="0,0,0,16">
                     <StackPanel>
                         <Grid Margin="0,0,0,18">
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                 <Border Width="36" Height="36" CornerRadius="8"
-                                        Background="#EEF2FF" Margin="0,0,12,0">
-                                    <fa5:ImageAwesome Icon="Solid_Cogs" Width="16" Foreground="#4483EC"
-                                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        Background="{DynamicResource TotalBlueBg}" Margin="0,0,12,0">
+                                    <fa5:ImageAwesome Icon="Solid_Cogs" Width="16" Foreground="{DynamicResource TotalBlue}"
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Border>
                                 <StackPanel VerticalAlignment="Center">
-                                    <TextBlock Text="Setări aplicație" FontSize="16" FontWeight="Bold" Foreground="#1B2559"/>
+                                    <TextBlock Text="Setări aplicație" FontSize="16" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
                                     <TextBlock Text="Parametri și reguli de funcționare."
-                                               Foreground="#A3AED0" FontSize="12"/>
+                               Foreground="{DynamicResource TextMuted}" FontSize="12"/>
                                 </StackPanel>
                             </StackPanel>
+
                             <Button x:Name="btnEditApp" HorizontalAlignment="Right"
-                                    Width="110" Height="34"
-                                    Background="White" BorderBrush="#C3D0E8" BorderThickness="1"
-                                    Cursor="Hand" Click="BtnEditApp_Click">
+                    Width="110" Height="34"
+                    Background="{DynamicResource CardBackground}" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1"
+                    Cursor="Hand" Click="BtnEditApp_Click">
                                 <Button.Resources>
                                     <Style TargetType="Border">
                                         <Setter Property="CornerRadius" Value="8"/>
                                     </Style>
                                 </Button.Resources>
                                 <StackPanel Orientation="Horizontal">
-                                    <fa5:ImageAwesome Icon="Solid_Pen" Width="12" Foreground="#4483EC" Margin="0,0,7,0"/>
-                                    <TextBlock Text="Editează" Foreground="#4483EC" FontSize="13" FontWeight="SemiBold"/>
+                                    <fa5:ImageAwesome Icon="Solid_Pen" Width="12" Foreground="{DynamicResource TotalBlue}" Margin="0,0,7,0"/>
+                                    <TextBlock Text="Editează" Foreground="{DynamicResource TotalBlue}" FontSize="13" FontWeight="SemiBold"/>
                                 </StackPanel>
                             </Button>
                         </Grid>
 
-                        <!-- VIEW -->
                         <StackPanel x:Name="pnlAppView">
                             <Grid Margin="0,0,0,10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="260"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="Durată împrumut carte (zile)" FontWeight="SemiBold" Foreground="#4A5568" FontSize="13" VerticalAlignment="Center"/>
-                                <TextBlock x:Name="lblDurataImprumut" Grid.Column="1" Foreground="#2D3748" FontSize="13" VerticalAlignment="Center"/>
+                                <TextBlock Text="Durată împrumut carte (zile)" FontWeight="SemiBold" Foreground="{DynamicResource TextMuted}" FontSize="13" VerticalAlignment="Center"/>
+                                <TextBlock x:Name="lblDurataImprumut" Grid.Column="1" Foreground="{DynamicResource TextPrimary}" FontSize="13" VerticalAlignment="Center"/>
                             </Grid>
-                            <Separator Background="#F0F4F8" Margin="0,4,0,10"/>
+                            <Separator Background="{DynamicResource BorderBrushLight}" Margin="0,4,0,10"/>
+
                             <Grid Margin="0,0,0,10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="260"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="Max. împrumuturi per elev" FontWeight="SemiBold" Foreground="#4A5568" FontSize="13" VerticalAlignment="Center"/>
-                                <TextBlock x:Name="lblMaxImprumuturi" Grid.Column="1" Foreground="#2D3748" FontSize="13" VerticalAlignment="Center"/>
+                                <TextBlock Text="Max. împrumuturi per elev" FontWeight="SemiBold" Foreground="{DynamicResource TextMuted}" FontSize="13" VerticalAlignment="Center"/>
+                                <TextBlock x:Name="lblMaxImprumuturi" Grid.Column="1" Foreground="{DynamicResource TextPrimary}" FontSize="13" VerticalAlignment="Center"/>
                             </Grid>
-                            <Separator Background="#F0F4F8" Margin="0,4,0,10"/>
+                            <Separator Background="{DynamicResource BorderBrushLight}" Margin="0,4,0,10"/>
+
                             <Grid Margin="0,0,0,10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="260"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="Durată rezervare (zile)" FontWeight="SemiBold" Foreground="#4A5568" FontSize="13" VerticalAlignment="Center"/>
-                                <TextBlock x:Name="lblDurataRezervare" Grid.Column="1" Foreground="#2D3748" FontSize="13" VerticalAlignment="Center"/>
+                                <TextBlock Text="Durată rezervare (zile)" FontWeight="SemiBold" Foreground="{DynamicResource TextMuted}" FontSize="13" VerticalAlignment="Center"/>
+                                <TextBlock x:Name="lblDurataRezervare" Grid.Column="1" Foreground="{DynamicResource TextPrimary}" FontSize="13" VerticalAlignment="Center"/>
                             </Grid>
-                            <Separator Background="#F0F4F8" Margin="0,4,0,10"/>
+                            <Separator Background="{DynamicResource BorderBrushLight}" Margin="0,4,0,10"/>
+
                             <Grid Margin="0,0,0,10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="260"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="Durată împrumut manual (luni)" FontWeight="SemiBold" Foreground="#4A5568" FontSize="13" VerticalAlignment="Center"/>
-                                <TextBlock x:Name="lblDurataManual" Grid.Column="1" Foreground="#2D3748" FontSize="13" VerticalAlignment="Center"/>
+                                <TextBlock Text="Durată împrumut manual (luni)" FontWeight="SemiBold" Foreground="{DynamicResource TextMuted}" FontSize="13" VerticalAlignment="Center"/>
+                                <TextBlock x:Name="lblDurataManual" Grid.Column="1" Foreground="{DynamicResource TextPrimary}" FontSize="13" VerticalAlignment="Center"/>
                             </Grid>
-                            <Separator Background="#F0F4F8" Margin="0,4,0,10"/>
+                            <Separator Background="{DynamicResource BorderBrushLight}" Margin="0,4,0,10"/>
+
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="260"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="Penalizare întârziere per zi (MDL)" FontWeight="SemiBold" Foreground="#4A5568" FontSize="13" VerticalAlignment="Center"/>
-                                <TextBlock x:Name="lblPenalizare" Grid.Column="1" Foreground="#2D3748" FontSize="13" VerticalAlignment="Center"/>
+                                <TextBlock Text="Penalizare întârziere per zi (MDL)" FontWeight="SemiBold" Foreground="{DynamicResource TextMuted}" FontSize="13" VerticalAlignment="Center"/>
+                                <TextBlock x:Name="lblPenalizare" Grid.Column="1" Foreground="{DynamicResource TextPrimary}" FontSize="13" VerticalAlignment="Center"/>
                             </Grid>
                         </StackPanel>
 
-                        <!-- EDIT -->
                         <StackPanel x:Name="pnlAppEdit" Visibility="Collapsed">
                             <Grid Margin="0,0,0,12">
                                 <Grid.ColumnDefinitions>
@@ -414,6 +464,7 @@
                                     <TextBox x:Name="txtDurataRezervare" Height="36" VerticalContentAlignment="Center"/>
                                 </StackPanel>
                             </Grid>
+
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -432,27 +483,24 @@
                     </StackPanel>
                 </Border>
 
-                <!-- ══════════════════════════════════════════ -->
-                <!-- SECTIUNEA: Template-uri email             -->
-                <!-- ══════════════════════════════════════════ -->
-                <Border Background="White" CornerRadius="12" BorderBrush="#E8EDF6"
-                        BorderThickness="1" Padding="25" Margin="0,0,0,16">
+
+                <Border Background="{DynamicResource CardBackground}" CornerRadius="12" BorderBrush="{DynamicResource BorderBrushLight}"
+        BorderThickness="1" Padding="25" Margin="0,0,0,16">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,18">
                             <Border Width="36" Height="36" CornerRadius="8"
-                                    Background="#EEF2FF" Margin="0,0,12,0">
-                                <fa5:ImageAwesome Icon="Solid_FileAlt" Width="16" Foreground="#4483EC"
-                                                  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    Background="{DynamicResource TotalBlueBg}" Margin="0,0,12,0">
+                                <fa5:ImageAwesome Icon="Solid_FileAlt" Width="16" Foreground="{DynamicResource TotalBlue}"
+                                  HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Border>
                             <StackPanel VerticalAlignment="Center">
-                                <TextBlock Text="Template-uri email" FontSize="16" FontWeight="Bold" Foreground="#1B2559"/>
+                                <TextBlock Text="Template-uri email" FontSize="16" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
                                 <TextBlock Text="Gestionează template-urile de email folosite în sistem."
-                                           Foreground="#A3AED0" FontSize="12"/>
+                           Foreground="{DynamicResource TextMuted}" FontSize="12"/>
                             </StackPanel>
                         </StackPanel>
 
-                        <!-- Row: Atenționare întârziere -->
-                        <Border BorderBrush="#F0F4F8" BorderThickness="0,0,0,1" Padding="0,0,0,14" Margin="0,0,0,14">
+                        <Border BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="0,0,0,1" Padding="0,0,0,14" Margin="0,0,0,14">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -460,68 +508,30 @@
                                 </Grid.ColumnDefinitions>
                                 <StackPanel VerticalAlignment="Center">
                                     <TextBlock Text="Atenționare întârziere" FontWeight="SemiBold"
-                                               Foreground="#2D3748" FontSize="13"/>
+                               Foreground="{DynamicResource TextSecondary}" FontSize="13"/>
                                     <TextBlock Text="Notificare pentru cărți întârziate la returnare."
-                                               Foreground="#A3AED0" FontSize="12"/>
+                               Foreground="{DynamicResource TextMuted}" FontSize="12"/>
                                 </StackPanel>
-                                <Button Grid.Column="1" Width="110" Height="34"
-                                        Background="White" BorderBrush="#C3D0E8" BorderThickness="1"
-                                        Cursor="Hand" Click="BtnVezuCodIntarziere_Click">
+
+                                <Button Grid.Column="1" Width="110" Height="34" 
+                        Background="{DynamicResource CardBackground}" 
+                        BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1"
+                        Cursor="Hand">
                                     <Button.Resources>
                                         <Style TargetType="Border">
                                             <Setter Property="CornerRadius" Value="8"/>
                                         </Style>
                                     </Button.Resources>
                                     <StackPanel Orientation="Horizontal">
-                                        <fa5:ImageAwesome Icon="Solid_Code" Width="12" Foreground="#4483EC" Margin="0,0,7,0"/>
-                                        <TextBlock Text="Vezi cod" Foreground="#4483EC" FontSize="13" FontWeight="SemiBold"/>
+                                        <fa5:ImageAwesome Icon="Solid_Pen" Width="12" Foreground="{DynamicResource TotalBlue}" Margin="0,0,7,0"/>
+                                        <TextBlock Text="Editează" Foreground="{DynamicResource TotalBlue}" FontSize="13" FontWeight="SemiBold"/>
                                     </StackPanel>
                                 </Button>
                             </Grid>
                         </Border>
-
-                        <!-- Row: Notificare preventivă -->
-                        <Border BorderBrush="#F0F4F8" BorderThickness="0,0,0,1" Padding="0,0,0,14" Margin="0,0,0,14">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <StackPanel VerticalAlignment="Center">
-                                    <TextBlock FontWeight="SemiBold"
-                                               Foreground="#2D3748" FontSize="13"><Run Language="ro-ro" Text="Notificare Rezervare"/></TextBlock>
-                                    <TextBlock
-                                               Foreground="#A3AED0" FontSize="12"><Run Language="ro-ro" Text="Notificarea dacă o carte a ajuns în stoc"/></TextBlock>
-                                </StackPanel>
-                                <Button Grid.Column="1" Width="110" Height="34"
-                                        Background="White" BorderBrush="#C3D0E8" BorderThickness="1"
-                                        Cursor="Hand" Click="BtnVezuCodPreventiv_Click">
-                                    <Button.Resources>
-                                        <Style TargetType="Border">
-                                            <Setter Property="CornerRadius" Value="8"/>
-                                        </Style>
-                                    </Button.Resources>
-                                    <StackPanel Orientation="Horizontal">
-                                        <fa5:ImageAwesome Icon="Solid_Code" Width="12" Foreground="#4483EC" Margin="0,0,7,0"/>
-                                        <TextBlock Text="Vezi cod" Foreground="#4483EC" FontSize="13" FontWeight="SemiBold"/>
-                                    </StackPanel>
-                                </Button>
-                            </Grid>
-                        </Border>
-
-                        <!-- Row: Penalizare carte pierdută -->
-
-
-                        <!-- Row: Rezervare confirmată -->
-                        <Grid>
-
-
-
-                        </Grid>
-
                     </StackPanel>
                 </Border>
-
+                
             </StackPanel>
         </ScrollViewer>
     </Grid>
