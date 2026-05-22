@@ -31,6 +31,9 @@ namespace BibliotecaCEITI
             InitializeComponent();
             _idCarte = idCarteSelectata;
             IncarcaDateStergere();
+
+            txtObservatii.Text = "Ex: Scrie aici explicația suplimentară...";
+            txtObservatii.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
         }
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
@@ -80,6 +83,27 @@ namespace BibliotecaCEITI
                 cmd.ExecuteNonQuery();
             }
         }
+
+        private void txtObservatii_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+            if (txt != null && txt.Text == "Ex: Scrie aici explicația suplimentară...")
+            {
+                txt.Text = "";
+                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
+            }
+        }
+
+        private void txtObservatii_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+            if (txt != null && string.IsNullOrWhiteSpace(txt.Text))
+            {
+                txt.Text = "Ex: Scrie aici explicația suplimentară...";
+                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
+            }
+        }
+
         private void IncarcaDateStergere()
         {
             try

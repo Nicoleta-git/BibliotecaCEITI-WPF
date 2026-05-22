@@ -28,6 +28,9 @@ namespace BibliotecaCEITI
         {
             InitializeComponent();
             LoadData();
+
+            SearchTextBox.Text = "Caută un elev...";
+            SearchTextBox.Foreground = new SolidColorBrush(Colors.Gray);
         }
 
         private async void LoadData()
@@ -230,7 +233,11 @@ namespace BibliotecaCEITI
 
         private async void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string textCautat = SearchTextBox.Text;
+            string textCautat = SearchTextBox.Text.Trim();
+            if (textCautat == "Caută un elev...")
+            {
+                textCautat = "";
+            }
             if (_cancellationTokenSource != null)
             {
                 _cancellationTokenSource.Cancel();
@@ -262,12 +269,30 @@ namespace BibliotecaCEITI
         private int id_elevSelectat;
         private string elev, telefon, email, grupa, initiale;
 
+        private void SearchTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+            if (txt != null && txt.Text == "Caută un elev...")
+            {
+                txt.Text = "";
+                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
+            }
+        }
+
+        private void SearchTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+            if (txt != null && string.IsNullOrWhiteSpace(txt.Text))
+            {
+                txt.Text = "Caută un elev...";
+                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
+            }
+        }
+
         private async void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
             await SelectStudentsAsync();
         }
-
-        private bool activ;
 
         private void StudentsGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

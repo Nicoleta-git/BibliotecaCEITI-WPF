@@ -67,7 +67,7 @@
                             <TextBlock Text="Informații Identificare" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,15"/>
 
                             <TextBlock Text="IDNP (13 cifre) *" Style="{StaticResource FieldLabel}"/>
-                            <TextBox x:Name="txtIdnp" Background="Transparent" Height="38" VerticalContentAlignment="Center" MaxLength="13" Margin="0,0,0,15"/>
+                            <TextBox x:Name="txtIdnp" Background="Transparent" Height="38" VerticalContentAlignment="Center" MaxLength="13" Margin="0,0,0,15" GotFocus="txtIdnp_GotFocus" LostFocus="txtIdnp_LostFocus" PreviewTextInput="txtIdnp_PreviewTextInput"/>
 
                             <TextBlock Text="Grupă *" Style="{StaticResource FieldLabel}"/>
                             <ComboBox x:Name="cbGrupe" Background="Transparent" Foreground="{DynamicResource TextPrimary}" Height="38" DisplayMemberPath="Denumire" SelectedValuePath="Id" Margin="0,0,0,15"/>
@@ -88,11 +88,11 @@
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Margin="0,0,10,0">
                                     <TextBlock Text="Nume *" Style="{StaticResource FieldLabel}"/>
-                                    <TextBox x:Name="txtNume" Background="Transparent" Height="38" VerticalContentAlignment="Center"/>
+                                    <TextBox x:Name="txtNume" Background="Transparent" Height="38" VerticalContentAlignment="Center" GotFocus="txtNume_GotFocus" LostFocus="txtNume_LostFocus"/>
                                 </StackPanel>
                                 <StackPanel Grid.Column="1" Margin="10,0,0,0">
                                     <TextBlock Text="Prenume *" Style="{StaticResource FieldLabel}"/>
-                                    <TextBox x:Name="txtPrenume" Background="Transparent" Height="38" VerticalContentAlignment="Center"/>
+                                    <TextBox x:Name="txtPrenume" Background="Transparent" Height="38" VerticalContentAlignment="Center" GotFocus="txtPrenume_GotFocus" LostFocus="txtPrenume_LostFocus"/>
                                 </StackPanel>
                             </Grid>
 
@@ -103,16 +103,16 @@
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Margin="0,0,10,0">
                                     <TextBlock Text="Telefon" Style="{StaticResource FieldLabel}"/>
-                                    <TextBox x:Name="txtTelefon" Background="Transparent" Height="38" VerticalContentAlignment="Center"/>
+                                    <TextBox x:Name="txtTelefon" Background="Transparent" Height="38" VerticalContentAlignment="Center" GotFocus="txtTelefon_GotFocus" LostFocus="txtTelefon_LostFocus" PreviewTextInput="txtTelefon_PreviewTextInput"/>
                                 </StackPanel>
                                 <StackPanel Grid.Column="1" Margin="10,0,0,0">
                                     <TextBlock Text="Email" Style="{StaticResource FieldLabel}"/>
-                                    <TextBox x:Name="txtEmail" Background="Transparent" Height="38" VerticalContentAlignment="Center"/>
+                                    <TextBox x:Name="txtEmail" Background="Transparent" Height="38" VerticalContentAlignment="Center" GotFocus="txtEmail_GotFocus" LostFocus="txtEmail_LostFocus"/>
                                 </StackPanel>
                             </Grid>
 
                             <TextBlock Text="Observații" Style="{StaticResource FieldLabel}"/>
-                            <TextBox x:Name="txtObservatii" Background="Transparent" Height="80" TextWrapping="Wrap" AcceptsReturn="True" VerticalContentAlignment="Top" Padding="10"/>
+                            <TextBox x:Name="txtObservatii" Background="Transparent" Height="80" TextWrapping="Wrap" AcceptsReturn="True" VerticalContentAlignment="Top" Padding="10" GotFocus="txtObservatii_GotFocus" LostFocus="txtObservatii_LostFocus"/>
                         </StackPanel>
                     </Border>
                 </StackPanel>
