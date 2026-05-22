@@ -56,7 +56,7 @@
                     <fa5:ImageAwesome Icon="Solid_Search" Foreground="{DynamicResource TextMuted}" Width="14" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     <TextBox x:Name="SearchTextBox" Grid.Column="1" VerticalContentAlignment="Center" BorderThickness="0" Background="Transparent" 
                              Foreground="{DynamicResource TextPrimary}" CaretBrush="{DynamicResource TextPrimary}"
-                             Tag="Caută după Titlu, Autor sau ISBN..." Padding="5,0" FontSize="14" Margin="0,2,3,3"/>
+                             Tag="Caută după Titlu, Autor sau ISBN..." Padding="5,0" FontSize="14" Margin="0,2,3,3" TextChanged="SearchTextBox_TextChanged" GotFocus="SearchTextBox_GotFocus" LostFocus="SearchTextBox_LostFocus"/>
                 </Grid>
             </Border>
 
@@ -83,6 +83,7 @@
           EnableRowVirtualization="True"
           VirtualizingPanel.IsVirtualizing="True"
           VirtualizingPanel.VirtualizationMode="Recycling"
+          IsReadOnly="True"
           CanUserAddRows="False"
           Margin="0,20,0,20" 
           Grid.ColumnSpan="2" SelectionChanged="StudentsGrid_SelectionChanged">

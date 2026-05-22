@@ -18,10 +18,10 @@ namespace BibliotecaCEITI
         private void BtnAdaugaExemplare_Click(object sender, RoutedEventArgs e)
         {
             if (CmbManual.SelectedValue == null || Convert.ToInt32(CmbManual.SelectedValue) <= 0)
-{
-    MessageBox.Show("Selectează mai întâi un manual valid din listă.", "Atenție");
-    return;
-}
+            {
+                MessageBox.Show("Selectează mai întâi un manual valid din listă.", "Atenție");
+                return;
+            }
 
             int idCarte = Convert.ToInt32(CmbManual.SelectedValue);
             string input = Microsoft.VisualBasic.Interaction.InputBox("Câte exemplare dorești să adaugi?", "Adaugă exemplare", "1");
@@ -261,7 +261,7 @@ namespace BibliotecaCEITI
                             }
 
                             ElevModel elev = new ElevModel(
-                                Convert.ToInt32(rand["ID_elev"]),
+                                Convert.ToInt32(rand["Id_elev"]),
                                 numeComplet,
                                 initiale,
                                 "#4483EC",

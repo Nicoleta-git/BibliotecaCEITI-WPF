@@ -26,16 +26,16 @@
                         <TextBlock Text="Elev" FontWeight="Bold" FontSize="18" Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,20"/>
 
                         <TextBlock Text="Nume" Foreground="{DynamicResource TextMuted}" FontSize="12"/>
-                        <TextBlock Text="Tite Nicoleta" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
+                        <TextBlock x:Name="nume_elev" Text="Tite Nicoleta" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
 
                         <TextBlock Text="Clasa" Foreground="{DynamicResource TextMuted}" FontSize="12"/>
-                        <TextBlock Text="XII" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
+                        <TextBlock x:Name="clasa_elev" Text="XII" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
 
                         <TextBlock Text="ID Elev" Foreground="{DynamicResource TextMuted}" FontSize="12"/>
-                        <TextBlock Text="8978724" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
+                        <TextBlock x:Name="id_elev" Text="8978724" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
 
                         <TextBlock Text="Telefon" Foreground="{DynamicResource TextMuted}" FontSize="12"/>
-                        <TextBlock Text="072 434 375" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
+                        <TextBlock x:Name="telefon_elev" Text="072 434 375" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
                     </StackPanel>
                 </Border>
 
@@ -44,16 +44,16 @@
                         <TextBlock Text="Carte" FontWeight="Bold" FontSize="18" Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,20"/>
 
                         <TextBlock Text="Titlu" Foreground="{DynamicResource TextMuted}" FontSize="12"/>
-                        <TextBlock Text="Amintiri din copilărie" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
+                        <TextBlock x:Name="titlu_carte" Text="Amintiri din copilărie" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
 
                         <TextBlock Text="Autor" Foreground="{DynamicResource TextMuted}" FontSize="12"/>
-                        <TextBlock Text="Ion Creangă" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
+                        <TextBlock x:Name="autor_carte" Text="Ion Creangă" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
 
                         <TextBlock Text="ISBN" Foreground="{DynamicResource TextMuted}" FontSize="12"/>
-                        <TextBlock Text="746-4636-654" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
+                        <TextBlock x:Name="isbn_carte" Text="746-4636-654" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
 
                         <TextBlock Text="Termen de returnare" Foreground="{DynamicResource TextMuted}" FontSize="12"/>
-                        <TextBlock Text="04.06.2025 (14 zile)" FontSize="16" Foreground="{DynamicResource TotalBlue}" FontWeight="Medium" Margin="0,0,0,15"/>
+                        <TextBlock x:Name="termen_returnare" Text="04.06.2025 (14 zile)" FontSize="16" Foreground="{DynamicResource TotalBlue}" FontWeight="Medium" Margin="0,0,0,15"/>
                     </StackPanel>
                 </Border>
             </StackPanel>

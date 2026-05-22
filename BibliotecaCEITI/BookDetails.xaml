@@ -31,7 +31,7 @@
                             <TextBlock Text="Înapoi la listă" Foreground="#4483EC" FontSize="13" FontWeight="Medium" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
-                    <TextBlock Text="Editare detalii carte" FontSize="28" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}" Margin="0,5,0,0"/>
+                    <TextBlock x:Name="action_book" Text="Editare detalii carte" FontSize="28" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}" Margin="0,5,0,0"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,5">
@@ -74,7 +74,7 @@
                                 </Button.Resources>
                                 <StackPanel Orientation="Horizontal">
                                     <fa5:ImageAwesome Icon="Solid_Upload" Width="12" Margin="0,0,8,0" Foreground="{DynamicResource TextPrimary}"/>
-                                    <TextBlock Text="Încarcă altă imagine" Foreground="{DynamicResource TextPrimary}" FontWeight="Medium"/>
+                                    <TextBlock x:Name="incarca_imagine" Text="Încarcă altă imagine" Foreground="{DynamicResource TextPrimary}" FontWeight="Medium"/>
                                 </StackPanel>
                             </Button>
                             <TextBlock Text="URL Imagine" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}" Margin="0,20,0,8"/>
@@ -87,7 +87,7 @@
                     <Border Background="{DynamicResource CardBackground}" CornerRadius="12" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" Padding="25">
                         <StackPanel>
                             <TextBlock Text="Titlu carte *" Style="{StaticResource FieldLabel}" Foreground="{DynamicResource TextPrimary}"/>
-                            <TextBox x:Name="txtTitlu" Margin="0,0,0,15" Height="38" VerticalContentAlignment="Center" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}"/>
+                            <TextBox x:Name="txtTitlu" Margin="0,0,0,15" Height="38" VerticalContentAlignment="Center" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}" GotFocus="txtTitlu_GotFocus" LostFocus="txtTitlu_LostFocus"/>
 
                             <Grid Margin="0,0,0,15">
                                 <Grid.ColumnDefinitions>
@@ -105,12 +105,12 @@
                             </Grid>
 
                             <TextBlock Text="Descriere" Style="{StaticResource FieldLabel}" Foreground="{DynamicResource TextPrimary}"/>
-                            <TextBox x:Name="txtDescriere" Height="100" TextWrapping="Wrap" AcceptsReturn="True" VerticalContentAlignment="Top" Padding="10" Margin="0,0,0,20" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}"/>
+                            <TextBox x:Name="txtDescriere" Height="100" TextWrapping="Wrap" AcceptsReturn="True" VerticalContentAlignment="Top" Padding="10" Margin="0,0,0,20" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}" GotFocus="txtDescriere_GotFocus" LostFocus="txtDescriere_LostFocus"/>
 
                             <UniformGrid Columns="2">
                                 <StackPanel Margin="0,0,10,15">
                                     <TextBlock Text="ISBN" Style="{StaticResource FieldLabel}" Foreground="{DynamicResource TextPrimary}"/>
-                                    <TextBox x:Name="txtIsbn" Height="38" VerticalContentAlignment="Center" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}"/>
+                                    <TextBox x:Name="txtIsbn" Height="38" MaxLength="18" VerticalContentAlignment="Center" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}" GotFocus="txtIsbn_GotFocus" LostFocus="txtIsbn_LostFocus" TextChanged="txtIsbn_TextChanged" TextInput="txtIsbn_TextInput"/>
                                 </StackPanel>
                                 <StackPanel Margin="10,0,0,15">
                                     <TextBlock Text="Editura" Style="{StaticResource FieldLabel}" Foreground="{DynamicResource TextPrimary}"/>
@@ -118,7 +118,7 @@
                                 </StackPanel>
                                 <StackPanel Margin="0,0,10,15">
                                     <TextBlock Text="An publicare" Style="{StaticResource FieldLabel}" Foreground="{DynamicResource TextPrimary}"/>
-                                    <TextBox x:Name="txtAnPublicare" Height="38" VerticalContentAlignment="Center" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}"/>
+                                    <TextBox x:Name="txtAnPublicare" Height="38" MaxLength="4" VerticalContentAlignment="Center" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}" GotFocus="txtAnPublicare_GotFocus" LostFocus="txtAnPublicare_LostFocus" PreviewTextInput="txtAnPublicare_PreviewTextInput"/>
                                 </StackPanel>
                                 <StackPanel Margin="10,0,0,15">
                                     <TextBlock Text="Limba" Style="{StaticResource FieldLabel}" Foreground="{DynamicResource TextPrimary}"/>
@@ -126,11 +126,11 @@
                                 </StackPanel>
                                 <StackPanel Margin="0,0,10,0">
                                     <TextBlock Text="Preț Vânzare (MDL)" Style="{StaticResource FieldLabel}" Foreground="{DynamicResource TextPrimary}"/>
-                                    <TextBox x:Name="txtPretMdl" Height="38" VerticalContentAlignment="Center" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}"/>
+                                    <TextBox x:Name="txtPretMdl" Height="38" VerticalContentAlignment="Center" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}" GotFocus="txtPretMdl_GotFocus" LostFocus="txtPretMdl_LostFocus" PreviewTextInput="txtPretMdl_PreviewTextInput"/>
                                 </StackPanel>
                                 <StackPanel Margin="10,0,0,0">
                                     <TextBlock Text="Preț Chirie" Style="{StaticResource FieldLabel}" Foreground="{DynamicResource TextPrimary}"/>
-                                    <TextBox x:Name="txtPretChirie" Height="38" VerticalContentAlignment="Center" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}"/>
+                                    <TextBox x:Name="txtPretChirie" Height="38" VerticalContentAlignment="Center" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}" GotFocus="txtPretChirie_GotFocus" LostFocus="txtPretChirie_LostFocus" PreviewTextInput="txtPretChirie_PreviewTextInput"/>
                                 </StackPanel>
                             </UniformGrid>
                         </StackPanel>

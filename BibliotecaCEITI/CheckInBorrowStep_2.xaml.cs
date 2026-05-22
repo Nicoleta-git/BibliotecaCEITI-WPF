@@ -31,6 +31,9 @@ namespace BibliotecaCEITI
         {
             InitializeComponent();
             SelectBooks();
+
+            SearchBox.Text = "Caută o carte...";
+            SearchBox.Foreground = new SolidColorBrush(Colors.Gray);
         }
 
         private void SelectBooks()
@@ -85,7 +88,11 @@ namespace BibliotecaCEITI
 
         private async void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string textCautat = SearchBox.Text;
+            string textCautat = SearchBox.Text.Trim();
+            if (textCautat == "Caută o carte...")
+            {
+                textCautat = "";
+            }
             if (_cancellationTokenSource != null)
             {
                 _cancellationTokenSource.Cancel();
@@ -104,7 +111,7 @@ namespace BibliotecaCEITI
                 }
                 else
                 {
-                    await SelectBooks_Title_Isbn_AuthorAsync(textCautat, textCautat);
+                    await SelectBooks_Title_Isbn_AuthorAsync(textCautat, textCautat, textCautat);
                 }
             }
             catch (TaskCanceledException)
@@ -115,7 +122,7 @@ namespace BibliotecaCEITI
 
         private void BooksGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            string[] coloaneDeAscuns = { "Id_exemplar", "Cod_Inventar", "ID_categorie", "ID_locatie", "ID_editura", "Stare" };
+            string[] coloaneDeAscuns = { "Id_carte", "Id_exemplar", "Cod_Inventar", "ID_categorie", "ID_locatie", "ID_editura", "Stare" };
 
             if (coloaneDeAscuns.Contains(e.Column.Header.ToString()))
             {
@@ -125,6 +132,26 @@ namespace BibliotecaCEITI
 
         public event Action<int> IdSelected;
         private string titlu_carte, cod_inventar, autor, stare;
+
+        private void SearchBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+            if (txt != null && txt.Text == "Caută o carte...")
+            {
+                txt.Text = "";
+                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
+            }
+        }
+
+        private void SearchBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+            if (txt != null && string.IsNullOrWhiteSpace(txt.Text))
+            {
+                txt.Text = "Caută o carte...";
+                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
+            }
+        }
 
         private void BooksGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
