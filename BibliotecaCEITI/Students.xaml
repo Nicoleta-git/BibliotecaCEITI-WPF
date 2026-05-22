@@ -90,8 +90,8 @@
                 <DataGridTemplateColumn Header="" Width="70" CanUserResize="False">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
-                                <Ellipse Width="40" Height="40" Fill="{DynamicResource WindowBackground}"/>
+                            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Ellipse Width="34" Height="32" Fill="{DynamicResource WindowBackground}"/>
                                 <TextBlock Text="{Binding Initiale}" 
                                            VerticalAlignment="Center" 
                                            HorizontalAlignment="Center" 
