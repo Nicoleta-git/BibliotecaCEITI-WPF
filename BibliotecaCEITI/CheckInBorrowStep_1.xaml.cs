@@ -27,140 +27,116 @@ namespace BibliotecaCEITI
         {
             InitializeComponent();
             SelectStudentsAsync();
+
+            SearchBox.Text = "Caută un elev...";
+            SearchBox.Foreground = new SolidColorBrush(Colors.Gray);
         }
 
         private async Task SelectStudentsAsync()
         {
+            List<ElevModel> elevi = new List<ElevModel>();
+
             try
             {
-                List<ElevModel> listaElevi = await Task.Run(async () =>
+                using (MySqlConnection conn = DatabaseConfig.GetConnection())
                 {
-                    List<ElevModel> rezultat = new List<ElevModel>();
+                    await conn.OpenAsync();
 
-                    using (MySqlConnection conn = DatabaseConfig.GetConnection())
+                    using (MySqlCommand cmd = new MySqlCommand("sp_selecteaza_studenti", conn))
                     {
-                        await conn.OpenAsync();
+                        cmd.CommandType = CommandType.StoredProcedure;
 
-                        using (MySqlCommand cmd = new MySqlCommand("sp_selecteaza_studenti", conn))
+                        using (MySqlDataReader reader = (MySqlDataReader)await cmd.ExecuteReaderAsync())
                         {
-                            cmd.CommandType = CommandType.StoredProcedure;
-
-                            using (MySqlDataReader reader = (MySqlDataReader)await cmd.ExecuteReaderAsync())
+                            while (await reader.ReadAsync())
                             {
-                                int idOrdinal = reader.GetOrdinal("ID_elev");
-                                int numeOrdinal = reader.GetOrdinal("Nume");
-                                int prenumeOrdinal = reader.GetOrdinal("Prenume");
-                                int telefonOrdinal = reader.GetOrdinal("Telefon");
-                                int emailOrdinal = reader.GetOrdinal("Email");
-                                int grupaOrdinal = reader.GetOrdinal("Grupa");
+                                int id = Convert.ToInt32(reader["ID_elev"]);
+                                string nume = reader["Nume"].ToString();
+                                string prenume = reader["Prenume"].ToString();
+                                string telefon = reader["Telefon"].ToString();
+                                string email = reader["Email"].ToString();
+                                string grupa = reader["Grupa"].ToString();
 
-                                while (await reader.ReadAsync())
+                                string numeComplet = nume + " " + prenume;
+
+                                string initiale = "";
+                                if (nume.Length > 0 && prenume.Length > 0)
                                 {
-                                    string nume = reader.GetString(numeOrdinal);
-                                    string prenume = reader.GetString(prenumeOrdinal);
-                                    string numeComplet = $"{nume} {prenume}";
-
-                                    string telefon = reader.IsDBNull(telefonOrdinal) ? "" : reader.GetString(telefonOrdinal);
-                                    string email = reader.IsDBNull(emailOrdinal) ? "" : reader.GetString(emailOrdinal);
-                                    string grupa = reader.IsDBNull(grupaOrdinal) ? "" : reader.GetString(grupaOrdinal);
-
-                                    string initiale = "";
-                                    if (!string.IsNullOrEmpty(nume) && !string.IsNullOrEmpty(prenume))
-                                    {
-                                        initiale = $"{nume[0]}{prenume[0]}".ToUpper();
-                                    }
-
-                                    ElevModel elev = new ElevModel(
-                                        reader.GetInt32(idOrdinal),
-                                        numeComplet,
-                                        initiale,
-                                        "#4483EC",
-                                        telefon,
-                                        email,
-                                        grupa
-                                    );
-
-                                    rezultat.Add(elev);
+                                    initiale = nume.Substring(0, 1) + prenume.Substring(0, 1);
+                                    initiale = initiale.ToUpper();
                                 }
+
+                                ElevModel elev = new ElevModel(id, numeComplet, initiale, "#4483EC", telefon, email, grupa);
+                                elevi.Add(elev);
                             }
                         }
                     }
-                    return rezultat;
-                });
+                }
 
-                StudentsGrid.ItemsSource = listaElevi;
+                StudentsGrid.ItemsSource = elevi;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Eroare la încărcarea elevilor: " + ex.Message);
             }
         }
-        private async Task Search_StudentsAsync(string elev, string grupa)
+
+        private async Task SearchStudentsAsync(string elev, string grupa)
         {
+            List<ElevModel> eleviGasiți = new List<ElevModel>();
+
             try
             {
-                List<ElevModel> listaElevi = await Task.Run(async () =>
+                using (MySqlConnection conn = DatabaseConfig.GetConnection())
                 {
-                    List<ElevModel> rezultat = new List<ElevModel>();
+                    await conn.OpenAsync();
 
-                    using (MySqlConnection conn = DatabaseConfig.GetConnection())
+                    using (MySqlCommand cmd = new MySqlCommand("sp_filtrare_studenti", conn))
                     {
-                        await conn.OpenAsync();
+                        cmd.CommandType = CommandType.StoredProcedure;
 
-                        using (MySqlCommand cmd = new MySqlCommand("sp_filtrare_studenti", conn))
+                        if (string.IsNullOrWhiteSpace(elev))
+                            cmd.Parameters.AddWithValue("@p_elev", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@p_elev", elev);
+
+                        if (string.IsNullOrWhiteSpace(grupa))
+                            cmd.Parameters.AddWithValue("@p_grupa", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@p_grupa", grupa);
+
+                        using (MySqlDataReader reader = (MySqlDataReader)await cmd.ExecuteReaderAsync())
                         {
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.Parameters.Add("@p_elev", MySqlDbType.VarChar).Value = string.IsNullOrWhiteSpace(elev) ? DBNull.Value : elev;
-                            cmd.Parameters.Add("@p_grupa", MySqlDbType.VarChar).Value = string.IsNullOrWhiteSpace(grupa) ? DBNull.Value : grupa;
-
-                            using (MySqlDataReader reader = (MySqlDataReader)await cmd.ExecuteReaderAsync())
+                            while (await reader.ReadAsync())
                             {
-                                int idOrdinal = reader.GetOrdinal("ID_elev");
-                                int numeOrdinal = reader.GetOrdinal("Nume");
-                                int prenumeOrdinal = reader.GetOrdinal("Prenume");
-                                int telefonOrdinal = reader.GetOrdinal("Telefon");
-                                int emailOrdinal = reader.GetOrdinal("Email");
-                                int grupaOrdinal = reader.GetOrdinal("Grupa");
+                                int id = Convert.ToInt32(reader["ID_elev"]);
+                                string nume = reader["Nume"].ToString();
+                                string prenume = reader["Prenume"].ToString();
+                                string telefon = reader["Telefon"].ToString();
+                                string email = reader["Email"].ToString();
+                                string grupaVal = reader["Grupa"].ToString();
 
-                                while (await reader.ReadAsync())
+                                string numeComplet = nume + " " + prenume;
+
+                                string initiale = "";
+                                if (nume.Length > 0 && prenume.Length > 0)
                                 {
-                                    string nume = reader.GetString(numeOrdinal);
-                                    string prenume = reader.GetString(prenumeOrdinal);
-                                    string numeComplet = $"{nume} {prenume}";
-
-                                    string telefon = reader.IsDBNull(telefonOrdinal) ? "" : reader.GetString(telefonOrdinal);
-                                    string email = reader.IsDBNull(emailOrdinal) ? "" : reader.GetString(emailOrdinal);
-                                    string grupa = reader.IsDBNull(grupaOrdinal) ? "" : reader.GetString(grupaOrdinal);
-
-                                    string initiale = "";
-                                    if (!string.IsNullOrEmpty(nume) && !string.IsNullOrEmpty(prenume))
-                                    {
-                                        initiale = $"{nume[0]}{prenume[0]}".ToUpper();
-                                    }
-
-                                    ElevModel elev = new ElevModel(
-                                        reader.GetInt32(idOrdinal),
-                                        numeComplet,
-                                        initiale,
-                                        "#4483EC",
-                                        telefon,
-                                        email,
-                                        grupa
-                                    );
-
-                                    rezultat.Add(elev);
+                                    initiale = nume.Substring(0, 1) + prenume.Substring(0, 1);
+                                    initiale = initiale.ToUpper();
                                 }
+
+                                ElevModel elevModel = new ElevModel(id, numeComplet, initiale, "#4483EC", telefon, email, grupaVal);
+                                eleviGasiți.Add(elevModel);
                             }
                         }
                     }
-                    return rezultat;
-                });
+                }
 
-                StudentsGrid.ItemsSource = listaElevi;
+                StudentsGrid.ItemsSource = eleviGasiți;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare la încărcarea elevilor: " + ex.Message);
+                MessageBox.Show("Eroare la filtrarea elevilor: " + ex.Message);
             }
         }
 
@@ -168,9 +144,33 @@ namespace BibliotecaCEITI
         private int id_elevSelectat, activ;
         private string elev, telefon, email, grupa, initiale;
 
+        private void SearchBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+            if (txt != null && txt.Text == "Caută un elev...")
+            {
+                txt.Text = "";
+                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
+            }
+        }
+
+        private void SearchBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+            if (txt != null && string.IsNullOrWhiteSpace(txt.Text))
+            {
+                txt.Text = "Caută un elev...";
+                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
+            }
+        }
+
         private async void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string textCautat = SearchBox.Text;
+            string textCautat = SearchBox.Text.Trim();
+            if (textCautat == "Caută un elev...")
+            {
+                textCautat = "";
+            }
             if (_cancellationTokenSource != null)
             {
                 _cancellationTokenSource.Cancel();
@@ -183,13 +183,14 @@ namespace BibliotecaCEITI
             try
             {
                 await Task.Delay(300, token);
+
                 if (string.IsNullOrWhiteSpace(textCautat))
                 {
                     await SelectStudentsAsync();
                 }
                 else
                 {
-                    await Search_StudentsAsync(textCautat, textCautat);
+                    await SearchStudentsAsync(textCautat, textCautat);
                 }
             }
             catch (TaskCanceledException)

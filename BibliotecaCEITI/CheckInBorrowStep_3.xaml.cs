@@ -24,7 +24,8 @@ namespace BibliotecaCEITI
     /// </summary>
     public partial class CheckInBorrowStep_3 : UserControl
     {
-        int _idExemplar;
+        private int _idExemplar;
+        private DateTime _data_imprumut, _data_returnare;
         public CheckInBorrowStep_3(int idExemplarSelectat)
         {
             InitializeComponent();
@@ -146,26 +147,42 @@ namespace BibliotecaCEITI
             catch { imgCoperta.Background = null; }
         }
 
+        public event Action<DateTime, DateTime> d_imprumut;
+
         private void cbDurataImprumut_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (cbDurataImprumut == null || atentionare == null || atentionare_elev == null)
+            if (cbDurataImprumut == null || atentionare == null || atentionare_elev == null || data_imprumut == null)
                 return;
 
-            DateTime data_returnare = DateTime.Today;
+            if (!data_imprumut.SelectedDate.HasValue)
+                return;
 
-            if (cbDurataImprumut.SelectedItem is ComboBoxItem item)
+            DateTime _data_imprumut = data_imprumut.SelectedDate.Value;
+            DateTime _data_returnare = _data_imprumut;
+
+            if (cbDurataImprumut.SelectedItem != null)
             {
-                string selectedText = item.Content?.ToString() ?? "";
+                string selectedText = "";
+
+                if (cbDurataImprumut.SelectedItem is ComboBoxItem item)
+                {
+                    selectedText = item.Content?.ToString() ?? "";
+                }
+                else
+                {
+                    selectedText = cbDurataImprumut.SelectedItem.ToString();
+                }
+
                 if (int.TryParse(selectedText.Split(' ')[0], out int zile))
                 {
-                    data_returnare = DateTime.Today.AddDays(zile);
+                    _data_returnare = _data_imprumut.AddDays(zile);
                 }
             }
+            d_imprumut?.Invoke(_data_imprumut, _data_returnare);
 
             atentionare.Visibility = Visibility.Visible;
-            atentionare_elev.Text = $"Elevul este responsabil pentru carte până la data de {data_returnare:dd.MM.yyyy}";
+            atentionare_elev.Text = $"Elevul este responsabil pentru carte până la data de {_data_returnare:dd.MM.yyyy}";
         }
-
 
     }
 }

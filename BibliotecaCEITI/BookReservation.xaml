@@ -56,11 +56,11 @@
                                 <fa5:ImageAwesome Icon="Solid_Search" Foreground="{DynamicResource TextMuted}" Width="14" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                 <TextBox x:Name="SearchTextBox" Grid.Column="1" VerticalContentAlignment="Center" BorderThickness="0" Background="Transparent" 
                                          Foreground="{DynamicResource TextPrimary}" CaretBrush="{DynamicResource TextPrimary}"
-                                         Tag="Caută după Titlu, Autor sau ISBN..." Padding="5,0" FontSize="14" Margin="0,2,3,3"/>
+                                         Tag="Caută după Titlu, Autor sau ISBN..." Padding="5,0" FontSize="14" Margin="0,2,3,3" TextChanged="SearchBox_TextChanged" GotFocus="SearchTextBox_GotFocus" LostFocus="SearchTextBox_LostFocus"/>
                             </Grid>
                         </Border>
 
-                        <Button x:Name="BtnSearchBook" Grid.Column="1" Margin="15,0,0,0" Style="{StaticResource GlobalActionButtonStyle}" Foreground="White">
+                        <Button x:Name="BtnSearchBook" Grid.Column="1" Margin="15,0,0,0" Style="{StaticResource GlobalActionButtonStyle}" Foreground="White" Click="BtnSearchBook_Click">
                             <StackPanel Orientation="Horizontal">
                                 <fa5:ImageAwesome Icon="Solid_Search" Foreground="White" Width="14" Margin="0,0,8,0"/>
                                 <TextBlock Text="Caută" VerticalAlignment="Center"/>
@@ -69,7 +69,7 @@
                     </Grid>
 
                     <DataGrid x:Name="BooksDataGrid" Style="{StaticResource ModernDataGridStyle}" 
-                              MinHeight="150" MaxHeight="300" AutoGenerateColumns="False" IsReadOnly="True" Height="312"/>
+                              MinHeight="150" MaxHeight="300" AutoGenerateColumns="True" IsReadOnly="True" Height="312" AutoGeneratingColumn="BooksGrid_AutoGeneratingColumn" SelectionChanged="BooksGrid_SelectionChanged"/>
                 </StackPanel>
             </Border>
 
@@ -92,12 +92,12 @@
                                 <fa5:ImageAwesome Icon="Solid_User" Foreground="{DynamicResource TextMuted}" Width="14" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                 <TextBox x:Name="SearchStudentBox" Grid.Column="1" VerticalContentAlignment="Center" BorderThickness="0" Background="Transparent" 
                                          Foreground="{DynamicResource TextPrimary}" CaretBrush="{DynamicResource TextPrimary}"
-                                         Tag="Caută elev după nume..." Padding="5,0" FontSize="14" Margin="0,2,3,3"/>
+                                         Tag="Caută elev după nume..." Padding="5,0" FontSize="14" Margin="0,2,3,3" TextChanged="SearchStudentBox_TextChanged" GotFocus="SearchStudentBox_GotFocus" LostFocus="SearchStudentBox_LostFocus"/>
                             </Grid>
                         </Border>
 
                         <DataGrid x:Name="StudentsDataGrid" Style="{StaticResource ModernDataGridStyle}" 
-                                  MinHeight="200" MaxHeight="400" AutoGenerateColumns="False" IsReadOnly="True" Height="300"/>
+                                  MinHeight="200" MaxHeight="400" AutoGenerateColumns="True" IsReadOnly="True" Height="300" AutoGeneratingColumn="StudentsGrid_AutoGeneratingColumn" SelectionChanged="StudentsDataGrid_SelectionChanged"/>
                     </StackPanel>
                 </Border>
 
@@ -159,7 +159,7 @@
                                    Margin="0,0,0,10" Foreground="{DynamicResource TextPrimary}"/>
 
                         <DataGrid Grid.Row="1" x:Name="CurrentLoanGrid" Style="{StaticResource ModernDataGridStyle}" 
-                                  MinHeight="150" MaxHeight="250" IsReadOnly="True"/>
+                                  MinHeight="150" MaxHeight="250" IsReadOnly="True" AutoGeneratingColumn="CurrentLoanGrid_AutoGeneratingColumn"/>
 
                         <Border Grid.Row="2" Background="{DynamicResource BorrowedOrangeBg}" CornerRadius="8" Padding="12" Margin="0,15,0,0" 
                                 BorderBrush="{DynamicResource BorrowedOrange}" BorderThickness="1">
@@ -175,7 +175,7 @@
                         <TextBlock Text="Coada de așteptare" FontWeight="Bold" FontSize="15" 
                                    Margin="0,0,0,10" Foreground="{DynamicResource TextPrimary}"/>
                         <DataGrid x:Name="WaitListGrid" Style="{StaticResource ModernDataGridStyle}" 
-                                  MinHeight="150" MaxHeight="320" AutoGenerateColumns="False" IsReadOnly="True" Height="308"/>
+                                  MinHeight="150" MaxHeight="320" AutoGenerateColumns="True" IsReadOnly="True" Height="308" AutoGeneratingColumn="WaitListGrid_AutoGeneratingColumn"/>
                     </StackPanel>
                 </Grid>
             </Border>

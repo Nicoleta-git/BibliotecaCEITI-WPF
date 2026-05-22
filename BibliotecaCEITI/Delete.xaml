@@ -64,7 +64,7 @@
 
                         <TextBlock Text="Observații" FontWeight="SemiBold" Foreground="{DynamicResource TextMuted}" Margin="0,0,0,8"/>
                         <TextBox x:Name="txtObservatii" Height="80" TextWrapping="Wrap" AcceptsReturn="True" 
-                                 Padding="10" Margin="0,0,0,20" BorderBrush="{DynamicResource BorderBrushLight}" Background="{DynamicResource WindowBackground}" Foreground="{DynamicResource TextPrimary}" VerticalContentAlignment="Top"/>
+                                 Padding="10" Margin="0,0,0,20" BorderBrush="{DynamicResource BorderBrushLight}" Background="{DynamicResource WindowBackground}" Foreground="{DynamicResource TextPrimary}" VerticalContentAlignment="Top" GotFocus="txtObservatii_GotFocus" LostFocus="txtObservatii_LostFocus"/>
 
                         <Border Background="{DynamicResource WindowBackground}" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" CornerRadius="6" Padding="12" Margin="0,0,0,30">
                             <CheckBox x:Name="chkConfirmare" Cursor="Hand">
