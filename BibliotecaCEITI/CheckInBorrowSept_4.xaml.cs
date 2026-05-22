@@ -25,7 +25,7 @@ namespace BibliotecaCEITI
     {
         private int _idElev, _idEx;
         private DateTime _d_impr, _d_return;
-        public CheckInBorrowSept_4(int _idElevCurent, int _idExemplarSelectat, DateTime _data_imprumut, DateTime _data_returnarii)
+        public CheckInBorrowStep_4(int _idElevCurent, int _idExemplarSelectat, DateTime _data_imprumut, DateTime _data_returnarii)
         {
             InitializeComponent();
             _idElev = _idElevCurent;

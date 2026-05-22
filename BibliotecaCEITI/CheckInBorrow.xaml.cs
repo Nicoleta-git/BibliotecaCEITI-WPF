@@ -128,12 +128,7 @@ namespace BibliotecaCEITI
             }
             else if (_data_imprumut != null && _data_returnarii != null && step == 3)
             {
-                CheckInBorrowSept_4 checkIn_4 = new CheckInBorrowSept_4(
-                    _idElevCurent,
-                    _idExemplarSelectat,
-                    _data_imprumut.Value,
-                    _data_returnarii.Value
-                );
+                CheckInBorrowStep_4 checkIn_4 = new CheckInBorrowStep_4(_idElevCurent, _idExemplarSelectat, _data_imprumut.Value, _data_returnarii.Value);
 
                 ActiveBorrowContent.Content = checkIn_4;
                 step = 4;

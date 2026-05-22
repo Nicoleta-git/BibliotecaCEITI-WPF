@@ -60,7 +60,7 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <fa5:ImageAwesome Icon="Solid_Search" Width="14" Foreground="{DynamicResource TextMuted}" Margin="0,0,10,0"/>
-                                    <TextBox x:Name="SearchBox" Grid.Column="1" BorderThickness="0" Background="Transparent" VerticalContentAlignment="Center" Foreground="{DynamicResource TextPrimary}" FontSize="14" HorizontalAlignment="Stretch" TextChanged="SearchBox_TextChanged" />
+                                    <TextBox x:Name="SearchBox" Grid.Column="1" BorderThickness="0" Background="Transparent" VerticalContentAlignment="Center" Foreground="{DynamicResource TextPrimary}" FontSize="14" HorizontalAlignment="Stretch" TextChanged="SearchBox_TextChanged" GotFocus="SearchBox_GotFocus" LostFocus="SearchBox_LostFocus" />
                                 </Grid>
                             </Border>
 

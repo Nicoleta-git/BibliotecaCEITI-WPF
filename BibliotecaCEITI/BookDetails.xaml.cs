@@ -7,6 +7,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -40,12 +41,41 @@ namespace BibliotecaCEITI
             {
                 functie = "editare";
                 action_book.Text = "Editare detalii carte";
+                incarca_imagine.Text = "Încarcă altă imagine";
                 IncarcaDateEditare();
-            } else
+            }
+            else
             {
                 functie = "salvare";
                 action_book.Text = "Salvare carte";
+
+                txtTitlu.Text = "Ex: Amintiri din copilărie...";
+                txtTitlu.Foreground = new SolidColorBrush(Colors.Gray);
+                txtIsbn.Text = "Ex: 978-973-46-1234-5...";
+                txtIsbn.Foreground = new SolidColorBrush(Colors.Gray);
+                txtAnPublicare.Text = "Ex: 2020...";
+                txtAnPublicare.Foreground = new SolidColorBrush(Colors.Gray);
+                txtPretMdl.Text = "Ex: 350...";
+                txtPretMdl.Foreground = new SolidColorBrush(Colors.Gray);
+                txtPretChirie.Text = "Ex: 100...";
+                txtPretChirie.Foreground = new SolidColorBrush(Colors.Gray);
             }
+
+            if (string.IsNullOrEmpty(txtDescriere.Text))
+            {
+                txtDescriere.Text = "Scrie o scurtă prezentare a cărții...";
+                txtDescriere.Foreground = new SolidColorBrush(Colors.Gray);
+            }
+
+            if (imgCoperta.Source != null)
+            {
+                incarca_imagine.Text = "Încarcă altă imagine";
+            }
+            else
+            {
+                incarca_imagine.Text = "Încarcă o imagine";
+            }
+
 
         }
 
@@ -137,37 +167,52 @@ namespace BibliotecaCEITI
                     MessageBox.Show("Eroare la încărcarea imaginii: " + ex.Message);
                 }
             }
+
+            if (imgCoperta.Source != null)
+            {
+                incarca_imagine.Text = "Încarcă altă imagine";
+            }
+            else
+            {
+                incarca_imagine.Text = "Încarcă o imagine";
+            }
         }
 
         private void PopuleazaAutori()
         {
             string query = "CALL sp_autori();";
-
+            cbAutor.Items.Clear();
             try
             {
-                MySqlConnection conn = DatabaseConfig.GetConnection();
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                conn.Open();
-
-                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-
-                List<ComboItem> lista = new List<ComboItem>();
-
-                foreach (DataRow rand in dt.Rows)
+                using (MySqlConnection conn = DatabaseConfig.GetConnection())
                 {
-                    ComboItem item = new ComboItem();
-                    item.Id = Convert.ToInt32(rand["id"]);
-                    item.Denumire = rand["nume"].ToString();
-                    lista.Add(item);
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        conn.Open();
+                        using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
+                        {
+                            DataTable dt = new DataTable();
+                            da.Fill(dt);
+
+                            List<ComboItem> lista = new List<ComboItem>();
+                            lista.Add(new ComboItem { Id = -1, Denumire = "Selectează autor..." });
+                            foreach (DataRow rand in dt.Rows)
+                            {
+                                ComboItem item = new ComboItem
+                                {
+                                    Id = Convert.ToInt32(rand["id"]),
+                                    Denumire = rand["nume"].ToString()
+                                };
+                                lista.Add(item);
+                            }
+
+                            cbAutor.ItemsSource = lista;
+                            cbAutor.DisplayMemberPath = "Denumire";
+                            cbAutor.SelectedValuePath = "Id";
+                            cbAutor.SelectedIndex = 0;
+                        }
+                    }
                 }
-
-                cbAutor.ItemsSource = lista;
-                cbAutor.DisplayMemberPath = "Denumire";
-                cbAutor.SelectedValuePath = "Id";
-
-                conn.Close();
             }
             catch (Exception ex)
             {
@@ -178,32 +223,38 @@ namespace BibliotecaCEITI
         private void PopuleazaCategorii()
         {
             string query = "CALL sp_categorii_carti();";
-
+            cbCategorie.Items.Clear();
             try
             {
-                MySqlConnection conn = DatabaseConfig.GetConnection();
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                conn.Open();
-
-                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-
-                List<ComboItem> lista = new List<ComboItem>();
-
-                foreach (DataRow rand in dt.Rows)
+                using (MySqlConnection conn = DatabaseConfig.GetConnection())
                 {
-                    ComboItem item = new ComboItem();
-                    item.Id = Convert.ToInt32(rand["id"]);
-                    item.Denumire = rand["denumire"].ToString();
-                    lista.Add(item);
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        conn.Open();
+                        using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
+                        {
+                            DataTable dt = new DataTable();
+                            da.Fill(dt);
+
+                            List<ComboItem> lista = new List<ComboItem>();
+                            lista.Add(new ComboItem { Id = -1, Denumire = "Selectează categoria..." });
+                            foreach (DataRow rand in dt.Rows)
+                            {
+                                ComboItem item = new ComboItem
+                                {
+                                    Id = Convert.ToInt32(rand["id"]),
+                                    Denumire = rand["denumire"].ToString()
+                                };
+                                lista.Add(item);
+                            }
+
+                            cbCategorie.ItemsSource = lista;
+                            cbCategorie.DisplayMemberPath = "Denumire";
+                            cbCategorie.SelectedValuePath = "Id";
+                            cbCategorie.SelectedIndex = 0;
+                        }
+                    }
                 }
-
-                cbCategorie.ItemsSource = lista;
-                cbCategorie.DisplayMemberPath = "Denumire";
-                cbCategorie.SelectedValuePath = "Id";
-
-                conn.Close();
             }
             catch (Exception ex)
             {
@@ -214,32 +265,38 @@ namespace BibliotecaCEITI
         private void PopuleazaEdituri()
         {
             string query = "CALL sp_edituri();";
-
+            cbEditura.Items.Clear();
             try
             {
-                MySqlConnection conn = DatabaseConfig.GetConnection();
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                conn.Open();
-
-                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-
-                List<ComboItem> lista = new List<ComboItem>();
-
-                foreach (DataRow rand in dt.Rows)
+                using (MySqlConnection conn = DatabaseConfig.GetConnection())
                 {
-                    ComboItem item = new ComboItem();
-                    item.Id = Convert.ToInt32(rand["id"]);
-                    item.Denumire = rand["denumire"].ToString();
-                    lista.Add(item);
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        conn.Open();
+                        using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
+                        {
+                            DataTable dt = new DataTable();
+                            da.Fill(dt);
+
+                            List<ComboItem> lista = new List<ComboItem>();
+                            lista.Add(new ComboItem { Id = -1, Denumire = "Selectează editura..." });
+                            foreach (DataRow rand in dt.Rows)
+                            {
+                                ComboItem item = new ComboItem
+                                {
+                                    Id = Convert.ToInt32(rand["id"]),
+                                    Denumire = rand["denumire"].ToString()
+                                };
+                                lista.Add(item);
+                            }
+
+                            cbEditura.ItemsSource = lista;
+                            cbEditura.DisplayMemberPath = "Denumire";
+                            cbEditura.SelectedValuePath = "Id";
+                            cbEditura.SelectedIndex = 0;
+                        }
+                    }
                 }
-
-                cbEditura.ItemsSource = lista;
-                cbEditura.DisplayMemberPath = "Denumire";
-                cbEditura.SelectedValuePath = "Id";
-
-                conn.Close();
             }
             catch (Exception ex)
             {
@@ -250,32 +307,38 @@ namespace BibliotecaCEITI
         private void PopuleazaLimbi()
         {
             string query = "CALL sp_limbi();";
-
+            cbLimba.Items.Clear();
             try
             {
-                MySqlConnection conn = DatabaseConfig.GetConnection();
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                conn.Open();
-
-                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-
-                List<ComboItem> lista = new List<ComboItem>();
-
-                foreach (DataRow rand in dt.Rows)
+                using (MySqlConnection conn = DatabaseConfig.GetConnection())
                 {
-                    ComboItem item = new ComboItem();
-                    item.Id = Convert.ToInt32(rand["id"]);
-                    item.Denumire = rand["denumire"].ToString();
-                    lista.Add(item);
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        conn.Open();
+                        using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
+                        {
+                            DataTable dt = new DataTable();
+                            da.Fill(dt);
+
+                            List<ComboItem> lista = new List<ComboItem>();
+                            lista.Add(new ComboItem { Id = -1, Denumire = "Selectează limba..." });
+                            foreach (DataRow rand in dt.Rows)
+                            {
+                                ComboItem item = new ComboItem
+                                {
+                                    Id = Convert.ToInt32(rand["id"]),
+                                    Denumire = rand["denumire"].ToString()
+                                };
+                                lista.Add(item);
+                            }
+
+                            cbLimba.ItemsSource = lista;
+                            cbLimba.DisplayMemberPath = "Denumire";
+                            cbLimba.SelectedValuePath = "Id";
+                            cbLimba.SelectedIndex = 0;
+                        }
+                    }
                 }
-
-                cbLimba.ItemsSource = lista;
-                cbLimba.DisplayMemberPath = "Denumire";
-                cbLimba.SelectedValuePath = "Id";
-
-                conn.Close();
             }
             catch (Exception ex)
             {
@@ -428,5 +491,176 @@ namespace BibliotecaCEITI
             }
         }
 
+        private void txtTitlu_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+            if (txt != null && txt.Text == "Ex: Amintiri din copilărie...")
+            {
+                txt.Text = "";
+                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
+            }
+        }
+
+        private void txtTitlu_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+            if (txt != null && string.IsNullOrWhiteSpace(txt.Text))
+            {
+                txt.Text = "Ex: Amintiri din copilărie...";
+                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
+            }
+        }
+
+        private void txtDescriere_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+            if (txt != null && txt.Text == "Scrie o scurtă prezentare a cărții...")
+            {
+                txt.Text = "";
+                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
+            }
+        }
+
+        private void txtDescriere_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+            if (txt != null && string.IsNullOrWhiteSpace(txt.Text))
+            {
+                txt.Text = "Scrie o scurtă prezentare a cărții...";
+                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
+            }
+        }
+
+        private void txtIsbn_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+            if (txt != null && txt.Text == "Ex: 978-973-46-1234-5...")
+            {
+                txt.Text = "";
+                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
+            }
+        }
+
+        private void txtIsbn_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+            if (txt != null && string.IsNullOrWhiteSpace(txt.Text))
+            {
+                txt.Text = "Ex: 978-973-46-1234-5...";
+                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
+            }
+        }
+
+        private void txtAnPublicare_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+            if (txt != null && txt.Text == "Ex: 2020...")
+            {
+                txt.Text = "";
+                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
+            }
+        }
+
+        private void txtAnPublicare_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+            if (txt != null && string.IsNullOrWhiteSpace(txt.Text))
+            {
+                txt.Text = "Ex: 2020...";
+                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
+            }
+        }
+
+        private void txtPretMdl_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+            if (txt != null && txt.Text == "Ex: 350...")
+            {
+                txt.Text = "";
+                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
+            }
+        }
+
+        private void txtPretMdl_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+            if (txt != null && string.IsNullOrWhiteSpace(txt.Text))
+            {
+                txt.Text = "Ex: 350...";
+                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
+            }
+        }
+
+        private void txtPretChirie_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+            if (txt != null && txt.Text == "Ex: 100...")
+            {
+                txt.Text = "";
+                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
+            }
+        }
+
+        private void txtPretChirie_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+            if (txt != null && string.IsNullOrWhiteSpace(txt.Text))
+            {
+                txt.Text = "Ex: 100...";
+                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
+            }
+        }
+
+        private bool isbnFormatat = false;
+        private void txtIsbn_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (isbnFormatat) return;
+
+            TextBox textBox = sender as TextBox;
+            if (textBox == null) return;
+            if (textBox.Text == "Ex: 978-973-46-1234-5...") return;
+            string rawDigits = new string(textBox.Text.Where(char.IsDigit).ToArray());
+            string separator = "";
+            for (int i = 0; i < rawDigits.Length; i++)
+            {
+                // Adăugăm cratimă după a 3-a, a 6-a, a 9-a și a 13-a cifră
+                if (i == 3 || i == 6 || i == 9 || i == 13)
+                {
+                    separator += "-";
+                }
+                separator += rawDigits[i];
+            }
+
+            isbnFormatat = true;
+
+            textBox.Text = separator;
+            textBox.CaretIndex = textBox.Text.Length;
+
+            isbnFormatat = false;
+        }
+
+        private void txtIsbn_TextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void txtAnPublicare_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void txtPretMdl_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void txtPretChirie_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
     }
 }
