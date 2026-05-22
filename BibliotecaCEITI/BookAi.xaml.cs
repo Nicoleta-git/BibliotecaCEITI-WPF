@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Windows;
@@ -8,7 +9,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
-using MySql.Data.MySqlClient; // Ensure this package is installed via NuGet
+using MySql.Data.MySqlClient;
 
 namespace BibliotecaCEITI
 {
@@ -107,6 +108,42 @@ namespace BibliotecaCEITI
             return message;
         }
 
+        // Helper method to load system instructions safely from the specific static file path
+        private string LoadSystemInstructions()
+        {
+            try
+            {
+                // Get the direct path where the .exe file is currently running
+                string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+                string path = Path.Combine(baseDir, "Instructions.txt");
+
+                if (File.Exists(path))
+                {
+                    return File.ReadAllText(path, Encoding.UTF8);
+                }
+
+                // Alternative fallback to look into the source project folder during active debug sessions
+                string debugFallbackPath = Path.GetFullPath(Path.Combine(baseDir, @"..\..\..\Instructions.txt"));
+                if (File.Exists(debugFallbackPath))
+                {
+                    return File.ReadAllText(debugFallbackPath, Encoding.UTF8);
+                }
+
+                System.Diagnostics.Debug.WriteLine("Instructions.txt was not found in execution or source paths.");
+                return "Ești asistentul Bibliotecii CEITI. Ajută succint, fără Markdown.";
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Security/Access error: {ex.Message}");
+                return "Ești asistentul Bibliotecii CEITI. Ajută succint, fără Markdown.";
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error reading instructions file: {ex.Message}");
+                return "Ești asistentul Bibliotecii CEITI. Ajută succint, fără Markdown.";
+            }
+        }
+
         // Handles building parameters and dispatching the HTTP POST payload request targeting Gemini endpoint
         private async Task<string> GetGeminiRawResponse(string promptText)
         {
@@ -115,18 +152,14 @@ namespace BibliotecaCEITI
             // Append the new incoming user input block into our local conversation history container
             _conversationHistory.Add(new { role = "user", parts = new[] { new { text = promptText } } });
 
-            string systemInstruction =
-                "Ești asistentul inteligent al Bibliotecii CEITI. Rolul tău este să ajuți utilizatorul. " +
-                "Dacă utilizatorul îți cere să adauge o carte (ex: 'Adaugă cartea X scrisă de Y'), TREBUIE să folosești funcția 'InsertBookIntoDb'. " +
-                "Parametrii obligatorii sunt: titlu, autor, categorie, limba și anPublicare. " +
-                "Dacă utilizatorul nu oferă aceste detalii obligatorii, NU apela funcția! În schimb, întreabă-l politicos " +
-                "în limba română care sunt detaliile care lipsesc. Răspunde clar, în text simplu, fără formatare Markdown.";
+            // Extract the instruction payload blocks dynamically from your localized text asset
+            string dynamicSystemInstruction = LoadSystemInstructions();
 
             // Constructing the nested JSON schema representation exactly as Google's AI API infrastructure expects it
             var requestBody = new
             {
                 contents = _conversationHistory.ToArray(),
-                systemInstruction = new { parts = new[] { new { text = systemInstruction } } },
+                systemInstruction = new { parts = new[] { new { text = dynamicSystemInstruction } } },
                 tools = new[]
                 {
                     new {
@@ -136,21 +169,21 @@ namespace BibliotecaCEITI
                                 name = "InsertBookIntoDb",
                                 description = "Inserează automat o carte nouă în baza de date a bibliotecii prin procedura stocată.",
                                 parameters = new {
-                                    type = "OBJECT",
+                                    type = "object",
                                     properties = new {
-                                        titlu = new { type = "STRING", description = "Titlul cărții" },
-                                        autor = new { type = "STRING", description = "Numele complet al autorului" },
-                                        categorie = new { type = "STRING", description = "Denumirea categoriei (ex: Programare, Roman, Matematică)" },
-                                        descriere = new { type = "STRING", description = "Scurtă descriere sau rezumat al cărții" },
-                                        isbn = new { type = "STRING", description = "Codul internațional standard al cărții (ISBN)" },
-                                        editura = new { type = "STRING", description = "Numele editurii" },
-                                        anPublicare = new { type = "INTEGER", description = "Anul în care a fost publicată cartea (ex: 2024)" },
-                                        limba = new { type = "STRING", description = "Limba în care este scrisă (ex: Română, Engleză, Rusă)" },
-                                        pretVanzare = new { type = "NUMBER", description = "Prețul cărții în MDL. Default: 0" },
-                                        pretChirie = new { type = "NUMBER", description = "Prețul chiriei per lună în MDL (valabil doar pentru manuale). Default: 0" }
+                                        titlu = new { type = "string", description = "Titlul cărții" },
+                                        autor = new { type = "string", description = "Numele complet al autorului" },
+                                        categorie = new { type = "string", description = "Denumirea categoriei (ex: Programare, Roman, Matematică)" },
+                                        descriere = new { type = "string", description = "Scurtă descriere sau rezumat al cărții" },
+                                        isbn = new { type = "string", description = "Codul internațional standard al cărții (ISBN)" },
+                                        editura = new { type = "string", description = "Numele editurii" },
+                                        anPublicare = new { type = "integer", description = "Anul în care a fost publicată cartea (ex: 2024)" },
+                                        limba = new { type = "string", description = "Limba în care este scrisă (ex: Română, Engleză, Rusă)" },
+                                        pretVanzare = new { type = "number", description = "Prețul cărții în MDL. Default: 0" },
+                                        pretChirie = new { type = "number", description = "Prețul chiriei per lună în MDL (valabil doar pentru manuale). Default: 0" }
                                     },
-                                    // Mapping crucial required properties needed by your backend data integrity constraints
-                                    required = new[] { "titlu", "autor", "categorie", "anPublicare", "limba" }
+                                    // Added 'isbn' to the required array so the AI is forced to ask for it before triggering the function
+                                    required = new[] { "titlu", "autor", "categorie", "anPublicare", "limba", "isbn" }
                                 }
                             }
                         }
@@ -213,12 +246,17 @@ namespace BibliotecaCEITI
                 // Store assistant conversational text within the tracker collections to keep context alive
                 _conversationHistory.Add(new { role = "model", parts = new[] { new { text = aiText } } });
 
-                // Sanitize layout parameters from specific markdown styling notations
+                // Deep sanitize logic to strip any remaining markdown symbols (*, _, #, headers, list blocks) entirely
                 string cleanResult = aiText
                     .Replace("**", "")
                     .Replace("__", "")
+                    .Replace("###", "")
+                    .Replace("##", "")
                     .Replace("#", "")
+                    .Replace("`", "")
+                    .Replace("---", "")
                     .Replace("* ", "• ")
+                    .Replace("- ", "• ")
                     .Trim();
 
                 AddMessageToUi(cleanResult, isUser: false);
