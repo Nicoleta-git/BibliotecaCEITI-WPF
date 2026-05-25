@@ -6,7 +6,7 @@
              xmlns:fa5="http://schemas.fontawesome.com/icons/"
              mc:Ignorable="d" 
              Background="#F4F7FE"
-             FontFamily="Segoe UI" d:DesignWidth="1000" Height="853">
+             FontFamily="Segoe UI" d:DesignWidth="1000" d:Height="853">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -92,7 +92,15 @@
 
                         <DataGrid x:Name="DgElevi" Grid.Row="1"
                                   Style="{StaticResource ModernDataGridStyle}"
-                                  AutoGenerateColumns="False" CanUserAddRows="False" Foreground="Black" MinHeight="360" Grid.ColumnSpan="2" Margin="10,10,-10,-10">
+                                  AutoGenerateColumns="False" 
+                                  CanUserAddRows="False" 
+                                  Foreground="Black" 
+                                  MinHeight="360" 
+                                  Grid.ColumnSpan="2" 
+                                  Margin="10,10,-10,-10"
+                                  VirtualizingPanel.IsVirtualizing="False"
+                                  ScrollViewer.CanContentScroll="False"
+                                  EnableRowVirtualization="False">
                             <DataGrid.Columns>
 
                                 <DataGridTemplateColumn Header="Elev" Width="*" IsReadOnly="True" CellStyle="{StaticResource LeftAlignedCellStyle}">

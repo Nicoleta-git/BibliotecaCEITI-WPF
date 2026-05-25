@@ -80,62 +80,61 @@
                         </Button>
                     </Grid>
 
-                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                        <StackPanel>
-                            <Border x:Name="EmptyStateBorder" Background="{DynamicResource WindowBackground}" CornerRadius="10" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" Visibility="Collapsed">
-                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
-                                    <fa5:ImageAwesome Icon="Regular_FileAlt" Width="30" Foreground="{DynamicResource TextGray}" Margin="0,0,0,15"/>
-                                    <TextBlock Text="Elevul nu are împrumuturi active." 
-                                               TextWrapping="Wrap" TextAlignment="Center"
-                                               Foreground="{DynamicResource TextMuted}" FontSize="13"/>
-                                </StackPanel>
-                            </Border>
+                    <Grid Grid.Row="1">
 
-                            <DataGrid x:Name="BooksGrid"
-                                      RowHeight="120"
-                                      Style="{StaticResource ModernDataGridStyle}"
-                                      AutoGenerateColumns="False"
-                                      ColumnWidth="*"
-                                      EnableRowVirtualization="True"
-                                      VirtualizingPanel.IsVirtualizing="True"
-                                      VirtualizingPanel.VirtualizationMode="Recycling"
-                                      CanUserAddRows="False"
-                                      HeadersVisibility="Column"
-                                      GridLinesVisibility="Horizontal"
-                                      HorizontalGridLinesBrush="{DynamicResource BorderBrushLight}"
-                                      BorderThickness="0"
-                                      Background="Transparent"
-                                      RowBackground="{DynamicResource DataGridRowBackground}"
-                                      Height="600">
+                        <Border x:Name="EmptyStateBorder" Background="{DynamicResource WindowBackground}" CornerRadius="10" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" Visibility="Collapsed">
+                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
+                                <fa5:ImageAwesome Icon="Regular_FileAlt" Width="30" Foreground="{DynamicResource TextGray}" Margin="0,0,0,15"/>
+                                <TextBlock Text="Elevul nu are împrumuturi active." 
+                                           TextWrapping="Wrap" TextAlignment="Center"
+                                           Foreground="{DynamicResource TextMuted}" FontSize="13"/>
+                            </StackPanel>
+                        </Border>
 
-                                <DataGrid.Columns>
-                                    <DataGridTemplateColumn Width="100" CanUserResize="False">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,5,10,5">
-                                                    <Border Width="70" Height="95" Background="{DynamicResource InputBackground}" CornerRadius="8" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1">
-                                                        <Image x:Name="imgCoperta" Source="{Binding Coperta_carte}" Stretch="Uniform"/>
-                                                    </Border>
-                                                </Grid>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
+                        <DataGrid x:Name="BooksGrid"
+                                  RowHeight="120"
+                                  Style="{StaticResource ModernDataGridStyle}"
+                                  AutoGenerateColumns="False"
+                                  ColumnWidth="*"
+                                  EnableRowVirtualization="False"
+                                  VirtualizingPanel.IsVirtualizing="False"
+                                  VirtualizingPanel.VirtualizationMode="Standard"
+                                  ScrollViewer.CanContentScroll="False"
+                                  CanUserAddRows="False"
+                                  HeadersVisibility="Column"
+                                  GridLinesVisibility="Horizontal"
+                                  HorizontalGridLinesBrush="{DynamicResource BorderBrushLight}"
+                                  BorderThickness="0"
+                                  Background="Transparent"
+                                  RowBackground="{DynamicResource DataGridRowBackground}">
 
-                                    <DataGridTemplateColumn Header="Detalii Carte" Width="*">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <StackPanel VerticalAlignment="Center" Margin="10,0,10,0">
-                                                    <TextBlock Text="{Binding Carte}" FontWeight="SemiBold" Foreground="{DynamicResource PrimaryEmerald}" FontSize="14" TextWrapping="Wrap"/>
-                                                    <TextBlock Text="{Binding Autor}" Foreground="{DynamicResource TextMuted}" FontSize="12" Margin="0,4,0,0" TextWrapping="Wrap"/>
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                </DataGrid.Columns>
-                            </DataGrid>
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Width="100" CanUserResize="False">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,5,10,5">
+                                                <Border Width="70" Height="95" Background="{DynamicResource InputBackground}" CornerRadius="8" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1">
+                                                    <Image x:Name="imgCoperta" Source="{Binding Coperta_carte}" Stretch="Uniform"/>
+                                                </Border>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
 
-                        </StackPanel>
-                    </ScrollViewer>
+                                <DataGridTemplateColumn Header="Detalii Carte" Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel VerticalAlignment="Center" Margin="10,0,10,0">
+                                                <TextBlock Text="{Binding Carte}" FontWeight="SemiBold" Foreground="{DynamicResource PrimaryEmerald}" FontSize="14" TextWrapping="Wrap"/>
+                                                <TextBlock Text="{Binding Autor}" Foreground="{DynamicResource TextMuted}" FontSize="12" Margin="0,4,0,0" TextWrapping="Wrap"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                    </Grid>
                 </Grid>
             </Border>
         </Grid>
