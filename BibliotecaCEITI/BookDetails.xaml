@@ -98,7 +98,7 @@
                                     <TextBlock Text="Autor *" Style="{StaticResource FieldLabel}" Foreground="{DynamicResource TextPrimary}"/>
                                     <StackPanel Orientation="Horizontal" Width="271">
                                         <ComboBox x:Name="cbAutor" Margin="0,0,10,0"  Height="38" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}" SelectionChanged="cbAutor_SelectionChanged" Width="223"/>
-                                        <Button Style="{StaticResource GlobalActionButtonStyle}" Width="31" Height="33">+</Button>
+                                        <Button Style="{StaticResource GlobalActionButtonStyle}" Width="31" Height="33" Click="Button_Click_2">+</Button>
                                     </StackPanel>
                                 </StackPanel>
                                 <StackPanel Grid.Column="1" Margin="10,0,0,0">

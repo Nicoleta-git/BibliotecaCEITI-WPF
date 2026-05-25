@@ -281,25 +281,18 @@
                             BorderBrush="{DynamicResource BorderBrushDark}" 
                             BorderThickness="1" 
                             ClipToBounds="True">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-
-                            <DataGridColumnHeadersPresenter x:Name="PART_ColumnHeadersPresenter" 
-                                                            Grid.Row="0"
-                                                            Visibility="{TemplateBinding HeadersVisibility}"/>
-
-                            <ScrollViewer x:Name="DG_ScrollViewer"
-                                      Grid.Row="1"
-                                      Focusable="False"
-                                      CanContentScroll="False"
-                                      HorizontalScrollBarVisibility="Disabled"
-                                      VerticalScrollBarVisibility="Disabled">
-                                <ItemsPresenter/>
-                            </ScrollViewer>
-                        </Grid>
+                        <ScrollViewer x:Name="DG_ScrollViewer" Focusable="false">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <DataGridColumnHeadersPresenter x:Name="PART_ColumnHeadersPresenter" 
+                                                          Grid.Row="0"
+                                                          Visibility="{TemplateBinding HeadersVisibility}"/>
+                                <ItemsPresenter Grid.Row="1" />
+                            </Grid>
+                        </ScrollViewer>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
