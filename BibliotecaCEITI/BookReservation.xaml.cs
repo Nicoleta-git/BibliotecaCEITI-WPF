@@ -166,7 +166,7 @@ namespace BibliotecaCEITI
                     using (MySqlConnection conn = DatabaseConfig.GetConnection())
                     {
                         conn.Open();
-                        MySqlCommand cmd = new MySqlCommand("sp_raport_exemplare__sortat_rezervari", conn);
+                        MySqlCommand cmd = new MySqlCommand("sp_raport_exemplare_sortat_rezervari", conn);
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add("@p_titlu", MySqlDbType.VarChar).Value = string.IsNullOrWhiteSpace(titlu) ? DBNull.Value : titlu;
                         cmd.Parameters.Add("@p_isbn", MySqlDbType.VarChar).Value = string.IsNullOrWhiteSpace(isbn) ? DBNull.Value : isbn;
@@ -441,6 +441,13 @@ namespace BibliotecaCEITI
             if (coloaneDeAscuns.Contains(e.Column.Header.ToString()))
             {
                 e.Column.Visibility = Visibility.Collapsed;
+            }
+            if (e.PropertyType == typeof(DateTime) || e.PropertyType == typeof(DateTime?))
+            {
+                if (e.Column is DataGridTextColumn col)
+                {
+                    col.Binding.StringFormat = "dd.MM.yyyy";
+                }
             }
         }
 

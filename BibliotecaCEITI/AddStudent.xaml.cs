@@ -51,24 +51,57 @@ namespace BibliotecaCEITI
             }
         }
 
+        private bool ValidateTextBox(TextBox textBox, string placeholder, string errorMessage)
+        {
+            if (textBox.Text == placeholder || string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                MessageBox.Show(errorMessage);
+                textBox.BorderBrush = new SolidColorBrush(System.Windows.Media.Colors.Red);
+                return false;
+            }
+            textBox.ClearValue(TextBox.BorderBrushProperty);
+            return true;
+        }
+
+        private bool ValidateComboBox(ComboBox comboBox, string errorMessage)
+        {
+            if (comboBox.SelectedIndex == 0)
+            {
+                MessageBox.Show(errorMessage);
+                comboBox.BorderBrush = new SolidColorBrush(System.Windows.Media.Colors.Red);
+                return false;
+            }
+            comboBox.ClearValue(ComboBox.BorderBrushProperty);
+            return true;
+        }
+
+        private bool ValidateDateTimePicker(DatePicker datePicker, string errorMesage)
+        {
+            if (datePicker.SelectedDate == null)
+            {
+                MessageBox.Show(errorMesage);
+                datePicker.BorderBrush = new SolidColorBrush(System.Windows.Media.Colors.Red);
+                return false;
+            }
+            datePicker.ClearValue(DatePicker.BorderBrushProperty);
+            return true;
+        }
+
         private async void btnSalveazaModificari_Click(object sender, RoutedEventArgs e)
         {
             btnAddStudent.IsEnabled = false;
             int idBibliotecar = 1;
             try
             {
-                if (dpDataNasterii.SelectedDate == null)
-                {
-                    MessageBox.Show("Te rog să selectezi data nașterii!", "Atenție");
-                    return;
-                }
-                DateTime data_nasterii = dpDataNasterii.SelectedDate.Value;
+                if (!ValidateTextBox(txtIdnp, "Ex: 1234567890123...", "Vă rugăm să introduceți IDNP-ul cărții.")) return;
+                if (!ValidateComboBox(cbGrupe, "Vă rugăm să selectați grupa")) return;
+                if (!ValidateTextBox(txtNume, "Ex: Moraru...", "Vă rugăm să introduceți numele elevului.")) return;
+                if (!ValidateTextBox(txtPrenume, "Ex: Vasile...", "Vă rugăm să introduceți prenumele elevului.")) return;
+                if (!ValidateTextBox(txtTelefon, "Ex: 012345678...", "Vă rugăm să introduceți un număr de telefon.")) return;
+                if (!ValidateTextBox(txtEmail, "Ex: moraru.vasile@gmail.com...", "Vă rugăm să introduceți o adresă de email.")) return;
+                if (!ValidateDateTimePicker(dpDataNasterii, "Vă rugăm să selectați data nașterii.")) return;
 
-                if (cbGrupe.SelectedValue == null || Convert.ToInt32(cbGrupe.SelectedValue) == -1)
-                {
-                    MessageBox.Show("Te rog să selectezi o grupă validă din listă!", "Atenție");
-                    return;
-                }
+                DateTime data_nasterii = dpDataNasterii.SelectedDate.Value;
                 int idGrupa = Convert.ToInt32(cbGrupe.SelectedValue);
 
                 await AddStudentAsync(txtNume.Text, txtPrenume.Text, txtTelefon.Text, txtEmail.Text, txtIdnp.Text, txtObservatii.Text, idGrupa, data_nasterii, idBibliotecar);

@@ -423,6 +423,54 @@ namespace BibliotecaCEITI
             }
         }
 
+        private bool ValidateTextBox(TextBox textBox, string placeholder, string errorMessage)
+        {
+            if (textBox.Text == placeholder || string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                MessageBox.Show(errorMessage);
+                textBox.BorderBrush = new SolidColorBrush(System.Windows.Media.Colors.Red);
+                return false;
+            }
+            textBox.ClearValue(TextBox.BorderBrushProperty);
+            return true;
+        }
+
+        private bool ValidateComboBox(ComboBox comboBox, string errorMessage)
+        {
+            if (comboBox.SelectedIndex == 0)
+            {
+                MessageBox.Show(errorMessage);
+                comboBox.BorderBrush = new SolidColorBrush(System.Windows.Media.Colors.Red);
+                return false;
+            }
+            comboBox.ClearValue(ComboBox.BorderBrushProperty);
+            return true;
+        }
+
+        private bool ValidateNumber(TextBox textBox, string errorMessage, out int value)
+        {
+            if (!int.TryParse(textBox.Text, out value))
+            {
+                MessageBox.Show(errorMessage);
+                textBox.BorderBrush = new SolidColorBrush(System.Windows.Media.Colors.Red);
+                return false;
+            }
+            textBox.ClearValue(TextBox.BorderBrushProperty);
+            return true;
+        }
+
+        private bool ValidateDouble(TextBox textBox, string errorMessage, out double value)
+        {
+            if (!double.TryParse(textBox.Text, out value))
+            {
+                MessageBox.Show(errorMessage);
+                textBox.BorderBrush = new SolidColorBrush(System.Windows.Media.Colors.Red);
+                return false;
+            }
+            textBox.ClearValue(TextBox.BorderBrushProperty);
+            return true;
+        }
+
         private async void btnSalveazaModificari_Click(object sender, RoutedEventArgs e)
         {
             btnSalveazaModificari.IsEnabled = false;
@@ -432,23 +480,15 @@ namespace BibliotecaCEITI
                 int idBibliotecarLogat = 1;
                 byte[]? copertaBytes = ImageToBytes(imgCoperta);
 
-                if (!int.TryParse(txtAnPublicare.Text, out int an))
-                {
-                    MessageBox.Show("Anul publicării este invalid.");
-                    return;
-                }
-
-                if (!double.TryParse(txtPretMdl.Text, out double pret))
-                {
-                    MessageBox.Show("Prețul este invalid.");
-                    return;
-                }
-
-                if (!double.TryParse(txtPretChirie.Text, out double chirie))
-                {
-                    MessageBox.Show("Prețul chiriei este invalid.");
-                    return;
-                }
+                if (!ValidateTextBox(txtTitlu, "Ex: Amintiri din copilărie...", "Vă rugăm să introduceți titlul cărții.")) return;
+                if (!ValidateComboBox(cbAutor, "Vă rugăm să introduceți autorul cărții.")) return;
+                if (!ValidateComboBox(cbCategorie, "Vă rugăm să alegeți categoria cărții.")) return;
+                if (!ValidateTextBox(txtIsbn, "Ex: 978-973-46-1234-5...", "Vă rugăm să introduceți ISBN-ul cărții.")) return;
+                if (!ValidateComboBox(cbEditura, "Vă rugăm să alegeți editura cărții.")) return;
+                if (!ValidateNumber(txtAnPublicare, "Anul publicării este invalid.", out int an)) return;
+                if (!ValidateComboBox(cbLimba, "Vă rugăm să alegeți limba cărții.")) return;
+                if (!ValidateDouble(txtPretMdl, "Prețul este invalid.", out double pret)) return;
+                if (!ValidateDouble(txtPretChirie, "Prețul chiriei este invalid.", out double chirie)) return;
 
                 if (functie == "salvare")
                 {
@@ -458,6 +498,7 @@ namespace BibliotecaCEITI
                 {
                     await UpdateBookAsync(_idCarte, txtTitlu.Text, cbAutor.Text, cbCategorie.Text, txtDescriere.Text, txtIsbn.Text, cbEditura.Text, an, cbLimba.Text, pret, chirie, copertaBytes, idBibliotecarLogat);
                 }
+
                 var mainWindow = Window.GetWindow(this) as MainWindow;
                 if (mainWindow != null)
                 {
@@ -473,6 +514,8 @@ namespace BibliotecaCEITI
                 btnSalveazaModificari.IsEnabled = true;
             }
         }
+
+
         private byte[]? ImageToBytes(System.Windows.Controls.Image imgControl)
         {
             if (imgControl.Source == null)
@@ -618,6 +661,10 @@ namespace BibliotecaCEITI
 
             TextBox textBox = sender as TextBox;
             if (textBox == null) return;
+            if (textBox.Text != "Ex: 978-973-46-1234-5...")
+            {
+                textBox.ClearValue(TextBox.BorderBrushProperty);
+            }
             if (textBox.Text == "Ex: 978-973-46-1234-5...") return;
             string rawDigits = new string(textBox.Text.Where(char.IsDigit).ToArray());
             string separator = "";
@@ -632,10 +679,8 @@ namespace BibliotecaCEITI
             }
 
             isbnFormatat = true;
-
             textBox.Text = separator;
             textBox.CaretIndex = textBox.Text.Length;
-
             isbnFormatat = false;
         }
 
@@ -662,5 +707,49 @@ namespace BibliotecaCEITI
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
+
+        private void txtTitlu_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (txtTitlu.Text != "Ex: Amintiri din copilărie..." && !string.IsNullOrWhiteSpace(txtTitlu.Text))
+            {
+                txtTitlu.ClearValue(TextBox.BorderBrushProperty);
+            }
+        }
+
+        private void cbAutor_SelectionChanged(object sender, SelectionChangedEventArgs e) 
+        { 
+            if (cbAutor.SelectedIndex > 0) cbAutor.ClearValue(Control.BorderBrushProperty); 
+        }
+
+        private void cbCategorie_SelectionChanged(object sender, SelectionChangedEventArgs e) 
+        { 
+            if (cbCategorie.SelectedIndex > 0) cbCategorie.ClearValue(Control.BorderBrushProperty); 
+        }
+
+        private void cbEditura_SelectionChanged(object sender, SelectionChangedEventArgs e) 
+        { 
+            if (cbEditura.SelectedIndex > 0) cbEditura.ClearValue(Control.BorderBrushProperty); 
+        }
+
+        private void cbLimba_SelectionChanged(object sender, SelectionChangedEventArgs e) 
+        { 
+            if (cbLimba.SelectedIndex > 0) cbLimba.ClearValue(Control.BorderBrushProperty); 
+        }
+
+        private void txtAnPublicare_TextChanged(object sender, TextChangedEventArgs e) 
+        { 
+            if (int.TryParse(txtAnPublicare.Text, out _)) txtAnPublicare.ClearValue(Control.BorderBrushProperty); 
+        }
+
+        private void txtPretMdl_TextChanged(object sender, TextChangedEventArgs e) 
+        { 
+            if (double.TryParse(txtPretMdl.Text, out _)) txtPretMdl.ClearValue(Control.BorderBrushProperty); 
+        }
+
+        private void txtPretChirie_TextChanged(object sender, TextChangedEventArgs e) 
+        { 
+            if (double.TryParse(txtPretChirie.Text, out _)) txtPretChirie.ClearValue(Control.BorderBrushProperty); 
+        }
     }
 }
+
