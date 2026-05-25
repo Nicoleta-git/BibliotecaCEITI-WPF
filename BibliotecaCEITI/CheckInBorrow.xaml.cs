@@ -118,6 +118,7 @@ namespace BibliotecaCEITI
             {
                 CheckInBorrowStep_3 checkIn_3 = new CheckInBorrowStep_3(_idExemplarSelectat);
                 checkIn_3.d_imprumut += TakeDates;
+                checkIn_3.InitDates();
                 ActiveBorrowContent.Content = checkIn_3;
                 step = 3;
             }

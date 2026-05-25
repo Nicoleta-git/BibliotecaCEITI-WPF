@@ -85,6 +85,11 @@ namespace BibliotecaCEITI
 
         private void StergeBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (id_CarteSelectata <= 0)
+            {
+                MessageBox.Show("Vă rugăm să selectați o carte din listă pentru a o șterge.", "Atenție", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
             Delete delete = new Delete(id_CarteSelectata);
             Window parentWindow = Window.GetWindow(this);
 
@@ -361,6 +366,8 @@ namespace BibliotecaCEITI
                     }
 
                     MessageBox.Show($"S-au adăugat cu succes {numarExemplare} exemplare pentru această carte!", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
+                    SearchTextBox.Text = "Caută o carte...";
+                    SearchTextBox.Foreground = new SolidColorBrush(Colors.Gray);
                 }
 
                 SelectBooks();

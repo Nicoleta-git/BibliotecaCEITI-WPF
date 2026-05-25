@@ -61,7 +61,7 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Column="0" Grid.Row="0" Margin="0,0,30,20">
-                    <Border CornerRadius="12" Background="{DynamicResource CardBackground}" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" Padding="20">
+                    <Border CornerRadius="12" Background="{DynamicResource CardBackground}" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" Padding="20" Height="304">
                         <StackPanel>
                             <TextBlock Text="Informații Identificare" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,15"/>
                             <TextBlock Text="IDNP (13 cifre) *" Style="{StaticResource FieldLabel}"/>
@@ -99,7 +99,7 @@
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Margin="0,0,10,0">
                                     <TextBlock Text="Telefon" Style="{StaticResource FieldLabel}"/>
-                                    <TextBox x:Name="txtTelefon" Background="Transparent" Foreground="{DynamicResource TextPrimary}" CaretBrush="{DynamicResource TextPrimary}" Height="38" VerticalContentAlignment="Center" GotFocus="txtTelefon_GotFocus" LostFocus="txtTelefon_LostFocus" PreviewTextInput="txtTelefon_PreviewTextInput"/>
+                                    <TextBox x:Name="txtTelefon" Background="Transparent" Foreground="{DynamicResource TextPrimary}" CaretBrush="{DynamicResource TextPrimary}" Height="38" VerticalContentAlignment="Center" GotFocus="txtTelefon_GotFocus" LostFocus="txtTelefon_LostFocus" PreviewTextInput="txtTelefon_PreviewTextInput" TextChanged="txtTelefon_TextChanged"/>
                                 </StackPanel>
                                 <StackPanel Grid.Column="1" Margin="10,0,0,0">
                                     <TextBlock Text="Email" Style="{StaticResource FieldLabel}"/>

@@ -96,11 +96,11 @@
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Margin="0,0,10,0">
                                     <TextBlock Text="Autor *" Style="{StaticResource FieldLabel}" Foreground="{DynamicResource TextPrimary}"/>
-                                    <ComboBox x:Name="cbAutor"  Height="38" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}"/>
+                                    <ComboBox x:Name="cbAutor"  Height="38" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}" SelectionChanged="cbAutor_SelectionChanged"/>
                                 </StackPanel>
                                 <StackPanel Grid.Column="1" Margin="10,0,0,0">
                                     <TextBlock Text="Categorie *" Style="{StaticResource FieldLabel}" Foreground="{DynamicResource TextPrimary}"/>
-                                    <ComboBox x:Name="cbCategorie" Height="38" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}"/>
+                                    <ComboBox x:Name="cbCategorie" Height="38" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}" SelectionChanged="cbCategorie_SelectionChanged"/>
                                 </StackPanel>
                             </Grid>
 
@@ -114,23 +114,23 @@
                                 </StackPanel>
                                 <StackPanel Margin="10,0,0,15">
                                     <TextBlock Text="Editura" Style="{StaticResource FieldLabel}" Foreground="{DynamicResource TextPrimary}"/>
-                                    <ComboBox x:Name="cbEditura" Height="38" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}"/>
+                                    <ComboBox x:Name="cbEditura" Height="38" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}" SelectionChanged="cbEditura_SelectionChanged"/>
                                 </StackPanel>
                                 <StackPanel Margin="0,0,10,15">
                                     <TextBlock Text="An publicare" Style="{StaticResource FieldLabel}" Foreground="{DynamicResource TextPrimary}"/>
-                                    <TextBox x:Name="txtAnPublicare" Height="38" MaxLength="4" VerticalContentAlignment="Center" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}" GotFocus="txtAnPublicare_GotFocus" LostFocus="txtAnPublicare_LostFocus" PreviewTextInput="txtAnPublicare_PreviewTextInput"/>
+                                    <TextBox x:Name="txtAnPublicare" Height="38" MaxLength="4" VerticalContentAlignment="Center" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}" GotFocus="txtAnPublicare_GotFocus" LostFocus="txtAnPublicare_LostFocus" PreviewTextInput="txtAnPublicare_PreviewTextInput" TextChanged="txtAnPublicare_TextChanged"/>
                                 </StackPanel>
                                 <StackPanel Margin="10,0,0,15">
                                     <TextBlock Text="Limba" Style="{StaticResource FieldLabel}" Foreground="{DynamicResource TextPrimary}"/>
-                                    <ComboBox x:Name="cbLimba" Height="38" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}"/>
+                                    <ComboBox x:Name="cbLimba" Height="38" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}" SelectionChanged="cbLimba_SelectionChanged"/>
                                 </StackPanel>
                                 <StackPanel Margin="0,0,10,0">
                                     <TextBlock Text="Preț Vânzare (MDL)" Style="{StaticResource FieldLabel}" Foreground="{DynamicResource TextPrimary}"/>
-                                    <TextBox x:Name="txtPretMdl" Height="38" VerticalContentAlignment="Center" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}" GotFocus="txtPretMdl_GotFocus" LostFocus="txtPretMdl_LostFocus" PreviewTextInput="txtPretMdl_PreviewTextInput"/>
+                                    <TextBox x:Name="txtPretMdl" Height="38" VerticalContentAlignment="Center" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}" GotFocus="txtPretMdl_GotFocus" LostFocus="txtPretMdl_LostFocus" PreviewTextInput="txtPretMdl_PreviewTextInput" TextChanged="txtPretMdl_TextChanged"/>
                                 </StackPanel>
                                 <StackPanel Margin="10,0,0,0">
                                     <TextBlock Text="Preț Chirie" Style="{StaticResource FieldLabel}" Foreground="{DynamicResource TextPrimary}"/>
-                                    <TextBox x:Name="txtPretChirie" Height="38" VerticalContentAlignment="Center" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}" GotFocus="txtPretChirie_GotFocus" LostFocus="txtPretChirie_LostFocus" PreviewTextInput="txtPretChirie_PreviewTextInput"/>
+                                    <TextBox x:Name="txtPretChirie" Height="38" VerticalContentAlignment="Center" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}" GotFocus="txtPretChirie_GotFocus" LostFocus="txtPretChirie_LostFocus" PreviewTextInput="txtPretChirie_PreviewTextInput" TextChanged="txtPretChirie_TextChanged"/>
                                 </StackPanel>
                             </UniformGrid>
                         </StackPanel>

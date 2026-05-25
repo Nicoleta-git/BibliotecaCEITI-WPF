@@ -89,24 +89,57 @@ namespace BibliotecaCEITI
             }
         }
 
+        private bool ValidateTextBox(TextBox textBox, string placeholder, string errorMessage)
+        {
+            if (textBox.Text == placeholder || string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                MessageBox.Show(errorMessage);
+                textBox.BorderBrush = new SolidColorBrush(System.Windows.Media.Colors.Red);
+                return false;
+            }
+            textBox.ClearValue(TextBox.BorderBrushProperty);
+            return true;
+        }
+
+        private bool ValidateComboBox(ComboBox comboBox, string errorMessage)
+        {
+            if (comboBox.SelectedIndex == 0)
+            {
+                MessageBox.Show(errorMessage);
+                comboBox.BorderBrush = new SolidColorBrush(System.Windows.Media.Colors.Red);
+                return false;
+            }
+            comboBox.ClearValue(ComboBox.BorderBrushProperty);
+            return true;
+        }
+
+        private bool ValidateDateTimePicker(DatePicker datePicker, string errorMesage)
+        {
+            if (datePicker.SelectedDate == null)
+            {
+                MessageBox.Show(errorMesage);
+                datePicker.BorderBrush = new SolidColorBrush(System.Windows.Media.Colors.Red);
+                return false;
+            }
+            datePicker.ClearValue(DatePicker.BorderBrushProperty);
+            return true;
+        }
+
         private async void btnSalveazaModificari_Click(object sender, RoutedEventArgs e)
         {
             btnEditStudent.IsEnabled = false;
 
             try
             {
-                if (dpDataNasterii.SelectedDate == null)
-                {
-                    MessageBox.Show("Te rog să selectezi data nașterii!", "Atenție");
-                    return;
-                }
-                DateTime data_nasterii = dpDataNasterii.SelectedDate.Value;
+                if (!ValidateTextBox(txtIdnp, "Ex: 1234567890123...", "Vă rugăm să introduceți IDNP-ul cărții.")) return;
+                if (!ValidateComboBox(cbGrupe, "Vă rugăm să selectați grupa")) return;
+                if (!ValidateTextBox(txtNume, "Ex: Moraru...", "Vă rugăm să introduceți numele elevului.")) return;
+                if (!ValidateTextBox(txtPrenume, "Ex: Vasile...", "Vă rugăm să introduceți prenumele elevului.")) return;
+                if (!ValidateTextBox(txtTelefon, "Ex: 012345678...", "Vă rugăm să introduceți un număr de telefon.")) return;
+                if (!ValidateTextBox(txtEmail, "Ex: moraru.vasile@gmail.com...", "Vă rugăm să introduceți o adresă de email.")) return;
+                if (!ValidateDateTimePicker(dpDataNasterii, "Vă rugăm să selectați data nașterii.")) return;
 
-                if (cbGrupe.SelectedValue == null || Convert.ToInt32(cbGrupe.SelectedValue) == -1)
-                {
-                    MessageBox.Show("Te rog să selectezi o grupă validă din listă!", "Atenție");
-                    return;
-                }
+                DateTime data_nasterii = dpDataNasterii.SelectedDate.Value;
                 int idGrupa = Convert.ToInt32(cbGrupe.SelectedValue);
 
                 await UpdateStdentData(_idElev, txtNume.Text, txtPrenume.Text, txtTelefon.Text, txtEmail.Text, txtIdnp.Text, txtObservatii.Text, idGrupa, data_nasterii);
@@ -352,7 +385,7 @@ namespace BibliotecaCEITI
         private void txtTelefon_GotFocus(object sender, RoutedEventArgs e)
         {
             TextBox txt = sender as TextBox;
-            if (txt != null && txt.Text == "Ex: 012345678...")
+            if (txt != null && txt.Text == "Ex: +373 12345678...")
             {
                 txt.Text = "";
                 txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
@@ -364,7 +397,7 @@ namespace BibliotecaCEITI
             TextBox txt = sender as TextBox;
             if (txt != null && string.IsNullOrWhiteSpace(txt.Text))
             {
-                txt.Text = "Ex: 012345678...";
+                txt.Text = "Ex: +373 12345678...";
                 txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
             }
         }
@@ -419,6 +452,56 @@ namespace BibliotecaCEITI
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private bool _isFormatting = false;
+        private void txtTelefon_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (_isFormatting)
+            {
+                return;
+            }
+
+            TextBox textBox = sender as TextBox;
+            if (textBox == null)
+            {
+                return;
+            }
+
+            if (textBox.Text == "Ex: +373 12345678...")
+            {
+                return;
+            }
+
+            string currentText = textBox.Text;
+            string prefix = "+373 ";
+
+            if (currentText.StartsWith(prefix))
+            {
+                currentText = currentText.Substring(prefix.Length);
+            }
+            else if (currentText.StartsWith("+373"))
+            {
+                currentText = currentText.Substring(4);
+            }
+
+            string rawDigits = new string(currentText.Where(char.IsDigit).ToArray());
+            if (string.IsNullOrEmpty(rawDigits))
+            {
+                _isFormatting = true;
+                textBox.Text = "";
+                _isFormatting = false;
+                return;
+            }
+
+            string formatted = prefix + rawDigits;
+            if (textBox.Text != formatted)
+            {
+                _isFormatting = true;
+                textBox.Text = formatted;
+                textBox.CaretIndex = textBox.Text.Length;
+                _isFormatting = false;
+            }
         }
     }
 }

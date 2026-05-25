@@ -32,6 +32,12 @@ namespace BibliotecaCEITI
             _idExemplar = idExemplarSelectat;
             LoadDataBook();
             atentionare.Visibility = Visibility.Hidden;
+            data_imprumut.SelectedDate = DateTime.Now;
+        }
+
+        public void InitDates()
+        {
+            cbDurataImprumut_SelectionChanged(cbDurataImprumut, null);
         }
 
         private void LoadDataBook()
@@ -144,7 +150,10 @@ namespace BibliotecaCEITI
                     }
                 }
             }
-            catch { imgCoperta.Background = null; }
+            catch
+            {
+                imgCoperta.Background = null;
+            }
         }
 
         public event Action<DateTime, DateTime> d_imprumut;

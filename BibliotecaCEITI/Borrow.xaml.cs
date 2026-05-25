@@ -90,6 +90,13 @@ namespace BibliotecaCEITI
             {
                 e.Column.Visibility = Visibility.Collapsed;
             }
+            if (e.PropertyType == typeof(DateTime) || e.PropertyType == typeof(DateTime?))
+            {
+                if (e.Column is DataGridTextColumn col)
+                {
+                    col.Binding.StringFormat = "dd.MM.yyyy";
+                }
+            }
         }
 
         private async void txtSearch_TextChanged(object sender, TextChangedEventArgs e)

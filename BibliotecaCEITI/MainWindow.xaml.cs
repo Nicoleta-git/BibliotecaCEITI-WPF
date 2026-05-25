@@ -185,7 +185,47 @@ namespace BibliotecaCEITI
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            data_curenta.Text = DateTime.Now.ToString("dd MMMM yyyy");
+            string zi = DateTime.Now.Day.ToString();
+            string luna = DateTime.Now.Month.ToString();
+            if (luna == "1")
+            {
+                luna = "Ianuarie";
+            } else if (luna == "2")
+            {
+                luna = "Februarie";
+            } else if (luna == "3")
+            {
+                luna = "Martie";
+            } else if (luna == "4")
+            {
+                luna = "Aprilie";
+            } else if (luna == "5")
+            {
+                luna = "Mai";
+            } else if (luna == "6")
+            {
+                luna = "Iunie";
+            } else if (luna == "7")
+            {
+                luna = "Iulie";
+            } else if (luna == "8")
+            {
+                luna = "August";
+            } else if (luna == "9")
+            {
+                luna = "Septembrie";
+            } else if (luna == "10")
+            {
+                luna = "Octombrie";
+            } else if (luna == "11")
+            {
+                luna = "Noiembrie";
+            } else if (luna == "12")
+            {
+                luna = "Decembrie";
+            }
+            string an = DateTime.Now.Year.ToString();
+            data_curenta.Text = zi + " " + luna + " " + an;
             ora_actuala.Text = DateTime.Now.ToString("HH:mm:ss");
         }
     }

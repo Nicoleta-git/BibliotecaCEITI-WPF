@@ -63,13 +63,6 @@
                                     <TextBox x:Name="SearchBox" Grid.Column="1" BorderThickness="0" Background="Transparent" VerticalContentAlignment="Center" Foreground="{DynamicResource TextPrimary}" FontSize="14" HorizontalAlignment="Stretch" TextChanged="SearchBox_TextChanged" GotFocus="SearchBox_GotFocus" LostFocus="SearchBox_LostFocus" />
                                 </Grid>
                             </Border>
-
-                            <Button x:Name="BtnCauta" Grid.Column="1" Width="127" Height="46" Style="{StaticResource SearchButtonStyle}">
-                                <StackPanel Orientation="Horizontal">
-                                    <fa5:ImageAwesome Icon="Solid_Search" Width="11" Foreground="White" Height="11"/>
-                                    <TextBlock Text="Caută" Margin="10,0,0,0" VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </Button>
                         </Grid>
                     </StackPanel>
 
