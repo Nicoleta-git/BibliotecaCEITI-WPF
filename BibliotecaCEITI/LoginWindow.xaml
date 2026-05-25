@@ -8,15 +8,55 @@
         Title="Login Biblioteca" Height="650" Width="850"
         WindowStyle="None" AllowsTransparency="True" 
         Background="Transparent" WindowStartupLocation="CenterScreen">
-
     <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <!-- Legatura catre silurile din Styles.xaml -->
-                <ResourceDictionary Source="Styles.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        <Style x:Key="ModernButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#6a11cb"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" CornerRadius="22" Background="{TemplateBinding Background}" BorderThickness="0">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="15" Direction="270" Opacity="0.3" ShadowDepth="5" Color="#6a11cb"/>
+                            </Border.Effect>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#2575fc"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ModernInputStyle" TargetType="Control">
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Background" Value="#F5F6F7"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Control">
+                        <Border x:Name="InputBorder" CornerRadius="8" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="10,0" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="InputBorder" Property="BorderBrush" Value="#6a11cb"/>
+                                <Setter TargetName="InputBorder" Property="Background" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
+
 
     <Border CornerRadius="30" Background="White">
         <Border.Effect>
@@ -32,14 +72,14 @@
             <Border Grid.Column="0" CornerRadius="30,0,0,30" ClipToBounds="True">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="{StaticResource LoginPurpleColor}" Offset="0"/>
-                        <GradientStop Color="{StaticResource HoverBlueColor}" Offset="1"/>
+                        <GradientStop Color="#6a11cb" Offset="0"/>
+                        <GradientStop Color="#2575fc" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
 
                 <Grid>
                     <!-- Decor fundal -->
-                    <Ellipse Width="200" Height="200" Fill="White" Opacity="0.1" Margin="-100,-100,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Ellipse Width="200" Height="200" Fill="White" Opacity="0.1" Margin="-74,-69,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
 
@@ -62,10 +102,11 @@
                                    Width="260"
                                    HorizontalAlignment="Center"/>
                     </StackPanel>
+                    <Ellipse Width="200" Height="200" Fill="White" Opacity="0.1" Margin="167,492,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                 </Grid>
             </Border>
 
-            <Grid Grid.Column="1" Margin="60,20,60,20">
+            <Grid Grid.Column="1" Margin="60,20,0,20" HorizontalAlignment="Left" Width="395">
                 <Button Content="✕" 
                         HorizontalAlignment="Right" 
                         VerticalAlignment="Top" 
@@ -186,8 +227,8 @@
                    Foreground="#3C4043"/>
                         </StackPanel>
                     </Button>
-                    
-                    
+
+
 
 
                 </StackPanel>
