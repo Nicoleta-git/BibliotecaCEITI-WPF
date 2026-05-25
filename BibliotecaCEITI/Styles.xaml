@@ -277,29 +277,31 @@
             <Setter.Value>
                 <ControlTemplate TargetType="DataGrid">
                     <Border Background="{DynamicResource CardBackground}" 
-                        CornerRadius="12" 
-                        BorderBrush="{DynamicResource BorderBrushDark}" 
-                        BorderThickness="1" 
-                        ClipToBounds="True">
-                        <ScrollViewer x:Name="DG_ScrollViewer" Focusable="false">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <DataGridColumnHeadersPresenter x:Name="PART_ColumnHeadersPresenter" 
-                                                          Grid.Row="0"
-                                                          Visibility="{TemplateBinding HeadersVisibility}"/>
-                                <ItemsPresenter Grid.Row="1" />
-                            </Grid>
-                        </ScrollViewer>
+                            CornerRadius="12" 
+                            BorderBrush="{DynamicResource BorderBrushDark}" 
+                            BorderThickness="1" 
+                            ClipToBounds="True">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <DataGridColumnHeadersPresenter x:Name="PART_ColumnHeadersPresenter" 
+                                                            Grid.Row="0"
+                                                            Visibility="{TemplateBinding HeadersVisibility}"/>
+
+                            <ScrollViewer x:Name="DG_ScrollViewer" 
+                                          Grid.Row="1" 
+                                          Focusable="false">
+                                <ItemsPresenter />
+                            </ScrollViewer>
+                        </Grid>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
-
 
     <Style x:Key="ModernDatePicker" TargetType="{x:Type DatePicker}">
         <Setter Property="Background" Value="Transparent"/>

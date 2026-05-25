@@ -52,9 +52,10 @@
                     <ContentControl x:Name="ActiveBorrowContent" Height="624" />
                 </Border>
 
-                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0" Width="257">
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0" Width="357">
+                    <Button Content="Anterior" Width="93" Margin="0,0,10,0" Style="{StaticResource GlobalActionButtonStyle}" Background="RoyalBlue" Click="Button_Click"/>
                     <Button Content="Anuleaza" Width="93" Margin="0,0,10,0" Style="{StaticResource GlobalActionButtonStyle}" Background="#e66250" Click="Button_Click"/>
-                    <Button x:Name="btnNext" Style="{StaticResource GlobalActionButtonStyle}" Background="#1DA154" Width="154" Click="btnNext_Click">
+                    <Button x:Name="btnNext" Style="{StaticResource GlobalActionButtonStyle}" Background="#1DA154" Width="149" Click="btnNext_Click">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock x:Name="salveaza" Text="Continuă" Foreground="White" FontSize="15" FontWeight="SemiBold" VerticalAlignment="Center"/>
                             <fa5:ImageAwesome Icon="Solid_ChevronRight" Width="10" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center"/>
