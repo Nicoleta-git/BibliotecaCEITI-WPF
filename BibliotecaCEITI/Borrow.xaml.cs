@@ -347,6 +347,7 @@ namespace BibliotecaCEITI
                         }
                     }
                 }
+                _ = EmailService.NotificaRezervariAsync(id_carte, carte);
 
                 await AplicaFiltreDB();
             }
