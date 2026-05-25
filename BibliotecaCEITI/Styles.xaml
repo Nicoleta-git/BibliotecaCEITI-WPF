@@ -291,10 +291,13 @@
                                                             Grid.Row="0"
                                                             Visibility="{TemplateBinding HeadersVisibility}"/>
 
-                            <ScrollViewer x:Name="DG_ScrollViewer" 
-                                          Grid.Row="1" 
-                                          Focusable="false">
-                                <ItemsPresenter />
+                            <ScrollViewer x:Name="DG_ScrollViewer"
+                                      Grid.Row="1"
+                                      Focusable="False"
+                                      CanContentScroll="False"
+                                      HorizontalScrollBarVisibility="Disabled"
+                                      VerticalScrollBarVisibility="Disabled">
+                                <ItemsPresenter/>
                             </ScrollViewer>
                         </Grid>
                     </Border>
