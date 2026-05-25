@@ -292,14 +292,16 @@ namespace BibliotecaCEITI
         private void BtnVezuCodIntarziere_Click(object sender, RoutedEventArgs e)
             => DeschideTemplateViewer("email_corp_html", "Atenționare întârziere");
 
-        private void BtnVezuCodPreventiv_Click(object sender, RoutedEventArgs e)
-            => DeschideTemplateViewer("email_notificare_preventiva_html", "Notificare preventivă");
+        private void BtnEditTemplateDisponibilitate_Click(object sender, RoutedEventArgs e)
+        {
+            string continut = Get("email_template_disponibilitate", "<!-- Template-ul nu a fost găsit -->");
+            var win = new TemplateViewerWindow("Disponibilitate", continut, "email_template_disponibilitate");
+            win.ShowDialog();
+        }
 
-        private void BtnVezuCodPierduta_Click(object sender, RoutedEventArgs e)
-            => DeschideTemplateViewer("email_penalizare_pierduta_html", "Penalizare carte pierdută");
+      
 
-        private void BtnVezuCodRezervare_Click(object sender, RoutedEventArgs e)
-            => DeschideTemplateViewer("email_rezervare_confirmata_html", "Rezervare confirmată");
+        
 
         private void DeschideTemplateViewer(string cheie, string titlu)
         {
