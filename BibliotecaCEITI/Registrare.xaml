@@ -61,15 +61,15 @@
 
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="143*"/>
-                <RowDefinition Height="57*"/>
+                <RowDefinition/>
+                <RowDefinition Height="0*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1.3*"/>
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
 
-            <Border Grid.Column="0" CornerRadius="30,0,0,30" ClipToBounds="True" Grid.ColumnSpan="2" Margin="0,0,515,0" Grid.RowSpan="2">
+            <Border Grid.Column="0" CornerRadius="30,0,0,30" ClipToBounds="True" Grid.ColumnSpan="2" Margin="0,0,515,0">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                         <GradientStop Color="#6a11cb" Offset="0"/>
@@ -103,7 +103,7 @@
                 </Grid>
             </Border>
 
-            <Grid Grid.Column="1" Margin="50,30,50,30" Grid.RowSpan="2">
+            <Grid Grid.Column="1" Margin="50,30,50,5">
                 <Button Content="✕" HorizontalAlignment="Right" VerticalAlignment="Top" 
                         Background="Transparent" BorderThickness="0" Foreground="#CCC" 
                         FontSize="20" Cursor="Hand" Margin="0,-10,-20,0" Click="ExitBtn"/>
