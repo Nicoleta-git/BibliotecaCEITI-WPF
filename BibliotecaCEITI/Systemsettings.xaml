@@ -54,7 +54,7 @@
             </Grid>
         </Border>
         
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="40,0,40,40" Margin="-1,10,1,1" Grid.Row="1">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="40,0,40,40" Margin="-1,10,1,0" Grid.Row="1">
             <StackPanel>
 
                 <Border Background="{DynamicResource CardBackground}" CornerRadius="12" BorderBrush="{DynamicResource BorderBrushLight}"
@@ -485,7 +485,7 @@
 
 
                 <Border Background="{DynamicResource CardBackground}" CornerRadius="12" BorderBrush="{DynamicResource BorderBrushLight}"
-        BorderThickness="1" Padding="25" Margin="0,0,0,16">
+        BorderThickness="1" Padding="25" Margin="0,0,0,16" Height="218">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,18">
                             <Border Width="36" Height="36" CornerRadius="8"
@@ -513,10 +513,40 @@
                                Foreground="{DynamicResource TextMuted}" FontSize="12"/>
                                 </StackPanel>
 
+
+
                                 <Button Grid.Column="1" Width="110" Height="34" 
                         Background="{DynamicResource CardBackground}" 
                         BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1"
-                        Cursor="Hand">
+                        Cursor="Hand" Click="BtnVezuCodIntarziere_Click">
+                                    <Button.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="8"/>
+                                        </Style>
+                                    </Button.Resources>
+                                    <StackPanel Orientation="Horizontal">
+                                        <fa5:ImageAwesome Icon="Solid_Pen" Width="12" Foreground="{DynamicResource TotalBlue}" Margin="0,0,7,0"/>
+                                        <TextBlock Text="Editează" Foreground="{DynamicResource TotalBlue}" FontSize="13" FontWeight="SemiBold"/>
+                                    </StackPanel>
+                                </Button>
+                            </Grid>
+                        </Border>
+                        <Border BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="0,0,0,0" Padding="0,14,0,0" Margin="0,0,0,0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel VerticalAlignment="Center">
+                                    <TextBlock Text="Email disponibilitate stoc" FontWeight="SemiBold"
+                       Foreground="{DynamicResource TextSecondary}" FontSize="13"/>
+                                    <TextBlock Text="Notificare trimisă când o carte rezervată revine în stoc."
+                       Foreground="{DynamicResource TextMuted}" FontSize="12"/>
+                                </StackPanel>
+                                <Button Grid.Column="1" Width="110" Height="34"
+                Background="{DynamicResource CardBackground}"
+                BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1"
+                Cursor="Hand" Click="BtnEditTemplateDisponibilitate_Click">
                                     <Button.Resources>
                                         <Style TargetType="Border">
                                             <Setter Property="CornerRadius" Value="8"/>
