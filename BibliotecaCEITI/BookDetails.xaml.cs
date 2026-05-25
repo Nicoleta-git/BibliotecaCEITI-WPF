@@ -750,6 +750,11 @@ namespace BibliotecaCEITI
         { 
             if (double.TryParse(txtPretChirie.Text, out _)) txtPretChirie.ClearValue(Control.BorderBrushProperty); 
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
 
