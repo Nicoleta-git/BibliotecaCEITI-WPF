@@ -139,6 +139,9 @@
                                       VerticalAlignment="Center" Margin="0,0,20,0"
                                       FontSize="14" Foreground="#2D3748"
                                       Checked="ChkBifeazaToti_Changed" Unchecked="ChkBifeazaToti_Changed"/>
+                            <Button x:Name="Btnreturneaza" Content="Returneaza" Width="120" Height="40" Background="Red" Margin="5,5,5,5"
+                                    Style="{StaticResource GlobalActionButtonStyle}"
+                                    Click="BtnSalveaza_Click"/>
                             <Button x:Name="BtnSalveaza" Content="Salvează" Width="120" Height="40"
                                     Style="{StaticResource GlobalActionButtonStyle}"
                                     Click="BtnSalveaza_Click"/>

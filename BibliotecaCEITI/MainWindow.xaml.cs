@@ -30,6 +30,7 @@ namespace BibliotecaCEITI
 
         public MainWindow()
         {
+            this.WindowState = WindowState.Maximized;
             InitializeComponent();
             Dashboard dashView = new Dashboard();
             MainContentContainer.Content = dashView;

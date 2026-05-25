@@ -96,11 +96,17 @@
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Margin="0,0,10,0">
                                     <TextBlock Text="Autor *" Style="{StaticResource FieldLabel}" Foreground="{DynamicResource TextPrimary}"/>
-                                    <ComboBox x:Name="cbAutor"  Height="38" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}" SelectionChanged="cbAutor_SelectionChanged"/>
+                                    <StackPanel Orientation="Horizontal" Width="271">
+                                        <ComboBox x:Name="cbAutor" Margin="0,0,10,0"  Height="38" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}" SelectionChanged="cbAutor_SelectionChanged" Width="223"/>
+                                        <Button Style="{StaticResource GlobalActionButtonStyle}" Width="31" Height="33">+</Button>
+                                    </StackPanel>
                                 </StackPanel>
                                 <StackPanel Grid.Column="1" Margin="10,0,0,0">
                                     <TextBlock Text="Categorie *" Style="{StaticResource FieldLabel}" Foreground="{DynamicResource TextPrimary}"/>
-                                    <ComboBox x:Name="cbCategorie" Height="38" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}" SelectionChanged="cbCategorie_SelectionChanged"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <ComboBox x:Name="cbCategorie" Margin="0,0,10,0" Height="38" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}" SelectionChanged="cbCategorie_SelectionChanged" Width="228"/>
+                                        <Button Style="{StaticResource GlobalActionButtonStyle}" Width="31" Height="33">+</Button>
+                                    </StackPanel>
                                 </StackPanel>
                             </Grid>
 
@@ -114,7 +120,10 @@
                                 </StackPanel>
                                 <StackPanel Margin="10,0,0,15">
                                     <TextBlock Text="Editura" Style="{StaticResource FieldLabel}" Foreground="{DynamicResource TextPrimary}"/>
-                                    <ComboBox x:Name="cbEditura" Height="38" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}" SelectionChanged="cbEditura_SelectionChanged"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <ComboBox x:Name="cbEditura" Margin="0,0,10,0" Height="38" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}" SelectionChanged="cbEditura_SelectionChanged" Width="231"/>
+                                        <Button Style="{StaticResource GlobalActionButtonStyle}" Width="31" Height="33">+</Button>
+                                    </StackPanel>
                                 </StackPanel>
                                 <StackPanel Margin="0,0,10,15">
                                     <TextBlock Text="An publicare" Style="{StaticResource FieldLabel}" Foreground="{DynamicResource TextPrimary}"/>
