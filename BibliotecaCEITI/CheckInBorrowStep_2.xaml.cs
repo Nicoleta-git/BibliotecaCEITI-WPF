@@ -68,7 +68,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error loading data: " + ex.Message);
+                MessageBox.Show("Error loading data: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -151,22 +151,12 @@ namespace BibliotecaCEITI
 
         private void SearchBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && txt.Text == "Caută o carte...")
-            {
-                txt.Text = "";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
-            }
+            UsefulFunction.GotFocus(sender, "Caută o carte...");
         }
 
         private void SearchBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && string.IsNullOrWhiteSpace(txt.Text))
-            {
-                txt.Text = "Caută o carte...";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
-            }
+            UsefulFunction.LostFocus(sender, "Caută o carte...");
         }
 
         private void BooksGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -222,7 +212,7 @@ namespace BibliotecaCEITI
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Eroare la citirea rândului: " + ex.Message, "Eroare DataGrid", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Eroare la citirea rândului: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
 

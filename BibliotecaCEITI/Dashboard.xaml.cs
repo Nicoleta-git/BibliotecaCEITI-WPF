@@ -121,7 +121,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare Cărți Totale: " + ex.Message);
+                MessageBox.Show("Eroare Cărți Totale: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -145,7 +145,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare Disponibile: " + ex.Message);
+                MessageBox.Show("Eroare Disponibile: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -169,7 +169,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare Împrumuturi: " + ex.Message);
+                MessageBox.Show("Eroare Împrumuturi: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -193,7 +193,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare Rezervări: " + ex.Message);
+                MessageBox.Show("Eroare Rezervări: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -216,7 +216,8 @@ namespace BibliotecaCEITI
                                 string autor = reader["Autor"].ToString();
                                 int imprumuturiCount = Convert.ToInt32(reader["Imprumuturi"]);
                                 byte[] copertaBytes = reader["Coperta"] == DBNull.Value ? null : (byte[])reader["Coperta"];
-                                ImageBrush brush = ConvertToImageBrush(copertaBytes);
+                                BitmapImage imagineBitmap = UsefulFunction.ConvertBytesToImage(copertaBytes);
+                                ImageBrush brush = imagineBitmap != null ? new ImageBrush(imagineBitmap) : null;
 
                                 if (index == 0)
                                 {
@@ -248,31 +249,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare Top 3 Cărți: " + ex.Message);
-            }
-        }
-
-        private ImageBrush ConvertToImageBrush(byte[] imageBytes)
-        {
-            if (imageBytes == null || imageBytes.Length == 0)
-                return null;
-
-            try
-            {
-                using (MemoryStream ms = new MemoryStream(imageBytes))
-                {
-                    BitmapImage bitmap = new BitmapImage();
-                    bitmap.BeginInit();
-                    bitmap.StreamSource = ms;
-                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmap.EndInit();
-                    bitmap.Freeze();
-                    return new ImageBrush(bitmap);
-                }
-            }
-            catch
-            {
-                return null;
+                MessageBox.Show("Eroare Top 3 Cărți: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

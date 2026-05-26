@@ -39,7 +39,7 @@ namespace BibliotecaCEITI
 
         private async void BtnSaveReservation_Click(object sender, RoutedEventArgs e)
         {
-            int idBibliotecar = 1;
+            int idBibliotecar = SesiuneBibliotecar.IdBibliotecarCurent;
             if (id_ExemplarSelectat == 0)
             {
                 MessageBox.Show("Selectează mai întâi un exemplar din lista de cărți.", "Câmp lipsă", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -153,7 +153,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error loading data: " + ex.Message);
+                MessageBox.Show("Error loading data: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -262,7 +262,7 @@ namespace BibliotecaCEITI
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Eroare la încărcarea datelor: " + ex.Message);
+                        MessageBox.Show("Eroare la încărcarea datelor: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
 
                     try
@@ -285,44 +285,10 @@ namespace BibliotecaCEITI
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Eroare la încărcarea datelor: " + ex.Message);
+                        MessageBox.Show("Eroare la încărcarea datelor: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
 
-                    try
-                    {
-                        using (MySqlConnection conn = DatabaseConfig.GetConnection())
-                        {
-                            conn.Open();
-                            using (MySqlCommand cmd = new MySqlCommand("sp_imagine_carte", conn))
-                            {
-                                cmd.CommandType = CommandType.StoredProcedure;
-                                cmd.Parameters.AddWithValue("@p_id", idC);
-
-                                using (MySqlDataReader reader = cmd.ExecuteReader())
-                                {
-                                    if (reader.Read() && !reader.IsDBNull(0))
-                                    {
-                                        byte[] copertaBytes = (byte[])reader["Imagine"];
-                                        using (MemoryStream ms = new MemoryStream(copertaBytes))
-                                        {
-                                            BitmapImage bitmap = new BitmapImage();
-                                            bitmap.BeginInit();
-                                            bitmap.StreamSource = ms;
-                                            bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                                            bitmap.EndInit();
-                                            bitmap.Freeze();
-                                            imgCoperta.Source = bitmap;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        imgCoperta.Source = null;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    catch { imgCoperta.Source = null; }
+                    imgCoperta.Source = UsefulFunction.GetImagineCarte(idExemplar);
                 }
                 catch (Exception ex)
                 {
@@ -342,16 +308,14 @@ namespace BibliotecaCEITI
                     MySqlDataAdapter da = new MySqlDataAdapter(query, conn);
                     DataTable dt = new DataTable();
                     da.Fill(dt);
-
                     dt.Columns.Add("Elev", typeof(string), "Nume + ' ' + Prenume");
-                    dt.Columns["Elev"].SetOrdinal(1);
 
                     StudentsDataGrid.ItemsSource = dt.DefaultView;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error loading data: " + ex.Message);
+                MessageBox.Show("Error loading data: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -375,7 +339,6 @@ namespace BibliotecaCEITI
                         da.Fill(tempDt);
 
                         tempDt.Columns.Add("Elev", typeof(string), "Nume + ' ' + Prenume");
-                        tempDt.Columns["Elev"].SetOrdinal(1);
 
                         return tempDt;
                     }
@@ -385,7 +348,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine("Eroare filtrare elevi: " + ex.Message);
+                MessageBox.Show("Eroare filtrare elevi: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -481,42 +444,22 @@ namespace BibliotecaCEITI
 
         private void SearchTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && txt.Text == "Caută o carte...")
-            {
-                txt.Text = "";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
-            }
+            UsefulFunction.GotFocus(sender, "Caută o carte...");
         }
 
         private void SearchTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && string.IsNullOrWhiteSpace(txt.Text))
-            {
-                txt.Text = "Caută o carte...";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
-            }
+            UsefulFunction.LostFocus(sender, "Caută o carte...");
         }
 
         private void SearchStudentBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && txt.Text == "Caută un elev...")
-            {
-                txt.Text = "";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
-            }
+            UsefulFunction.GotFocus(sender, "Caută un elev...");
         }
 
         private void SearchStudentBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && string.IsNullOrWhiteSpace(txt.Text))
-            {
-                txt.Text = "Caută un elev...";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
-            }
+            UsefulFunction.LostFocus(sender, "Caută un elev...");
         }
 
         private void StudentsGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)

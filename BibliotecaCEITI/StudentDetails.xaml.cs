@@ -85,7 +85,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare la popularea grupelor: " + ex.Message, "Eroare SQL");
+                MessageBox.Show("Eroare la popularea grupelor: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -93,7 +93,7 @@ namespace BibliotecaCEITI
         {
             if (textBox.Text == placeholder || string.IsNullOrWhiteSpace(textBox.Text))
             {
-                MessageBox.Show(errorMessage);
+                MessageBox.Show(errorMessage, "Atenționare", MessageBoxButton.OK, MessageBoxImage.Warning);
                 textBox.BorderBrush = new SolidColorBrush(System.Windows.Media.Colors.Red);
                 return false;
             }
@@ -105,7 +105,7 @@ namespace BibliotecaCEITI
         {
             if (comboBox.SelectedIndex == 0)
             {
-                MessageBox.Show(errorMessage);
+                MessageBox.Show(errorMessage, "Atenționare", MessageBoxButton.OK, MessageBoxImage.Warning);
                 comboBox.BorderBrush = new SolidColorBrush(System.Windows.Media.Colors.Red);
                 return false;
             }
@@ -117,7 +117,7 @@ namespace BibliotecaCEITI
         {
             if (datePicker.SelectedDate == null)
             {
-                MessageBox.Show(errorMesage);
+                MessageBox.Show(errorMesage, "Atenționare", MessageBoxButton.OK, MessageBoxImage.Warning);
                 datePicker.BorderBrush = new SolidColorBrush(System.Windows.Media.Colors.Red);
                 return false;
             }
@@ -204,12 +204,12 @@ namespace BibliotecaCEITI
                 }
                 else
                 {
-                    MessageBox.Show("Eroare: " + mesaj);
+                    MessageBox.Show("Eroare: " + mesaj, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("A apărut o eroare: " + ex.Message);
+                MessageBox.Show("A apărut o eroare: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -262,7 +262,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare la încărcarea detaliilor studentului: " + ex.Message);
+                MessageBox.Show("Eroare la încărcarea detaliilor studentului: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -324,122 +324,62 @@ namespace BibliotecaCEITI
 
         private void txtIdnp_GotFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && txt.Text == "Ex: 1234567890123...")
-            {
-                txt.Text = "";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
-            }
+            UsefulFunction.GotFocus(sender, "Ex: 1234567890123...");
         }
 
         private void txtIdnp_LostFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && string.IsNullOrWhiteSpace(txt.Text))
-            {
-                txt.Text = "Ex: 1234567890123...";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
-            }
+            UsefulFunction.LostFocus(sender, "Ex: 1234567890123...");
         }
 
         private void txtNume_GotFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && txt.Text == "Ex: Moraru...")
-            {
-                txt.Text = "";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
-            }
+            UsefulFunction.GotFocus(sender, "Ex: Moraru...");
         }
 
         private void txtNume_LostFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && string.IsNullOrWhiteSpace(txt.Text))
-            {
-                txt.Text = "Ex: Moraru...";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
-            }
+            UsefulFunction.LostFocus(sender, "Ex: Moraru...");
         }
 
         private void txtPrenume_GotFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && txt.Text == "Ex: Vasile...")
-            {
-                txt.Text = "";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
-            }
+            UsefulFunction.GotFocus(sender, "Ex: Vasile...");
         }
 
         private void txtPrenume_LostFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && string.IsNullOrWhiteSpace(txt.Text))
-            {
-                txt.Text = "Ex: Vasile...";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
-            }
+            UsefulFunction.LostFocus(sender, "Ex: Vasile...");
         }
 
         private void txtTelefon_GotFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && txt.Text == "Ex: +373 12345678...")
-            {
-                txt.Text = "";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
-            }
+            UsefulFunction.GotFocus(sender, "Ex: +373 12345678...");
         }
 
         private void txtTelefon_LostFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && string.IsNullOrWhiteSpace(txt.Text))
-            {
-                txt.Text = "Ex: +373 12345678...";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
-            }
+            UsefulFunction.LostFocus(sender, "Ex: +373 12345678...");
         }
 
         private void txtEmail_GotFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && txt.Text == "Ex: moraru.vasile@gmail.com...")
-            {
-                txt.Text = "";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
-            }
+            UsefulFunction.GotFocus(sender, "Ex: moraru.vasile@gmail.com...");
         }
 
         private void txtEmail_LostFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && string.IsNullOrWhiteSpace(txt.Text))
-            {
-                txt.Text = "Ex: moraru.vasile@gmail.com...";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
-            }
+            UsefulFunction.LostFocus(sender, "Ex: moraru.vasile@gmail.com...");
         }
 
         private void txtObservatii_GotFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && txt.Text == "Scrie aici observații generale despre elev...")
-            {
-                txt.Text = "";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
-            }
+            UsefulFunction.GotFocus(sender, "Scrie aici observații generale despre elev...");
         }
 
         private void txtObservatii_LostFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && string.IsNullOrWhiteSpace(txt.Text))
-            {
-                txt.Text = "Scrie aici observații generale despre elev...";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
-            }
+            UsefulFunction.LostFocus(sender, "Scrie aici observații generale despre elev...");
         }
 
         private void txtIdnp_PreviewTextInput(object sender, TextCompositionEventArgs e)

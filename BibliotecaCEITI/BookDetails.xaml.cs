@@ -107,31 +107,14 @@ namespace BibliotecaCEITI
                                 cbEditura.SelectedValue = reader["Editura"] != DBNull.Value ? Convert.ToInt32(reader["Editura"]) : -1;
                                 cbLimba.SelectedValue = reader["Limba"] != DBNull.Value ? Convert.ToInt32(reader["Limba"]) : -1;
                             }
-                            if (reader["Imagine"] != DBNull.Value)
-                            {
-                                byte[] copertaBytes = (byte[])reader["Imagine"];
-                                using (MemoryStream ms = new MemoryStream(copertaBytes))
-                                {
-                                    BitmapImage bitmap = new BitmapImage();
-                                    bitmap.BeginInit();
-                                    bitmap.StreamSource = ms;
-                                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                                    bitmap.EndInit();
-                                    bitmap.Freeze();
-                                    imgCoperta.Source = bitmap;
-                                }
-                            }
-                            else
-                            {
-                                imgCoperta.Source = null;
-                            }
+                            imgCoperta.Source = UsefulFunction.GetImagineCarte(_idCarte);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare la încărcarea detaliilor cărții: " + ex.Message);
+                MessageBox.Show("Eroare la încărcarea detaliilor cărții: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -146,35 +129,21 @@ namespace BibliotecaCEITI
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Fișiere Imagine (*.jpg;*.jpeg;*.png;*.bmp)|*.jpg;*.jpeg;*.png;*.bmp|Toate fișierele (*.*)|*.*";
-            if (openFileDialog.ShowDialog() == true)
-            {
-                string caleFisier = openFileDialog.FileName;
+            var rezultat = UsefulFunction.AlegeImagineDinFisier();
 
-                try
+            if (rezultat.Imagine != null)
+            {
+                imgCoperta.Source = rezultat.Imagine;
+                txtCopertaUrl.Text = rezultat.CaleFisier;
+
+                if (imgCoperta.Source != null)
                 {
-                    BitmapImage bitmap = new BitmapImage();
-                    bitmap.BeginInit();
-                    bitmap.UriSource = new Uri(caleFisier, UriKind.Absolute);
-                    bitmap.EndInit();
-                    txtCopertaUrl.Text = caleFisier;
-
-                    imgCoperta.Source = bitmap;
+                    incarca_imagine.Text = "Încarcă altă imagine";
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show("Eroare la încărcarea imaginii: " + ex.Message);
+                    incarca_imagine.Text = "Încarcă o imagine";
                 }
-            }
-
-            if (imgCoperta.Source != null)
-            {
-                incarca_imagine.Text = "Încarcă altă imagine";
-            }
-            else
-            {
-                incarca_imagine.Text = "Încarcă o imagine";
             }
         }
 
@@ -204,9 +173,8 @@ namespace BibliotecaCEITI
                             });
                         }
 
-                        // NU mai folosi Items.Clear()
-                        cbAutor.ItemsSource = null;   // resetare binding
-                        cbAutor.ItemsSource = lista;  // reatașare listă
+                        cbAutor.ItemsSource = null;
+                        cbAutor.ItemsSource = lista;
 
                         cbAutor.DisplayMemberPath = "Denumire";
                         cbAutor.SelectedValuePath = "Id";
@@ -216,7 +184,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare: " + ex.Message);
+                MessageBox.Show("Eroare: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -258,7 +226,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare: " + ex.Message);
+                MessageBox.Show("Eroare: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -299,7 +267,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare: " + ex.Message);
+                MessageBox.Show("Eroare: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -341,7 +309,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare: " + ex.Message);
+                MessageBox.Show("Eroare: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -426,7 +394,7 @@ namespace BibliotecaCEITI
         {
             if (textBox.Text == placeholder || string.IsNullOrWhiteSpace(textBox.Text))
             {
-                MessageBox.Show(errorMessage);
+                MessageBox.Show(errorMessage, "Atenționare", MessageBoxButton.OK, MessageBoxImage.Warning);
                 textBox.BorderBrush = new SolidColorBrush(System.Windows.Media.Colors.Red);
                 return false;
             }
@@ -438,7 +406,7 @@ namespace BibliotecaCEITI
         {
             if (comboBox.SelectedIndex == 0)
             {
-                MessageBox.Show(errorMessage);
+                MessageBox.Show(errorMessage, "Atenționare", MessageBoxButton.OK, MessageBoxImage.Warning);
                 comboBox.BorderBrush = new SolidColorBrush(System.Windows.Media.Colors.Red);
                 return false;
             }
@@ -450,7 +418,7 @@ namespace BibliotecaCEITI
         {
             if (!int.TryParse(textBox.Text, out value))
             {
-                MessageBox.Show(errorMessage);
+                MessageBox.Show(errorMessage, "Atenționare", MessageBoxButton.OK, MessageBoxImage.Warning);
                 textBox.BorderBrush = new SolidColorBrush(System.Windows.Media.Colors.Red);
                 return false;
             }
@@ -462,7 +430,7 @@ namespace BibliotecaCEITI
         {
             if (!double.TryParse(textBox.Text, out value))
             {
-                MessageBox.Show(errorMessage);
+                MessageBox.Show(errorMessage, "Atenționare", MessageBoxButton.OK, MessageBoxImage.Warning);
                 textBox.BorderBrush = new SolidColorBrush(System.Windows.Media.Colors.Red);
                 return false;
             }
@@ -476,7 +444,7 @@ namespace BibliotecaCEITI
 
             try
             {
-                int idBibliotecarLogat = 1;
+                int idBibliotecarLogat = SesiuneBibliotecar.IdBibliotecarCurent;
                 byte[]? copertaBytes = ImageToBytes(imgCoperta);
 
                 if (!ValidateTextBox(txtTitlu, "Ex: Amintiri din copilărie...", "Vă rugăm să introduceți titlul cărții.")) return;
@@ -535,122 +503,62 @@ namespace BibliotecaCEITI
 
         private void txtTitlu_GotFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && txt.Text == "Ex: Amintiri din copilărie...")
-            {
-                txt.Text = "";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
-            }
+            UsefulFunction.GotFocus(sender, "Ex: Amintiri din copilărie...");
         }
 
         private void txtTitlu_LostFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && string.IsNullOrWhiteSpace(txt.Text))
-            {
-                txt.Text = "Ex: Amintiri din copilărie...";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
-            }
+            UsefulFunction.LostFocus(sender, "Ex: Amintiri din copilărie...");
         }
 
         private void txtDescriere_GotFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && txt.Text == "Scrie o scurtă prezentare a cărții...")
-            {
-                txt.Text = "";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
-            }
+            UsefulFunction.GotFocus(sender, "Scrie o scurtă prezentare a cărții...");
         }
 
         private void txtDescriere_LostFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && string.IsNullOrWhiteSpace(txt.Text))
-            {
-                txt.Text = "Scrie o scurtă prezentare a cărții...";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
-            }
+            UsefulFunction.LostFocus(sender, "Scrie o scurtă prezentare a cărții...");
         }
 
         private void txtIsbn_GotFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && txt.Text == "Ex: 978-973-46-1234-5...")
-            {
-                txt.Text = "";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
-            }
+            UsefulFunction.GotFocus(sender, "Ex: 978-973-46-1234-5...");
         }
 
         private void txtIsbn_LostFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && string.IsNullOrWhiteSpace(txt.Text))
-            {
-                txt.Text = "Ex: 978-973-46-1234-5...";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
-            }
+            UsefulFunction.LostFocus(sender, "Ex: 978-973-46-1234-5...");
         }
 
         private void txtAnPublicare_GotFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && txt.Text == "Ex: 2020...")
-            {
-                txt.Text = "";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
-            }
+            UsefulFunction.GotFocus(sender, "Ex: 2020...");
         }
 
         private void txtAnPublicare_LostFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && string.IsNullOrWhiteSpace(txt.Text))
-            {
-                txt.Text = "Ex: 2020...";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
-            }
+            UsefulFunction.LostFocus(sender, "Ex: 2020...");
         }
 
         private void txtPretMdl_GotFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && txt.Text == "Ex: 350...")
-            {
-                txt.Text = "";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
-            }
+            UsefulFunction.GotFocus(sender, "Ex: 350...");
         }
 
         private void txtPretMdl_LostFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && string.IsNullOrWhiteSpace(txt.Text))
-            {
-                txt.Text = "Ex: 350...";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
-            }
+            UsefulFunction.LostFocus(sender, "Ex: 350...");
         }
 
         private void txtPretChirie_GotFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && txt.Text == "Ex: 100...")
-            {
-                txt.Text = "";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
-            }
+            UsefulFunction.GotFocus(sender, "Ex: 100...");
         }
 
         private void txtPretChirie_LostFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && string.IsNullOrWhiteSpace(txt.Text))
-            {
-                txt.Text = "Ex: 100...";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
-            }
+            UsefulFunction.LostFocus(sender, "Ex: 100...");
         }
 
         private bool isbnFormatat = false;
@@ -769,7 +677,7 @@ namespace BibliotecaCEITI
                     conn.Open();
                     cmd.ExecuteNonQuery();
 
-                    MessageBox.Show("Autorul: " + nume + " a fost adăugat cu succes!", "Succes");
+                    MessageBox.Show("Autorul: " + nume + " a fost adăugat cu succes!", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 PopuleazaAutori();
                 List<ComboItem> listaAutori = (List<ComboItem>)cbAutor.ItemsSource;
@@ -789,7 +697,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare la baza de date: " + ex.Message, "Eroare");
+                MessageBox.Show("Eroare la baza de date: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -815,7 +723,7 @@ namespace BibliotecaCEITI
                     conn.Open();
                     cmd.ExecuteNonQuery();
 
-                    MessageBox.Show("Categoria: " + denumire + " (" + tip + ") a fost adăugată cu succes!", "Succes");
+                    MessageBox.Show("Categoria: " + denumire + " (" + tip + ") a fost adăugată cu succes!", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
 
                 PopuleazaCategorii();
@@ -835,7 +743,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare la baza de date: " + ex.Message, "Eroare");
+                MessageBox.Show("Eroare la baza de date: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -859,7 +767,7 @@ namespace BibliotecaCEITI
                     conn.Open();
                     cmd.ExecuteNonQuery();
 
-                    MessageBox.Show("Editura: " + denumire + " a fost adăugată cu succes!", "Succes");
+                    MessageBox.Show("Editura: " + denumire + " a fost adăugată cu succes!", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 PopuleazaEdituri();
                 List<ComboItem> listaEdituri = (List<ComboItem>)cbEditura.ItemsSource;
@@ -879,7 +787,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare la baza de date: " + ex.Message, "Eroare");
+                MessageBox.Show("Eroare la baza de date: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

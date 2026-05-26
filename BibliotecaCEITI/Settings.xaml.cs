@@ -112,7 +112,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare la încărcarea datelor bibliotecarului: " + ex.Message);
+                MessageBox.Show("Eroare la încărcarea datelor bibliotecarului: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -157,7 +157,7 @@ namespace BibliotecaCEITI
                         string mesaj = pMesaj.Value?.ToString() ?? "";
                         if (Convert.ToByte(pSucces.Value) == 1)
                         {
-                            MessageBox.Show(mesaj, "Succes");
+                            MessageBox.Show(mesaj, "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
 
                             SesiuneBibliotecar.Email = txtEmail.Text.Trim();
                             SesiuneBibliotecar.Telefon = txtTelefon.Text.Trim();
@@ -172,38 +172,24 @@ namespace BibliotecaCEITI
                         }
                         else
                         {
-                            MessageBox.Show(mesaj, "Eroare");
+                            MessageBox.Show(mesaj, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare la salvare: " + ex.Message, "Eroare");
+                MessageBox.Show("Eroare la salvare: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void btnUploadImage_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Fișiere Imagine (*.jpg;*.jpeg;*.png;*.bmp)|*.jpg;*.jpeg;*.png;*.bmp|Toate fișierele (*.*)|*.*";
-            if (openFileDialog.ShowDialog() == true)
+            var rezultat = UsefulFunction.AlegeImagineDinFisier();
+
+            if (rezultat.Imagine != null)
             {
-                string caleFisier = openFileDialog.FileName;
-
-                try
-                {
-                    BitmapImage bitmap = new BitmapImage();
-                    bitmap.BeginInit();
-                    bitmap.UriSource = new Uri(caleFisier, UriKind.Absolute);
-                    bitmap.EndInit();
-
-                    imgSettingsLogo.Source = bitmap;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Eroare la încărcarea imaginii: " + ex.Message);
-                }
+                imgSettingsLogo.Source = rezultat.Imagine;
             }
         }
 

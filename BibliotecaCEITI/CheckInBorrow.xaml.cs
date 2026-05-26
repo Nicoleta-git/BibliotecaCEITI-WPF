@@ -79,7 +79,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare la încărcarea datelor: " + ex.Message);
+                MessageBox.Show("Eroare la încărcarea datelor: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -130,7 +130,7 @@ namespace BibliotecaCEITI
         {
             if (_idElevCurent == 0 && step == 1)
             {
-                MessageBox.Show("Te rog să selectezi un elev mai întâi!");
+                MessageBox.Show("Te rog să selectezi un elev mai întâi!", "Atenționare", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             else if (_idElevCurent != 0 && step == 1)
@@ -142,7 +142,7 @@ namespace BibliotecaCEITI
             }
             else if (_idExemplarSelectat == 0 && step == 2)
             {
-                MessageBox.Show("Te rog să selectezi un exemplar mai întâi!");
+                MessageBox.Show("Te rog să selectezi un exemplar mai întâi!", "Atenționare", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             else if (_idExemplarSelectat != 0 && step == 2)
@@ -155,7 +155,7 @@ namespace BibliotecaCEITI
             }
             else if ((_data_imprumut == null || _data_returnarii == null) && step == 3)
             {
-                MessageBox.Show("Nu ai selectat data de împrumut sau termenul de returnare.");
+                MessageBox.Show("Nu ai selectat data de împrumut sau termenul de returnare.", "Atenționare", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             else if (_data_imprumut != null && _data_returnarii != null && step == 3)
@@ -190,7 +190,7 @@ namespace BibliotecaCEITI
                             cmd.Parameters.AddWithValue("@p_id_exemplar", _idExemplarSelectat);
                             cmd.Parameters.AddWithValue("@p_data_imprumut", _data_imprumut.Value.Date);
                             cmd.Parameters.AddWithValue("@p_termen", _data_returnarii.Value.Date);
-                            cmd.Parameters.AddWithValue("@p_id_bibliotecar", 1);
+                            cmd.Parameters.AddWithValue("@p_id_bibliotecar", SesiuneBibliotecar.IdBibliotecarCurent);
 
                             MySqlParameter paramSucces = new MySqlParameter("@p_succes", MySqlDbType.Byte);
                             paramSucces.Direction = ParameterDirection.Output;
@@ -210,19 +210,19 @@ namespace BibliotecaCEITI
 
                 if (succes == 1)
                 {
-                    MessageBox.Show(mesaj);
+                    MessageBox.Show(mesaj, "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
 
                     var mainWindow = Window.GetWindow(this) as MainWindow;
                     mainWindow?.ChangeView(new Borrow());
                 }
                 else
                 {
-                    MessageBox.Show("Eroare: " + mesaj);
+                    MessageBox.Show("Eroare: " + mesaj, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("A apărut o eroare: " + ex.Message);
+                MessageBox.Show("A apărut o eroare: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

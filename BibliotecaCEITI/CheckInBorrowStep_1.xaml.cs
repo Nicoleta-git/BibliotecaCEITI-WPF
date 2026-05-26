@@ -92,7 +92,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare la încărcarea elevilor: " + ex.Message);
+                MessageBox.Show("Eroare la încărcarea elevilor: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -151,7 +151,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare la filtrarea elevilor: " + ex.Message);
+                MessageBox.Show("Eroare la filtrarea elevilor: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -161,22 +161,12 @@ namespace BibliotecaCEITI
 
         private void SearchBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && txt.Text == "Caută un elev...")
-            {
-                txt.Text = "";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
-            }
+            UsefulFunction.GotFocus(sender, "Caută un elev...");
         }
 
         private void SearchBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && string.IsNullOrWhiteSpace(txt.Text))
-            {
-                txt.Text = "Caută un elev...";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
-            }
+            UsefulFunction.LostFocus(sender, "Caută un elev...");
         }
 
         private async void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
