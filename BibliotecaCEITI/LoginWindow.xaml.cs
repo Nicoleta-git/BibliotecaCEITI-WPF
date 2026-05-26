@@ -15,7 +15,6 @@ namespace BibliotecaCEITI
 
         // ── Flag: credențialele OAuth au fost încărcate cu succes ─────────
         private bool _oauthConfigurat = false;
-
         public LoginWindow()
         {
             InitializeComponent();
@@ -164,8 +163,9 @@ namespace BibliotecaCEITI
 
                 string token = Guid.NewGuid().ToString("N");
                 await CreeazaSesiuneAsync(id!.Value, "parola", token);
+                SesiuneBibliotecar.IdBibliotecarCurent = id.Value;
 
-                DeschideMainWindow();
+                await DeschideMainWindowAsync();
             }
             catch (Exception ex)
             {
@@ -263,10 +263,10 @@ namespace BibliotecaCEITI
 
                 string token = Guid.NewGuid().ToString("N");
                 await CreeazaSesiuneAsync(idBib!.Value, "google", token);
-
+                SesiuneBibliotecar.IdBibliotecarCurent = idBib.Value;
                 await GoogleAuthService.Instance.LogoutAsync();
 
-                DeschideMainWindow();
+                await DeschideMainWindowAsync();
             }
             catch (OperationCanceledException) { /* fereastra s-a închis */ }
             catch (Exception ex)
@@ -334,8 +334,9 @@ namespace BibliotecaCEITI
         // ─────────────────────────────────────────────────────────────────
         //  Helpers statice
         // ─────────────────────────────────────────────────────────────────
-        private void DeschideMainWindow()
+        private async Task DeschideMainWindowAsync()
         {
+            await IncarcaDateSesiuneAsync(SesiuneBibliotecar.IdBibliotecarCurent);
             MainWindow main = new MainWindow();
             main.Show();
             this.Close();
@@ -363,6 +364,43 @@ namespace BibliotecaCEITI
             { Direction = System.Data.ParameterDirection.Output };
             if (size > 0) p.Size = size;
             cmd.Parameters.Add(p);
+        }
+
+        private async Task IncarcaDateSesiuneAsync(int id)
+        {
+            try
+            {
+                using (var conn = DatabaseConfig.GetConnection())
+                {
+                    await conn.OpenAsync();
+                    using var cmd = new MySqlCommand("sp_select_data_bibliotecar", conn)
+                    { CommandType = System.Data.CommandType.StoredProcedure };
+
+                    cmd.Parameters.AddWithValue("p_id", id);
+
+                    using var reader = (MySqlDataReader)await cmd.ExecuteReaderAsync();
+                    if (await reader.ReadAsync())
+                    {
+                        SesiuneBibliotecar.NumeBibliotecar = reader["NumePorfil_Bibliotecar"].ToString();
+                        SesiuneBibliotecar.Email = reader["Email"].ToString();
+                        SesiuneBibliotecar.Telefon = reader["Telefon"].ToString();
+                        SesiuneBibliotecar.RolBibliotecar = reader["Rol"].ToString();
+
+                        if (reader["UltimaAutentificare"] != DBNull.Value)
+                            SesiuneBibliotecar.ultimaAutentificare = Convert.ToDateTime(reader["UltimaAutentificare"]);
+
+                        if (reader["DataCreareCont"] != DBNull.Value)
+                            SesiuneBibliotecar.dataCreare = Convert.ToDateTime(reader["DataCreareCont"]);
+
+                        if (!reader.IsDBNull(reader.GetOrdinal("Poza_de_pofil")))
+                            SesiuneBibliotecar.PozaProfil = (byte[])reader["Poza_de_pofil"];
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Eroare la încărcarea sesiunii: " + ex.Message);
+            }
         }
     }
 }

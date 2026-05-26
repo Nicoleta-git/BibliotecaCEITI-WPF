@@ -33,7 +33,7 @@
 
             <Grid Grid.Row="0" Margin="8,0,8,20">
                 <StackPanel>
-                    <TextBlock Text="Bun venit, Admin!" FontSize="28" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
+                    <TextBlock x:Name="mesaj_de_intrare" Text="Bun venit, Admin!" FontSize="28" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
                     <TextBlock Text="Dashboard - Sistem Gestiune Biblioteca CEITI" Foreground="{DynamicResource TextMuted}" FontSize="14" Margin="0,4,0,0"/>
                 </StackPanel>
             </Grid>

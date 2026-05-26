@@ -574,8 +574,7 @@ namespace BibliotecaCEITI
                         {
                             string nume = rand["Nume"].ToString();
                             string prenume = rand["Prenume"].ToString();
-                            string initiale = (!string.IsNullOrEmpty(nume) && !string.IsNullOrEmpty(prenume))
-                                ? (nume[0].ToString() + prenume[0].ToString()).ToUpper() : "";
+                            string initiale = (!string.IsNullOrEmpty(nume) && !string.IsNullOrEmpty(prenume))? (nume[0].ToString() + prenume[0].ToString()).ToUpper() : "";
 
                             listaElevi.Add(new ElevModel(
                                 Convert.ToInt32(rand["Id_elev"]),

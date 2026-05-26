@@ -33,6 +33,8 @@ namespace BibliotecaCEITI
             AfiseazaNumarTotal_Carti();
 
             InitializeMonthlyActivityChart();
+
+            mesaj_de_intrare.Text = "Bun venit, " + SesiuneBibliotecar.NumeBibliotecar + "!";
         }
 
         private void InitializeMonthlyActivityChart()
