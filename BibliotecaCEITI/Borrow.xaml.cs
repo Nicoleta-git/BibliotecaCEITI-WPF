@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace BibliotecaCEITI
@@ -21,27 +22,17 @@ namespace BibliotecaCEITI
         private CancellationTokenSource _cancellationTokenSource;
         private int id_imprumutSelectat, id_exemplar, id_carte, id_autor, id_categorie, id_elev, id_grupa;
         private string elev, grupa, carte, autor, data_imprumut, data_returnare, termen, stare;
-        int idBibliotecar = 1;
+        int idBibliotecar = SesiuneBibliotecar.IdBibliotecarCurent;
         private bool isInitialized = false;
 
         private void txtSearch_GotFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && txt.Text == "Caută un elev...")
-            {
-                txt.Text = "";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
-            }
+            UsefulFunction.GotFocus(sender, "Caută un elev...");
         }
 
         private void txtSearch_LostFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && string.IsNullOrWhiteSpace(txt.Text))
-            {
-                txt.Text = "Caută un elev...";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
-            }
+            UsefulFunction.LostFocus(sender, "Caută un elev...");
         }
 
         public Borrow()
@@ -50,7 +41,7 @@ namespace BibliotecaCEITI
             SelectBook();
             PopuleazaGrupe();
             PopuleazaStari();
-
+            cbStari.SelectionChanged += cbStari_SelectionChanged;
             isInitialized = true;
         }
 
@@ -82,7 +73,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error loading data: " + ex.Message);
+                MessageBox.Show("Error loading data: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -94,7 +85,7 @@ namespace BibliotecaCEITI
             {
                 e.Column.Visibility = Visibility.Collapsed;
             }
-            string[] coloaneDate = { "Data_returnare", "Data_imprumut" };
+            string[] coloaneDate = { "Data_returnare", "Data_împrumut" };
 
             if (coloaneDate.Contains(e.PropertyName))
             {
@@ -171,7 +162,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare la popularea grupelor: " + ex.Message);
+                MessageBox.Show("Eroare la popularea grupelor: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -214,7 +205,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare la popularea starilor: " + ex.Message);
+                MessageBox.Show("Eroare la popularea starilor: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -268,41 +259,13 @@ namespace BibliotecaCEITI
                     titlu.Text = "Fără titlu";
                 }
 
-                try
-                {
-                    using (MySqlConnection conn = DatabaseConfig.GetConnection())
-                    {
-                        conn.Open();
-                        using (MySqlCommand cmd = new MySqlCommand("sp_imagine_carte", conn))
-                        {
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.Parameters.AddWithValue("@p_id", id_carte);
+                BitmapImage imagine = UsefulFunction.GetImagineCarte(id_carte);
 
-                            using (MySqlDataReader reader = cmd.ExecuteReader())
-                            {
-                                if (reader.Read() && !reader.IsDBNull(0))
-                                {
-                                    byte[] copertaBytes = (byte[])reader["Imagine"];
-                                    using (MemoryStream ms = new MemoryStream(copertaBytes))
-                                    {
-                                        BitmapImage bitmap = new BitmapImage();
-                                        bitmap.BeginInit();
-                                        bitmap.StreamSource = ms;
-                                        bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                                        bitmap.EndInit();
-                                        bitmap.Freeze();
-                                        imgCoperta.Background = new System.Windows.Media.ImageBrush(bitmap);
-                                    }
-                                }
-                                else
-                                {
-                                    imgCoperta.Background = null;
-                                }
-                            }
-                        }
-                    }
+                if (imagine != null)
+                {
+                    imgCoperta.Background = new System.Windows.Media.ImageBrush(imagine);
                 }
-                catch
+                else
                 {
                     imgCoperta.Background = null;
                 }
@@ -310,10 +273,18 @@ namespace BibliotecaCEITI
             if (stare == "returnat" || stare == "Returnat")
             {
                 returneaza.IsEnabled = false;
+                returneaza.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#E2E8F0"));
+                returneaza.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#64748B"));
+                ret.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#64748B"));
+                return_icon.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#64748B"));
             }
             else
             {
                 returneaza.IsEnabled = true;
+                returneaza.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#22EF4444"));
+                returneaza.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#EF4444"));
+                ret.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#EF4444"));
+                return_icon.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#EF4444"));
             }
         }
 
@@ -321,7 +292,7 @@ namespace BibliotecaCEITI
         {
             if (id_imprumutSelectat == 0)
             {
-                MessageBox.Show("Selectează un împrumut din listă.");
+                MessageBox.Show("Selectează un împrumut din listă.", "Atenționare", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -354,7 +325,7 @@ namespace BibliotecaCEITI
 
                         if (cod != 0)
                         {
-                            MessageBox.Show("Eroare: " + mesaj);
+                            MessageBox.Show("Eroare: " + mesaj, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
                             return;
                         }
                     }
@@ -365,7 +336,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare la returnare: " + ex.Message);
+                MessageBox.Show("Eroare la returnare: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

@@ -86,22 +86,12 @@ namespace BibliotecaCEITI
 
         private void txtObservatii_GotFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && txt.Text == "Ex: Scrie aici explicația suplimentară...")
-            {
-                txt.Text = "";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
-            }
+            UsefulFunction.GotFocus(sender, "Ex: Scrie aici explicația suplimentară...");
         }
 
         private void txtObservatii_LostFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && string.IsNullOrWhiteSpace(txt.Text))
-            {
-                txt.Text = "Ex: Scrie aici explicația suplimentară...";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
-            }
+            UsefulFunction.LostFocus(sender, "Ex: Scrie aici explicația suplimentară...");
         }
 
         private void IncarcaDateStergere()
@@ -144,7 +134,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare la încărcarea detaliilor cărții: " + ex.Message);
+                MessageBox.Show("Eroare la încărcarea detaliilor cărții: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

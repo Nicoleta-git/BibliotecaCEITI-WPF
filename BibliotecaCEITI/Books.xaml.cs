@@ -49,7 +49,7 @@ namespace BibliotecaCEITI
                 }
             } catch (Exception ex)
             {
-                MessageBox.Show("Error loading data: " + ex.Message);
+                MessageBox.Show("Error loading data: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -178,22 +178,12 @@ namespace BibliotecaCEITI
 
         private void SearchTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && txt.Text == "Caută o carte...")
-            {
-                txt.Text = "";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
-            }
+            UsefulFunction.GotFocus(sender, "Caută o carte...");
         }
 
         private void SearchTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && string.IsNullOrWhiteSpace(txt.Text))
-            {
-                txt.Text = "Caută o carte...";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
-            }
+            UsefulFunction.LostFocus(sender, "Caută o carte...");
         }
 
         private double pret_CarteSelectata;
@@ -276,41 +266,7 @@ namespace BibliotecaCEITI
                 }
                 catch { editura.Text = "Nespecificat"; }
 
-                try
-                {
-                    using (MySqlConnection conn = DatabaseConfig.GetConnection())
-                    {
-                        conn.Open();
-                        using (MySqlCommand cmd = new MySqlCommand("sp_imagine_carte", conn))
-                        {
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.Parameters.AddWithValue("@p_id", id_CarteSelectata);
-
-                            using (MySqlDataReader reader = cmd.ExecuteReader())
-                            {
-                                if (reader.Read() && !reader.IsDBNull(0))
-                                {
-                                    byte[] copertaBytes = (byte[])reader["Imagine"];
-                                    using (MemoryStream ms = new MemoryStream(copertaBytes))
-                                    {
-                                        BitmapImage bitmap = new BitmapImage();
-                                        bitmap.BeginInit();
-                                        bitmap.StreamSource = ms;
-                                        bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                                        bitmap.EndInit();
-                                        bitmap.Freeze();
-                                        imgCoperta.Source = bitmap;
-                                    }
-                                }
-                                else
-                                {
-                                    imgCoperta.Source = null;
-                                }
-                            }
-                        }
-                    }
-                }
-                catch { imgCoperta.Source = null; }
+                imgCoperta.Source = UsefulFunction.GetImagineCarte(id_CarteSelectata);
             }
         }
 
@@ -330,7 +286,7 @@ namespace BibliotecaCEITI
 
                 if (idCarte <= 0)
                 {
-                    MessageBox.Show("Nu s-a putut identifica ID-ul cărții selectate.", "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Nu s-a putut identifica ID-ul cărții selectate.", "Eroare", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 

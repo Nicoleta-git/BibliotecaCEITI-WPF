@@ -139,8 +139,8 @@
                         Height="50"
                         VerticalAlignment="Center" Click="Button_Click">
                     <StackPanel Orientation="Horizontal">
-                        <fa5:ImageAwesome Icon="Solid_CheckCircle" Width="16" Foreground="#EF4444" Margin="0,0,8,0"/>
-                        <TextBlock Text="RETURN" Foreground="#EF4444" FontWeight="Black" VerticalAlignment="Center"/>
+                        <fa5:ImageAwesome x:Name="return_icon" Icon="Solid_CheckCircle" Width="16" Foreground="#EF4444" Margin="0,0,8,0"/>
+                        <TextBlock x:Name="ret" Text="RETURN" Foreground="#EF4444" FontWeight="Black" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
             </Grid>

@@ -22,7 +22,7 @@ namespace BibliotecaCEITI
             int idCarte = (CmbManual.SelectedItem as ComboItem)?.Id ?? -1;
             if (CmbManual.SelectedValue == null || idCarte <= 0)
             {
-                MessageBox.Show("Selectează mai întâi un manual valid din listă.", "Atenție");
+                MessageBox.Show("Selectează mai întâi un manual valid din listă.", "Atenționare", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -37,13 +37,13 @@ namespace BibliotecaCEITI
             }
             catch
             {
-                MessageBox.Show("Te rog să introduci doar numere!", "Eroare");
+                MessageBox.Show("Te rog să introduci doar numere!", "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             if (cantitate <= 0)
             {
-                MessageBox.Show("Cantitatea trebuie să fie mai mare ca 0.", "Eroare");
+                MessageBox.Show("Cantitatea trebuie să fie mai mare ca 0.", "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -59,13 +59,13 @@ namespace BibliotecaCEITI
                     conn.Open();
                     cmd.ExecuteNonQuery();
 
-                    MessageBox.Show(cantitate + " exemplare au fost adăugate cu succes!", "Succes");
+                    MessageBox.Show(cantitate + " exemplare au fost adăugate cu succes!", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 PopuleazaExemplareDisponibile(idCarte);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare la baza de date: " + ex.Message, "Eroare");
+                MessageBox.Show("Eroare la baza de date: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -86,7 +86,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Nu am putut încărca numărul de exemplare: " + ex.Message);
+                MessageBox.Show("Nu am putut încărca numărul de exemplare: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -138,7 +138,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare la sortarea manualelor: " + ex.Message);
+                MessageBox.Show("Eroare la sortarea manualelor: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -173,7 +173,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare la încărcarea categoriilor: " + ex.Message);
+                MessageBox.Show("Eroare la încărcarea categoriilor: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -223,7 +223,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare la popularea grupelor: " + ex.Message);
+                MessageBox.Show("Eroare la popularea grupelor: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -274,7 +274,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare la încărcarea elevilor: " + ex.Message);
+                MessageBox.Show("Eroare la încărcarea elevilor: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -287,7 +287,7 @@ namespace BibliotecaCEITI
             {
                 if (CmbManual.SelectedValue == null || Convert.ToInt32(CmbManual.SelectedValue) <= 0)
                 {
-                    MessageBox.Show("Selectează mai întâi un manual pentru a vedea cine trebuie să returneze.", "Atenție");
+                    MessageBox.Show("Selectează mai întâi un manual pentru a vedea cine trebuie să returneze.", "Atenționare", MessageBoxButton.OK, MessageBoxImage.Warning);
                     CmbGrupa.SelectedIndex = 0;
                     return;
                 }
@@ -364,13 +364,13 @@ namespace BibliotecaCEITI
             var listaElevi = DgElevi.ItemsSource as List<ElevModel>;
             if (listaElevi == null || listaElevi.Count == 0)
             {
-                MessageBox.Show("Nu există elevi încărcați.");
+                MessageBox.Show("Nu există elevi încărcați.", "Atenționare", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
             if (CmbManual.SelectedValue == null)
             {
-                MessageBox.Show("Selectează mai întâi un manual din listă.");
+                MessageBox.Show("Selectează mai întâi un manual din listă.", "Atenționare", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             int idCarte = Convert.ToInt32(CmbManual.SelectedValue);
@@ -383,11 +383,11 @@ namespace BibliotecaCEITI
 
             if (eleviBifati.Count == 0)
             {
-                MessageBox.Show("Niciun elev nu a fost selectat pentru a primi manualul.");
+                MessageBox.Show("Niciun elev nu a fost selectat pentru a primi manualul.", "Atenționare", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            int idBibliotecar = 1;
+            int idBibliotecar = SesiuneBibliotecar.IdBibliotecarCurent;
             int reusit = 0;
             int esuat = 0;
             System.Text.StringBuilder erori = new System.Text.StringBuilder();
@@ -412,7 +412,7 @@ namespace BibliotecaCEITI
 
                     if (idAnScolar == 0)
                     {
-                        MessageBox.Show("Nu există un an școlar activ în baza de date.");
+                        MessageBox.Show("Nu există un an școlar activ în baza de date.", "Atenționare", MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
                     }
 
@@ -479,7 +479,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare la salvare: " + ex.Message);
+                MessageBox.Show("Eroare la salvare: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -488,7 +488,7 @@ namespace BibliotecaCEITI
             if (esuat > 0)
                 summary += "\nEșuat: " + esuat + " elevi:\n" + erori.ToString();
 
-            MessageBox.Show(summary, "Rezultat Împrumut");
+            MessageBox.Show(summary, "Rezultat Împrumut", MessageBoxButton.OK, MessageBoxImage.Information);
 
             foreach (ElevModel elev in listaElevi)
             {
@@ -588,13 +588,13 @@ namespace BibliotecaCEITI
                         DgElevi.ItemsSource = listaElevi;
 
                         if (listaElevi.Count == 0)
-                            MessageBox.Show("Niciun elev din această grupă nu are manualul de returnat.", "Informație");
+                            MessageBox.Show("Niciun elev din această grupă nu are manualul de returnat.", "Informație", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare la încărcarea elevilor: " + ex.Message);
+                MessageBox.Show("Eroare la încărcarea elevilor: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -603,7 +603,7 @@ namespace BibliotecaCEITI
             var listaElevi = DgElevi.ItemsSource as List<ElevModel>;
             if (listaElevi == null || listaElevi.Count == 0)
             {
-                MessageBox.Show("Nu există elevi încărcați.");
+                MessageBox.Show("Nu există elevi încărcați.", "Atenționare", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -613,11 +613,11 @@ namespace BibliotecaCEITI
 
             if (eleviBifati.Count == 0)
             {
-                MessageBox.Show("Niciun elev nu a fost selectat pentru returnare.");
+                MessageBox.Show("Niciun elev nu a fost selectat pentru returnare.", "Atenționare", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            int idBibliotecar = 1;
+            int idBibliotecar = SesiuneBibliotecar.IdBibliotecarCurent;
             int reusit = 0, esuat = 0;
             System.Text.StringBuilder erori = new System.Text.StringBuilder();
 
@@ -657,7 +657,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare la returnare: " + ex.Message);
+                MessageBox.Show("Eroare la returnare: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -666,7 +666,7 @@ namespace BibliotecaCEITI
 
             string summary = "Returnate cu succes: " + reusit + " elevi.";
             if (esuat > 0) summary += "\nEșuat: " + esuat + " elevi:\n" + erori;
-            MessageBox.Show(summary, "Rezultat Returnare");
+            MessageBox.Show(summary, "Rezultat Returnare", MessageBoxButton.OK, MessageBoxImage.Information);
 
             reseteazaDataGrid();
         }

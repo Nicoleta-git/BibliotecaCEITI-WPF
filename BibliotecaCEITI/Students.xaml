@@ -119,8 +119,8 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <Border Width="70" Height="95" Background="{DynamicResource WindowBackground}" CornerRadius="8" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" Margin="0,0,20,0">
-                    <Image x:Name="imagine" Source="{Binding SelectedItem.CopertaUrl, ElementName=BooksGrid}"/>
+                <Border Width="75" Height="75" Background="{DynamicResource PrimaryEmerald}" CornerRadius="45" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" Margin="0,0,20,0">
+                    <TextBlock x:Name="initiale_elev" Text="N/A" Foreground="White" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Border>
 
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">

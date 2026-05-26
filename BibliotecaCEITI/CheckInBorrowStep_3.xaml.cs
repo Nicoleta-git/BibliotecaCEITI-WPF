@@ -124,41 +124,13 @@ namespace BibliotecaCEITI
                     }
                 }
             }
-            try
-            {
-                using (MySqlConnection conn = DatabaseConfig.GetConnection())
-                {
-                    conn.Open();
-                    using (MySqlCommand cmd = new MySqlCommand("sp_imagine_carte", conn))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@p_id", _idCarte);
+            BitmapImage imagine = UsefulFunction.GetImagineCarte(_idCarte);
 
-                        using (MySqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read() && !reader.IsDBNull(0))
-                            {
-                                byte[] copertaBytes = (byte[])reader["Imagine"];
-                                using (MemoryStream ms = new MemoryStream(copertaBytes))
-                                {
-                                    BitmapImage bitmap = new BitmapImage();
-                                    bitmap.BeginInit();
-                                    bitmap.StreamSource = ms;
-                                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                                    bitmap.EndInit();
-                                    bitmap.Freeze();
-                                    imgCoperta.Background = new System.Windows.Media.ImageBrush(bitmap);
-                                }
-                            }
-                            else
-                            {
-                                imgCoperta.Background = null;
-                            }
-                        }
-                    }
-                }
+            if (imagine != null)
+            {
+                imgCoperta.Background = new System.Windows.Media.ImageBrush(imagine);
             }
-            catch
+            else
             {
                 imgCoperta.Background = null;
             }

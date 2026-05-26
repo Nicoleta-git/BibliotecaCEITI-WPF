@@ -53,15 +53,15 @@ namespace BibliotecaCEITI
         {
             if (id_elevSelectat <= 0)
             {
-                MessageBox.Show("Vă rugăm să selectați un student din listă pentru a șterge datele.", "Atenție", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Vă rugăm să selectați un student din listă pentru a șterge datele.", "Atenționare", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            var result = MessageBox.Show("Sigur doriți să dezactivați elevul?", "Atenție", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            var result = MessageBox.Show("Sigur doriți să ștergeți definitiv elevul? Această acțiune este ireversibilă.", "Atenție", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            if (result != MessageBoxResult.Yes) 
-            { 
-                return; 
+            if (result != MessageBoxResult.Yes)
+            {
+                return;
             }
 
             int succes = 0;
@@ -95,6 +95,7 @@ namespace BibliotecaCEITI
                 if (succes == 1)
                 {
                     MessageBox.Show(mesaj, "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
+                    LoadData();
                 }
                 else
                 {
@@ -168,7 +169,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare la încărcarea elevilor: " + ex.Message);
+                MessageBox.Show("Eroare la încărcarea elevilor: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -227,7 +228,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare la filtrarea elevilor: " + ex.Message);
+                MessageBox.Show("Eroare la filtrarea elevilor: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -271,22 +272,12 @@ namespace BibliotecaCEITI
 
         private void SearchTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && txt.Text == "Caută un elev...")
-            {
-                txt.Text = "";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
-            }
+            UsefulFunction.GotFocus(sender, "Caută un elev...");
         }
 
         private void SearchTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-            if (txt != null && string.IsNullOrWhiteSpace(txt.Text))
-            {
-                txt.Text = "Caută un elev...";
-                txt.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
-            }
+            UsefulFunction.LostFocus(sender, "Caută un elev...");
         }
 
         private async void RefreshButton_Click(object sender, RoutedEventArgs e)
@@ -303,10 +294,12 @@ namespace BibliotecaCEITI
                 telefon = row.Telefon;
                 email = row.Email;
                 grupa = row.Grupa;
+                initiale = row.Initiale;
 
                 nume_elev.Text = elev;
                 nume.Text = elev;
                 grupa_e.Text = grupa;
+                initiale_elev.Text = initiale;
 
                 try
                 {
