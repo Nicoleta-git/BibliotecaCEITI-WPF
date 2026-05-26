@@ -33,7 +33,7 @@ namespace BibliotecaCEITI
         {
             InitializeComponent();
 
-            CheckInBorrowStep_1 checkIn_1 = new CheckInBorrowStep_1();
+            CheckInBorrowStep_1 checkIn_1 = new CheckInBorrowStep_1(0);
             checkIn_1.IdSelected += LoadStudentData;
 
             ActiveBorrowContent.Content = checkIn_1;
@@ -91,9 +91,40 @@ namespace BibliotecaCEITI
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var mainWindow = Window.GetWindow(this) as MainWindow;
-            mainWindow?.ChangeView(new Borrow());
+            if (step == 1)
+            {
+                MessageBoxResult result = MessageBox.Show("Doriți să anulați împrumutul?", "Anulare împrumut", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    var mainWindow = Window.GetWindow(this) as MainWindow;
+                    mainWindow?.ChangeView(new Borrow());
+                }
+            }
+            else if (step == 2)
+            {
+                CheckInBorrowStep_1 checkIn_1 = new CheckInBorrowStep_1(_idElevCurent);
+                checkIn_1.IdSelected += LoadStudentData;
+                ActiveBorrowContent.Content = checkIn_1;
+                step = 1;
+            }
+            else if (step == 3)
+            {
+                CheckInBorrowStep_2 checkIn_2 = new CheckInBorrowStep_2(_idExemplarSelectat);
+                checkIn_2.IdSelected += TakeIdBook;
+                ActiveBorrowContent.Content = checkIn_2;
+                step = 2;
+            } else if (step == 4)
+            {
+                CheckInBorrowStep_3 checkIn_3 = new CheckInBorrowStep_3(_idExemplarSelectat, _data_imprumut.Value, _data_returnarii.Value);
+                checkIn_3.d_imprumut += TakeDates;
+                checkIn_3.InitDates();
+                ActiveBorrowContent.Content = checkIn_3;
+                step = 3;
+                salveaza.Text = "Următorul";
+            }
         }
+
 
         private void btnNext_Click(object sender, RoutedEventArgs e)
         {
@@ -104,7 +135,7 @@ namespace BibliotecaCEITI
             }
             else if (_idElevCurent != 0 && step == 1)
             {
-                CheckInBorrowStep_2 checkIn_2 = new CheckInBorrowStep_2();
+                CheckInBorrowStep_2 checkIn_2 = new CheckInBorrowStep_2(0);
                 checkIn_2.IdSelected += TakeIdBook;
                 ActiveBorrowContent.Content = checkIn_2;
                 step = 2;

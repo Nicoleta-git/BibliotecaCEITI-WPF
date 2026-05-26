@@ -113,8 +113,8 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,5,10,5">
-                                                <Border Width="70" Height="95" Background="{DynamicResource InputBackground}" CornerRadius="8" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1">
-                                                    <Image x:Name="imgCoperta" Source="{Binding Coperta_carte}" Stretch="Uniform"/>
+                                                <Border Width="68" Height="95" Background="{DynamicResource InputBackground}" CornerRadius="8" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1">
+                                                    <Image x:Name="imgCoperta" Source="{Binding Coperta_carte}" Stretch="Fill"/>
                                                 </Border>
                                             </Grid>
                                         </DataTemplate>

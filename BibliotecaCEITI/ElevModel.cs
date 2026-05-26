@@ -12,11 +12,13 @@ public class ElevModel : INotifyPropertyChanged
             if (_areManual != value)
             {
                 _areManual = value;
+                OnPropertyChanged(nameof(AreManual));
             }
         }
     }
 
     public int Id { get; set; }
+    public int IdImprumut { get; set; }
     public string NumeElev { get; set; }
     public string Initiale { get; set; }
     public string AvatarColor { get; set; }

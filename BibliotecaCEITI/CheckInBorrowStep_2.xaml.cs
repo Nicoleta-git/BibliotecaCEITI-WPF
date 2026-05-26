@@ -27,13 +27,15 @@ namespace BibliotecaCEITI
     {
         private CancellationTokenSource _cancellationTokenSource;
         private int id_CarteSelectata;
-        public CheckInBorrowStep_2()
+        public CheckInBorrowStep_2(int idExemplar)
         {
             InitializeComponent();
-            SelectBooks();
+            id_CarteSelectata = idExemplar;
 
             SearchBox.Text = "Caută o carte...";
             SearchBox.Foreground = new SolidColorBrush(Colors.Gray);
+
+            SelectBooks();
         }
 
         private void SelectBooks()
@@ -48,6 +50,20 @@ namespace BibliotecaCEITI
                     DataTable dt = new DataTable();
                     da.Fill(dt);
                     BooksGrid.ItemsSource = dt.DefaultView;
+
+                    if (id_CarteSelectata > 0)
+                    {
+                        foreach (DataRowView rand in dt.DefaultView)
+                        {
+                            int idCurent = Convert.ToInt32(rand["Id_exemplar"]);
+                            if (idCurent == id_CarteSelectata)
+                            {
+                                BooksGrid.SelectedItem = rand;
+                                BooksGrid.ScrollIntoView(rand);
+                                break;
+                            }
+                        }
+                    }
                 }
             }
             catch (Exception ex)

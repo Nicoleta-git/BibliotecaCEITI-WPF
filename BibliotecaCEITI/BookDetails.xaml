@@ -105,7 +105,7 @@
                                     <TextBlock Text="Categorie *" Style="{StaticResource FieldLabel}" Foreground="{DynamicResource TextPrimary}"/>
                                     <StackPanel Orientation="Horizontal">
                                         <ComboBox x:Name="cbCategorie" Margin="0,0,10,0" Height="38" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}" SelectionChanged="cbCategorie_SelectionChanged" Width="228"/>
-                                        <Button Style="{StaticResource GlobalActionButtonStyle}" Width="31" Height="33">+</Button>
+                                        <Button Style="{StaticResource GlobalActionButtonStyle}" Width="31" Height="33" Click="Button_Click_3">+</Button>
                                     </StackPanel>
                                 </StackPanel>
                             </Grid>
@@ -122,7 +122,7 @@
                                     <TextBlock Text="Editura" Style="{StaticResource FieldLabel}" Foreground="{DynamicResource TextPrimary}"/>
                                     <StackPanel Orientation="Horizontal">
                                         <ComboBox x:Name="cbEditura" Margin="0,0,10,0" Height="38" Background="Transparent" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource BorderBrushLight}" SelectionChanged="cbEditura_SelectionChanged" Width="231"/>
-                                        <Button Style="{StaticResource GlobalActionButtonStyle}" Width="31" Height="33">+</Button>
+                                        <Button Style="{StaticResource GlobalActionButtonStyle}" Width="31" Height="33" Click="Button_Click_4">+</Button>
                                     </StackPanel>
                                 </StackPanel>
                                 <StackPanel Margin="0,0,10,15">
