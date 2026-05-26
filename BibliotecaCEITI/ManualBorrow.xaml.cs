@@ -3,11 +3,13 @@ using System;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace BibliotecaCEITI
 {
     public partial class ManualBorrow : UserControl
     {
+        string mod_manuale = "împrumut";
         public ManualBorrow()
         {
             InitializeComponent();
@@ -17,13 +19,13 @@ namespace BibliotecaCEITI
 
         private void BtnAdaugaExemplare_Click(object sender, RoutedEventArgs e)
         {
-            if (CmbManual.SelectedValue == null || Convert.ToInt32(CmbManual.SelectedValue) <= 0)
+            int idCarte = (CmbManual.SelectedItem as ComboItem)?.Id ?? -1;
+            if (CmbManual.SelectedValue == null || idCarte <= 0)
             {
                 MessageBox.Show("Selectează mai întâi un manual valid din listă.", "Atenție");
                 return;
             }
 
-            int idCarte = Convert.ToInt32(CmbManual.SelectedValue);
             string input = Microsoft.VisualBasic.Interaction.InputBox("Câte exemplare dorești să adaugi?", "Adaugă exemplare", "1");
 
             if (string.IsNullOrEmpty(input)) return;
@@ -90,18 +92,13 @@ namespace BibliotecaCEITI
 
         private void CmbManual_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (CmbManual.SelectedValue != null)
+            var item = CmbManual.SelectedItem as ComboItem;
+            if (item == null || item.Id <= 0)
             {
-                int idCarte = Convert.ToInt32(CmbManual.SelectedValue);
-                if (idCarte > 0)
-                {
-                    PopuleazaExemplareDisponibile(idCarte);
-                }
-                else
-                {
-                    TxtNumarExemplare.Text = "Exemplare disponibile: 0";
-                }
+                TxtNumarExemplare.Text = "Exemplare disponibile: 0";
+                return;
             }
+            PopuleazaExemplareDisponibile(item.Id);
         }
 
         private void SorteazaManuale_perCategorie(string categorie)
@@ -283,9 +280,29 @@ namespace BibliotecaCEITI
 
         private void CmbGrupa_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string selectedGrupa = (CmbGrupa.SelectedItem as ComboItem)?.Denumire;
+            string? selectedGrupa = (CmbGrupa.SelectedItem as ComboItem)?.Denumire;
+            if (string.IsNullOrEmpty(selectedGrupa) || selectedGrupa == "Selectează grupa...") return;
 
-            if (!string.IsNullOrEmpty(selectedGrupa) && selectedGrupa != "Selectează grupa...")
+            if (mod_manuale == "returnare")
+            {
+                if (CmbManual.SelectedValue == null || Convert.ToInt32(CmbManual.SelectedValue) <= 0)
+                {
+                    MessageBox.Show("Selectează mai întâi un manual pentru a vedea cine trebuie să returneze.", "Atenție");
+                    CmbGrupa.SelectedIndex = 0;
+                    return;
+                }
+                int idCarte = -1;
+
+                if (CmbManual.SelectedItem != null)
+                {
+                    ComboItem itemSelectat = (ComboItem)CmbManual.SelectedItem;
+                    idCarte = itemSelectat.Id;
+                }
+
+                SelectStudentsWithManual(selectedGrupa, idCarte);
+                TxtGrupLabel.Text = "Elevi care returnează — grupa " + selectedGrupa;
+            }
+            else
             {
                 SelectStudents(selectedGrupa);
                 TxtGrupLabel.Text = "Elevi în grupa " + selectedGrupa;
@@ -477,9 +494,182 @@ namespace BibliotecaCEITI
             {
                 elev.AreManual = false;
             }
-            DgElevi.Items.Refresh();
+            reseteazaDataGrid();
+        }
+
+        private void BtnModImprumut_Click(object sender, RoutedEventArgs e)
+        {
+            if (mod_manuale == "împrumut")
+            {
+                return;
+            } else
+            {
+                mod_manuale = "împrumut";
+            }
+            aplicaStilToggle(activ: BtnModImprumut, inactiv: BtnModReturnare);
+            BtnSalveaza.Visibility = Visibility.Visible;
+            BtnReturnare.Visibility = Visibility.Collapsed;
+            reseteazaDataGrid();
+            BtnAdaugaExemplare.IsEnabled = true;
+            BtnAdaugaExemplare.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2563EB"));
+            BtnAdaugaExemplare.Foreground = new SolidColorBrush(Colors.White);
+        }
+
+        private void BtnModReturnare_Click(object sender, RoutedEventArgs e)
+        {
+            if (mod_manuale == "returnare")
+            {
+                return;
+            } else
+            {
+                mod_manuale = "returnare";
+            }
+            aplicaStilToggle(activ: BtnModReturnare, inactiv: BtnModImprumut);
+            BtnSalveaza.Visibility = Visibility.Collapsed;
+            BtnReturnare.Visibility = Visibility.Visible;
+            reseteazaDataGrid();
+            BtnAdaugaExemplare.IsEnabled = false;
+            BtnAdaugaExemplare.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#E2E8F0"));
+            BtnAdaugaExemplare.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#64748B"));
+        }
+
+        private void aplicaStilToggle(Button activ, Button inactiv)
+        {
+            activ.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2563EB"));
+            activ.Foreground = new SolidColorBrush(Colors.White);
+            inactiv.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#E2E8F0"));
+            inactiv.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#64748B"));
+        }
+
+        private void reseteazaDataGrid()
+        {
+            DgElevi.ItemsSource = null;
+            CmbGrupa.SelectedIndex = 0;
+            TxtGrupLabel.Text = "";
             TxtEleviSelectati.Text = "Elevi selectați: 0";
             ChkBifeazaToti.IsChecked = false;
+            CmbManual.SelectedIndex = 0;
+            CmbCategorie.SelectedIndex = 0;
+        }
+
+        private void SelectStudentsWithManual(string grupa, int idCarte)
+        {
+            try
+            {
+                using (MySqlConnection conn = DatabaseConfig.GetConnection())
+                using (MySqlCommand cmd = new MySqlCommand("sp_elevi_cu_manual_nereturnat", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@p_cod_grupa", grupa);
+                    cmd.Parameters.AddWithValue("@p_id_carte", idCarte);
+                    conn.Open();
+
+                    using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+
+                        List<ElevModel> listaElevi = new List<ElevModel>();
+                        foreach (DataRow rand in dt.Rows)
+                        {
+                            string nume = rand["Nume"].ToString();
+                            string prenume = rand["Prenume"].ToString();
+                            string initiale = (!string.IsNullOrEmpty(nume) && !string.IsNullOrEmpty(prenume))
+                                ? (nume[0].ToString() + prenume[0].ToString()).ToUpper() : "";
+
+                            listaElevi.Add(new ElevModel(
+                                Convert.ToInt32(rand["Id_elev"]),
+                                nume + " " + prenume,
+                                initiale, "#E05C00", false)
+                            {
+                                IdImprumut = Convert.ToInt32(rand["Id_imprumut"])
+                            });
+                        }
+
+                        DgElevi.ItemsSource = listaElevi;
+
+                        if (listaElevi.Count == 0)
+                            MessageBox.Show("Niciun elev din această grupă nu are manualul de returnat.", "Informație");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Eroare la încărcarea elevilor: " + ex.Message);
+            }
+        }
+
+        private void BtnReturnare_Click(object sender, RoutedEventArgs e)
+        {
+            var listaElevi = DgElevi.ItemsSource as List<ElevModel>;
+            if (listaElevi == null || listaElevi.Count == 0)
+            {
+                MessageBox.Show("Nu există elevi încărcați.");
+                return;
+            }
+
+            List<ElevModel> eleviBifati = new List<ElevModel>();
+            foreach (ElevModel elev in listaElevi)
+                if (elev.AreManual) eleviBifati.Add(elev);
+
+            if (eleviBifati.Count == 0)
+            {
+                MessageBox.Show("Niciun elev nu a fost selectat pentru returnare.");
+                return;
+            }
+
+            int idBibliotecar = 1;
+            int reusit = 0, esuat = 0;
+            System.Text.StringBuilder erori = new System.Text.StringBuilder();
+
+            try
+            {
+                using (MySqlConnection conn = DatabaseConfig.GetConnection())
+                {
+                    conn.Open();
+                    foreach (ElevModel elev in eleviBifati)
+                    {
+                        using (MySqlCommand cmd = new MySqlCommand("sp_returneaza_manual", conn))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+
+                            cmd.Parameters.AddWithValue("@p_id_imprumut_manual", elev.IdImprumut);
+                            cmd.Parameters.AddWithValue("@p_id_bibliotecar", idBibliotecar);
+
+                            MySqlParameter pCod = new MySqlParameter("@p_cod", MySqlDbType.Int32)
+                            { Direction = ParameterDirection.Output };
+                            MySqlParameter pMesaj = new MySqlParameter("@p_mesaj", MySqlDbType.VarChar, 255)
+                            { Direction = ParameterDirection.Output };
+
+                            cmd.Parameters.Add(pCod);
+                            cmd.Parameters.Add(pMesaj);
+                            cmd.ExecuteNonQuery();
+
+                            if (Convert.ToInt32(pCod.Value) == 0)
+                                reusit++;
+                            else
+                            {
+                                esuat++;
+                                erori.AppendLine("• " + elev.NumeElev + ": " + pMesaj.Value);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Eroare la returnare: " + ex.Message);
+                return;
+            }
+
+            if (CmbManual.SelectedValue != null && Convert.ToInt32(CmbManual.SelectedValue) > 0)
+                PopuleazaExemplareDisponibile(Convert.ToInt32(CmbManual.SelectedValue));
+
+            string summary = "Returnate cu succes: " + reusit + " elevi.";
+            if (esuat > 0) summary += "\nEșuat: " + esuat + " elevi:\n" + erori;
+            MessageBox.Show(summary, "Rezultat Returnare");
+
+            reseteazaDataGrid();
         }
     }
 }

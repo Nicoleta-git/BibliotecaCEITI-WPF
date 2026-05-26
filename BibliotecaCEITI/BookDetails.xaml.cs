@@ -181,36 +181,36 @@ namespace BibliotecaCEITI
         private void PopuleazaAutori()
         {
             string query = "CALL sp_autori();";
-            cbAutor.Items.Clear();
             try
             {
                 using (MySqlConnection conn = DatabaseConfig.GetConnection())
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
                 {
-                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    conn.Open();
+                    using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
                     {
-                        conn.Open();
-                        using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+
+                        List<ComboItem> lista = new List<ComboItem>();
+                        lista.Add(new ComboItem { Id = -1, Denumire = "Selectează autor..." });
+
+                        foreach (DataRow rand in dt.Rows)
                         {
-                            DataTable dt = new DataTable();
-                            da.Fill(dt);
-
-                            List<ComboItem> lista = new List<ComboItem>();
-                            lista.Add(new ComboItem { Id = -1, Denumire = "Selectează autor..." });
-                            foreach (DataRow rand in dt.Rows)
+                            lista.Add(new ComboItem
                             {
-                                ComboItem item = new ComboItem
-                                {
-                                    Id = Convert.ToInt32(rand["id"]),
-                                    Denumire = rand["nume"].ToString()
-                                };
-                                lista.Add(item);
-                            }
-
-                            cbAutor.ItemsSource = lista;
-                            cbAutor.DisplayMemberPath = "Denumire";
-                            cbAutor.SelectedValuePath = "Id";
-                            cbAutor.SelectedIndex = 0;
+                                Id = Convert.ToInt32(rand["id"]),
+                                Denumire = rand["nume"].ToString()
+                            });
                         }
+
+                        // NU mai folosi Items.Clear()
+                        cbAutor.ItemsSource = null;   // resetare binding
+                        cbAutor.ItemsSource = lista;  // reatașare listă
+
+                        cbAutor.DisplayMemberPath = "Denumire";
+                        cbAutor.SelectedValuePath = "Id";
+                        cbAutor.SelectedIndex = 0;
                     }
                 }
             }
@@ -220,39 +220,39 @@ namespace BibliotecaCEITI
             }
         }
 
+
         private void PopuleazaCategorii()
         {
             string query = "CALL sp_categorii_carti();";
-            cbCategorie.Items.Clear();
             try
             {
                 using (MySqlConnection conn = DatabaseConfig.GetConnection())
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
                 {
-                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    conn.Open();
+                    using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
                     {
-                        conn.Open();
-                        using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+
+                        List<ComboItem> lista = new List<ComboItem>();
+                        lista.Add(new ComboItem { Id = -1, Denumire = "Selectează categoria..." });
+
+                        foreach (DataRow rand in dt.Rows)
                         {
-                            DataTable dt = new DataTable();
-                            da.Fill(dt);
-
-                            List<ComboItem> lista = new List<ComboItem>();
-                            lista.Add(new ComboItem { Id = -1, Denumire = "Selectează categoria..." });
-                            foreach (DataRow rand in dt.Rows)
+                            lista.Add(new ComboItem
                             {
-                                ComboItem item = new ComboItem
-                                {
-                                    Id = Convert.ToInt32(rand["id"]),
-                                    Denumire = rand["denumire"].ToString()
-                                };
-                                lista.Add(item);
-                            }
-
-                            cbCategorie.ItemsSource = lista;
-                            cbCategorie.DisplayMemberPath = "Denumire";
-                            cbCategorie.SelectedValuePath = "Id";
-                            cbCategorie.SelectedIndex = 0;
+                                Id = Convert.ToInt32(rand["id"]),
+                                Denumire = rand["denumire"].ToString()
+                            });
                         }
+
+                        cbCategorie.ItemsSource = null;
+                        cbCategorie.ItemsSource = lista;
+
+                        cbCategorie.DisplayMemberPath = "Denumire";
+                        cbCategorie.SelectedValuePath = "Id";
+                        cbCategorie.SelectedIndex = 0;
                     }
                 }
             }
@@ -265,36 +265,35 @@ namespace BibliotecaCEITI
         private void PopuleazaEdituri()
         {
             string query = "CALL sp_edituri();";
-            cbEditura.Items.Clear();
             try
             {
                 using (MySqlConnection conn = DatabaseConfig.GetConnection())
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
                 {
-                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    conn.Open();
+                    using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
                     {
-                        conn.Open();
-                        using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+
+                        List<ComboItem> lista = new List<ComboItem>();
+                        lista.Add(new ComboItem { Id = -1, Denumire = "Selectează editura..." });
+
+                        foreach (DataRow rand in dt.Rows)
                         {
-                            DataTable dt = new DataTable();
-                            da.Fill(dt);
-
-                            List<ComboItem> lista = new List<ComboItem>();
-                            lista.Add(new ComboItem { Id = -1, Denumire = "Selectează editura..." });
-                            foreach (DataRow rand in dt.Rows)
+                            lista.Add(new ComboItem
                             {
-                                ComboItem item = new ComboItem
-                                {
-                                    Id = Convert.ToInt32(rand["id"]),
-                                    Denumire = rand["denumire"].ToString()
-                                };
-                                lista.Add(item);
-                            }
-
-                            cbEditura.ItemsSource = lista;
-                            cbEditura.DisplayMemberPath = "Denumire";
-                            cbEditura.SelectedValuePath = "Id";
-                            cbEditura.SelectedIndex = 0;
+                                Id = Convert.ToInt32(rand["id"]),
+                                Denumire = rand["denumire"].ToString()
+                            });
                         }
+
+                        cbEditura.ItemsSource = null;
+                        cbEditura.ItemsSource = lista;
+
+                        cbEditura.DisplayMemberPath = "Denumire";
+                        cbEditura.SelectedValuePath = "Id";
+                        cbEditura.SelectedIndex = 0;
                     }
                 }
             }
@@ -753,8 +752,137 @@ namespace BibliotecaCEITI
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
+            string input = Microsoft.VisualBasic.Interaction.InputBox("Scrie aici numele și prenumele autorului.", "Adaugă autor");
 
+            if (string.IsNullOrEmpty(input)) return;
+
+            string nume = input;
+
+            try
+            {
+                using (MySqlConnection conn = DatabaseConfig.GetConnection())
+                using (MySqlCommand cmd = new MySqlCommand("sp_add_author", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("p_nume", nume);
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+
+                    MessageBox.Show("Autorul: " + nume + " a fost adăugat cu succes!", "Succes");
+                }
+                PopuleazaAutori();
+                List<ComboItem> listaAutori = (List<ComboItem>)cbAutor.ItemsSource;
+
+                if (listaAutori != null)
+                {
+                    foreach (ComboItem autor in listaAutori)
+                    {
+                        if (autor.Denumire.ToLower() == nume.ToLower())
+                        {
+                            cbAutor.SelectedValue = autor.Id;
+                            break;
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Eroare la baza de date: " + ex.Message, "Eroare");
+            }
         }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            string denumire = Microsoft.VisualBasic.Interaction.InputBox("Scrie aici denumirea categoriei de cărți.", "Adaugă categorie");
+
+            if (string.IsNullOrEmpty(denumire)) return;
+
+            string tip = Microsoft.VisualBasic.Interaction.InputBox("Scrie tipul categoriei (carte/manual).", "Tip categorie");
+
+            if (string.IsNullOrEmpty(tip)) return;
+
+            try
+            {
+                using (MySqlConnection conn = DatabaseConfig.GetConnection())
+                using (MySqlCommand cmd = new MySqlCommand("sp_add_bookCategory", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("p_denumire", denumire);
+                    cmd.Parameters.AddWithValue("p_tip", tip);
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+
+                    MessageBox.Show("Categoria: " + denumire + " (" + tip + ") a fost adăugată cu succes!", "Succes");
+                }
+
+                PopuleazaCategorii();
+
+                List<ComboItem> listaCategorii = (List<ComboItem>)cbCategorie.ItemsSource;
+                if (listaCategorii != null)
+                {
+                    foreach (ComboItem categorie in listaCategorii)
+                    {
+                        if (categorie.Denumire.Equals(denumire, StringComparison.OrdinalIgnoreCase))
+                        {
+                            cbCategorie.SelectedValue = categorie.Id;
+                            break;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Eroare la baza de date: " + ex.Message, "Eroare");
+            }
+        }
+
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            string input = Microsoft.VisualBasic.Interaction.InputBox("Scrie aici denumirea editurii.", "Adaugă editura");
+
+            if (string.IsNullOrEmpty(input)) return;
+
+            string denumire = input;
+
+            try
+            {
+                using (MySqlConnection conn = DatabaseConfig.GetConnection())
+                using (MySqlCommand cmd = new MySqlCommand("sp_add_editura", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("p_denumire", denumire);
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+
+                    MessageBox.Show("Editura: " + denumire + " a fost adăugată cu succes!", "Succes");
+                }
+                PopuleazaEdituri();
+                List<ComboItem> listaEdituri = (List<ComboItem>)cbEditura.ItemsSource;
+
+                if (listaEdituri != null)
+                {
+                    foreach (ComboItem editura in listaEdituri)
+                    {
+                        if (editura.Denumire.ToLower() == denumire.ToLower())
+                        {
+                            cbEditura.SelectedValue = editura.Id;
+                            break;
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Eroare la baza de date: " + ex.Message, "Eroare");
+            }
+        }
+
     }
 }
 

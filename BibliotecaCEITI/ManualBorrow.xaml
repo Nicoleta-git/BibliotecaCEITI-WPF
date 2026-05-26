@@ -23,7 +23,6 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,0,10">
             <StackPanel Margin="40,30">
 
-                <!-- NAVIGATION: Back button -->
                 <Button x:Name="btnBack" Background="Transparent" BorderThickness="0" Cursor="Hand"
                         Click="BtnInapoi_Click" HorizontalAlignment="Left">
                     <StackPanel Orientation="Horizontal">
@@ -33,62 +32,67 @@
                     </StackPanel>
                 </Button>
 
-                <!-- PAGE TITLE -->
                 <TextBlock Text="Manuale" FontSize="28" FontWeight="Bold" Foreground="#1E293B" Margin="0,10,0,5"/>
                 <TextBlock Text="Selectează un manual sau o grupă pentru a gestiona împrumuturile."
                            Foreground="#718096" FontSize="13" Margin="0,0,0,25"/>
 
-                <!-- FILTERS -->
+                <Border Background="White" CornerRadius="8" BorderBrush="#E2E8F0" BorderThickness="1"
+                        Padding="10" Margin="0,0,0,15" HorizontalAlignment="Stretch">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <Button x:Name="BtnModImprumut" Content="Împrumut" Width="160" Height="36" Margin="10,0,20,0"
+                                Tag="activ"
+                                Style="{StaticResource GlobalActionButtonStyle}" Click="BtnModImprumut_Click"/>
+                        <Button x:Name="BtnModReturnare" Content="Returnare" Width="160" Height="36"
+                                Background="#E2E8F0" Foreground="#64748B"
+                                Style="{StaticResource GlobalActionButtonStyle}" Click="BtnModReturnare_Click"/>
+                    </StackPanel>
+                </Border>
+
                 <Border Background="White" CornerRadius="8" BorderBrush="#E2E8F0" BorderThickness="1"
                         Padding="20" Margin="0,0,0,15">
-                    <StackPanel Orientation="Horizontal">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.2*"/>
+                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
 
-                        <!-- COMBOBOX 1: Categoria -->
-                        <StackPanel Margin="0,0,20,0">
+                        <StackPanel Grid.Column="0" Margin="0,0,20,0">
                             <TextBlock Text="Categoria" FontSize="12" Foreground="#64748B" Margin="0,0,0,6"/>
-                            <ComboBox x:Name="CmbCategorie" Width="180" Height="40"
+                            <ComboBox x:Name="CmbCategorie" Height="40" HorizontalAlignment="Stretch"
                                       DisplayMemberPath="NumeCategorie" SelectionChanged="CmbCategorie_SelectionChanged"/>
                         </StackPanel>
 
-                        <!-- COMBOBOX 2: Manualul specific -->
-                        <StackPanel Margin="0,0,20,0">
+                        <StackPanel Grid.Column="1" Margin="0,0,20,0">
                             <TextBlock Text="Manual" FontSize="12" Foreground="#64748B" Margin="0,0,0,6"/>
-                            <ComboBox x:Name="CmbManual" Width="250" Height="40"
-                                      DisplayMemberPath="Denumire"
-                                      SelectionChanged="CmbManual_SelectionChanged"/>
+                            <ComboBox x:Name="CmbManual" Height="40" HorizontalAlignment="Stretch"
+                                      DisplayMemberPath="Denumire" SelectedValuePath="Id" SelectionChanged="CmbManual_SelectionChanged"/>
                         </StackPanel>
 
-                        <!-- INFO & BUTON: Exemplare -->
-                        <StackPanel Margin="0,0,20,0">
+                        <StackPanel Grid.Column="2" Margin="0,0,20,0">
                             <TextBlock x:Name="TxtNumarExemplare" Text="Exemplare existente: 0" FontSize="12" Foreground="#64748B" Margin="0,0,0,6"/>
                             <Button x:Name="BtnAdaugaExemplare" Content="+ Adaugă exemplare" Width="180" Height="40"
                                     Style="{StaticResource GlobalActionButtonStyle}" Click="BtnAdaugaExemplare_Click"/>
                         </StackPanel>
 
-                        <!-- COMBOBOX 3: Group -->
-                        <StackPanel>
+                        <StackPanel Grid.Column="3">
                             <TextBlock Text="Grupa" FontSize="12" Foreground="#64748B" Margin="0,0,0,6"/>
-                            <ComboBox x:Name="CmbGrupa" Width="150" Height="40"
+                            <ComboBox x:Name="CmbGrupa" Height="40" HorizontalAlignment="Stretch"
                                       DisplayMemberPath="NumeGrupa" SelectionChanged="CmbGrupa_SelectionChanged"/>
                         </StackPanel>
-
-                    </StackPanel>
+                    </Grid>
                 </Border>
 
-                <!-- STUDENTS LIST -->
                 <Border Background="White" CornerRadius="8" BorderBrush="#E2E8F0" BorderThickness="1"
                         Padding="20" Margin="0,0,0,15">
                     <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="284*"/>
-                            <ColumnDefinition Width="155*"/>
-                        </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock x:Name="TxtGrupLabel" Grid.Row="0" Text="Elevi în grupa A" FontSize="15" FontWeight="SemiBold" Foreground="#1E293B" Margin="0,0,0,12" Grid.ColumnSpan="2"/>
+                        <TextBlock x:Name="TxtGrupLabel" Grid.Row="0" Text="Elevi în grupa A" FontSize="15" FontWeight="SemiBold" Foreground="#1E293B" Margin="0,0,0,12"/>
 
                         <DataGrid x:Name="DgElevi" Grid.Row="1"
                                   Style="{StaticResource ModernDataGridStyle}"
@@ -96,13 +100,12 @@
                                   CanUserAddRows="False" 
                                   Foreground="Black" 
                                   MinHeight="360" 
-                                  Grid.ColumnSpan="2" 
-                                  Margin="10,10,-10,-10"
+                                  Margin="0,10,0,0"
+                                  HorizontalAlignment="Stretch"
                                   VirtualizingPanel.IsVirtualizing="False"
                                   ScrollViewer.CanContentScroll="False"
                                   EnableRowVirtualization="False">
                             <DataGrid.Columns>
-
                                 <DataGridTemplateColumn Header="Elev" Width="*" IsReadOnly="True" CellStyle="{StaticResource LeftAlignedCellStyle}">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
@@ -117,9 +120,6 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-
-
-                                <!-- 2. Coloana CheckBox (Aici este a doua, deci în dreapta) -->
                                 <DataGridTemplateColumn Header="Selectat" Width="100">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
@@ -129,30 +129,34 @@
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
-
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>
                 </Border>
 
-                <!-- FOOTER -->
                 <Border Background="White" CornerRadius="8" BorderBrush="#E2E8F0" BorderThickness="1"
                         Padding="20,12">
                     <Grid>
-                        <TextBox x:Name="TxtEleviSelectati" Width="300" Height="38" IsReadOnly="True"
-                                 
-                                 HorizontalAlignment="Left" Margin="0,1,0,1" Text="Elevi selectati:"/>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox x:Name="TxtEleviSelectati" Grid.Column="0" Width="300" Height="38" IsReadOnly="True"
+                                 VerticalAlignment="Center" Text="Elevi selectati:"/>
+
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                             <CheckBox x:Name="ChkBifeazaToti" Content="Bifează toți"
                                       VerticalAlignment="Center" Margin="0,0,20,0"
                                       FontSize="14" Foreground="#2D3748"
                                       Checked="ChkBifeazaToti_Changed" Unchecked="ChkBifeazaToti_Changed"/>
-                            <Button x:Name="Btnreturneaza" Content="Returneaza" Width="120" Height="40" Background="Red" Margin="5,5,5,5"
-                                    Style="{StaticResource GlobalActionButtonStyle}"
-                                    Click="BtnSalveaza_Click"/>
-                            <Button x:Name="BtnSalveaza" Content="Salvează" Width="120" Height="40"
-                                    Style="{StaticResource GlobalActionButtonStyle}"
-                                    Click="BtnSalveaza_Click"/>
+
+                            <Button x:Name="BtnSalveaza" Content="Salvează împrumut" Width="180" Height="40"
+                                    Style="{StaticResource GlobalActionButtonStyle}" Click="BtnSalveaza_Click"/>
+
+                            <Button x:Name="BtnReturnare" Content="Confirmă returnare" Width="180" Height="40"
+                                    Visibility="Collapsed"
+                                    Style="{StaticResource GlobalActionButtonStyle}" Click="BtnReturnare_Click"/>
                         </StackPanel>
                     </Grid>
                 </Border>

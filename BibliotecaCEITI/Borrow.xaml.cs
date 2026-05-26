@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media.Imaging;
 
 namespace BibliotecaCEITI
@@ -21,6 +22,7 @@ namespace BibliotecaCEITI
         private int id_imprumutSelectat, id_exemplar, id_carte, id_autor, id_categorie, id_elev, id_grupa;
         private string elev, grupa, carte, autor, data_imprumut, data_returnare, termen, stare;
         int idBibliotecar = 1;
+        private bool isInitialized = false;
 
         private void txtSearch_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -48,6 +50,8 @@ namespace BibliotecaCEITI
             SelectBook();
             PopuleazaGrupe();
             PopuleazaStari();
+
+            isInitialized = true;
         }
 
         private void ImprumutNou_Click(object sender, RoutedEventArgs e)
@@ -90,17 +94,25 @@ namespace BibliotecaCEITI
             {
                 e.Column.Visibility = Visibility.Collapsed;
             }
-            if (e.PropertyType == typeof(DateTime) || e.PropertyType == typeof(DateTime?))
+            string[] coloaneDate = { "Data_returnare", "Data_imprumut" };
+
+            if (coloaneDate.Contains(e.PropertyName))
             {
                 if (e.Column is DataGridTextColumn col)
                 {
-                    col.Binding.StringFormat = "dd.MM.yyyy";
+                    Binding b = col.Binding as Binding;
+                    if (b != null)
+                    {
+                        b.StringFormat = "dd.MM.yyyy";
+                        b.TargetNullValue = "━";
+                    }
                 }
             }
         }
 
         private async void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (!isInitialized) return;
             if (_cancellationTokenSource != null)
             {
                 _cancellationTokenSource.Cancel();
@@ -359,11 +371,13 @@ namespace BibliotecaCEITI
 
         private async void cbGrupe_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (!isInitialized) return;
             await AplicaFiltreDB();
         }
 
         private async void cbStari_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (!isInitialized) return;
             await AplicaFiltreDB();
         }
 

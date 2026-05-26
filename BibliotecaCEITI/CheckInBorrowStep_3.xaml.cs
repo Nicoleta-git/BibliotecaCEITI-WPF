@@ -26,13 +26,21 @@ namespace BibliotecaCEITI
     {
         private int _idExemplar;
         private DateTime _data_imprumut, _data_returnare;
-        public CheckInBorrowStep_3(int idExemplarSelectat)
+        public CheckInBorrowStep_3(int idExemplarSelectat, DateTime? data_impr = null, DateTime? data_retur = null)
         {
             InitializeComponent();
             _idExemplar = idExemplarSelectat;
             LoadDataBook();
             atentionare.Visibility = Visibility.Hidden;
-            data_imprumut.SelectedDate = DateTime.Now;
+
+            if (data_impr.HasValue)
+            {
+                data_imprumut.SelectedDate = data_impr.Value;
+            }
+            else
+            {
+                data_imprumut.SelectedDate = DateTime.Now;
+            }
         }
 
         public void InitDates()

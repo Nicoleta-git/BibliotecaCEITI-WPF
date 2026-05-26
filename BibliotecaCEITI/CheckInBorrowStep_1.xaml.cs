@@ -23,13 +23,16 @@ namespace BibliotecaCEITI
     public partial class CheckInBorrowStep_1 : UserControl
     {
         private CancellationTokenSource _cancellationTokenSource;
-        public CheckInBorrowStep_1()
+        private int _idElev;
+        public CheckInBorrowStep_1(int idElev)
         {
             InitializeComponent();
-            SelectStudentsAsync();
+            _idElev = idElev;
 
             SearchBox.Text = "Caută un elev...";
             SearchBox.Foreground = new SolidColorBrush(Colors.Gray);
+
+            SelectStudentsAsync();
         }
 
         private async Task SelectStudentsAsync()
@@ -74,6 +77,18 @@ namespace BibliotecaCEITI
                 }
 
                 StudentsGrid.ItemsSource = elevi;
+                if (_idElev > 0)
+                {
+                    foreach (ElevModel elev in elevi)
+                    {
+                        if (elev.Id == _idElev)
+                        {
+                            StudentsGrid.SelectedItem = elev;
+                            StudentsGrid.ScrollIntoView(elev);
+                            break;
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
