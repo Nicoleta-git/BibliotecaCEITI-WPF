@@ -229,5 +229,10 @@ namespace BibliotecaCEITI
             data_curenta.Text = zi + " " + luna + " " + an;
             ora_actuala.Text = DateTime.Now.ToString("HH:mm:ss");
         }
+
+        private void BtnStatistica_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

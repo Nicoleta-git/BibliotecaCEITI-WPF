@@ -31,8 +31,8 @@
             <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
                 <TextBlock Text="✦" Foreground="{DynamicResource PrimaryEmerald}" FontSize="24" VerticalAlignment="Center" Margin="0,0,10,0"/>
                 <StackPanel VerticalAlignment="Center">
-                    <TextBlock Text="Gemini" FontWeight="Bold" FontSize="20" Foreground="{DynamicResource TextPrimary}"/>
-                    <TextBlock Text="Pune întrebări" FontSize="13" Foreground="{DynamicResource TextMuted}"/>
+                    <TextBlock Text="Gemini AI" FontWeight="Bold" FontSize="20" Foreground="{DynamicResource TextPrimary}"/>
+                    <TextBlock Text="Management &amp; Generare Documente Cărți" FontSize="13" Foreground="{DynamicResource TextMuted}"/>
                 </StackPanel>
             </StackPanel>
 
@@ -48,14 +48,27 @@
 
                                     <Border Background="{Binding BackgroundBrush}" 
                                             CornerRadius="{Binding BubbleRadius}" 
-                                            Padding="14,10" 
-                                            MaxWidth="340"
+                                            Padding="10" 
+                                            MaxWidth="350"
                                             BorderThickness="{Binding BorderThickness}"
                                             BorderBrush="{Binding BorderBrush}">
-                                        <TextBlock Text="{Binding MessageText}" 
-                                                   TextWrapping="Wrap" 
-                                                   FontSize="14" 
-                                                   Foreground="{Binding TextBrush}"/>
+
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Text="{Binding MessageText}" 
+                                                       TextWrapping="Wrap" 
+                                                       FontSize="14" 
+                                                       Foreground="{Binding TextBrush}"
+                                                       Visibility="{Binding TextVisibility}"
+                                                       Margin="4"/>
+
+                                            <Border CornerRadius="10" ClipToBounds="True" Visibility="{Binding ImageVisibility}" Margin="2">
+                                                <Image Source="{Binding GeneratedImage}" 
+                                                       Stretch="Uniform" 
+                                                       MaxWidth="320" 
+                                                       MaxHeight="450" 
+                                                       RenderOptions.BitmapScalingMode="HighQuality"/>
+                                            </Border>
+                                        </StackPanel>
                                     </Border>
 
                                     <Grid.Triggers>
