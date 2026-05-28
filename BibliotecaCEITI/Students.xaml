@@ -88,6 +88,7 @@
           Margin="0,20,0,20" 
           Grid.ColumnSpan="2" SelectionChanged="StudentsGrid_SelectionChanged">
             <DataGrid.Columns>
+
                 <DataGridTemplateColumn Header="" Width="70" CanUserResize="False">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -119,32 +120,31 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <Border Width="75" Height="75" Background="{DynamicResource PrimaryEmerald}" CornerRadius="45" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" Margin="0,0,20,0">
-                    <TextBlock x:Name="initiale_elev" Text="N/A" Foreground="White" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Border Width="75" Height="75" Background="{DynamicResource WindowBackground}" CornerRadius="8" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" Margin="0,0,20,0">
+                    <Image x:Name="qr_code_elev_detalii" Stretch="Uniform" Margin="5"/>
                 </Border>
 
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
                     <TextBlock Text="DETALII ELEV" FontSize="10" FontWeight="Black" Foreground="{DynamicResource TextMuted}" Margin="0,0,0,5"/>
-                    <TextBlock x:Name="nume_elev" Text="Selectează un elev" 
-                       FontSize="22" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
+                    <TextBlock x:Name="nume_elev" Text="Selectează un elev" FontSize="22" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
 
-                    <WrapPanel Margin="0,8,0,0">
+                    <WrapPanel Margin="0,8,0,0" DataContext="{Binding SelectedItem, ElementName=StudentsGrid}">
                         <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
                             <fa5:ImageAwesome Icon="Solid_User" Width="12" Foreground="{DynamicResource PrimaryBlue}" Margin="0,0,5,0"/>
                             <TextBlock Text="Nume: " Foreground="{DynamicResource TextMuted}"/>
-                            <TextBlock x:Name="nume" Text="{Binding SelectedItem.LocatieCompleta, FallbackValue='N/A'}" Foreground="{DynamicResource TextPrimary}" FontWeight="SemiBold"/>
+                            <TextBlock x:Name="nume" Text="{Binding NumeElev, FallbackValue='N/A'}" Foreground="{DynamicResource TextPrimary}" FontWeight="SemiBold"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
                             <fa5:ImageAwesome Icon="Solid_GraduationCap" Width="12" Foreground="{DynamicResource TextMuted}" Margin="0,0,5,0"/>
-                            <TextBlock Text="Clasa: " Foreground="{DynamicResource TextMuted}"/>
-                            <TextBlock x:Name="grupa_e" Text="{Binding SelectedItem.EdituraDenumire, FallbackValue='Nespecificat'}" Foreground="{DynamicResource TextPrimary}" FontWeight="SemiBold"/>
+                            <TextBlock Text="Grupa: " Foreground="{DynamicResource TextMuted}"/>
+                            <TextBlock x:Name="grupa_e" Text="{Binding Grupa, FallbackValue='N/A'}" Foreground="{DynamicResource TextPrimary}" FontWeight="SemiBold"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
                             <fa5:ImageAwesome Icon="Solid_Book" Width="12" Foreground="{DynamicResource TextMuted}" Margin="0,0,5,0"/>
                             <TextBlock Text="Nr cărți împrumutate: " Foreground="{DynamicResource TextMuted}"/>
-                            <TextBlock x:Name="nr_carti_imprumutate" Text="{Binding SelectedItem.CategorieTip, FallbackValue='0'}" Foreground="{DynamicResource TextPrimary}" FontWeight="SemiBold"/>
+                            <TextBlock x:Name="nr_carti_imprumutate" Text="{Binding NrCartiImprumutate, FallbackValue='0'}" Foreground="{DynamicResource TextPrimary}" FontWeight="SemiBold"/>
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
