@@ -11,23 +11,23 @@ namespace BibliotecaCEITI
 {
     public static class UsefulFunction
     {
-        public static BitmapImage GetImagineCarte(int idCarte)
+        public static BitmapImage GetImagine(int id, string parametru, string query)
         {
             try
             {
                 using (MySqlConnection conn = DatabaseConfig.GetConnection())
                 {
                     conn.Open();
-                    using (MySqlCommand cmd = new MySqlCommand("sp_imagine_carte", conn))
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@p_id", idCarte);
+                        cmd.Parameters.AddWithValue("@p_id", id);
 
                         using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
-                            if (reader.Read() && !reader.IsDBNull(reader.GetOrdinal("Imagine")))
+                            if (reader.Read() && !reader.IsDBNull(reader.GetOrdinal(parametru)))
                             {
-                                byte[] copertaBytes = (byte[])reader["Imagine"];
+                                byte[] copertaBytes = (byte[])reader[parametru];
                                 return ConvertBytesToImage(copertaBytes);
                             }
                         }

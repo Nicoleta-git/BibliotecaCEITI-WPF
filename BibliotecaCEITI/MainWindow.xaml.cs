@@ -37,7 +37,7 @@ namespace BibliotecaCEITI
             InitTimer();
             nume_bibliotecar.Text = SesiuneBibliotecar.NumeBibliotecar;
             rol_bibliotecar.Text = SesiuneBibliotecar.RolBibliotecar;
-            SetPozaProfil(SesiuneBibliotecar.PozaProfil);
+            imgProfil.Source = UsefulFunction.ConvertBytesToImage(SesiuneBibliotecar.PozaProfil);
         }
 
         // ── Constructor nou pentru login cu sesiune ──────────────────────
@@ -130,6 +130,7 @@ namespace BibliotecaCEITI
         }
         private void BtnDeconectare_Click(object sender, RoutedEventArgs e)
         {
+            SesiuneBibliotecar.CurataSesiune();
             var login = new LoginWindow();
             login.Show();
 
@@ -233,37 +234,11 @@ namespace BibliotecaCEITI
             ora_actuala.Text = DateTime.Now.ToString("HH:mm:ss");
         }
 
-        private void SetPozaProfil(byte[] poza)
-        {
-            if (poza == null || poza.Length == 0)
-            {
-                imgProfil.Source = null;
-                return;
-            }
-            try
-            {
-                using (var ms = new System.IO.MemoryStream(poza))
-                {
-                    BitmapImage bitmap = new BitmapImage();
-                    bitmap.BeginInit();
-                    bitmap.StreamSource = ms;
-                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmap.EndInit();
-                    bitmap.Freeze();
-                    imgProfil.Source = bitmap;
-                }
-            }
-            catch
-            {
-                imgProfil.Source = null;
-            }
-        }
-
         public void ActualizeazaHeader(string nume, string rol, byte[] poza)
         {
             nume_bibliotecar.Text = nume;
             rol_bibliotecar.Text = rol;
-            SetPozaProfil(poza);
+            imgProfil.Source = UsefulFunction.ConvertBytesToImage(poza);
         }
     }
 }

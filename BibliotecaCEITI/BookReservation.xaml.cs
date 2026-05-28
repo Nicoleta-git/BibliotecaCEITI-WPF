@@ -288,7 +288,7 @@ namespace BibliotecaCEITI
                         MessageBox.Show("Eroare la încărcarea datelor: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
 
-                    imgCoperta.Source = UsefulFunction.GetImagineCarte(idExemplar);
+                    imgCoperta.Source = UsefulFunction.GetImagine(idExemplar, "Imagine", "sp_imagine_carte");
                 }
                 catch (Exception ex)
                 {
