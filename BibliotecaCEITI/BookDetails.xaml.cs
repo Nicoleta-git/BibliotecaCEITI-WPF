@@ -107,7 +107,7 @@ namespace BibliotecaCEITI
                                 cbEditura.SelectedValue = reader["Editura"] != DBNull.Value ? Convert.ToInt32(reader["Editura"]) : -1;
                                 cbLimba.SelectedValue = reader["Limba"] != DBNull.Value ? Convert.ToInt32(reader["Limba"]) : -1;
                             }
-                            imgCoperta.Source = UsefulFunction.GetImagineCarte(_idCarte);
+                            imgCoperta.Source = UsefulFunction.GetImagine(_idCarte, "Imagine", "sp_imagine_carte");
                         }
                     }
                 }

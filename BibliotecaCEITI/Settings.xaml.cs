@@ -64,24 +64,7 @@ namespace BibliotecaCEITI
                                 if (reader["DataCreareCont"] != DBNull.Value)
                                     SesiuneBibliotecar.dataCreare = Convert.ToDateTime(reader["DataCreareCont"]);
 
-                                if (!reader.IsDBNull(reader.GetOrdinal("Poza_de_pofil")))
-                                {
-                                    SesiuneBibliotecar.PozaProfil = (byte[])reader["Poza_de_pofil"];
-                                    using (MemoryStream ms = new MemoryStream(SesiuneBibliotecar.PozaProfil))
-                                    {
-                                        BitmapImage bitmap = new BitmapImage();
-                                        bitmap.BeginInit();
-                                        bitmap.StreamSource = ms;
-                                        bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                                        bitmap.EndInit();
-                                        bitmap.Freeze();
-                                        imgSettingsLogo.Source = bitmap;
-                                    }
-                                }
-                                else
-                                {
-                                    imgSettingsLogo.Source = null;
-                                }
+                                imgSettingsLogo.Source = UsefulFunction.GetImagine(id, "Poza_de_pofil", "sp_select_data_bibliotecar");
 
                                 int zile = (int)(DateTime.Now - SesiuneBibliotecar.dataCreare).TotalDays;
                                 lblFine.Text = zile + " zile";

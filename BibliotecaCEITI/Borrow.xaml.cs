@@ -259,7 +259,7 @@ namespace BibliotecaCEITI
                     titlu.Text = "Fără titlu";
                 }
 
-                BitmapImage imagine = UsefulFunction.GetImagineCarte(id_carte);
+                BitmapImage imagine = UsefulFunction.GetImagine(id_carte, "Imagine", "sp_imagine_carte");
 
                 if (imagine != null)
                 {

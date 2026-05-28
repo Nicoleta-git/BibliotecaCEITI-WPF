@@ -124,7 +124,7 @@ namespace BibliotecaCEITI
                     }
                 }
             }
-            BitmapImage imagine = UsefulFunction.GetImagineCarte(_idCarte);
+            BitmapImage imagine = UsefulFunction.GetImagine(_idCarte, "Imagine", "sp_imagine_carte");
 
             if (imagine != null)
             {
