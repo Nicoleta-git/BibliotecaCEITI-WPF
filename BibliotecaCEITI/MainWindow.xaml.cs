@@ -240,5 +240,11 @@ namespace BibliotecaCEITI
             rol_bibliotecar.Text = rol;
             imgProfil.Source = UsefulFunction.ConvertBytesToImage(poza);
         }
+
+        private void SurpriseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            SurpriseWindow surpriseWindow = new SurpriseWindow();
+            surpriseWindow.ShowDialog();
+        }
     }
 }

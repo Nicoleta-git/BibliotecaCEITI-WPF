@@ -142,20 +142,32 @@
                                 </StackPanel>
                             </StackPanel>
 
+                            <Button x:Name="SurpriseBtn" 
+                    Style="{StaticResource GlobalActionButtonStyle}" 
+                    Padding="0" 
+                    Height="30" 
+                    Width="30"  
+                    Margin="0,0,8,0" 
+                    Background="#FF4081" 
+                    Click="SurpriseBtn_Click" 
+                    ToolTip="Surpriză pentru doamna profesoară!">
+                                <fa5:ImageAwesome Icon="Solid_BirthdayCake" Width="14" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Button>
+
                             <Button x:Name="ThemeBtn" 
-                                    Style="{StaticResource GlobalActionButtonStyle}" 
-                                    Padding="0" 
-                                    Height="30" 
-                                    Width="30"  
-                                    Margin="0,0,8,0" 
-                                    Click="ThemeBtn_Click" 
-                                    ToolTip="Schimbă Tema">
+                    Style="{StaticResource GlobalActionButtonStyle}" 
+                    Padding="0" 
+                    Height="30" 
+                    Width="30"  
+                    Margin="0,0,8,0" 
+                    Click="ThemeBtn_Click" 
+                    ToolTip="Schimbă Tema">
                                 <fa5:ImageAwesome x:Name="ThemeIcon" 
-                      Icon="Solid_Moon" 
-                      Width="14" 
-                      Foreground="White" 
-                      VerticalAlignment="Center" 
-                      HorizontalAlignment="Center"/>
+                                  Icon="Solid_Moon" 
+                                  Width="14" 
+                                  Foreground="White" 
+                                  VerticalAlignment="Center" 
+                                  HorizontalAlignment="Center"/>
                             </Button>
 
                             <Button Style="{StaticResource GlobalActionButtonStyle}" Padding="0" Height="30" Width="30" Background="#8a8a8a" Click="SettingsBtn_Click">
