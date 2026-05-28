@@ -2,25 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
+using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using static OpenTK.Graphics.OpenGL.GL;
+using QRCoder;
 
 namespace BibliotecaCEITI
 {
-    /// <summary>
-    /// Interaction logic for Students.xaml
-    /// </summary>
     public partial class Students : UserControl
     {
         private CancellationTokenSource _cancellationTokenSource;
@@ -124,6 +116,32 @@ namespace BibliotecaCEITI
             }
         }
 
+        private BitmapImage GenereazaCodQR(string textPentruQR)
+        {
+            if (string.IsNullOrEmpty(textPentruQR)) return null;
+
+            using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
+            {
+                QRCodeData qrCodeData = qrGenerator.CreateQrCode(textPentruQR, QRCodeGenerator.ECCLevel.Q);
+
+                using (BitmapByteQRCode qrCode = new BitmapByteQRCode(qrCodeData))
+                {
+                    byte[] qrCodeBytes = qrCode.GetGraphic(20);
+
+                    using (MemoryStream stream = new MemoryStream(qrCodeBytes))
+                    {
+                        BitmapImage bitmapImage = new BitmapImage();
+                        bitmapImage.BeginInit();
+                        bitmapImage.StreamSource = stream;
+                        bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                        bitmapImage.EndInit();
+                        bitmapImage.Freeze();
+                        return bitmapImage;
+                    }
+                }
+            }
+        }
+
         private async Task SelectStudentsAsync()
         {
             List<ElevModel> elevi = new List<ElevModel>();
@@ -187,15 +205,8 @@ namespace BibliotecaCEITI
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        if (string.IsNullOrWhiteSpace(elev))
-                            cmd.Parameters.AddWithValue("@p_elev", DBNull.Value);
-                        else
-                            cmd.Parameters.AddWithValue("@p_elev", elev);
-
-                        if (string.IsNullOrWhiteSpace(grupa))
-                            cmd.Parameters.AddWithValue("@p_grupa", DBNull.Value);
-                        else
-                            cmd.Parameters.AddWithValue("@p_grupa", grupa);
+                        cmd.Parameters.AddWithValue("@p_elev", string.IsNullOrWhiteSpace(elev) ? (object)DBNull.Value : elev);
+                        cmd.Parameters.AddWithValue("@p_grupa", string.IsNullOrWhiteSpace(grupa) ? (object)DBNull.Value : grupa);
 
                         using (MySqlDataReader reader = (MySqlDataReader)await cmd.ExecuteReaderAsync())
                         {
@@ -263,7 +274,6 @@ namespace BibliotecaCEITI
             }
             catch (TaskCanceledException)
             {
-
             }
         }
 
@@ -299,7 +309,16 @@ namespace BibliotecaCEITI
                 nume_elev.Text = elev;
                 nume.Text = elev;
                 grupa_e.Text = grupa;
-                initiale_elev.Text = initiale;
+
+                string textDeScanat = $"--- DETALII ELEV ---\n" +
+                                      $"Nume: {elev}\n" +
+                                      $"Grupa: {grupa}\n" +
+                                      $"Telefon: {telefon}\n" +
+                                      $"Email: {email}";
+                if (qr_code_elev_detalii != null)
+                {
+                    qr_code_elev_detalii.Source = GenereazaCodQR(textDeScanat);
+                }
 
                 try
                 {
@@ -325,7 +344,13 @@ namespace BibliotecaCEITI
                     nr_carti_imprumutate.Text = "0";
                 }
             }
+            else
+            {
+                if (qr_code_elev_detalii != null)
+                {
+                    qr_code_elev_detalii.Source = null;
+                }
+            }
         }
-
     }
 }
