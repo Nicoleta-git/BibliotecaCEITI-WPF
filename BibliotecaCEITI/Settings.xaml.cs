@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using MySql.Data.MySqlClient;
+using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -109,6 +110,11 @@ namespace BibliotecaCEITI
         }
 
         private async void btnSalveazaSetari_Click(object sender, RoutedEventArgs e)
+        {
+            await saveDataUser();
+        }
+
+        private async Task saveDataUser()
         {
             try
             {
