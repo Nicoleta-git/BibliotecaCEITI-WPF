@@ -1,12 +1,13 @@
-﻿<Window x:Class="NumeleProiectuluiTau.SurpriseWindow"
+﻿<Window x:Class="BibliotecaCEITI.SurpriseWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:fa5="http://schemas.fontawesome.com/icons/"
         Title="La mulți ani!" Height="450" Width="650"
-        WindowStartupLocation="CenterOwner" 
+        WindowStartupLocation="CenterScreen" 
         WindowStyle="None" 
         AllowsTransparency="True" 
-        Background="Transparent">
+        Background="Transparent"
+        WindowState="Maximized">
 
     <Window.Triggers>
         <EventTrigger RoutedEvent="Window.Loaded">
@@ -60,7 +61,7 @@
                                Foreground="#FF4081" 
                                HorizontalAlignment="Center"/>
 
-                    <TextBlock Text="Doamna Profesoară!" 
+                    <TextBlock Text="Doamna Eugenia!" 
                                FontSize="28" 
                                FontWeight="SemiBold" 
                                Foreground="#333333" 
