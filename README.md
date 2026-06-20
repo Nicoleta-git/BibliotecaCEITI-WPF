@@ -1,7 +1,7 @@
 # BibliotecaCEITI
-<img width="1536" height="1024" alt="Biblioteca CEITI" src="https://github.com/user-attachments/assets/207212b1-86ba-4d6d-9ec1-b85b58f3eb8e" />
+<img width="1536" height="1024" alt="App demo" src="https://github.com/user-attachments/assets/959fd07b-1430-4950-94ad-d8e45f6a8714" />
 
-### Tehnologii Utilizate
+### Technologies Used
 ![.NET 8.0](https://img.shields.io/badge/.NET-8.0-512bd4?style=for-the-badge&logo=.net)
 ![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp)
 ![WPF](https://img.shields.io/badge/WPF-0078d4?style=for-the-badge&logo=windows)
@@ -12,24 +12,24 @@
 
 # Installation Guide
 
-### 1. Clonarea proiectului
+### 1. Cloning the project
 
-Clonează repository-ul proiectului în **Visual Studio**.
+Clone the project repository into **Visual Studio**.
 
 ---
 
-### 2. Configurarea variabilelor de mediu
+### 2. Setting up environment variables
 
-Pentru ca aplicația să funcționeze corect, trebuie să adaugi următoarele variabile de mediu în sistemul tău:
+For the application to function correctly, you need to add the following environment variables to your system:
 
-| Nume Variabilă | Valoare |
+| Variable Name | Value |
 | --- | --- |
-| `GEMINI_API_KEY` | Cheia ta API din **Google AI Studio** |
-| `DB_password` | Parola ta pentru baza de date |
+| `GEMINI_API_KEY` | Your API key from **Google AI Studio** |
+| `DB_password` | Your database password |
 
 ---
 
-### 3. Configurarea bazei de date
+### 3. Database configuration
 
-* **Descarcă** scriptul bazei de date furnizat.
-* **Execută** scriptul mySql
+* **Download** the provided database script.
+* **Execute** the MySQL script.
