@@ -146,7 +146,7 @@ namespace BibliotecaCEITI
         {
             _isDarkTheme = !_isDarkTheme;
 
-            string targetThemePath = _isDarkTheme ? "DarkTheme.xaml" : "LightTheme.xaml";
+            string targetThemePath = _isDarkTheme ? "Themes/DarkTheme.xaml" : "Themes/LightTheme.xaml";
 
             try
             {

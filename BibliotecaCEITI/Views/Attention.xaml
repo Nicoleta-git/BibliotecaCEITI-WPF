@@ -10,7 +10,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Styles.xaml"/>
+                <ResourceDictionary Source="/Themes/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <Style x:Key="PageButtonStyle" TargetType="Button">

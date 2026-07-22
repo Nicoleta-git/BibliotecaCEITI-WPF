@@ -457,10 +457,10 @@ namespace BibliotecaCEITI
                     // Definim cele 4 tematici cerute de tine
                     var tematici = new Dictionary<string, (string Path, string ColorHex)>
                     {
-                        { "Dark Theme",    ("DarkTheme.xaml",    "#1E1E24") },
-                        { "Light Theme",   ("LightTheme.xaml",   "#4483EC") },
-                        { "Emerald Theme", ("EmeraldTheme.xaml", "#10B981") },
-                        { "Red Blue",      ("RedBlueTheme.xaml", "#E53E3E") }
+                        { "Dark Theme",    ("Themes/DarkTheme.xaml",    "#1E1E24") },
+                        { "Light Theme",   ("Themes/LightTheme.xaml",   "#4483EC") },
+                        { "Emerald Theme", ("Themes/EmeraldTheme.xaml", "#10B981") },
+                        { "Red Blue",      ("Themes/RedBlueTheme.xaml", "#E53E3E") }
                     };
 
                     // Generăm fizic butoanele în container

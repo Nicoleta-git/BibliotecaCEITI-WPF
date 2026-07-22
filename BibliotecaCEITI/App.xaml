@@ -2,16 +2,16 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:BibliotecaCEITI"
-             StartupUri="Loading.xaml">
+             StartupUri="Views/Loading.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <!-- Default theme loaded at startup -->
-                <ResourceDictionary Source="LightTheme.xaml"/>
+                <ResourceDictionary Source="Themes/LightTheme.xaml"/>
 
                 <!-- Global shared styles and control templates -->
-                <ResourceDictionary Source="DefaultControls.xaml"/>
-                <ResourceDictionary Source="Styles.xaml"/>
+                <ResourceDictionary Source="Themes/DefaultControls.xaml"/>
+                <ResourceDictionary Source="Themes/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
