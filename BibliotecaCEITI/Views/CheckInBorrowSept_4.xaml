@@ -16,43 +16,43 @@
 
             <StackPanel Grid.Row="0" Margin="25,25,25,10">
                 <Border BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="0,0,0,1" Margin="0,0,0,15">
-                    <TextBlock Text="4. Confirmă împrumut" FontSize="20" FontWeight="Bold" Padding="10" Foreground="{DynamicResource TextPrimary}"/>
+                    <TextBlock Text="{DynamicResource CheckIn_Step4Title}" FontSize="20" FontWeight="Bold" Padding="10" Foreground="{DynamicResource TextPrimary}"/>
                 </Border>
             </StackPanel>
 
             <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="25,0">
                 <Border Padding="0,0,30,0" Width="380" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="0,0,1,0">
                     <StackPanel>
-                        <TextBlock Text="Elev" FontWeight="Bold" FontSize="18" Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,20"/>
+                        <TextBlock Text="{DynamicResource Students_ColName}" FontWeight="Bold" FontSize="18" Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,20"/>
 
-                        <TextBlock Text="Nume" Foreground="{DynamicResource TextMuted}" FontSize="12"/>
+                        <TextBlock Text="{DynamicResource CheckIn_Name}" Foreground="{DynamicResource TextMuted}" FontSize="12"/>
                         <TextBlock x:Name="nume_elev" Text="Tite Nicoleta" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
 
-                        <TextBlock Text="Clasa" Foreground="{DynamicResource TextMuted}" FontSize="12"/>
+                        <TextBlock Text="{DynamicResource CheckIn_Class}" Foreground="{DynamicResource TextMuted}" FontSize="12"/>
                         <TextBlock x:Name="clasa_elev" Text="XII" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
 
-                        <TextBlock Text="ID Elev" Foreground="{DynamicResource TextMuted}" FontSize="12"/>
+                        <TextBlock Text="{DynamicResource CheckIn_StudentID}" Foreground="{DynamicResource TextMuted}" FontSize="12"/>
                         <TextBlock x:Name="id_elev" Text="8978724" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
 
-                        <TextBlock Text="Telefon" Foreground="{DynamicResource TextMuted}" FontSize="12"/>
+                        <TextBlock Text="{DynamicResource Students_ColPhone}" Foreground="{DynamicResource TextMuted}" FontSize="12"/>
                         <TextBlock x:Name="telefon_elev" Text="072 434 375" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
                     </StackPanel>
                 </Border>
 
                 <Border Padding="30,0,0,0" Width="380">
                     <StackPanel>
-                        <TextBlock Text="Carte" FontWeight="Bold" FontSize="18" Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,20"/>
+                        <TextBlock Text="{DynamicResource Grid_Book}" FontWeight="Bold" FontSize="18" Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,20"/>
 
-                        <TextBlock Text="Titlu" Foreground="{DynamicResource TextMuted}" FontSize="12"/>
+                        <TextBlock Text="{DynamicResource CheckIn_Title}" Foreground="{DynamicResource TextMuted}" FontSize="12"/>
                         <TextBlock x:Name="titlu_carte" Text="Amintiri din copilărie" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
 
-                        <TextBlock Text="Autor" Foreground="{DynamicResource TextMuted}" FontSize="12"/>
+                        <TextBlock Text="{DynamicResource Books_ColAuthor}" Foreground="{DynamicResource TextMuted}" FontSize="12"/>
                         <TextBlock x:Name="autor_carte" Text="Ion Creangă" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
 
                         <TextBlock Text="ISBN" Foreground="{DynamicResource TextMuted}" FontSize="12"/>
                         <TextBlock x:Name="isbn_carte" Text="746-4636-654" FontSize="16" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
 
-                        <TextBlock Text="Termen de returnare" Foreground="{DynamicResource TextMuted}" FontSize="12"/>
+                        <TextBlock Text="{DynamicResource CheckIn_ReturnDeadline}" Foreground="{DynamicResource TextMuted}" FontSize="12"/>
                         <TextBlock x:Name="termen_returnare" Text="04.06.2025 (14 zile)" FontSize="16" Foreground="{DynamicResource TotalBlue}" FontWeight="Medium" Margin="0,0,0,15"/>
                     </StackPanel>
                 </Border>

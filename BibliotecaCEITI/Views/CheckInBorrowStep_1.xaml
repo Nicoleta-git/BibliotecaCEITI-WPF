@@ -37,7 +37,7 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="25">
 
-                <TextBlock Text="1. Caută elev" FontSize="20" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,25"/>
+                <TextBlock Text="{DynamicResource CheckIn_Step1Title}" FontSize="20" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,25"/>
 
                 <Grid Margin="0,0,0,20">
                     <Grid.ColumnDefinitions>
@@ -58,7 +58,7 @@
                     </Border>
                 </Grid>
 
-                <TextBlock Text="Rezultate căutare" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource TextMuted}" Margin="0,0,0,10"/>
+                <TextBlock Text="{DynamicResource CheckIn_SearchResults}" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource TextMuted}" Margin="0,0,0,10"/>
                 <DataGrid x:Name="StudentsGrid"
                           Style="{StaticResource ModernDataGridStyle}"
                           AutoGenerateColumns="False"
@@ -93,15 +93,15 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTextColumn Header="Elev" Binding="{Binding NumeElev}" 
+                        <DataGridTextColumn Header="{DynamicResource Students_ColName}" Binding="{Binding NumeElev}" 
                                             FontWeight="Bold" Foreground="{DynamicResource PrimaryEmerald}"/>
-                        <DataGridTextColumn Header="Telefon" Binding="{Binding Telefon}" Width="1.2*"/>
-                        <DataGridTextColumn Header="Grupa" Binding="{Binding Grupa}" Width="*"/>
+                        <DataGridTextColumn Header="{DynamicResource Students_ColPhone}" Binding="{Binding Telefon}" Width="1.2*"/>
+                        <DataGridTextColumn Header="{DynamicResource Students_ColGroup}" Binding="{Binding Grupa}" Width="*"/>
                         <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="1.5*"/>
                     </DataGrid.Columns>
                 </DataGrid>
 
-                <TextBlock Text="Elev selectat" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource TextMuted}" Margin="0,20,0,10"/>
+                <TextBlock Text="{DynamicResource CheckIn_SelectedStudent}" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource TextMuted}" Margin="0,20,0,10"/>
                 <Border Background="{DynamicResource WindowBackground}" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" CornerRadius="12" Padding="20">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -116,17 +116,17 @@
 
                         <StackPanel Grid.Column="1" VerticalAlignment="Center">
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                                <TextBlock x:Name="nume_elev" Text="Selecteaza elev" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}" Margin="0,0,10,0"/>
+                                <TextBlock x:Name="nume_elev" Text="{DynamicResource CheckIn_SelectStudent}" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}" Margin="0,0,10,0"/>
                                 <Border x:Name="fon_activ" Background="{DynamicResource StockGreenBg}" CornerRadius="4" Padding="8,2">
-                                    <TextBlock x:Name="activ_elev" Text="Elev activ" Foreground="{DynamicResource StockGreen}" FontSize="11" FontWeight="SemiBold" Height="16"/>
+                                    <TextBlock x:Name="activ_elev" Text="{DynamicResource CheckIn_ActiveStudent}" Foreground="{DynamicResource StockGreen}" FontSize="11" FontWeight="SemiBold" Height="16"/>
                                 </Border>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock x:Name="grupa_elev" Text="Grupa: ..." Foreground="{DynamicResource TextMuted}" FontSize="13"/>
+                                <TextBlock x:Name="grupa_elev" Text="{DynamicResource CheckIn_GroupPlaceholder}" Foreground="{DynamicResource TextMuted}" FontSize="13"/>
                                 <TextBlock Text=" • " Foreground="{DynamicResource BorderBrushDark}"/>
-                                <TextBlock x:Name="ID_elev" Text="ID Elev: ..." Foreground="{DynamicResource TextMuted}" FontSize="13"/>
+                                <TextBlock x:Name="ID_elev" Text="{DynamicResource CheckIn_StudentIDPlaceholder}" Foreground="{DynamicResource TextMuted}" FontSize="13"/>
                                 <TextBlock Text=" • " Foreground="{DynamicResource BorderBrushDark}"/>
-                                <TextBlock x:Name="telefon_elev" Text="Telefon: ..." Foreground="{DynamicResource TextMuted}" FontSize="13"/>
+                                <TextBlock x:Name="telefon_elev" Text="{DynamicResource CheckIn_PhonePlaceholder}" Foreground="{DynamicResource TextMuted}" FontSize="13"/>
                             </StackPanel>
                         </StackPanel>
 

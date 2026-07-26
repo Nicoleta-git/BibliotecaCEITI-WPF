@@ -38,7 +38,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Margin="0,0,0,24" Grid.ColumnSpan="2">
-            <TextBlock Text="Gestionare Studenti" FontSize="28" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
+            <TextBlock Text="{DynamicResource Students_Management}" FontSize="28" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
         </StackPanel>
 
         <Grid Grid.Row="1" Margin="0,0,0,20" Grid.ColumnSpan="2">
@@ -61,14 +61,14 @@
             </Border>
 
             <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="15,0,0,0">
-                <Button Style="{StaticResource ActionButtonStyle}" ToolTip="Actualizează datele" Margin="0,0,10,0" Click="RefreshButton_Click">
+                <Button Style="{StaticResource ActionButtonStyle}" ToolTip="{DynamicResource Students_UpdateDataTooltip}" Margin="0,0,10,0" Click="RefreshButton_Click">
                     <fa5:ImageAwesome Icon="Solid_SyncAlt" Foreground="{DynamicResource TextPrimary}" Width="14"/>
                 </Button>
 
                 <Button Style="{StaticResource GlobalActionButtonStyle}" Foreground="White" Click="Button_Click">
                     <StackPanel Orientation="Horizontal">
                         <fa5:ImageAwesome Icon="Solid_Plus" Foreground="White" Width="12" Margin="0,0,10,0"/>
-                        <TextBlock Text="Adauga elev"/>
+                        <TextBlock Text="{DynamicResource Students_AddStudent}"/>
                     </StackPanel>
                 </Button>
             </StackPanel>
@@ -105,9 +105,9 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTextColumn Header="Elev" Binding="{Binding NumeElev}" FontWeight="Bold"/>
-                <DataGridTextColumn Header="Telefon" Binding="{Binding Telefon}"/>
-                <DataGridTextColumn Header="Grupa" Binding="{Binding Grupa}"/>
+                <DataGridTextColumn Header="{DynamicResource Students_ColName}" Binding="{Binding NumeElev}" FontWeight="Bold"/>
+                <DataGridTextColumn Header="{DynamicResource Students_ColPhone}" Binding="{Binding Telefon}"/>
+                <DataGridTextColumn Header="{DynamicResource Students_ColGroup}" Binding="{Binding Grupa}"/>
                 <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="1.5*"/>
             </DataGrid.Columns>
         </DataGrid>
@@ -125,25 +125,25 @@
                 </Border>
 
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                    <TextBlock Text="DETALII ELEV" FontSize="10" FontWeight="Black" Foreground="{DynamicResource TextMuted}" Margin="0,0,0,5"/>
-                    <TextBlock x:Name="nume_elev" Text="Selectează un elev" FontSize="22" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
+                    <TextBlock Text="{DynamicResource Students_DetailsTitle}" FontSize="10" FontWeight="Black" Foreground="{DynamicResource TextMuted}" Margin="0,0,0,5"/>
+                    <TextBlock x:Name="nume_elev" Text="{DynamicResource Students_SelectStudent}" FontSize="22" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
 
                     <WrapPanel Margin="0,8,0,0" DataContext="{Binding SelectedItem, ElementName=StudentsGrid}">
                         <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
                             <fa5:ImageAwesome Icon="Solid_User" Width="12" Foreground="{DynamicResource PrimaryBlue}" Margin="0,0,5,0"/>
-                            <TextBlock Text="Nume: " Foreground="{DynamicResource TextMuted}"/>
+                            <TextBlock Text="{DynamicResource Students_Name}" Foreground="{DynamicResource TextMuted}"/>
                             <TextBlock x:Name="nume" Text="{Binding NumeElev, FallbackValue='N/A'}" Foreground="{DynamicResource TextPrimary}" FontWeight="SemiBold"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
                             <fa5:ImageAwesome Icon="Solid_GraduationCap" Width="12" Foreground="{DynamicResource TextMuted}" Margin="0,0,5,0"/>
-                            <TextBlock Text="Grupa: " Foreground="{DynamicResource TextMuted}"/>
+                            <TextBlock Text="{DynamicResource Students_Group}" Foreground="{DynamicResource TextMuted}"/>
                             <TextBlock x:Name="grupa_e" Text="{Binding Grupa, FallbackValue='N/A'}" Foreground="{DynamicResource TextPrimary}" FontWeight="SemiBold"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
                             <fa5:ImageAwesome Icon="Solid_Book" Width="12" Foreground="{DynamicResource TextMuted}" Margin="0,0,5,0"/>
-                            <TextBlock Text="Nr cărți împrumutate: " Foreground="{DynamicResource TextMuted}"/>
+                            <TextBlock Text="{DynamicResource Students_BorrowedBooksCount}" Foreground="{DynamicResource TextMuted}"/>
                             <TextBlock x:Name="nr_carti_imprumutate" Text="{Binding NrCartiImprumutate, FallbackValue='0'}" Foreground="{DynamicResource TextPrimary}" FontWeight="SemiBold"/>
                         </StackPanel>
                     </WrapPanel>
@@ -153,7 +153,7 @@
                     <Button Style="{StaticResource ActionButtonStyle}" Background="#222B6CB0" Foreground="#2B6CB0" Margin="0,0,10,0" Click="EditareBtn_Click">
                         <StackPanel Orientation="Horizontal">
                             <fa5:ImageAwesome Icon="Solid_UserEdit" Width="14" Margin="0,0,10,0" Foreground="#2B6CB0"/>
-                            <TextBlock Text="Editare / Vizualizare"/>
+                            <TextBlock Text="{DynamicResource Students_EditView}"/>
                         </StackPanel>
                     </Button>
 

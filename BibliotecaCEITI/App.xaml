@@ -12,6 +12,9 @@
                 <!-- Global shared styles and control templates -->
                 <ResourceDictionary Source="Themes/DefaultControls.xaml"/>
                 <ResourceDictionary Source="Themes/Styles.xaml"/>
+
+                <!-- Default language: English -->
+                <ResourceDictionary Source="Languages/Strings.en.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

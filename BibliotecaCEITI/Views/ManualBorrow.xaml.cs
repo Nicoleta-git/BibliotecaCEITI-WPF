@@ -81,7 +81,7 @@ namespace BibliotecaCEITI
 
                     conn.Open();
                     int total = Convert.ToInt32(cmd.ExecuteScalar());
-                    TxtNumarExemplare.Text = "Exemplare disponibile: " + total;
+                    TxtNumarExemplare.Text = (string)Application.Current.FindResource("ManualBorrow_ExistingCopies") + total;
                 }
             }
             catch (Exception ex)
@@ -95,7 +95,7 @@ namespace BibliotecaCEITI
             var item = CmbManual.SelectedItem as ComboItem;
             if (item == null || item.Id <= 0)
             {
-                TxtNumarExemplare.Text = "Exemplare disponibile: 0";
+                TxtNumarExemplare.Text = (string)Application.Current.FindResource("ManualBorrow_ExistingCopies") + "0";
                 return;
             }
             PopuleazaExemplareDisponibile(item.Id);

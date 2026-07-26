@@ -28,21 +28,21 @@
 
         <Grid Grid.Row="0" Margin="0,0,0,30">
             <StackPanel HorizontalAlignment="Left">
-                <TextBlock Text="Împrumuturi" FontSize="28" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
-                <TextBlock Text="Gestionarea manualelor și cărților împrumutate." Foreground="{DynamicResource TextPrimary}" Margin="0,5,0,0"/>
+                <TextBlock Text="{DynamicResource Nav_Loans}" FontSize="28" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
+                <TextBlock Text="{DynamicResource Loans_ManagementSubtitle}" Foreground="{DynamicResource TextPrimary}" Margin="0,5,0,0"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                 <Button Style="{StaticResource GlobalActionButtonStyle}" Click="Manuale_Click" Margin="0,0,10,0">
                     <StackPanel Orientation="Horizontal">
                         <fa5:ImageAwesome Icon="Solid_BookOpen" Foreground="White" Width="14" Margin="0,0,10,0"/>
-                        <TextBlock Text="Manuale"/>
+                        <TextBlock Text="{DynamicResource Loans_Manuals}"/>
                     </StackPanel>
                 </Button>
                 <Button Style="{StaticResource GlobalActionButtonStyle}" Click="ImprumutNou_Click">
                     <StackPanel Orientation="Horizontal">
                         <fa5:ImageAwesome Icon="Solid_Book" Foreground="White" Width="14" Margin="0,0,10,0"/>
-                        <TextBlock Text="Împrumut Nou"/>
+                        <TextBlock Text="{DynamicResource Loans_NewLoan}"/>
                     </StackPanel>
                 </Button>
             </StackPanel>
@@ -58,16 +58,16 @@
             <Border Grid.Column="0" Margin="0,0,20,0" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" Background="{DynamicResource CardBackground}" CornerRadius="8" Padding="10,5">
                 <Grid>
                     <fa5:ImageAwesome Icon="Solid_Search" Foreground="#94A3B8" Width="14" HorizontalAlignment="Left"/>
-                    <TextBox Text="Caută un elev..." Foreground="Gray" BorderThickness="0" Margin="25,0,0,0" VerticalContentAlignment="Center" x:Name="txtSearch" FontSize="14" Background="Transparent" TextChanged="txtSearch_TextChanged" GotFocus="txtSearch_GotFocus" LostFocus="txtSearch_LostFocus"/>
+                    <TextBox Text="{DynamicResource Loans_SearchStudent}" Foreground="Gray" BorderThickness="0" Margin="25,0,0,0" VerticalContentAlignment="Center" x:Name="txtSearch" FontSize="14" Background="Transparent" TextChanged="txtSearch_TextChanged" GotFocus="txtSearch_GotFocus" LostFocus="txtSearch_LostFocus"/>
                 </Grid>
             </Border>
 
             <ComboBox x:Name="cbGrupe" Grid.Column="1" Margin="0,0,20,0" Height="45" SelectedIndex="0" VerticalContentAlignment="Center" SelectionChanged="cbGrupe_SelectionChanged">
-                <ComboBoxItem Content="Toate Grupele"/>
+                <ComboBoxItem Content="{DynamicResource Loans_AllGroups}"/>
             </ComboBox>
 
             <ComboBox x:Name="cbStari" Grid.Column="2" Height="45" SelectedIndex="0" VerticalContentAlignment="Center">
-                <ComboBoxItem Content="Toate Stările"/>
+                <ComboBoxItem Content="{DynamicResource Loans_AllStatuses}"/>
             </ComboBox>
         </Grid>
 
@@ -92,7 +92,7 @@
                 <Border x:Name="imgCoperta" Width="70" Height="90" Background="{DynamicResource WindowBackground}" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" CornerRadius="10" Margin="0,0,25,0"/>
 
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                    <TextBlock Text="DETALII ÎMPRUMUT SELECTAT" FontSize="11" FontWeight="Bold" Foreground="{DynamicResource TextMuted}" Margin="0,0,0,8" />
+                    <TextBlock Text="{DynamicResource Loans_SelectedDetailsTitle}" FontSize="11" FontWeight="Bold" Foreground="{DynamicResource TextMuted}" Margin="0,0,0,8" />
 
                     <StackPanel x:Name="titlu1" Orientation="Horizontal" Margin="0,0,0,12">
                         <TextBlock x:Name="titlu" Text="{Binding SelectedItem.TitluCarte, ElementName=BooksGrid, FallbackValue='Selectați o înregistrare'}" 
@@ -104,31 +104,31 @@
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                         <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
                             <fa5:ImageAwesome Icon="Solid_User" Width="12" Foreground="{DynamicResource PrimaryEmerald}" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Împrumutat de: " Foreground="{DynamicResource TextMuted}" VerticalAlignment="Center"/>
+                            <TextBlock Text="{DynamicResource Loans_BorrowedBy}" Foreground="{DynamicResource TextMuted}" VerticalAlignment="Center"/>
                             <TextBlock x:Name="persoana" Text="{Binding SelectedItem.NumeElev, ElementName=BooksGrid, FallbackValue='N/A'}" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}" VerticalAlignment="Center"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <fa5:ImageAwesome Icon="Solid_Calendar" Width="12" Foreground="{DynamicResource TextMuted}" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Termen: " Foreground="{DynamicResource TextMuted}" VerticalAlignment="Center"/>
+                            <TextBlock Text="{DynamicResource Loans_Term}" Foreground="{DynamicResource TextMuted}" VerticalAlignment="Center"/>
                             <TextBlock Text="{Binding SelectedItem.termen_returnare, ElementName=BooksGrid, StringFormat=\{0:dd.MM.yyyy\}}" FontWeight="SemiBold" Foreground="#EF4444" VerticalAlignment="Center"/>
                         </StackPanel>
-                        <TextBlock x:Name="termen_limita" Text="Nespecificat" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="termen_limita" Text="{DynamicResource Loans_Unspecified}" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}" Margin="5,0,0,0" VerticalAlignment="Center"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal">
                         <StackPanel Orientation="Horizontal" Margin="0,0,20,0" VerticalAlignment="Center">
                             <fa5:ImageAwesome Icon="Solid_Clock" Width="12" Foreground="{DynamicResource TextMuted}" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Data Returnării: " Foreground="{DynamicResource TextMuted}" VerticalAlignment="Center"/>
+                            <TextBlock Text="{DynamicResource Loans_ReturnDate}" Foreground="{DynamicResource TextMuted}" VerticalAlignment="Center"/>
                             <TextBlock x:Name="returnare" Text="{Binding SelectedItem.data_returnare, ElementName=BooksGrid, StringFormat=\{0:dd.MM.yyyy\}, FallbackValue='Nerestituit'}" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}" VerticalAlignment="Center"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <fa5:ImageAwesome Icon="Solid_Tag" Width="12" Foreground="{DynamicResource TextMuted}" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Stare: " Foreground="{DynamicResource TextMuted}" VerticalAlignment="Center"/>
+                            <TextBlock Text="{DynamicResource Loans_Status}" Foreground="{DynamicResource TextMuted}" VerticalAlignment="Center"/>
                             <TextBlock Text="{Binding SelectedItem.stare, ElementName=BooksGrid}" FontWeight="Black" Foreground="{DynamicResource TextPrimary}" VerticalAlignment="Center"/>
                         </StackPanel>
-                        <TextBlock x:Name="stare_imprumut" Text="Nespecificat" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="stare_imprumut" Text="{DynamicResource Loans_Unspecified}" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}" Margin="5,0,0,0" VerticalAlignment="Center"/>
                     </StackPanel>
                 </StackPanel>
 
@@ -140,7 +140,7 @@
                         VerticalAlignment="Center" Click="Button_Click" HorizontalAlignment="Left">
                     <StackPanel Orientation="Horizontal">
                         <fa5:ImageAwesome x:Name="return_icon" Icon="Solid_CheckCircle" Width="16" Foreground="#EF4444" Margin="0,0,8,0"/>
-                        <TextBlock x:Name="ret" Text="RETURN" Foreground="#EF4444" FontWeight="Black" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="ret" Text="{DynamicResource Loans_Return}" Foreground="#EF4444" FontWeight="Black" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
             </Grid>

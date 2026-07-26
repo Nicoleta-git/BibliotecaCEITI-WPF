@@ -1,0 +1,295 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <!-- Main window: top bar / navigation -->
+    <system:String x:Key="Nav_Subtitle">Sistem de management</system:String>
+    <system:String x:Key="Nav_Dashboard">Dashboard</system:String>
+    <system:String x:Key="Nav_Books">Cărți</system:String>
+    <system:String x:Key="Nav_Students">Elevi</system:String>
+    <system:String x:Key="Nav_Loans">Împrumuturi</system:String>
+    <system:String x:Key="Nav_Reservations">Rezervări</system:String>
+    <system:String x:Key="Nav_Alerts">Atenționări</system:String>
+    <system:String x:Key="Nav_Logout">Deconectare</system:String>
+    <system:String x:Key="Nav_ChangeThemeTooltip">Schimbă Tema</system:String>
+
+    <!-- Login window -->
+    <system:String x:Key="Login_Welcome">Bun venit!</system:String>
+    <system:String x:Key="Login_Title">Autentificare</system:String>
+    <system:String x:Key="Login_Subtitle">Gestionează resursele bibliotecii CEITI cu ușurință.</system:String>
+    <system:String x:Key="Login_EnterDetails">Introduceți datele de mai jos</system:String>
+    <system:String x:Key="Login_Username">Utilizator</system:String>
+    <system:String x:Key="Login_Password">Parolă</system:String>
+    <system:String x:Key="Login_Or">sau</system:String>
+    <system:String x:Key="Login_ContinueWithGoogle">Continuă cu Google</system:String>
+    <system:String x:Key="Login_SubmitButton">CONECTARE</system:String>
+
+    <!-- Dashboard -->
+    <system:String x:Key="Dashboard_WelcomePrefix">Bun venit, </system:String>
+    <system:String x:Key="Dashboard_Subtitle">Dashboard - Sistem Gestiune Biblioteca CEITI</system:String>
+    <system:String x:Key="Dashboard_TotalBooks">Cărți totale</system:String>
+    <system:String x:Key="Dashboard_Available">Disponibile</system:String>
+    <system:String x:Key="Dashboard_Borrowed">Împrumutate</system:String>
+    <system:String x:Key="Dashboard_Reserved">Rezervate</system:String>
+    <system:String x:Key="Dashboard_LoanActivity">Activitate Împrumuturi</system:String>
+    <system:String x:Key="Dashboard_LastMonths">(Ultimele luni)</system:String>
+    <system:String x:Key="Dashboard_TopBooks">Top Cărți</system:String>
+
+    <!-- Books -->
+    <system:String x:Key="Books_AddCopy">+ exemplar</system:String>
+    <system:String x:Key="Books_Archive">Arhivează</system:String>
+    <system:String x:Key="Books_Unarchive">Dezarhivează</system:String>
+    <system:String x:Key="Books_ColActions">Acțiuni</system:String>
+    <system:String x:Key="Books_ColAuthor">Autor</system:String>
+    <system:String x:Key="Books_ColInventoryCode">Cod_Inventar</system:String>
+    <system:String x:Key="Books_ColTitle">Denumire</system:String>
+    <system:String x:Key="Books_ColCopies">Nr. Exemplare</system:String>
+    <system:String x:Key="Books_ColStatus">Stare</system:String>
+    <system:String x:Key="Books_AddBook">Adauga carte</system:String>
+    <system:String x:Key="Books_DetailsTitle">DETALII CARTE</system:String>
+    <system:String x:Key="Books_Edit">Editare</system:String>
+    <system:String x:Key="Books_Publisher">Editura: </system:String>
+    <system:String x:Key="Books_ManageCopies">Gestionează exemplare</system:String>
+    <system:String x:Key="Books_InventoryManagement">Gestiune Inventar (Cărți)</system:String>
+    <system:String x:Key="Books_Location">Locație: </system:String>
+    <system:String x:Key="Books_Type">Tip: </system:String>
+    <system:String x:Key="Books_ViewArchive">Vezi Arhiva</system:String>
+    <system:String x:Key="Books_UpdateInventoryTooltip">Actualizează inventarul</system:String>
+    <system:String x:Key="Books_ShowArchivedTooltip">Afișează cărțile arhivate</system:String>
+
+    <!-- Students -->
+    <system:String x:Key="Students_ColName">Elev</system:String>
+    <system:String x:Key="Students_ColGroup">Grupa</system:String>
+    <system:String x:Key="Students_ColPhone">Telefon</system:String>
+    <system:String x:Key="Students_AddStudent">Adauga elev</system:String>
+    <system:String x:Key="Students_DetailsTitle">DETALII ELEV</system:String>
+    <system:String x:Key="Students_EditView">Editare / Vizualizare</system:String>
+    <system:String x:Key="Students_Management">Gestionare Studenti</system:String>
+    <system:String x:Key="Students_Group">Grupa: </system:String>
+    <system:String x:Key="Students_BorrowedBooksCount">Nr cărți împrumutate: </system:String>
+    <system:String x:Key="Students_Name">Nume: </system:String>
+    <system:String x:Key="Students_SelectStudent">Selectează un elev</system:String>
+    <system:String x:Key="Students_UpdateDataTooltip">Actualizează datele</system:String>
+
+    <!-- Loans (Borrow) -->
+    <system:String x:Key="Loans_AllGroups">Toate Grupele</system:String>
+    <system:String x:Key="Loans_AllStatuses">Toate Stările</system:String>
+    <system:String x:Key="Loans_SearchStudent">Caută un elev...</system:String>
+    <system:String x:Key="Loans_SelectedDetailsTitle">DETALII ÎMPRUMUT SELECTAT</system:String>
+    <system:String x:Key="Loans_ReturnDate">Data Returnării: </system:String>
+    <system:String x:Key="Loans_ManagementSubtitle">Gestionarea manualelor și cărților împrumutate.</system:String>
+    <system:String x:Key="Loans_Manuals">Manuale</system:String>
+    <system:String x:Key="Loans_Unspecified">Nespecificat</system:String>
+    <system:String x:Key="Loans_Return">RETURN</system:String>
+    <system:String x:Key="Loans_Status">Stare: </system:String>
+    <system:String x:Key="Loans_Term">Termen: </system:String>
+    <system:String x:Key="Loans_NewLoan">Împrumut Nou</system:String>
+    <system:String x:Key="Loans_BorrowedBy">Împrumutat de: </system:String>
+
+    <!-- Shared grid columns -->
+    <system:String x:Key="Grid_Price">Preț</system:String>
+    <system:String x:Key="Grid_Rent">Chirie</system:String>
+    <system:String x:Key="Grid_Book">Carte</system:String>
+    <system:String x:Key="Grid_DueDate">Termen</system:String>
+    <system:String x:Key="Grid_LoanDate">Data Împrumut</system:String>
+    <system:String x:Key="Grid_ReturnDate">Data Returnare</system:String>
+
+    <!-- Book Reservation -->
+    <system:String x:Key="Reservation_Title">Rezervare carte</system:String>
+    <system:String x:Key="Reservation_Step1">1. Caută și selectează cartea</system:String>
+    <system:String x:Key="Reservation_Step2">2. Selectează elevul pentru rezervare</system:String>
+    <system:String x:Key="Reservation_Step3">3. Confirmare</system:String>
+    <system:String x:Key="Reservation_Book">Carte:</system:String>
+    <system:String x:Key="Reservation_WaitingQueue">Coada de așteptare</system:String>
+    <system:String x:Key="Reservation_AutoMessageNote">Când o carte se va returna, elevul va primi un mesaj automat.</system:String>
+    <system:String x:Key="Reservation_CurrentlyHeldBy">Deținută în prezent de:</system:String>
+    <system:String x:Key="Reservation_Student">Elev:</system:String>
+    <system:String x:Key="Reservation_Unselected">Neselectat</system:String>
+    <system:String x:Key="Reservation_SaveButton">Salvează Rezervarea</system:String>
+    <system:String x:Key="Reservation_SearchBookPlaceholder">Caută după Titlu, Autor sau ISBN...</system:String>
+    <system:String x:Key="Reservation_SearchStudentPlaceholder">Caută elev după nume...</system:String>
+
+    <!-- Student Details -->
+    <system:String x:Key="StudentDetails_BorrowedBooks">Cărți Împrumutate</system:String>
+    <system:String x:Key="StudentDetails_ReservedBooks">Cărți Rezervate</system:String>
+    <system:String x:Key="StudentDetails_BirthDate">Data Nașterii</system:String>
+    <system:String x:Key="StudentDetails_Title">Detalii Elev</system:String>
+    <system:String x:Key="StudentDetails_Group">Grupă *</system:String>
+    <system:String x:Key="StudentDetails_IDNP">IDNP (13 cifre) *</system:String>
+    <system:String x:Key="StudentDetails_IdentificationInfo">Informații Identificare</system:String>
+    <system:String x:Key="StudentDetails_LastName">Nume *</system:String>
+    <system:String x:Key="StudentDetails_FirstName">Prenume *</system:String>
+    <system:String x:Key="StudentDetails_Notes">Observații</system:String>
+    <system:String x:Key="StudentDetails_SaveChanges">Salvează Modificări</system:String>
+    <system:String x:Key="StudentDetails_BackToList">Înapoi la listă</system:String>
+    <system:String x:Key="Common_Cancel">Anulează</system:String>
+
+    <!-- Alerts -->
+    <system:String x:Key="Alerts_AllStatuses">Toate statusurile</system:String>
+    <system:String x:Key="Alerts_OverdueOver5Days">Întârziere &gt; 5 zile</system:String>
+    <system:String x:Key="Alerts_Overdue1To4Days">Întârziere 1-4 zile</system:String>
+    <system:String x:Key="Alerts_CancelSelection">Anulează selecția</system:String>
+    <system:String x:Key="Alerts_NoNotificationsSent">Nicio notificare trimisă încă.</system:String>
+    <system:String x:Key="Alerts_RecentNotifications">Notificări recente</system:String>
+    <system:String x:Key="Alerts_NotificationsSent">Notificări trimise</system:String>
+    <system:String x:Key="Alerts_NoOverdueLoans">Nu există întârzieri active!</system:String>
+    <system:String x:Key="Alerts_Reset">Reset</system:String>
+    <system:String x:Key="Alerts_Resolved">Rezolvate</system:String>
+    <system:String x:Key="Alerts_Reload">Reîncarcă</system:String>
+    <system:String x:Key="Alerts_ColStatus">STATUS</system:String>
+    <system:String x:Key="Alerts_Sending">Se trimite...</system:String>
+    <system:String x:Key="Alerts_AllStudentsOnTime">Toți elevii au returnat cărțile la timp.</system:String>
+    <system:String x:Key="Alerts_ColDaysLate">ZILE ÎNT.</system:String>
+    <system:String x:Key="Alerts_Pending">În așteptare</system:String>
+    <system:String x:Key="Alerts_Overdue">Întârzieri</system:String>
+    <system:String x:Key="Alerts_ColStudent">ELEV</system:String>
+    <system:String x:Key="Alerts_ColBook">CARTE</system:String>
+    <system:String x:Key="Alerts_ColDueDate">TERMEN</system:String>
+    <system:String x:Key="Alerts_OverdueBadgeFormat">{0} întârzieri active</system:String>
+    <system:String x:Key="Alerts_SelectAllFormat">Selectează toate ({0})</system:String>
+    <system:String x:Key="Alerts_SendNotificationsFormat">Trimite notificări ({0})</system:String>
+    <system:String x:Key="Alerts_PaginationFormat">Pagina {0} din {1} · {2} înregistrări</system:String>
+
+    <!-- Add Student -->
+    <system:String x:Key="AddStudent_SaveButton">Salvează Elev</system:String>
+
+    <!-- Book Details -->
+    <system:String x:Key="BookDetails_PublicationYear">An publicare</system:String>
+    <system:String x:Key="BookDetails_Author">Autor *</system:String>
+    <system:String x:Key="BookDetails_Category">Categorie *</system:String>
+    <system:String x:Key="BookDetails_CurrentCover">Coperta curentă</system:String>
+    <system:String x:Key="BookDetails_Description">Descriere</system:String>
+    <system:String x:Key="BookDetails_EditTitle">Editare detalii carte</system:String>
+    <system:String x:Key="BookDetails_Publisher">Editura</system:String>
+    <system:String x:Key="BookDetails_Language">Limba</system:String>
+    <system:String x:Key="BookDetails_RentPrice">Preț Chirie</system:String>
+    <system:String x:Key="BookDetails_SalePrice">Preț Vânzare (MDL)</system:String>
+    <system:String x:Key="BookDetails_SaveChanges">Salvează modificările</system:String>
+    <system:String x:Key="BookDetails_BookTitle">Titlu carte *</system:String>
+    <system:String x:Key="BookDetails_ImageURL">URL Imagine</system:String>
+    <system:String x:Key="BookDetails_UploadAnotherImage">Încarcă altă imagine</system:String>
+
+    <!-- Delete Book -->
+    <system:String x:Key="Delete_PhysicalDamage">Deteriorare fizică</system:String>
+    <system:String x:Key="Delete_LossDisappearance">Pierdere / Dispariție</system:String>
+    <system:String x:Key="Delete_SelectReason">Selectează motivul</system:String>
+    <system:String x:Key="Delete_TransferToOtherUnit">Transfer către altă unitate</system:String>
+    <system:String x:Key="Delete_MoralWear">Uzura morală</system:String>
+    <system:String x:Key="Delete_DeleteButton">Șterge</system:String>
+    <system:String x:Key="Delete_IrreversibleWarning"> Această acțiune este ireversibilă.</system:String>
+    <system:String x:Key="Delete_Warning">Atenție!</system:String>
+    <system:String x:Key="Delete_ConfirmCheckbox">Confirm că am verificat datele și doresc casarea definitivă a acestei cărți.</system:String>
+    <system:String x:Key="Delete_ReasonLabel">Motiv stergere *</system:String>
+    <system:String x:Key="Delete_Title">Ștergere carte</system:String>
+
+    <!-- Manual Borrow -->
+    <system:String x:Key="ManualBorrow_AddCopies">+ Adaugă exemplare</system:String>
+    <system:String x:Key="ManualBorrow_CheckAll">Bifează toți</system:String>
+    <system:String x:Key="ManualBorrow_ConfirmReturn">Confirmă returnare</system:String>
+    <system:String x:Key="ManualBorrow_Return">Returnare</system:String>
+    <system:String x:Key="ManualBorrow_SaveLoan">Salvează împrumut</system:String>
+    <system:String x:Key="ManualBorrow_Loan">Împrumut</system:String>
+    <system:String x:Key="ManualBorrow_ColSelected">Selectat</system:String>
+    <system:String x:Key="ManualBorrow_Category">Categoria</system:String>
+    <system:String x:Key="ManualBorrow_SelectedStudents">Elevi selectati:</system:String>
+    <system:String x:Key="ManualBorrow_StudentsInGroupA">Elevi în grupa A</system:String>
+    <system:String x:Key="ManualBorrow_ExistingCopies">Exemplare disponibile: </system:String>
+    <system:String x:Key="ManualBorrow_Manual">Manual</system:String>
+    <system:String x:Key="ManualBorrow_SelectPrompt">Selectează un manual sau o grupă pentru a gestiona împrumuturile.</system:String>
+    <system:String x:Key="ManualBorrow_BackToLoans">Înapoi la împrumuturi</system:String>
+
+    <!-- Registration -->
+    <system:String x:Key="Registrare_LoginPrompt"> Autentifică-te</system:String>
+    <system:String x:Key="Registrare_AlreadyHaveAccount">Ai deja un cont?</system:String>
+    <system:String x:Key="Registrare_JoinCommunity">Alătură-te comunității noastre și explorează mii de cărți disponibile.</system:String>
+    <system:String x:Key="Registrare_FillDetails">Completează datele pentru a te înscrie</system:String>
+    <system:String x:Key="Registrare_CreateAccountTitle">Creează Cont</system:String>
+    <system:String x:Key="Registrare_FullName">Nume Complet</system:String>
+    <system:String x:Key="Registrare_CreateAccountButton">CREEAZĂ CONT</system:String>
+    <system:String x:Key="Registrare_ShowPassword">Vezi parola</system:String>
+    <system:String x:Key="Registrare_Title">Înregistrare</system:String>
+
+    <!-- Reports -->
+    <system:String x:Key="Reports_LoanActivityGeneral">Activitate Împrumuturi Generale</system:String>
+    <system:String x:Key="Reports_MostReadBooks">Cele mai citite cărți</system:String>
+    <system:String x:Key="Reports_ReadersWithPenalties">Cititori cu penalități / restanțe</system:String>
+    <system:String x:Key="Reports_NewBooksInventory">Inventar cărți noi adăugate</system:String>
+    <system:String x:Key="Reports_ColDueDate">Data Scadență</system:String>
+    <system:String x:Key="Reports_ColLoanDate">Data Împrumut</system:String>
+    <system:String x:Key="Reports_ColStatus">Status</system:String>
+    <system:String x:Key="Reports_ColBookTitle">Titlu Carte</system:String>
+    <system:String x:Key="Reports_ColUser">Utilizator / Student</system:String>
+    <system:String x:Key="Reports_ActiveReaders">Cititori Activi</system:String>
+    <system:String x:Key="Reports_FromDate">De la Data</system:String>
+    <system:String x:Key="Reports_ExportPDF">Export PDF</system:String>
+    <system:String x:Key="Reports_GenerateReport">Generează Raport</system:String>
+    <system:String x:Key="Reports_Subtitle">Generează și exportă rapoartele activității bibliotecii</system:String>
+    <system:String x:Key="Reports_ToDate">Până la Data</system:String>
+    <system:String x:Key="Reports_Title">Rapoarte și Statistici</system:String>
+    <system:String x:Key="Reports_OverdueTerm">Termen Depășit</system:String>
+    <system:String x:Key="Reports_ReportType">Tipul Raportului</system:String>
+    <system:String x:Key="Reports_TotalBooksLoaned">Total Cărți Împrumutate</system:String>
+
+    <!-- Settings -->
+    <system:String x:Key="Settings_AccountCreatedDate">Data creării contului: </system:String>
+    <system:String x:Key="Settings_LastLoginDate">Data ultimei logări: </system:String>
+    <system:String x:Key="Settings_ContactEmail">Email Contact</system:String>
+    <system:String x:Key="Settings_ProfileManagement">Gestionare profil</system:String>
+    <system:String x:Key="Settings_ProfileImage">Imagine Profil / Logo</system:String>
+    <system:String x:Key="Settings_AccountInfo">Informații Cont</system:String>
+    <system:String x:Key="Settings_GeneralInfo">Informații Generale</system:String>
+    <system:String x:Key="Settings_DaysSinceLogin">Nr de zile de la conectare: </system:String>
+    <system:String x:Key="Settings_ConfirmedLoans">Nr de împrumuturi confirmate: </system:String>
+    <system:String x:Key="Settings_ProfileName">Nume profilului</system:String>
+    <system:String x:Key="Settings_ChangeImage">Schimbă Imaginea</system:String>
+    <system:String x:Key="Settings_SystemSettings">Setările sistemului</system:String>
+
+    <!-- Template Viewer -->
+    <system:String x:Key="TemplateViewer_CodePlaceholder">Cod template: ...</system:String>
+    <system:String x:Key="TemplateViewer_SaveNote">Modificările se salvează direct în baza de date.</system:String>
+    <system:String x:Key="TemplateViewer_SaveTemplate">Salvează template</system:String>
+    <system:String x:Key="TemplateViewer_MaximizeTooltip">Maximizare/Restaurare</system:String>
+    <system:String x:Key="TemplateViewer_MinimizeTooltip">Minimizare</system:String>
+    <system:String x:Key="TemplateViewer_CloseTooltip">Închide</system:String>
+
+    <!-- Check-In / Borrow Wizard -->
+    <system:String x:Key="CheckIn_Previous">Anterior</system:String>
+    <system:String x:Key="CheckIn_Cancel">Anuleaza</system:String>
+    <system:String x:Key="CheckIn_BookDetailsHeader">Detalii Carte</system:String>
+    <system:String x:Key="CheckIn_Continue">Continuă</system:String>
+    <system:String x:Key="CheckIn_NoActiveLoans">Elevul nu are împrumuturi active.</system:String>
+    <system:String x:Key="CheckIn_ProcessingTitle">Procesare Împrumut</system:String>
+    <system:String x:Key="CheckIn_StudentActiveLoans">Împrumuturi active ale elevului</system:String>
+    <system:String x:Key="CheckIn_Step4Title">4. Confirmă împrumut</system:String>
+    <system:String x:Key="CheckIn_Class">Clasa</system:String>
+    <system:String x:Key="CheckIn_StudentID">ID Elev</system:String>
+    <system:String x:Key="CheckIn_Name">Nume</system:String>
+    <system:String x:Key="CheckIn_ReturnDeadline">Termen de returnare</system:String>
+    <system:String x:Key="CheckIn_Title">Titlu</system:String>
+    <system:String x:Key="CheckIn_Step1Title">1. Caută elev</system:String>
+    <system:String x:Key="CheckIn_ActiveStudent">Elev activ</system:String>
+    <system:String x:Key="CheckIn_SelectedStudent">Elev selectat</system:String>
+    <system:String x:Key="CheckIn_GroupPlaceholder">Grupa: ...</system:String>
+    <system:String x:Key="CheckIn_StudentIDPlaceholder">ID Elev: ...</system:String>
+    <system:String x:Key="CheckIn_SearchResults">Rezultate căutare</system:String>
+    <system:String x:Key="CheckIn_SelectStudent">Selecteaza elev</system:String>
+    <system:String x:Key="CheckIn_PhonePlaceholder">Telefon: ...</system:String>
+    <system:String x:Key="CheckIn_Step2Title">2. Caută și selectează carte</system:String>
+    <system:String x:Key="CheckIn_SelectedBook2">Carte selectată</system:String>
+    <system:String x:Key="CheckIn_SearchByAuthor">Căutare după autor</system:String>
+    <system:String x:Key="CheckIn_Available">Disponibilă</system:String>
+    <system:String x:Key="CheckIn_14Days">14 zile</system:String>
+    <system:String x:Key="CheckIn_21Days">21 zile</system:String>
+    <system:String x:Key="CheckIn_30Days">30 zile</system:String>
+    <system:String x:Key="CheckIn_Step3Title">3. Detalii carte</system:String>
+    <system:String x:Key="CheckIn_SelectedBook3">Cartea selectată</system:String>
+    <system:String x:Key="CheckIn_CategoryLabel">Categorie:</system:String>
+    <system:String x:Key="CheckIn_CodeLabel">Cod:</system:String>
+    <system:String x:Key="CheckIn_LoanDateLabel">Data împrumut</system:String>
+    <system:String x:Key="CheckIn_LoanDuration">Durata împrumut</system:String>
+    <system:String x:Key="CheckIn_ResponsiblePrefix">Elevul este responsabil pentru carte până la data de </system:String>
+
+    <!-- Book AI -->
+    <system:String x:Key="BookAi_AskQuestions">Pune întrebări</system:String>
+
+</ResourceDictionary>

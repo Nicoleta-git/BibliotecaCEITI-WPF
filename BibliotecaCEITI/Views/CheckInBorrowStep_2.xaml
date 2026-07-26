@@ -37,7 +37,7 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="25">
 
-                <TextBlock Text="2. Caută și selectează carte" FontSize="20" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,25"/>
+                <TextBlock Text="{DynamicResource CheckIn_Step2Title}" FontSize="20" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,25"/>
 
                 <Grid Margin="0,0,0,20">
                     <Grid.RowDefinitions>
@@ -46,7 +46,7 @@
                     </Grid.RowDefinitions>
 
                     <StackPanel Grid.Row="0">
-                        <TextBlock Text="Căutare după autor" FontSize="13" Foreground="{DynamicResource TextMuted}" Margin="0,0,0,8" FontWeight="Medium"/>
+                        <TextBlock Text="{DynamicResource CheckIn_SearchByAuthor}" FontSize="13" Foreground="{DynamicResource TextMuted}" Margin="0,0,0,8" FontWeight="Medium"/>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -69,7 +69,7 @@
                     <StackPanel Grid.Row="1" Margin="0,15,0,0"/>
                 </Grid>
 
-                <TextBlock Text="Rezultate căutare" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource TextMuted}" Margin="0,0,0,10"/>
+                <TextBlock Text="{DynamicResource CheckIn_SearchResults}" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource TextMuted}" Margin="0,0,0,10"/>
                 <DataGrid x:Name="BooksGrid"
                           Style="{StaticResource ModernDataGridStyle}"
                           AutoGenerateColumns="True"
@@ -87,7 +87,7 @@
                           AutoGeneratingColumn="BooksGrid_AutoGeneratingColumn" 
                           SelectionChanged="BooksGrid_SelectionChanged"/>
 
-                <TextBlock Text="Carte selectată" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource TextMuted}" Margin="0,20,0,10"/>
+                <TextBlock Text="{DynamicResource CheckIn_SelectedBook2}" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource TextMuted}" Margin="0,20,0,10"/>
                 <Border Background="{DynamicResource WindowBackground}" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" CornerRadius="12" Padding="20" Margin="0,0,0,10">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -100,7 +100,7 @@
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                                 <TextBlock x:Name="titlu_carte_selectata" Text="{Binding SelectedItem.Titlu, ElementName=BooksGrid, FallbackValue='Titlu Carte'}" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}" Margin="0,0,10,0"/>
                                 <Border x:Name="fon_disponibilitate" Background="{DynamicResource StockGreenBg}" CornerRadius="4" Padding="8,2">
-                                    <TextBlock x:Name="disponibilitate_carte_selectata" Text="Disponibilă" Foreground="{DynamicResource StockGreen}" FontSize="11" FontWeight="SemiBold"/>
+                                    <TextBlock x:Name="disponibilitate_carte_selectata" Text="{DynamicResource CheckIn_Available}" Foreground="{DynamicResource StockGreen}" FontSize="11" FontWeight="SemiBold"/>
                                 </Border>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">

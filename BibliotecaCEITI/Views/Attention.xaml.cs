@@ -142,7 +142,7 @@ namespace BibliotecaCEITI
 
             int intarzieri = _toateIntarzierile.Count;
             txtIntarzieri.Text = intarzieri.ToString();
-            txtBadgeIntarzieri.Text = $"{intarzieri} întârzieri active";
+            txtBadgeIntarzieri.Text = string.Format((string)Application.Current.FindResource("Alerts_OverdueBadgeFormat"), intarzieri);
 
             int notifTrimise = 0, rezolvate = 0;
             try
@@ -234,8 +234,9 @@ namespace BibliotecaCEITI
                 alternativ = !alternativ;
             }
 
-            txtPaginareInfo.Text =
-                $"Pagina {_paginaCurenta} din {_totalPagini} · {_filtrate.Count} înregistrări";
+            txtPaginareInfo.Text = string.Format(
+                (string)Application.Current.FindResource("Alerts_PaginationFormat"),
+                _paginaCurenta, _totalPagini, _filtrate.Count);
         }
 
         private Border CreeazaRand(AttentionItemViewModel item, bool alternativ)
@@ -483,7 +484,7 @@ namespace BibliotecaCEITI
             chkSelectAll.Checked += ChkSelectAll_Changed;
             chkSelectAll.Unchecked += ChkSelectAll_Changed;
 
-            txtSelectAll.Text = $"Selectează toate ({total})";
+            txtSelectAll.Text = string.Format((string)Application.Current.FindResource("Alerts_SelectAllFormat"), total);
         }
 
         private void ActualizeazaBtnTrimite()
@@ -491,7 +492,7 @@ namespace BibliotecaCEITI
             if (txtBtnTrimite == null || txtInAsteptare == null) return;
 
             int sel = _filtrate.Count(x => x.Selectat);
-            txtBtnTrimite.Text = $"Trimite notificări ({sel})";
+            txtBtnTrimite.Text = string.Format((string)Application.Current.FindResource("Alerts_SendNotificationsFormat"), sel);
             txtInAsteptare.Text = sel.ToString();
         }
 

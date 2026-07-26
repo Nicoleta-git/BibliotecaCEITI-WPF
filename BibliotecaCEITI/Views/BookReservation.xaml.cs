@@ -395,6 +395,7 @@ namespace BibliotecaCEITI
             {
                 e.Column.Visibility = Visibility.Collapsed;
             }
+            GridColumnLocalizer.Localize(e);
         }
 
         private void WaitListGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
@@ -412,6 +413,7 @@ namespace BibliotecaCEITI
                     col.Binding.StringFormat = "dd.MM.yyyy";
                 }
             }
+            GridColumnLocalizer.Localize(e);
         }
 
         private void CurrentLoanGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
@@ -422,6 +424,7 @@ namespace BibliotecaCEITI
             {
                 e.Column.Visibility = Visibility.Collapsed;
             }
+            GridColumnLocalizer.Localize(e);
         }
 
         private void StudentsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -470,6 +473,7 @@ namespace BibliotecaCEITI
             {
                 e.Column.Visibility = Visibility.Collapsed;
             }
+            GridColumnLocalizer.Localize(e);
         }
 
         private async void BtnSearchBook_Click(object sender, RoutedEventArgs e)

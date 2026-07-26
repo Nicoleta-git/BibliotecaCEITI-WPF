@@ -443,5 +443,10 @@ namespace BibliotecaCEITI
                 _isFormatting = false;
             }
         }
+
+        private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            GridColumnLocalizer.Localize(e);
+        }
     }
 }

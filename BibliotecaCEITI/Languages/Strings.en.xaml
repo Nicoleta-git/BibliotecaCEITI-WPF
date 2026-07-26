@@ -1,0 +1,295 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <!-- Main window: top bar / navigation -->
+    <system:String x:Key="Nav_Subtitle">Management System</system:String>
+    <system:String x:Key="Nav_Dashboard">Dashboard</system:String>
+    <system:String x:Key="Nav_Books">Books</system:String>
+    <system:String x:Key="Nav_Students">Students</system:String>
+    <system:String x:Key="Nav_Loans">Loans</system:String>
+    <system:String x:Key="Nav_Reservations">Reservations</system:String>
+    <system:String x:Key="Nav_Alerts">Alerts</system:String>
+    <system:String x:Key="Nav_Logout">Log Out</system:String>
+    <system:String x:Key="Nav_ChangeThemeTooltip">Change Theme</system:String>
+
+    <!-- Login window -->
+    <system:String x:Key="Login_Welcome">Welcome!</system:String>
+    <system:String x:Key="Login_Title">Login</system:String>
+    <system:String x:Key="Login_Subtitle">Manage the CEITI library resources with ease.</system:String>
+    <system:String x:Key="Login_EnterDetails">Enter your details below</system:String>
+    <system:String x:Key="Login_Username">Username</system:String>
+    <system:String x:Key="Login_Password">Password</system:String>
+    <system:String x:Key="Login_Or">or</system:String>
+    <system:String x:Key="Login_ContinueWithGoogle">Continue with Google</system:String>
+    <system:String x:Key="Login_SubmitButton">LOG IN</system:String>
+
+    <!-- Dashboard -->
+    <system:String x:Key="Dashboard_WelcomePrefix">Welcome, </system:String>
+    <system:String x:Key="Dashboard_Subtitle">Dashboard - CEITI Library Management System</system:String>
+    <system:String x:Key="Dashboard_TotalBooks">Total Books</system:String>
+    <system:String x:Key="Dashboard_Available">Available</system:String>
+    <system:String x:Key="Dashboard_Borrowed">Borrowed</system:String>
+    <system:String x:Key="Dashboard_Reserved">Reserved</system:String>
+    <system:String x:Key="Dashboard_LoanActivity">Loan Activity</system:String>
+    <system:String x:Key="Dashboard_LastMonths">(Last months)</system:String>
+    <system:String x:Key="Dashboard_TopBooks">Top Books</system:String>
+
+    <!-- Books -->
+    <system:String x:Key="Books_AddCopy">+ copy</system:String>
+    <system:String x:Key="Books_Archive">Archive</system:String>
+    <system:String x:Key="Books_Unarchive">Unarchive</system:String>
+    <system:String x:Key="Books_ColActions">Actions</system:String>
+    <system:String x:Key="Books_ColAuthor">Author</system:String>
+    <system:String x:Key="Books_ColInventoryCode">Inventory Code</system:String>
+    <system:String x:Key="Books_ColTitle">Title</system:String>
+    <system:String x:Key="Books_ColCopies">Copies</system:String>
+    <system:String x:Key="Books_ColStatus">Status</system:String>
+    <system:String x:Key="Books_AddBook">Add Book</system:String>
+    <system:String x:Key="Books_DetailsTitle">BOOK DETAILS</system:String>
+    <system:String x:Key="Books_Edit">Edit</system:String>
+    <system:String x:Key="Books_Publisher">Publisher: </system:String>
+    <system:String x:Key="Books_ManageCopies">Manage Copies</system:String>
+    <system:String x:Key="Books_InventoryManagement">Inventory Management (Books)</system:String>
+    <system:String x:Key="Books_Location">Location: </system:String>
+    <system:String x:Key="Books_Type">Type: </system:String>
+    <system:String x:Key="Books_ViewArchive">View Archive</system:String>
+    <system:String x:Key="Books_UpdateInventoryTooltip">Update inventory</system:String>
+    <system:String x:Key="Books_ShowArchivedTooltip">Show archived books</system:String>
+
+    <!-- Students -->
+    <system:String x:Key="Students_ColName">Student</system:String>
+    <system:String x:Key="Students_ColGroup">Group</system:String>
+    <system:String x:Key="Students_ColPhone">Phone</system:String>
+    <system:String x:Key="Students_AddStudent">Add Student</system:String>
+    <system:String x:Key="Students_DetailsTitle">STUDENT DETAILS</system:String>
+    <system:String x:Key="Students_EditView">Edit / View</system:String>
+    <system:String x:Key="Students_Management">Student Management</system:String>
+    <system:String x:Key="Students_Group">Group: </system:String>
+    <system:String x:Key="Students_BorrowedBooksCount">Books borrowed: </system:String>
+    <system:String x:Key="Students_Name">Name: </system:String>
+    <system:String x:Key="Students_SelectStudent">Select a student</system:String>
+    <system:String x:Key="Students_UpdateDataTooltip">Update data</system:String>
+
+    <!-- Loans (Borrow) -->
+    <system:String x:Key="Loans_AllGroups">All Groups</system:String>
+    <system:String x:Key="Loans_AllStatuses">All Statuses</system:String>
+    <system:String x:Key="Loans_SearchStudent">Search for a student...</system:String>
+    <system:String x:Key="Loans_SelectedDetailsTitle">SELECTED LOAN DETAILS</system:String>
+    <system:String x:Key="Loans_ReturnDate">Return Date: </system:String>
+    <system:String x:Key="Loans_ManagementSubtitle">Management of borrowed textbooks and books.</system:String>
+    <system:String x:Key="Loans_Manuals">Textbooks</system:String>
+    <system:String x:Key="Loans_Unspecified">Unspecified</system:String>
+    <system:String x:Key="Loans_Return">RETURN</system:String>
+    <system:String x:Key="Loans_Status">Status: </system:String>
+    <system:String x:Key="Loans_Term">Due Date: </system:String>
+    <system:String x:Key="Loans_NewLoan">New Loan</system:String>
+    <system:String x:Key="Loans_BorrowedBy">Borrowed by: </system:String>
+
+    <!-- Shared grid columns -->
+    <system:String x:Key="Grid_Price">Price</system:String>
+    <system:String x:Key="Grid_Rent">Rent</system:String>
+    <system:String x:Key="Grid_Book">Book</system:String>
+    <system:String x:Key="Grid_DueDate">Due Date</system:String>
+    <system:String x:Key="Grid_LoanDate">Loan Date</system:String>
+    <system:String x:Key="Grid_ReturnDate">Return Date</system:String>
+
+    <!-- Book Reservation -->
+    <system:String x:Key="Reservation_Title">Book Reservation</system:String>
+    <system:String x:Key="Reservation_Step1">1. Search and select the book</system:String>
+    <system:String x:Key="Reservation_Step2">2. Select the student for reservation</system:String>
+    <system:String x:Key="Reservation_Step3">3. Confirmation</system:String>
+    <system:String x:Key="Reservation_Book">Book:</system:String>
+    <system:String x:Key="Reservation_WaitingQueue">Waiting Queue</system:String>
+    <system:String x:Key="Reservation_AutoMessageNote">When a book is returned, the student will receive an automatic message.</system:String>
+    <system:String x:Key="Reservation_CurrentlyHeldBy">Currently held by:</system:String>
+    <system:String x:Key="Reservation_Student">Student:</system:String>
+    <system:String x:Key="Reservation_Unselected">Not selected</system:String>
+    <system:String x:Key="Reservation_SaveButton">Save Reservation</system:String>
+    <system:String x:Key="Reservation_SearchBookPlaceholder">Search by Title, Author or ISBN...</system:String>
+    <system:String x:Key="Reservation_SearchStudentPlaceholder">Search for a student by name...</system:String>
+
+    <!-- Student Details -->
+    <system:String x:Key="StudentDetails_BorrowedBooks">Borrowed Books</system:String>
+    <system:String x:Key="StudentDetails_ReservedBooks">Reserved Books</system:String>
+    <system:String x:Key="StudentDetails_BirthDate">Date of Birth</system:String>
+    <system:String x:Key="StudentDetails_Title">Student Details</system:String>
+    <system:String x:Key="StudentDetails_Group">Group *</system:String>
+    <system:String x:Key="StudentDetails_IDNP">IDNP (13 digits) *</system:String>
+    <system:String x:Key="StudentDetails_IdentificationInfo">Identification Information</system:String>
+    <system:String x:Key="StudentDetails_LastName">Last Name *</system:String>
+    <system:String x:Key="StudentDetails_FirstName">First Name *</system:String>
+    <system:String x:Key="StudentDetails_Notes">Notes</system:String>
+    <system:String x:Key="StudentDetails_SaveChanges">Save Changes</system:String>
+    <system:String x:Key="StudentDetails_BackToList">Back to list</system:String>
+    <system:String x:Key="Common_Cancel">Cancel</system:String>
+
+    <!-- Alerts -->
+    <system:String x:Key="Alerts_AllStatuses">All Statuses</system:String>
+    <system:String x:Key="Alerts_OverdueOver5Days">Overdue &gt; 5 days</system:String>
+    <system:String x:Key="Alerts_Overdue1To4Days">Overdue 1-4 days</system:String>
+    <system:String x:Key="Alerts_CancelSelection">Cancel selection</system:String>
+    <system:String x:Key="Alerts_NoNotificationsSent">No notifications sent yet.</system:String>
+    <system:String x:Key="Alerts_RecentNotifications">Recent Notifications</system:String>
+    <system:String x:Key="Alerts_NotificationsSent">Notifications Sent</system:String>
+    <system:String x:Key="Alerts_NoOverdueLoans">No overdue loans!</system:String>
+    <system:String x:Key="Alerts_Reset">Reset</system:String>
+    <system:String x:Key="Alerts_Resolved">Resolved</system:String>
+    <system:String x:Key="Alerts_Reload">Reload</system:String>
+    <system:String x:Key="Alerts_ColStatus">STATUS</system:String>
+    <system:String x:Key="Alerts_Sending">Sending...</system:String>
+    <system:String x:Key="Alerts_AllStudentsOnTime">All students returned their books on time.</system:String>
+    <system:String x:Key="Alerts_ColDaysLate">DAYS LATE</system:String>
+    <system:String x:Key="Alerts_Pending">Pending</system:String>
+    <system:String x:Key="Alerts_Overdue">Overdue</system:String>
+    <system:String x:Key="Alerts_ColStudent">STUDENT</system:String>
+    <system:String x:Key="Alerts_ColBook">BOOK</system:String>
+    <system:String x:Key="Alerts_ColDueDate">DUE DATE</system:String>
+    <system:String x:Key="Alerts_OverdueBadgeFormat">{0} active overdue</system:String>
+    <system:String x:Key="Alerts_SelectAllFormat">Select all ({0})</system:String>
+    <system:String x:Key="Alerts_SendNotificationsFormat">Send notifications ({0})</system:String>
+    <system:String x:Key="Alerts_PaginationFormat">Page {0} of {1} · {2} records</system:String>
+
+    <!-- Add Student -->
+    <system:String x:Key="AddStudent_SaveButton">Save Student</system:String>
+
+    <!-- Book Details -->
+    <system:String x:Key="BookDetails_PublicationYear">Publication Year</system:String>
+    <system:String x:Key="BookDetails_Author">Author *</system:String>
+    <system:String x:Key="BookDetails_Category">Category *</system:String>
+    <system:String x:Key="BookDetails_CurrentCover">Current Cover</system:String>
+    <system:String x:Key="BookDetails_Description">Description</system:String>
+    <system:String x:Key="BookDetails_EditTitle">Edit Book Details</system:String>
+    <system:String x:Key="BookDetails_Publisher">Publisher</system:String>
+    <system:String x:Key="BookDetails_Language">Language</system:String>
+    <system:String x:Key="BookDetails_RentPrice">Rent Price</system:String>
+    <system:String x:Key="BookDetails_SalePrice">Sale Price (MDL)</system:String>
+    <system:String x:Key="BookDetails_SaveChanges">Save Changes</system:String>
+    <system:String x:Key="BookDetails_BookTitle">Book Title *</system:String>
+    <system:String x:Key="BookDetails_ImageURL">Image URL</system:String>
+    <system:String x:Key="BookDetails_UploadAnotherImage">Upload Another Image</system:String>
+
+    <!-- Delete Book -->
+    <system:String x:Key="Delete_PhysicalDamage">Physical Damage</system:String>
+    <system:String x:Key="Delete_LossDisappearance">Loss / Disappearance</system:String>
+    <system:String x:Key="Delete_SelectReason">Select the reason</system:String>
+    <system:String x:Key="Delete_TransferToOtherUnit">Transfer to Another Unit</system:String>
+    <system:String x:Key="Delete_MoralWear">Obsolescence</system:String>
+    <system:String x:Key="Delete_DeleteButton">Delete</system:String>
+    <system:String x:Key="Delete_IrreversibleWarning"> This action is irreversible.</system:String>
+    <system:String x:Key="Delete_Warning">Warning!</system:String>
+    <system:String x:Key="Delete_ConfirmCheckbox">I confirm I have checked the details and wish to permanently write off this book.</system:String>
+    <system:String x:Key="Delete_ReasonLabel">Deletion Reason *</system:String>
+    <system:String x:Key="Delete_Title">Delete Book</system:String>
+
+    <!-- Manual Borrow -->
+    <system:String x:Key="ManualBorrow_AddCopies">+ Add Copies</system:String>
+    <system:String x:Key="ManualBorrow_CheckAll">Check All</system:String>
+    <system:String x:Key="ManualBorrow_ConfirmReturn">Confirm Return</system:String>
+    <system:String x:Key="ManualBorrow_Return">Return</system:String>
+    <system:String x:Key="ManualBorrow_SaveLoan">Save Loan</system:String>
+    <system:String x:Key="ManualBorrow_Loan">Loan</system:String>
+    <system:String x:Key="ManualBorrow_ColSelected">Selected</system:String>
+    <system:String x:Key="ManualBorrow_Category">Category</system:String>
+    <system:String x:Key="ManualBorrow_SelectedStudents">Selected Students:</system:String>
+    <system:String x:Key="ManualBorrow_StudentsInGroupA">Students in Group A</system:String>
+    <system:String x:Key="ManualBorrow_ExistingCopies">Available Copies: </system:String>
+    <system:String x:Key="ManualBorrow_Manual">Textbook</system:String>
+    <system:String x:Key="ManualBorrow_SelectPrompt">Select a textbook or a group to manage loans.</system:String>
+    <system:String x:Key="ManualBorrow_BackToLoans">Back to Loans</system:String>
+
+    <!-- Registration -->
+    <system:String x:Key="Registrare_LoginPrompt"> Log In</system:String>
+    <system:String x:Key="Registrare_AlreadyHaveAccount">Already have an account?</system:String>
+    <system:String x:Key="Registrare_JoinCommunity">Join our community and explore thousands of available books.</system:String>
+    <system:String x:Key="Registrare_FillDetails">Fill in your details to sign up</system:String>
+    <system:String x:Key="Registrare_CreateAccountTitle">Create Account</system:String>
+    <system:String x:Key="Registrare_FullName">Full Name</system:String>
+    <system:String x:Key="Registrare_CreateAccountButton">CREATE ACCOUNT</system:String>
+    <system:String x:Key="Registrare_ShowPassword">Show password</system:String>
+    <system:String x:Key="Registrare_Title">Registration</system:String>
+
+    <!-- Reports -->
+    <system:String x:Key="Reports_LoanActivityGeneral">General Loan Activity</system:String>
+    <system:String x:Key="Reports_MostReadBooks">Most Read Books</system:String>
+    <system:String x:Key="Reports_ReadersWithPenalties">Readers with Penalties / Overdue</system:String>
+    <system:String x:Key="Reports_NewBooksInventory">Newly Added Books Inventory</system:String>
+    <system:String x:Key="Reports_ColDueDate">Due Date</system:String>
+    <system:String x:Key="Reports_ColLoanDate">Loan Date</system:String>
+    <system:String x:Key="Reports_ColStatus">Status</system:String>
+    <system:String x:Key="Reports_ColBookTitle">Book Title</system:String>
+    <system:String x:Key="Reports_ColUser">User / Student</system:String>
+    <system:String x:Key="Reports_ActiveReaders">Active Readers</system:String>
+    <system:String x:Key="Reports_FromDate">From Date</system:String>
+    <system:String x:Key="Reports_ExportPDF">Export PDF</system:String>
+    <system:String x:Key="Reports_GenerateReport">Generate Report</system:String>
+    <system:String x:Key="Reports_Subtitle">Generate and export library activity reports</system:String>
+    <system:String x:Key="Reports_ToDate">To Date</system:String>
+    <system:String x:Key="Reports_Title">Reports and Statistics</system:String>
+    <system:String x:Key="Reports_OverdueTerm">Overdue</system:String>
+    <system:String x:Key="Reports_ReportType">Report Type</system:String>
+    <system:String x:Key="Reports_TotalBooksLoaned">Total Books Loaned</system:String>
+
+    <!-- Settings -->
+    <system:String x:Key="Settings_AccountCreatedDate">Account Created: </system:String>
+    <system:String x:Key="Settings_LastLoginDate">Last Login: </system:String>
+    <system:String x:Key="Settings_ContactEmail">Contact Email</system:String>
+    <system:String x:Key="Settings_ProfileManagement">Profile Management</system:String>
+    <system:String x:Key="Settings_ProfileImage">Profile Image / Logo</system:String>
+    <system:String x:Key="Settings_AccountInfo">Account Information</system:String>
+    <system:String x:Key="Settings_GeneralInfo">General Information</system:String>
+    <system:String x:Key="Settings_DaysSinceLogin">Days Since Login: </system:String>
+    <system:String x:Key="Settings_ConfirmedLoans">Confirmed Loans: </system:String>
+    <system:String x:Key="Settings_ProfileName">Profile Name</system:String>
+    <system:String x:Key="Settings_ChangeImage">Change Image</system:String>
+    <system:String x:Key="Settings_SystemSettings">System Settings</system:String>
+
+    <!-- Template Viewer -->
+    <system:String x:Key="TemplateViewer_CodePlaceholder">Template code: ...</system:String>
+    <system:String x:Key="TemplateViewer_SaveNote">Changes are saved directly to the database.</system:String>
+    <system:String x:Key="TemplateViewer_SaveTemplate">Save Template</system:String>
+    <system:String x:Key="TemplateViewer_MaximizeTooltip">Maximize/Restore</system:String>
+    <system:String x:Key="TemplateViewer_MinimizeTooltip">Minimize</system:String>
+    <system:String x:Key="TemplateViewer_CloseTooltip">Close</system:String>
+
+    <!-- Check-In / Borrow Wizard -->
+    <system:String x:Key="CheckIn_Previous">Previous</system:String>
+    <system:String x:Key="CheckIn_Cancel">Cancel</system:String>
+    <system:String x:Key="CheckIn_BookDetailsHeader">Book Details</system:String>
+    <system:String x:Key="CheckIn_Continue">Continue</system:String>
+    <system:String x:Key="CheckIn_NoActiveLoans">Student has no active loans.</system:String>
+    <system:String x:Key="CheckIn_ProcessingTitle">Processing Loan</system:String>
+    <system:String x:Key="CheckIn_StudentActiveLoans">Student's Active Loans</system:String>
+    <system:String x:Key="CheckIn_Step4Title">4. Confirm loan</system:String>
+    <system:String x:Key="CheckIn_Class">Class</system:String>
+    <system:String x:Key="CheckIn_StudentID">Student ID</system:String>
+    <system:String x:Key="CheckIn_Name">Name</system:String>
+    <system:String x:Key="CheckIn_ReturnDeadline">Return Deadline</system:String>
+    <system:String x:Key="CheckIn_Title">Title</system:String>
+    <system:String x:Key="CheckIn_Step1Title">1. Search for student</system:String>
+    <system:String x:Key="CheckIn_ActiveStudent">Active Student</system:String>
+    <system:String x:Key="CheckIn_SelectedStudent">Selected Student</system:String>
+    <system:String x:Key="CheckIn_GroupPlaceholder">Group: ...</system:String>
+    <system:String x:Key="CheckIn_StudentIDPlaceholder">Student ID: ...</system:String>
+    <system:String x:Key="CheckIn_SearchResults">Search Results</system:String>
+    <system:String x:Key="CheckIn_SelectStudent">Select Student</system:String>
+    <system:String x:Key="CheckIn_PhonePlaceholder">Phone: ...</system:String>
+    <system:String x:Key="CheckIn_Step2Title">2. Search and select book</system:String>
+    <system:String x:Key="CheckIn_SelectedBook2">Selected Book</system:String>
+    <system:String x:Key="CheckIn_SearchByAuthor">Search by author</system:String>
+    <system:String x:Key="CheckIn_Available">Available</system:String>
+    <system:String x:Key="CheckIn_14Days">14 days</system:String>
+    <system:String x:Key="CheckIn_21Days">21 days</system:String>
+    <system:String x:Key="CheckIn_30Days">30 days</system:String>
+    <system:String x:Key="CheckIn_Step3Title">3. Book Details</system:String>
+    <system:String x:Key="CheckIn_SelectedBook3">The Selected Book</system:String>
+    <system:String x:Key="CheckIn_CategoryLabel">Category:</system:String>
+    <system:String x:Key="CheckIn_CodeLabel">Code:</system:String>
+    <system:String x:Key="CheckIn_LoanDateLabel">Loan Date</system:String>
+    <system:String x:Key="CheckIn_LoanDuration">Loan Duration</system:String>
+    <system:String x:Key="CheckIn_ResponsiblePrefix">The student is responsible for the book until </system:String>
+
+    <!-- Book AI -->
+    <system:String x:Key="BookAi_AskQuestions">Ask questions</system:String>
+
+</ResourceDictionary>

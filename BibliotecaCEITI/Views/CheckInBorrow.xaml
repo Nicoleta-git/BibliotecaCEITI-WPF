@@ -29,10 +29,10 @@
                         Padding="0" Cursor="Hand" Margin="0,0,6,0" HorizontalAlignment="Left" Click="btnBack_Click">
                     <StackPanel Orientation="Horizontal">
                         <fa5:ImageAwesome Icon="Solid_ArrowLeft" Width="12" Foreground="{DynamicResource PrimaryEmerald}" Margin="0,0,8,0"/>
-                        <TextBlock Text="Înapoi la listă" FontSize="13" Foreground="{DynamicResource PrimaryEmerald}" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                        <TextBlock Text="{DynamicResource StudentDetails_BackToList}" FontSize="13" Foreground="{DynamicResource PrimaryEmerald}" FontWeight="SemiBold" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
-                <TextBlock Text="Procesare Împrumut" FontSize="22" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
+                <TextBlock Text="{DynamicResource CheckIn_ProcessingTitle}" FontSize="22" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
             </StackPanel>
         </Border>
 
@@ -53,11 +53,11 @@
                 </Border>
 
                 <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0" Width="357">
-                    <Button Content="Anterior" Width="93" Margin="0,0,10,0" Style="{StaticResource GlobalActionButtonStyle}" Background="RoyalBlue" Click="Button_Click"/>
-                    <Button Content="Anuleaza" Width="93" Margin="0,0,10,0" Style="{StaticResource GlobalActionButtonStyle}" Background="#e66250" Click="Button_Click"/>
+                    <Button Content="{DynamicResource CheckIn_Previous}" Width="93" Margin="0,0,10,0" Style="{StaticResource GlobalActionButtonStyle}" Background="RoyalBlue" Click="Button_Click"/>
+                    <Button Content="{DynamicResource CheckIn_Cancel}" Width="93" Margin="0,0,10,0" Style="{StaticResource GlobalActionButtonStyle}" Background="#e66250" Click="Button_Click"/>
                     <Button x:Name="btnNext" Style="{StaticResource GlobalActionButtonStyle}" Background="#1DA154" Width="149" Click="btnNext_Click">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock x:Name="salveaza" Text="Continuă" Foreground="White" FontSize="15" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="salveaza" Text="{DynamicResource CheckIn_Continue}" Foreground="White" FontSize="15" FontWeight="SemiBold" VerticalAlignment="Center"/>
                             <fa5:ImageAwesome Icon="Solid_ChevronRight" Width="10" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
@@ -72,7 +72,7 @@
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0" Margin="0,0,0,20">
-                        <TextBlock Text="Împrumuturi active ale elevului" 
+                        <TextBlock Text="{DynamicResource CheckIn_StudentActiveLoans}" 
                                    FontWeight="Bold" Foreground="{DynamicResource TextPrimary}" 
                                    VerticalAlignment="Center" FontSize="14"/>
                         <Button HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Cursor="Hand">
@@ -85,7 +85,7 @@
                         <Border x:Name="EmptyStateBorder" Background="{DynamicResource WindowBackground}" CornerRadius="10" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" Visibility="Collapsed">
                             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
                                 <fa5:ImageAwesome Icon="Regular_FileAlt" Width="30" Foreground="{DynamicResource TextGray}" Margin="0,0,0,15"/>
-                                <TextBlock Text="Elevul nu are împrumuturi active." 
+                                <TextBlock Text="{DynamicResource CheckIn_NoActiveLoans}" 
                                            TextWrapping="Wrap" TextAlignment="Center"
                                            Foreground="{DynamicResource TextMuted}" FontSize="13"/>
                             </StackPanel>
@@ -121,7 +121,7 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Header="Detalii Carte" Width="*">
+                                <DataGridTemplateColumn Header="{DynamicResource CheckIn_BookDetailsHeader}" Width="*">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <StackPanel VerticalAlignment="Center" Margin="10,0,10,0">

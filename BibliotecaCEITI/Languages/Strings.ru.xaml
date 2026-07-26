@@ -1,0 +1,295 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <!-- Main window: top bar / navigation -->
+    <system:String x:Key="Nav_Subtitle">Система управления</system:String>
+    <system:String x:Key="Nav_Dashboard">Панель управления</system:String>
+    <system:String x:Key="Nav_Books">Книги</system:String>
+    <system:String x:Key="Nav_Students">Студенты</system:String>
+    <system:String x:Key="Nav_Loans">Выдачи</system:String>
+    <system:String x:Key="Nav_Reservations">Бронирования</system:String>
+    <system:String x:Key="Nav_Alerts">Уведомления</system:String>
+    <system:String x:Key="Nav_Logout">Выход</system:String>
+    <system:String x:Key="Nav_ChangeThemeTooltip">Сменить тему</system:String>
+
+    <!-- Login window -->
+    <system:String x:Key="Login_Welcome">Добро пожаловать!</system:String>
+    <system:String x:Key="Login_Title">Авторизация</system:String>
+    <system:String x:Key="Login_Subtitle">Легко управляйте ресурсами библиотеки CEITI.</system:String>
+    <system:String x:Key="Login_EnterDetails">Введите данные ниже</system:String>
+    <system:String x:Key="Login_Username">Логин</system:String>
+    <system:String x:Key="Login_Password">Пароль</system:String>
+    <system:String x:Key="Login_Or">или</system:String>
+    <system:String x:Key="Login_ContinueWithGoogle">Продолжить с Google</system:String>
+    <system:String x:Key="Login_SubmitButton">ВОЙТИ</system:String>
+
+    <!-- Dashboard -->
+    <system:String x:Key="Dashboard_WelcomePrefix">Добро пожаловать, </system:String>
+    <system:String x:Key="Dashboard_Subtitle">Панель управления - Система библиотеки CEITI</system:String>
+    <system:String x:Key="Dashboard_TotalBooks">Всего книг</system:String>
+    <system:String x:Key="Dashboard_Available">Доступно</system:String>
+    <system:String x:Key="Dashboard_Borrowed">Выдано</system:String>
+    <system:String x:Key="Dashboard_Reserved">Зарезервировано</system:String>
+    <system:String x:Key="Dashboard_LoanActivity">Активность выдачи</system:String>
+    <system:String x:Key="Dashboard_LastMonths">(Последние месяцы)</system:String>
+    <system:String x:Key="Dashboard_TopBooks">Топ книг</system:String>
+
+    <!-- Books -->
+    <system:String x:Key="Books_AddCopy">+ экземпляр</system:String>
+    <system:String x:Key="Books_Archive">Архивировать</system:String>
+    <system:String x:Key="Books_Unarchive">Разархивировать</system:String>
+    <system:String x:Key="Books_ColActions">Действия</system:String>
+    <system:String x:Key="Books_ColAuthor">Автор</system:String>
+    <system:String x:Key="Books_ColInventoryCode">Инвентарный код</system:String>
+    <system:String x:Key="Books_ColTitle">Название</system:String>
+    <system:String x:Key="Books_ColCopies">Экземпляры</system:String>
+    <system:String x:Key="Books_ColStatus">Статус</system:String>
+    <system:String x:Key="Books_AddBook">Добавить книгу</system:String>
+    <system:String x:Key="Books_DetailsTitle">ДЕТАЛИ КНИГИ</system:String>
+    <system:String x:Key="Books_Edit">Редактировать</system:String>
+    <system:String x:Key="Books_Publisher">Издательство: </system:String>
+    <system:String x:Key="Books_ManageCopies">Управление экземплярами</system:String>
+    <system:String x:Key="Books_InventoryManagement">Управление инвентарем (Книги)</system:String>
+    <system:String x:Key="Books_Location">Расположение: </system:String>
+    <system:String x:Key="Books_Type">Тип: </system:String>
+    <system:String x:Key="Books_ViewArchive">Просмотр архива</system:String>
+    <system:String x:Key="Books_UpdateInventoryTooltip">Обновить инвентарь</system:String>
+    <system:String x:Key="Books_ShowArchivedTooltip">Показать архивированные книги</system:String>
+
+    <!-- Students -->
+    <system:String x:Key="Students_ColName">Студент</system:String>
+    <system:String x:Key="Students_ColGroup">Группа</system:String>
+    <system:String x:Key="Students_ColPhone">Телефон</system:String>
+    <system:String x:Key="Students_AddStudent">Добавить студента</system:String>
+    <system:String x:Key="Students_DetailsTitle">ДЕТАЛИ СТУДЕНТА</system:String>
+    <system:String x:Key="Students_EditView">Редактировать / Просмотр</system:String>
+    <system:String x:Key="Students_Management">Управление студентами</system:String>
+    <system:String x:Key="Students_Group">Группа: </system:String>
+    <system:String x:Key="Students_BorrowedBooksCount">Взято книг: </system:String>
+    <system:String x:Key="Students_Name">Имя: </system:String>
+    <system:String x:Key="Students_SelectStudent">Выберите студента</system:String>
+    <system:String x:Key="Students_UpdateDataTooltip">Обновить данные</system:String>
+
+    <!-- Loans (Borrow) -->
+    <system:String x:Key="Loans_AllGroups">Все группы</system:String>
+    <system:String x:Key="Loans_AllStatuses">Все статусы</system:String>
+    <system:String x:Key="Loans_SearchStudent">Поиск студента...</system:String>
+    <system:String x:Key="Loans_SelectedDetailsTitle">ДЕТАЛИ ВЫБРАННОЙ ВЫДАЧИ</system:String>
+    <system:String x:Key="Loans_ReturnDate">Дата возврата: </system:String>
+    <system:String x:Key="Loans_ManagementSubtitle">Управление выданными учебниками и книгами.</system:String>
+    <system:String x:Key="Loans_Manuals">Учебники</system:String>
+    <system:String x:Key="Loans_Unspecified">Не указано</system:String>
+    <system:String x:Key="Loans_Return">ВОЗВРАТ</system:String>
+    <system:String x:Key="Loans_Status">Статус: </system:String>
+    <system:String x:Key="Loans_Term">Срок: </system:String>
+    <system:String x:Key="Loans_NewLoan">Новая выдача</system:String>
+    <system:String x:Key="Loans_BorrowedBy">Взято: </system:String>
+
+    <!-- Shared grid columns -->
+    <system:String x:Key="Grid_Price">Цена</system:String>
+    <system:String x:Key="Grid_Rent">Аренда</system:String>
+    <system:String x:Key="Grid_Book">Книга</system:String>
+    <system:String x:Key="Grid_DueDate">Срок</system:String>
+    <system:String x:Key="Grid_LoanDate">Дата выдачи</system:String>
+    <system:String x:Key="Grid_ReturnDate">Дата возврата</system:String>
+
+    <!-- Book Reservation -->
+    <system:String x:Key="Reservation_Title">Бронирование книги</system:String>
+    <system:String x:Key="Reservation_Step1">1. Найдите и выберите книгу</system:String>
+    <system:String x:Key="Reservation_Step2">2. Выберите студента для бронирования</system:String>
+    <system:String x:Key="Reservation_Step3">3. Подтверждение</system:String>
+    <system:String x:Key="Reservation_Book">Книга:</system:String>
+    <system:String x:Key="Reservation_WaitingQueue">Очередь ожидания</system:String>
+    <system:String x:Key="Reservation_AutoMessageNote">Когда книга будет возвращена, студент получит автоматическое сообщение.</system:String>
+    <system:String x:Key="Reservation_CurrentlyHeldBy">В настоящее время у:</system:String>
+    <system:String x:Key="Reservation_Student">Студент:</system:String>
+    <system:String x:Key="Reservation_Unselected">Не выбрано</system:String>
+    <system:String x:Key="Reservation_SaveButton">Сохранить бронирование</system:String>
+    <system:String x:Key="Reservation_SearchBookPlaceholder">Поиск по названию, автору или ISBN...</system:String>
+    <system:String x:Key="Reservation_SearchStudentPlaceholder">Поиск студента по имени...</system:String>
+
+    <!-- Student Details -->
+    <system:String x:Key="StudentDetails_BorrowedBooks">Взятые книги</system:String>
+    <system:String x:Key="StudentDetails_ReservedBooks">Забронированные книги</system:String>
+    <system:String x:Key="StudentDetails_BirthDate">Дата рождения</system:String>
+    <system:String x:Key="StudentDetails_Title">Детали студента</system:String>
+    <system:String x:Key="StudentDetails_Group">Группа *</system:String>
+    <system:String x:Key="StudentDetails_IDNP">ИНП (13 цифр) *</system:String>
+    <system:String x:Key="StudentDetails_IdentificationInfo">Идентификационная информация</system:String>
+    <system:String x:Key="StudentDetails_LastName">Фамилия *</system:String>
+    <system:String x:Key="StudentDetails_FirstName">Имя *</system:String>
+    <system:String x:Key="StudentDetails_Notes">Примечания</system:String>
+    <system:String x:Key="StudentDetails_SaveChanges">Сохранить изменения</system:String>
+    <system:String x:Key="StudentDetails_BackToList">Назад к списку</system:String>
+    <system:String x:Key="Common_Cancel">Отмена</system:String>
+
+    <!-- Alerts -->
+    <system:String x:Key="Alerts_AllStatuses">Все статусы</system:String>
+    <system:String x:Key="Alerts_OverdueOver5Days">Просрочка &gt; 5 дней</system:String>
+    <system:String x:Key="Alerts_Overdue1To4Days">Просрочка 1-4 дня</system:String>
+    <system:String x:Key="Alerts_CancelSelection">Отменить выбор</system:String>
+    <system:String x:Key="Alerts_NoNotificationsSent">Уведомления еще не отправлены.</system:String>
+    <system:String x:Key="Alerts_RecentNotifications">Недавние уведомления</system:String>
+    <system:String x:Key="Alerts_NotificationsSent">Отправленные уведомления</system:String>
+    <system:String x:Key="Alerts_NoOverdueLoans">Нет активных просрочек!</system:String>
+    <system:String x:Key="Alerts_Reset">Сброс</system:String>
+    <system:String x:Key="Alerts_Resolved">Решено</system:String>
+    <system:String x:Key="Alerts_Reload">Обновить</system:String>
+    <system:String x:Key="Alerts_ColStatus">СТАТУС</system:String>
+    <system:String x:Key="Alerts_Sending">Отправка...</system:String>
+    <system:String x:Key="Alerts_AllStudentsOnTime">Все студенты вернули книги вовремя.</system:String>
+    <system:String x:Key="Alerts_ColDaysLate">ДНЕЙ ПРОСРОЧКИ</system:String>
+    <system:String x:Key="Alerts_Pending">В ожидании</system:String>
+    <system:String x:Key="Alerts_Overdue">Просрочки</system:String>
+    <system:String x:Key="Alerts_ColStudent">СТУДЕНТ</system:String>
+    <system:String x:Key="Alerts_ColBook">КНИГА</system:String>
+    <system:String x:Key="Alerts_ColDueDate">СРОК</system:String>
+    <system:String x:Key="Alerts_OverdueBadgeFormat">{0} активных просрочек</system:String>
+    <system:String x:Key="Alerts_SelectAllFormat">Выбрать все ({0})</system:String>
+    <system:String x:Key="Alerts_SendNotificationsFormat">Отправить уведомления ({0})</system:String>
+    <system:String x:Key="Alerts_PaginationFormat">Страница {0} из {1} · {2} записей</system:String>
+
+    <!-- Add Student -->
+    <system:String x:Key="AddStudent_SaveButton">Сохранить студента</system:String>
+
+    <!-- Book Details -->
+    <system:String x:Key="BookDetails_PublicationYear">Год издания</system:String>
+    <system:String x:Key="BookDetails_Author">Автор *</system:String>
+    <system:String x:Key="BookDetails_Category">Категория *</system:String>
+    <system:String x:Key="BookDetails_CurrentCover">Текущая обложка</system:String>
+    <system:String x:Key="BookDetails_Description">Описание</system:String>
+    <system:String x:Key="BookDetails_EditTitle">Редактировать детали книги</system:String>
+    <system:String x:Key="BookDetails_Publisher">Издательство</system:String>
+    <system:String x:Key="BookDetails_Language">Язык</system:String>
+    <system:String x:Key="BookDetails_RentPrice">Цена аренды</system:String>
+    <system:String x:Key="BookDetails_SalePrice">Цена продажи (MDL)</system:String>
+    <system:String x:Key="BookDetails_SaveChanges">Сохранить изменения</system:String>
+    <system:String x:Key="BookDetails_BookTitle">Название книги *</system:String>
+    <system:String x:Key="BookDetails_ImageURL">URL изображения</system:String>
+    <system:String x:Key="BookDetails_UploadAnotherImage">Загрузить другое изображение</system:String>
+
+    <!-- Delete Book -->
+    <system:String x:Key="Delete_PhysicalDamage">Физическое повреждение</system:String>
+    <system:String x:Key="Delete_LossDisappearance">Утеря / Пропажа</system:String>
+    <system:String x:Key="Delete_SelectReason">Выберите причину</system:String>
+    <system:String x:Key="Delete_TransferToOtherUnit">Передача в другое подразделение</system:String>
+    <system:String x:Key="Delete_MoralWear">Моральный износ</system:String>
+    <system:String x:Key="Delete_DeleteButton">Удалить</system:String>
+    <system:String x:Key="Delete_IrreversibleWarning"> Это действие необратимо.</system:String>
+    <system:String x:Key="Delete_Warning">Внимание!</system:String>
+    <system:String x:Key="Delete_ConfirmCheckbox">Подтверждаю, что проверил данные и хочу окончательно списать эту книгу.</system:String>
+    <system:String x:Key="Delete_ReasonLabel">Причина удаления *</system:String>
+    <system:String x:Key="Delete_Title">Удаление книги</system:String>
+
+    <!-- Manual Borrow -->
+    <system:String x:Key="ManualBorrow_AddCopies">+ Добавить экземпляры</system:String>
+    <system:String x:Key="ManualBorrow_CheckAll">Отметить всех</system:String>
+    <system:String x:Key="ManualBorrow_ConfirmReturn">Подтвердить возврат</system:String>
+    <system:String x:Key="ManualBorrow_Return">Возврат</system:String>
+    <system:String x:Key="ManualBorrow_SaveLoan">Сохранить выдачу</system:String>
+    <system:String x:Key="ManualBorrow_Loan">Выдача</system:String>
+    <system:String x:Key="ManualBorrow_ColSelected">Выбрано</system:String>
+    <system:String x:Key="ManualBorrow_Category">Категория</system:String>
+    <system:String x:Key="ManualBorrow_SelectedStudents">Выбранные студенты:</system:String>
+    <system:String x:Key="ManualBorrow_StudentsInGroupA">Студенты группы A</system:String>
+    <system:String x:Key="ManualBorrow_ExistingCopies">Доступно экземпляров: </system:String>
+    <system:String x:Key="ManualBorrow_Manual">Учебник</system:String>
+    <system:String x:Key="ManualBorrow_SelectPrompt">Выберите учебник или группу для управления выдачами.</system:String>
+    <system:String x:Key="ManualBorrow_BackToLoans">Назад к выдачам</system:String>
+
+    <!-- Registration -->
+    <system:String x:Key="Registrare_LoginPrompt"> Войти</system:String>
+    <system:String x:Key="Registrare_AlreadyHaveAccount">Уже есть аккаунт?</system:String>
+    <system:String x:Key="Registrare_JoinCommunity">Присоединяйтесь к нашему сообществу и исследуйте тысячи доступных книг.</system:String>
+    <system:String x:Key="Registrare_FillDetails">Заполните данные для регистрации</system:String>
+    <system:String x:Key="Registrare_CreateAccountTitle">Создать аккаунт</system:String>
+    <system:String x:Key="Registrare_FullName">Полное имя</system:String>
+    <system:String x:Key="Registrare_CreateAccountButton">СОЗДАТЬ АККАУНТ</system:String>
+    <system:String x:Key="Registrare_ShowPassword">Показать пароль</system:String>
+    <system:String x:Key="Registrare_Title">Регистрация</system:String>
+
+    <!-- Reports -->
+    <system:String x:Key="Reports_LoanActivityGeneral">Общая активность выдачи</system:String>
+    <system:String x:Key="Reports_MostReadBooks">Самые читаемые книги</system:String>
+    <system:String x:Key="Reports_ReadersWithPenalties">Читатели со штрафами / просрочками</system:String>
+    <system:String x:Key="Reports_NewBooksInventory">Инвентарь новых книг</system:String>
+    <system:String x:Key="Reports_ColDueDate">Срок сдачи</system:String>
+    <system:String x:Key="Reports_ColLoanDate">Дата выдачи</system:String>
+    <system:String x:Key="Reports_ColStatus">Статус</system:String>
+    <system:String x:Key="Reports_ColBookTitle">Название книги</system:String>
+    <system:String x:Key="Reports_ColUser">Пользователь / Студент</system:String>
+    <system:String x:Key="Reports_ActiveReaders">Активные читатели</system:String>
+    <system:String x:Key="Reports_FromDate">С даты</system:String>
+    <system:String x:Key="Reports_ExportPDF">Экспорт PDF</system:String>
+    <system:String x:Key="Reports_GenerateReport">Создать отчёт</system:String>
+    <system:String x:Key="Reports_Subtitle">Создавайте и экспортируйте отчёты активности библиотеки</system:String>
+    <system:String x:Key="Reports_ToDate">До даты</system:String>
+    <system:String x:Key="Reports_Title">Отчёты и статистика</system:String>
+    <system:String x:Key="Reports_OverdueTerm">Просрочено</system:String>
+    <system:String x:Key="Reports_ReportType">Тип отчёта</system:String>
+    <system:String x:Key="Reports_TotalBooksLoaned">Всего выдано книг</system:String>
+
+    <!-- Settings -->
+    <system:String x:Key="Settings_AccountCreatedDate">Дата создания аккаунта: </system:String>
+    <system:String x:Key="Settings_LastLoginDate">Последний вход: </system:String>
+    <system:String x:Key="Settings_ContactEmail">Контактный Email</system:String>
+    <system:String x:Key="Settings_ProfileManagement">Управление профилем</system:String>
+    <system:String x:Key="Settings_ProfileImage">Изображение профиля / Логотип</system:String>
+    <system:String x:Key="Settings_AccountInfo">Информация об аккаунте</system:String>
+    <system:String x:Key="Settings_GeneralInfo">Общая информация</system:String>
+    <system:String x:Key="Settings_DaysSinceLogin">Дней с момента входа: </system:String>
+    <system:String x:Key="Settings_ConfirmedLoans">Подтверждённых выдач: </system:String>
+    <system:String x:Key="Settings_ProfileName">Имя профиля</system:String>
+    <system:String x:Key="Settings_ChangeImage">Изменить изображение</system:String>
+    <system:String x:Key="Settings_SystemSettings">Настройки системы</system:String>
+
+    <!-- Template Viewer -->
+    <system:String x:Key="TemplateViewer_CodePlaceholder">Код шаблона: ...</system:String>
+    <system:String x:Key="TemplateViewer_SaveNote">Изменения сохраняются непосредственно в базе данных.</system:String>
+    <system:String x:Key="TemplateViewer_SaveTemplate">Сохранить шаблон</system:String>
+    <system:String x:Key="TemplateViewer_MaximizeTooltip">Развернуть/Восстановить</system:String>
+    <system:String x:Key="TemplateViewer_MinimizeTooltip">Свернуть</system:String>
+    <system:String x:Key="TemplateViewer_CloseTooltip">Закрыть</system:String>
+
+    <!-- Check-In / Borrow Wizard -->
+    <system:String x:Key="CheckIn_Previous">Назад</system:String>
+    <system:String x:Key="CheckIn_Cancel">Отмена</system:String>
+    <system:String x:Key="CheckIn_BookDetailsHeader">Детали книги</system:String>
+    <system:String x:Key="CheckIn_Continue">Продолжить</system:String>
+    <system:String x:Key="CheckIn_NoActiveLoans">У студента нет активных выдач.</system:String>
+    <system:String x:Key="CheckIn_ProcessingTitle">Обработка выдачи</system:String>
+    <system:String x:Key="CheckIn_StudentActiveLoans">Активные выдачи студента</system:String>
+    <system:String x:Key="CheckIn_Step4Title">4. Подтвердить выдачу</system:String>
+    <system:String x:Key="CheckIn_Class">Класс</system:String>
+    <system:String x:Key="CheckIn_StudentID">ID студента</system:String>
+    <system:String x:Key="CheckIn_Name">Имя</system:String>
+    <system:String x:Key="CheckIn_ReturnDeadline">Срок возврата</system:String>
+    <system:String x:Key="CheckIn_Title">Название</system:String>
+    <system:String x:Key="CheckIn_Step1Title">1. Найти студента</system:String>
+    <system:String x:Key="CheckIn_ActiveStudent">Активный студент</system:String>
+    <system:String x:Key="CheckIn_SelectedStudent">Выбранный студент</system:String>
+    <system:String x:Key="CheckIn_GroupPlaceholder">Группа: ...</system:String>
+    <system:String x:Key="CheckIn_StudentIDPlaceholder">ID студента: ...</system:String>
+    <system:String x:Key="CheckIn_SearchResults">Результаты поиска</system:String>
+    <system:String x:Key="CheckIn_SelectStudent">Выбрать студента</system:String>
+    <system:String x:Key="CheckIn_PhonePlaceholder">Телефон: ...</system:String>
+    <system:String x:Key="CheckIn_Step2Title">2. Найти и выбрать книгу</system:String>
+    <system:String x:Key="CheckIn_SelectedBook2">Выбранная книга</system:String>
+    <system:String x:Key="CheckIn_SearchByAuthor">Поиск по автору</system:String>
+    <system:String x:Key="CheckIn_Available">Доступна</system:String>
+    <system:String x:Key="CheckIn_14Days">14 дней</system:String>
+    <system:String x:Key="CheckIn_21Days">21 день</system:String>
+    <system:String x:Key="CheckIn_30Days">30 дней</system:String>
+    <system:String x:Key="CheckIn_Step3Title">3. Детали книги</system:String>
+    <system:String x:Key="CheckIn_SelectedBook3">Выбранная книга</system:String>
+    <system:String x:Key="CheckIn_CategoryLabel">Категория:</system:String>
+    <system:String x:Key="CheckIn_CodeLabel">Код:</system:String>
+    <system:String x:Key="CheckIn_LoanDateLabel">Дата выдачи</system:String>
+    <system:String x:Key="CheckIn_LoanDuration">Срок выдачи</system:String>
+    <system:String x:Key="CheckIn_ResponsiblePrefix">Студент несёт ответственность за книгу до </system:String>
+
+    <!-- Book AI -->
+    <system:String x:Key="BookAi_AskQuestions">Задавайте вопросы</system:String>
+
+</ResourceDictionary>

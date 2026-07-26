@@ -206,7 +206,7 @@
 
                     <TextBlock Grid.Column="1"
                                x:Name="txtTitluCentru"
-                               Text="Cod template: ..."
+                               Text="{DynamicResource TemplateViewer_CodePlaceholder}"
                                Foreground="#2B4063"
                                FontFamily="Consolas"
                                FontSize="12"
@@ -217,19 +217,19 @@
                         <Button x:Name="btnMinimize"
                                 Style="{StaticResource TitleBarBtn}"
                                 Click="BtnMinimize_Click"
-                                ToolTip="Minimizare">
+                                ToolTip="{DynamicResource TemplateViewer_MinimizeTooltip}">
                             <fa5:ImageAwesome Icon="Solid_WindowMinimize" Width="10" Foreground="#3A5578"/>
                         </Button>
                         <Button x:Name="btnMaximize"
                                 Style="{StaticResource TitleBarBtn}"
                                 Click="BtnMaximize_Click"
-                                ToolTip="Maximizare/Restaurare">
+                                ToolTip="{DynamicResource TemplateViewer_MaximizeTooltip}">
                             <fa5:ImageAwesome Icon="Regular_WindowMaximize" Width="11" Foreground="#3A5578"/>
                         </Button>
                         <Button x:Name="btnClose"
                                 Style="{StaticResource TitleBarBtn}"
                                 Click="BtnClose_Click"
-                                ToolTip="Închide">
+                                ToolTip="{DynamicResource TemplateViewer_CloseTooltip}">
                             <fa5:ImageAwesome Icon="Solid_Times" Width="11" Foreground="#3A5578"/>
                         </Button>
                     </StackPanel>
@@ -360,7 +360,7 @@
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <fa5:ImageAwesome Icon="Solid_InfoCircle" Width="12"
                                           Foreground="#1E3A5F" Margin="0,0,7,0" VerticalAlignment="Center"/>
-                        <TextBlock Text="Modificările se salvează direct în baza de date."
+                        <TextBlock Text="{DynamicResource TemplateViewer_SaveNote}"
                                    Foreground="#1E3A5F" FontFamily="Segoe UI" FontSize="12" VerticalAlignment="Center"/>
                     </StackPanel>
 
@@ -381,7 +381,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <fa5:ImageAwesome Icon="Solid_Times" Width="11"
                                                   Foreground="#3A5578" Margin="0,0,7,0" VerticalAlignment="Center"/>
-                                <TextBlock Text="Anulează" VerticalAlignment="Center"/>
+                                <TextBlock Text="{DynamicResource Common_Cancel}" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
 
@@ -400,7 +400,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <Ellipse Width="8" Height="8" Fill="#4A9EDB"
                                          Margin="0,0,8,0" VerticalAlignment="Center"/>
-                                <TextBlock Text="Salvează template" VerticalAlignment="Center"/>
+                                <TextBlock Text="{DynamicResource TemplateViewer_SaveTemplate}" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
 

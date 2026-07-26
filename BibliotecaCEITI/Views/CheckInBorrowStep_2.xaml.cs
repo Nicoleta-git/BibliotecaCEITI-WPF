@@ -144,6 +144,7 @@ namespace BibliotecaCEITI
             {
                 e.Column.Visibility = Visibility.Collapsed;
             }
+            GridColumnLocalizer.Localize(e);
         }
 
         public event Action<int> IdSelected;

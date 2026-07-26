@@ -34,7 +34,7 @@ namespace BibliotecaCEITI
 
             InitializeMonthlyActivityChart();
 
-            mesaj_de_intrare.Text = "Bun venit, " + SesiuneBibliotecar.NumeBibliotecar + "!";
+            mesaj_de_intrare.Text = (string)Application.Current.FindResource("Dashboard_WelcomePrefix") + SesiuneBibliotecar.NumeBibliotecar + "!";
         }
 
         private void InitializeMonthlyActivityChart()

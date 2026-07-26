@@ -87,7 +87,7 @@
                            RenderOptions.BitmapScalingMode="HighQuality"/>
 
                     <StackPanel VerticalAlignment="Center" Margin="30">
-                        <TextBlock Text="Creează Cont" Foreground="White" FontSize="32" FontWeight="ExtraBold" HorizontalAlignment="Center">
+                        <TextBlock Text="{DynamicResource Registrare_CreateAccountTitle}" Foreground="White" FontSize="32" FontWeight="ExtraBold" HorizontalAlignment="Center">
                             <TextBlock.Effect>
                                 <DropShadowEffect BlurRadius="5" ShadowDepth="3" Opacity="0.3"/>
                             </TextBlock.Effect>
@@ -95,7 +95,7 @@
 
                         <Separator Width="40" Height="4" Background="White" Margin="0,15"/>
 
-                        <TextBlock Text="Alătură-te comunității noastre și explorează mii de cărți disponibile." 
+                        <TextBlock Text="{DynamicResource Registrare_JoinCommunity}" 
                                    Foreground="#E0E0E0" FontSize="15" TextWrapping="Wrap" TextAlignment="Center" Margin="10,0"/>
                     </StackPanel>
 
@@ -109,28 +109,28 @@
                         FontSize="20" Cursor="Hand" Margin="0,-10,-20,0" Click="ExitBtn"/>
 
                 <StackPanel VerticalAlignment="Center">
-                    <TextBlock Text="Înregistrare" Foreground="#333" FontSize="28" FontWeight="Bold" Margin="0,0,0,5"/>
-                    <TextBlock Text="Completează datele pentru a te înscrie" Foreground="#999" FontSize="13" Margin="0,0,0,25"/>
+                    <TextBlock Text="{DynamicResource Registrare_Title}" Foreground="#333" FontSize="28" FontWeight="Bold" Margin="0,0,0,5"/>
+                    <TextBlock Text="{DynamicResource Registrare_FillDetails}" Foreground="#999" FontSize="13" Margin="0,0,0,25"/>
 
-                    <TextBlock Text="Nume Complet" Foreground="#666" Margin="0,0,0,5" FontWeight="Medium"/>
+                    <TextBlock Text="{DynamicResource Registrare_FullName}" Foreground="#666" Margin="0,0,0,5" FontWeight="Medium"/>
                     <TextBox Style="{StaticResource ModernInputStyle}" Margin="0,0,0,15"/>
 
                     <TextBlock Text="Email" Foreground="#666" Margin="0,0,0,5" FontWeight="Medium"/>
                     <TextBox Style="{StaticResource ModernInputStyle}" Margin="0,0,0,15"/>
 
-                    <TextBlock Text="Utilizator" Foreground="#666" Margin="0,0,0,5" FontWeight="Medium"/>
+                    <TextBlock Text="{DynamicResource Login_Username}" Foreground="#666" Margin="0,0,0,5" FontWeight="Medium"/>
                     <TextBox Style="{StaticResource ModernInputStyle}" Margin="0,0,0,15"/>
 
-                    <TextBlock Text="Parolă" Foreground="#666" Margin="0,0,0,5" FontWeight="Medium"/>
+                    <TextBlock Text="{DynamicResource Login_Password}" Foreground="#666" Margin="0,0,0,5" FontWeight="Medium"/>
                     <PasswordBox Style="{StaticResource ModernInputStyle}" Margin="0,0,0,10"/>
 
-                    <CheckBox Content="Vezi parola" Margin="0,0,0,25" Foreground="#999" FontSize="11"/>
+                    <CheckBox Content="{DynamicResource Registrare_ShowPassword}" Margin="0,0,0,25" Foreground="#999" FontSize="11"/>
 
-                    <Button Content="CREEAZĂ CONT" Height="45" Style="{StaticResource ModernButtonStyle}"/>
+                    <Button Content="{DynamicResource Registrare_CreateAccountButton}" Height="45" Style="{StaticResource ModernButtonStyle}"/>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
-                        <TextBlock Text="Ai deja un cont?" Foreground="#999"/>
-                        <TextBlock Text=" Autentifică-te" Foreground="#2575fc" FontWeight="SemiBold" Cursor="Hand" Margin="5,0,0,0">
+                        <TextBlock Text="{DynamicResource Registrare_AlreadyHaveAccount}" Foreground="#999"/>
+                        <TextBlock Text="{DynamicResource Registrare_LoginPrompt}" Foreground="#2575fc" FontWeight="SemiBold" Cursor="Hand" Margin="5,0,0,0">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">
                                     <Style.Triggers>

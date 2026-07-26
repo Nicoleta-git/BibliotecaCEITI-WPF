@@ -96,30 +96,30 @@
 
             <Grid Grid.Row="0" Margin="10,0,10,20">
                 <StackPanel>
-                    <TextBlock Text="Atenționări" FontSize="26" FontWeight="Bold"
+                    <TextBlock Text="{DynamicResource Nav_Alerts}" FontSize="26" FontWeight="Bold"
                               Foreground="{DynamicResource TextPrimary}"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <Border x:Name="bdgIntarzieri" Background="{StaticResource BorrowedOrangeBg}" CornerRadius="20"
+                    <Border x:Name="bdgIntarzieri" Background="{DynamicResource BorrowedOrangeBg}" CornerRadius="20"
                             Padding="14,6" Margin="0,0,12,0" VerticalAlignment="Center">
                         <StackPanel Orientation="Horizontal">
                             <fa5:ImageAwesome Icon="Solid_ExclamationTriangle" Width="13"
-                                             Foreground="{StaticResource BorrowedOrange}" Margin="0,0,6,0"
+                                             Foreground="{DynamicResource BorrowedOrange}" Margin="0,0,6,0"
                                              VerticalAlignment="Center"/>
                             <TextBlock x:Name="txtBadgeIntarzieri" Text="0 întârzieri active"
-                                       Foreground="{StaticResource BorrowedOrange}" FontSize="13" FontWeight="SemiBold"
+                                       Foreground="{DynamicResource BorrowedOrange}" FontSize="13" FontWeight="SemiBold"
                                        VerticalAlignment="Center"/>
                         </StackPanel>
                     </Border>
 
                     <Button x:Name="btnReincarca" Click="BtnReincarca_Click"
                             Style="{StaticResource ActionButtonStyle}"
-                            Background="{StaticResource TotalBlueBg}" Foreground="{StaticResource TotalBlue}" Height="38">
+                            Background="{DynamicResource TotalBlueBg}" Foreground="{DynamicResource TotalBlue}" Height="38">
                         <StackPanel Orientation="Horizontal">
-                            <fa5:ImageAwesome Icon="Solid_SyncAlt" Width="13" Foreground="{StaticResource TotalBlue}" Margin="0,0,8,0"
+                            <fa5:ImageAwesome Icon="Solid_SyncAlt" Width="13" Foreground="{DynamicResource TotalBlue}" Margin="0,0,8,0"
                                              VerticalAlignment="Center"/>
-                            <TextBlock Text="Reîncarcă" FontWeight="SemiBold" FontSize="13"/>
+                            <TextBlock Text="{DynamicResource Alerts_Reload}" FontWeight="SemiBold" FontSize="13"/>
                         </StackPanel>
                     </Button>
                 </StackPanel>
@@ -127,50 +127,50 @@
 
             <UniformGrid Grid.Row="1" Columns="4" Margin="0,0,0,16">
 
-                <Border Style="{StaticResource StatCardStyle}"  Background="{DynamicResource CardBackground}" BorderBrush="{StaticResource BorderBrushDark}" BorderThickness="1">
+                <Border Style="{StaticResource StatCardStyle}"  Background="{DynamicResource CardBackground}" BorderBrush="{DynamicResource BorderBrushDark}" BorderThickness="1">
                     <StackPanel Orientation="Horizontal" Margin="10">
-                        <Border Width="45" Height="45" Background="{StaticResource BorrowedOrangeBg}" CornerRadius="12" Margin="0,0,15,0">
-                            <fa5:ImageAwesome Icon="Solid_ExclamationTriangle" Foreground="{StaticResource BorrowedOrange}" Width="20"/>
+                        <Border Width="45" Height="45" Background="{DynamicResource BorrowedOrangeBg}" CornerRadius="12" Margin="0,0,15,0">
+                            <fa5:ImageAwesome Icon="Solid_ExclamationTriangle" Foreground="{DynamicResource BorrowedOrange}" Width="20"/>
                         </Border>
                         <StackPanel VerticalAlignment="Center">
-                            <TextBlock Text="Întârzieri" Foreground="{StaticResource TextMuted}" FontSize="13"/>
-                            <TextBlock x:Name="txtIntarzieri" Text="—" FontSize="22" FontWeight="Bold" Foreground="{StaticResource BorrowedOrange}"/>
+                            <TextBlock Text="{DynamicResource Alerts_Overdue}" Foreground="{DynamicResource TextMuted}" FontSize="13"/>
+                            <TextBlock x:Name="txtIntarzieri" Text="—" FontSize="22" FontWeight="Bold" Foreground="{DynamicResource BorrowedOrange}"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>
 
-                <Border Style="{StaticResource StatCardStyle}" Background="{DynamicResource CardBackground}" BorderBrush="{StaticResource BorderBrushDark}" BorderThickness="1">
+                <Border Style="{StaticResource StatCardStyle}" Background="{DynamicResource CardBackground}" BorderBrush="{DynamicResource BorderBrushDark}" BorderThickness="1">
                     <StackPanel Orientation="Horizontal" Margin="10">
-                        <Border Width="45" Height="45" Background="{StaticResource TotalBlueBg}" CornerRadius="12" Margin="0,0,15,0">
-                            <fa5:ImageAwesome Icon="Solid_Envelope" Foreground="{StaticResource TotalBlue}" Width="20"/>
+                        <Border Width="45" Height="45" Background="{DynamicResource TotalBlueBg}" CornerRadius="12" Margin="0,0,15,0">
+                            <fa5:ImageAwesome Icon="Solid_Envelope" Foreground="{DynamicResource TotalBlue}" Width="20"/>
                         </Border>
                         <StackPanel VerticalAlignment="Center">
-                            <TextBlock Text="Notificări trimise" Foreground="{StaticResource TextMuted}" FontSize="13"/>
-                            <TextBlock x:Name="txtNotifTrimise" Text="—" FontSize="22" FontWeight="Bold" Foreground="{StaticResource TotalBlue}"/>
+                            <TextBlock Text="{DynamicResource Alerts_NotificationsSent}" Foreground="{DynamicResource TextMuted}" FontSize="13"/>
+                            <TextBlock x:Name="txtNotifTrimise" Text="—" FontSize="22" FontWeight="Bold" Foreground="{DynamicResource TotalBlue}"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>
 
-                <Border Style="{StaticResource StatCardStyle}" Background="{DynamicResource CardBackground}" BorderBrush="{StaticResource BorderBrushDark}" BorderThickness="1">
+                <Border Style="{StaticResource StatCardStyle}" Background="{DynamicResource CardBackground}" BorderBrush="{DynamicResource BorderBrushDark}" BorderThickness="1">
                     <StackPanel Orientation="Horizontal" Margin="10">
-                        <Border Width="45" Height="45" Background="{StaticResource BorrowedOrangeBg}" CornerRadius="12" Margin="0,0,15,0">
-                            <fa5:ImageAwesome Icon="Solid_HourglassHalf" Foreground="{StaticResource BorrowedOrange}" Width="20"/>
+                        <Border Width="45" Height="45" Background="{DynamicResource BorrowedOrangeBg}" CornerRadius="12" Margin="0,0,15,0">
+                            <fa5:ImageAwesome Icon="Solid_HourglassHalf" Foreground="{DynamicResource BorrowedOrange}" Width="20"/>
                         </Border>
                         <StackPanel VerticalAlignment="Center">
-                            <TextBlock Text="În așteptare" Foreground="{StaticResource TextMuted}" FontSize="13"/>
-                            <TextBlock x:Name="txtInAsteptare" Text="—" FontSize="22" FontWeight="Bold" Foreground="{StaticResource BorrowedOrange}"/>
+                            <TextBlock Text="{DynamicResource Alerts_Pending}" Foreground="{DynamicResource TextMuted}" FontSize="13"/>
+                            <TextBlock x:Name="txtInAsteptare" Text="—" FontSize="22" FontWeight="Bold" Foreground="{DynamicResource BorrowedOrange}"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>
 
-                <Border Style="{StaticResource StatCardStyle}" Background="{DynamicResource CardBackground}" BorderBrush="{StaticResource BorderBrushDark}" BorderThickness="1">
+                <Border Style="{StaticResource StatCardStyle}" Background="{DynamicResource CardBackground}" BorderBrush="{DynamicResource BorderBrushDark}" BorderThickness="1">
                     <StackPanel Orientation="Horizontal" Margin="10">
-                        <Border Width="45" Height="45" Background="{StaticResource StockGreenBg}" CornerRadius="12" Margin="0,0,15,0">
-                            <fa5:ImageAwesome Icon="Solid_CheckCircle" Foreground="{StaticResource StockGreen}" Width="20"/>
+                        <Border Width="45" Height="45" Background="{DynamicResource StockGreenBg}" CornerRadius="12" Margin="0,0,15,0">
+                            <fa5:ImageAwesome Icon="Solid_CheckCircle" Foreground="{DynamicResource StockGreen}" Width="20"/>
                         </Border>
                         <StackPanel VerticalAlignment="Center">
-                            <TextBlock Text="Rezolvate" Foreground="{StaticResource TextMuted}" FontSize="13"/>
-                            <TextBlock x:Name="txtRezolvate" Text="—" FontSize="22" FontWeight="Bold" Foreground="{StaticResource StockGreen}"/>
+                            <TextBlock Text="{DynamicResource Alerts_Resolved}" Foreground="{DynamicResource TextMuted}" FontSize="13"/>
+                            <TextBlock x:Name="txtRezolvate" Text="—" FontSize="22" FontWeight="Bold" Foreground="{DynamicResource StockGreen}"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>
@@ -204,24 +204,24 @@
                     </Border>
 
                     <ComboBox x:Name="cbxClasa" Grid.Column="1" Width="150" Height="40" Margin="0,0,12,0"
-                              FontSize="13" Background="Transparent" BorderBrush="#E2E8F0"
+                              FontSize="13" Background="Transparent" BorderBrush="{DynamicResource BorderBrushLight}"
                               SelectionChanged="CbxClasa_SelectionChanged"/>
 
                     <ComboBox x:Name="cbxStatus" Grid.Column="2" Width="200" Height="40" Margin="0,0,12,0"
-                              FontSize="13" Background="Transparent" BorderBrush="#E2E8F0"
+                              FontSize="13" Background="Transparent" BorderBrush="{DynamicResource BorderBrushLight}"
                               SelectionChanged="CbxStatus_SelectionChanged">
-                        <ComboBoxItem Content="Toate statusurile" IsSelected="True"/>
-                        <ComboBoxItem Content="Întârziere &gt; 5 zile"/>
-                        <ComboBoxItem Content="Întârziere 1-4 zile"/>
+                        <ComboBoxItem Content="{DynamicResource Alerts_AllStatuses}" IsSelected="True"/>
+                        <ComboBoxItem Content="{DynamicResource Alerts_OverdueOver5Days}"/>
+                        <ComboBoxItem Content="{DynamicResource Alerts_Overdue1To4Days}"/>
                     </ComboBox>
 
                     <Button Grid.Column="3" Style="{StaticResource ActionButtonStyle}"
                             Height="40" Click="BtnReset_Click"
-                            Background="Transparent" Foreground="#475569">
+                            Background="Transparent" Foreground="{DynamicResource TextMuted}">
                         <StackPanel Orientation="Horizontal">
                             <fa5:ImageAwesome Icon="Solid_Times" Width="11" Foreground="{DynamicResource TextPrimary}"
                                              Margin="0,0,6,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Reset" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}"/>
+                            <TextBlock Text="{DynamicResource Alerts_Reset}" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}"/>
                         </StackPanel>
                     </Button>
                 </Grid>
@@ -272,12 +272,12 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0"/>
-                                <TextBlock Grid.Column="1" Text="ELEV" Style="{StaticResource ColHeaderStyle}" Foreground="{DynamicResource TextMuted}"/>
-                                <TextBlock Grid.Column="2" Text="CARTE" Style="{StaticResource ColHeaderStyle}" Foreground="{DynamicResource TextMuted}"/>
-                                <TextBlock Grid.Column="3" Text="TERMEN" Style="{StaticResource ColHeaderStyle}" Foreground="{DynamicResource TextMuted}"/>
-                                <TextBlock Grid.Column="4" Text="ZILE ÎNT." Style="{StaticResource ColHeaderStyle}" Foreground="{DynamicResource TextMuted}"/>
+                                <TextBlock Grid.Column="1" Text="{DynamicResource Alerts_ColStudent}" Style="{StaticResource ColHeaderStyle}" Foreground="{DynamicResource TextMuted}"/>
+                                <TextBlock Grid.Column="2" Text="{DynamicResource Alerts_ColBook}" Style="{StaticResource ColHeaderStyle}" Foreground="{DynamicResource TextMuted}"/>
+                                <TextBlock Grid.Column="3" Text="{DynamicResource Alerts_ColDueDate}" Style="{StaticResource ColHeaderStyle}" Foreground="{DynamicResource TextMuted}"/>
+                                <TextBlock Grid.Column="4" Text="{DynamicResource Alerts_ColDaysLate}" Style="{StaticResource ColHeaderStyle}" Foreground="{DynamicResource TextMuted}"/>
                                 <TextBlock Grid.Column="5" Text="EMAIL" Style="{StaticResource ColHeaderStyle}" Foreground="{DynamicResource TextMuted}"/>
-                                <TextBlock Grid.Column="6" Text="STATUS" Style="{StaticResource ColHeaderStyle}" Foreground="{DynamicResource TextMuted}"/>
+                                <TextBlock Grid.Column="6" Text="{DynamicResource Alerts_ColStatus}" Style="{StaticResource ColHeaderStyle}" Foreground="{DynamicResource TextMuted}"/>
                             </Grid>
                         </Border>
 
@@ -289,11 +289,11 @@
                                         <fa5:ImageAwesome Icon="Solid_CheckCircle" Width="48"
                                          Foreground="{DynamicResource StockGreen}" HorizontalAlignment="Center"
                                          Margin="0,0,0,16"/>
-                                        <TextBlock Text="Nu există întârzieri active!"
+                                        <TextBlock Text="{DynamicResource Alerts_NoOverdueLoans}"
                                                 FontSize="16" FontWeight="SemiBold"
                                                 Foreground="{DynamicResource TextPrimary}"
                                                 HorizontalAlignment="Center"/>
-                                        <TextBlock Text="Toți elevii au returnat cărțile la timp."
+                                        <TextBlock Text="{DynamicResource Alerts_AllStudentsOnTime}"
                                                 FontSize="13" Foreground="{DynamicResource TextMuted}"
                                                 HorizontalAlignment="Center" Margin="0,6,0,0"/>
                                     </StackPanel>
@@ -342,11 +342,11 @@
                             <StackPanel Orientation="Horizontal">
                                 <fa5:ImageAwesome Icon="Solid_Times" Foreground="#DC2626" Width="12"
                                                  Margin="0,0,8,0" VerticalAlignment="Center"/>
-                                <TextBlock Text="Anulează selecția" FontWeight="SemiBold" FontSize="13"/>
+                                <TextBlock Text="{DynamicResource Alerts_CancelSelection}" FontWeight="SemiBold" FontSize="13"/>
                             </StackPanel>
                         </Button>
 
-                        <Border BorderBrush="#E2E8F0" BorderThickness="0,1,0,0" Margin="0,8,0,12"/>
+                        <Border BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="0,1,0,0" Margin="0,8,0,12"/>
                     </StackPanel>
 
                     <Border Grid.Row="1"
@@ -362,7 +362,7 @@
                             <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,12">
                                 <fa5:ImageAwesome Icon="Solid_History" Width="13" Foreground="#6210CC"
                                                  Margin="0,0,8,0" VerticalAlignment="Center"/>
-                                <TextBlock Text="Notificări recente" FontWeight="Bold" FontSize="14"
+                                <TextBlock Text="{DynamicResource Alerts_RecentNotifications}" FontWeight="Bold" FontSize="14"
                                            Foreground="{DynamicResource TextPrimary}"/>
                             </StackPanel>
 
@@ -377,8 +377,8 @@
                                                              Foreground="#CBD5E1"
                                                              HorizontalAlignment="Center"
                                                              Margin="0,0,0,10"/>
-                                            <TextBlock Text="Nicio notificare trimisă încă."
-                                                       FontSize="12" Foreground="{StaticResource TextGray}"
+                                            <TextBlock Text="{DynamicResource Alerts_NoNotificationsSent}"
+                                                       FontSize="12" Foreground="{DynamicResource TextGray}"
                                                        HorizontalAlignment="Center"
                                                        TextAlignment="Center"/>
                                         </StackPanel>
@@ -392,7 +392,7 @@
             </Grid>
         </Grid>
 
-        <Border x:Name="overlayLoading" Background="#88FFFFFF" Visibility="Collapsed">
+        <Border x:Name="overlayLoading" Background="{DynamicResource WindowBackground}" Opacity="0.9" Visibility="Collapsed">
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                 <fa5:ImageAwesome Icon="Solid_Spinner" Width="40" Foreground="#6210CC"
                                  HorizontalAlignment="Center"
@@ -401,7 +401,7 @@
                         <RotateTransform x:Name="spinnerRotate"/>
                     </fa5:ImageAwesome.RenderTransform>
                 </fa5:ImageAwesome>
-                <TextBlock x:Name="txtLoading" Text="Se trimite..." FontSize="15"
+                <TextBlock x:Name="txtLoading" Text="{DynamicResource Alerts_Sending}" FontSize="15"
                            FontWeight="SemiBold" Foreground="#6210CC" Margin="0,12,0,0"
                            HorizontalAlignment="Center"/>
             </StackPanel>

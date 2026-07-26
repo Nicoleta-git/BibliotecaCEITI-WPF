@@ -28,8 +28,8 @@
         <Border Grid.Row="0" Background="Transparent" Padding="40,30,40,10">
             <Grid>
                 <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <TextBlock Text="Rapoarte și Statistici" FontSize="28" FontWeight="Bold" Foreground="#1B2559"/>
-                    <TextBlock Text="Generează și exportă rapoartele activității bibliotecii" FontSize="14" Foreground="#A3AED0" Margin="0,4,0,0"/>
+                    <TextBlock Text="{DynamicResource Reports_Title}" FontSize="28" FontWeight="Bold" Foreground="#1B2559"/>
+                    <TextBlock Text="{DynamicResource Reports_Subtitle}" FontSize="14" Foreground="#A3AED0" Margin="0,4,0,0"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,5">
@@ -41,14 +41,14 @@
                         </Button.Resources>
                         <StackPanel Orientation="Horizontal">
                             <fa5:ImageAwesome Icon="Solid_FilePdf" Width="13" Foreground="#EE2B2B" Margin="0,0,8,0"/>
-                            <TextBlock Text="Export PDF" Foreground="#1B2559" FontWeight="Medium"/>
+                            <TextBlock Text="{DynamicResource Reports_ExportPDF}" Foreground="#1B2559" FontWeight="Medium"/>
                         </StackPanel>
                     </Button>
 
                     <Button x:Name="btnGenereazaRaport" Width="180" Height="38" Style="{StaticResource GlobalActionButtonStyle}">
                         <StackPanel Orientation="Horizontal">
                             <fa5:ImageAwesome Icon="Solid_Sync" Width="13" Foreground="White" Margin="0,0,8,0"/>
-                            <TextBlock Text="Generează Raport"/>
+                            <TextBlock Text="{DynamicResource Reports_GenerateReport}"/>
                         </StackPanel>
                     </Button>
                 </StackPanel>
@@ -59,7 +59,7 @@
             <Border Background="White" CornerRadius="12" BorderBrush="{StaticResource BorderLight}" BorderThickness="1" Padding="20" Margin="0,0,15,0">
                 <Grid>
                     <StackPanel HorizontalAlignment="Left">
-                        <TextBlock Text="Total Cărți Împrumutate" FontSize="14" Foreground="#A3AED0" FontWeight="Medium"/>
+                        <TextBlock Text="{DynamicResource Reports_TotalBooksLoaned}" FontSize="14" Foreground="#A3AED0" FontWeight="Medium"/>
                         <TextBlock x:Name="txtStatTotalImprumuturi" Text="0" FontSize="24" FontWeight="Bold" Foreground="#1B2559" Margin="0,5,0,0"/>
                     </StackPanel>
                     <Border Background="#F4F7FE" Width="48" Height="48" CornerRadius="24" HorizontalAlignment="Right" VerticalAlignment="Center">
@@ -71,7 +71,7 @@
             <Border Background="White" CornerRadius="12" BorderBrush="{StaticResource BorderLight}" BorderThickness="1" Padding="20" Margin="10,0,10,0">
                 <Grid>
                     <StackPanel HorizontalAlignment="Left">
-                        <TextBlock Text="Cititori Activi" FontSize="14" Foreground="#A3AED0" FontWeight="Medium"/>
+                        <TextBlock Text="{DynamicResource Reports_ActiveReaders}" FontSize="14" Foreground="#A3AED0" FontWeight="Medium"/>
                         <TextBlock x:Name="txtStatCititoriActivi" Text="0" FontSize="24" FontWeight="Bold" Foreground="#1B2559" Margin="0,5,0,0"/>
                     </StackPanel>
                     <Border Background="#F4F7FE" Width="48" Height="48" CornerRadius="24" HorizontalAlignment="Right" VerticalAlignment="Center">
@@ -83,7 +83,7 @@
             <Border Background="White" CornerRadius="12" BorderBrush="{StaticResource BorderLight}" BorderThickness="1" Padding="20" Margin="15,0,0,0">
                 <Grid>
                     <StackPanel HorizontalAlignment="Left">
-                        <TextBlock Text="Termen Depășit" FontSize="14" Foreground="#A3AED0" FontWeight="Medium"/>
+                        <TextBlock Text="{DynamicResource Reports_OverdueTerm}" FontSize="14" Foreground="#A3AED0" FontWeight="Medium"/>
                         <TextBlock x:Name="txtStatTermenDepasit" Text="0" FontSize="24" FontWeight="Bold" Foreground="#EE2B2B" Margin="0,5,0,0"/>
                     </StackPanel>
                     <Border Background="#FEEAEA" Width="48" Height="48" CornerRadius="24" HorizontalAlignment="Right" VerticalAlignment="Center">
@@ -109,22 +109,22 @@
                         </Grid.ColumnDefinitions>
 
                         <StackPanel Grid.Column="0" Margin="0,0,15,0">
-                            <TextBlock Text="Tipul Raportului" Style="{StaticResource FieldLabel}"/>
+                            <TextBlock Text="{DynamicResource Reports_ReportType}" Style="{StaticResource FieldLabel}"/>
                             <ComboBox x:Name="cbTipRaport" Height="38" SelectedIndex="0">
-                                <ComboBoxItem Content="Activitate Împrumuturi Generale"/>
-                                <ComboBoxItem Content="Cele mai citite cărți"/>
-                                <ComboBoxItem Content="Cititori cu penalități / restanțe"/>
-                                <ComboBoxItem Content="Inventar cărți noi adăugate"/>
+                                <ComboBoxItem Content="{DynamicResource Reports_LoanActivityGeneral}"/>
+                                <ComboBoxItem Content="{DynamicResource Reports_MostReadBooks}"/>
+                                <ComboBoxItem Content="{DynamicResource Reports_ReadersWithPenalties}"/>
+                                <ComboBoxItem Content="{DynamicResource Reports_NewBooksInventory}"/>
                             </ComboBox>
                         </StackPanel>
 
                         <StackPanel Grid.Column="1" Margin="10,0,10,0">
-                            <TextBlock Text="De la Data" Style="{StaticResource FieldLabel}"/>
+                            <TextBlock Text="{DynamicResource Reports_FromDate}" Style="{StaticResource FieldLabel}"/>
                             <DatePicker x:Name="dpDataInceput" Height="38" VerticalContentAlignment="Center"/>
                         </StackPanel>
 
                         <StackPanel Grid.Column="2" Margin="15,0,0,0">
-                            <TextBlock Text="Până la Data" Style="{StaticResource FieldLabel}"/>
+                            <TextBlock Text="{DynamicResource Reports_ToDate}" Style="{StaticResource FieldLabel}"/>
                             <DatePicker x:Name="dpDataSfarsit" Height="38" VerticalContentAlignment="Center"/>
                         </StackPanel>
                     </Grid>
@@ -152,11 +152,11 @@
 
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="60"/>
-                            <DataGridTextColumn Header="Utilizator / Student" Binding="{Binding NumeCititor}" Width="2*"/>
-                            <DataGridTextColumn Header="Titlu Carte" Binding="{Binding TitluCarte}" Width="3*"/>
-                            <DataGridTextColumn Header="Data Împrumut" Binding="{Binding DataImprumut, StringFormat=d}" Width="1.5*"/>
-                            <DataGridTextColumn Header="Data Scadență" Binding="{Binding DataScadenta, StringFormat=d}" Width="1.5*"/>
-                            <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="1*"/>
+                            <DataGridTextColumn Header="{DynamicResource Reports_ColUser}" Binding="{Binding NumeCititor}" Width="2*"/>
+                            <DataGridTextColumn Header="{DynamicResource Reports_ColBookTitle}" Binding="{Binding TitluCarte}" Width="3*"/>
+                            <DataGridTextColumn Header="{DynamicResource Reports_ColLoanDate}" Binding="{Binding DataImprumut, StringFormat=d}" Width="1.5*"/>
+                            <DataGridTextColumn Header="{DynamicResource Reports_ColDueDate}" Binding="{Binding DataScadenta, StringFormat=d}" Width="1.5*"/>
+                            <DataGridTextColumn Header="{DynamicResource Reports_ColStatus}" Binding="{Binding Status}" Width="1*"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>

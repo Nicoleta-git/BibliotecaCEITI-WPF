@@ -99,6 +99,7 @@ namespace BibliotecaCEITI
                     }
                 }
             }
+            GridColumnLocalizer.Localize(e);
         }
 
         private async void txtSearch_TextChanged(object sender, TextChangedEventArgs e)

@@ -93,7 +93,7 @@
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,25">
-                <TextBlock Text="3. Detalii carte" FontSize="20" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
+                <TextBlock Text="{DynamicResource CheckIn_Step3Title}" FontSize="20" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
             </StackPanel>
 
             <Grid Grid.Row="1">
@@ -106,7 +106,7 @@
                 <!-- Left Column: Dates and Duration Form -->
                 <StackPanel Grid.Column="0" Margin="0,0,20,0">
                     <StackPanel Margin="0,0,0,20">
-                        <TextBlock Text="Data împrumut" Margin="0,0,0,8" FontSize="13" FontWeight="Medium" Foreground="{StaticResource TextMuted}"/>
+                        <TextBlock Text="{DynamicResource CheckIn_LoanDateLabel}" Margin="0,0,0,8" FontSize="13" FontWeight="Medium" Foreground="{DynamicResource TextMuted}"/>
                         <DatePicker x:Name="data_imprumut" 
                     Height="45" 
                     VerticalContentAlignment="Center"
@@ -114,20 +114,20 @@
                     </StackPanel>
 
                     <StackPanel Margin="0,0,0,20">
-                        <TextBlock Text="Durata împrumut" Margin="0,0,0,8" FontSize="13" FontWeight="Medium" Foreground="{StaticResource TextMuted}"/>
+                        <TextBlock Text="{DynamicResource CheckIn_LoanDuration}" Margin="0,0,0,8" FontSize="13" FontWeight="Medium" Foreground="{DynamicResource TextMuted}"/>
                         <ComboBox x:Name="cbDurataImprumut" 
                   Height="45" 
                   VerticalContentAlignment="Center" 
                   SelectionChanged="cbDurataImprumut_SelectionChanged">
-                            <ComboBoxItem Content="14 zile" IsSelected="True"/>
-                            <ComboBoxItem Content="21 zile"/>
-                            <ComboBoxItem Content="30 zile"/>
+                            <ComboBoxItem Content="{DynamicResource CheckIn_14Days}" IsSelected="True"/>
+                            <ComboBoxItem Content="{DynamicResource CheckIn_21Days}"/>
+                            <ComboBoxItem Content="{DynamicResource CheckIn_30Days}"/>
                         </ComboBox>
                     </StackPanel>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1">
-                    <TextBlock Text="Cartea selectată" Margin="0,0,0,8" FontSize="13" FontWeight="Medium" Foreground="{DynamicResource TextMuted}"/>
+                    <TextBlock Text="{DynamicResource CheckIn_SelectedBook3}" Margin="0,0,0,8" FontSize="13" FontWeight="Medium" Foreground="{DynamicResource TextMuted}"/>
                     <Border Background="{DynamicResource WindowBackground}" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1" CornerRadius="12" Margin="0" Padding="20">
                         <StackPanel>
                             <Grid Margin="0,0,0,20">
@@ -150,17 +150,17 @@
                                     <TextBlock x:Name="isbn_carte" Text="978-973-31-0070-6" HorizontalAlignment="Right" Foreground="{DynamicResource TextSecondary}"/>
                                 </Grid>
                                 <Grid Margin="0,4">
-                                    <TextBlock Text="Categorie:" Foreground="{DynamicResource TextMuted}" FontWeight="Medium"/>
+                                    <TextBlock Text="{DynamicResource CheckIn_CategoryLabel}" Foreground="{DynamicResource TextMuted}" FontWeight="Medium"/>
                                     <TextBlock x:Name="denumire_categorie" Text="Literatură română" HorizontalAlignment="Right" Foreground="{DynamicResource TextSecondary}"/>
                                 </Grid>
                                 <Grid Margin="0,4">
-                                    <TextBlock Text="Cod:" Foreground="{DynamicResource TextMuted}" FontWeight="Medium"/>
+                                    <TextBlock Text="{DynamicResource CheckIn_CodeLabel}" Foreground="{DynamicResource TextMuted}" FontWeight="Medium"/>
                                     <TextBlock x:Name="cod_inventar" Text="C12345" HorizontalAlignment="Right" Foreground="{DynamicResource TextSecondary}"/>
                                 </Grid>
                             </StackPanel>
 
                             <Border x:Name="fon_disponibilitate" HorizontalAlignment="Left" Background="{DynamicResource StockGreenBg}" CornerRadius="6" Padding="12,6">
-                                <TextBlock x:Name="disponibilitate_exemplar" Text="Disponibilă" Foreground="{DynamicResource StockGreen}" FontWeight="Bold" FontSize="12"/>
+                                <TextBlock x:Name="disponibilitate_exemplar" Text="{DynamicResource CheckIn_Available}" Foreground="{DynamicResource StockGreen}" FontWeight="Bold" FontSize="12"/>
                             </Border>
                         </StackPanel>
                     </Border>
@@ -171,7 +171,7 @@
                 <StackPanel Orientation="Horizontal">
                     <fa5:ImageAwesome Icon="Solid_InfoCircle" Width="16" Foreground="{DynamicResource BorrowedOrange}" Margin="0,0,12,0" VerticalAlignment="Center"/>
                     <TextBlock x:Name="atentionare_elev" VerticalAlignment="Center" Foreground="{DynamicResource TextSecondary}" FontSize="13">
-                        <Run Text="Elevul este responsabil pentru carte până la data de "/>
+                        <Run Text="{DynamicResource CheckIn_ResponsiblePrefix}"/>
                         <Run Text="04.06.2025." FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
                     </TextBlock>
                 </StackPanel>

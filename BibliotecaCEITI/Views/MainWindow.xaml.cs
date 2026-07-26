@@ -142,6 +142,14 @@ namespace BibliotecaCEITI
             MainContentContainer.Content = students;
         }
 
+        private void LanguageSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (LanguageSelector.SelectedItem is ComboBoxItem item && item.Tag is string code)
+            {
+                LanguageService.SetLanguage(code);
+            }
+        }
+
         private void ThemeBtn_Click(object sender, RoutedEventArgs e)
         {
             _isDarkTheme = !_isDarkTheme;
@@ -241,10 +249,5 @@ namespace BibliotecaCEITI
             imgProfil.Source = UsefulFunction.ConvertBytesToImage(poza);
         }
 
-        private void SurpriseBtn_Click(object sender, RoutedEventArgs e)
-        {
-            SurpriseWindow surpriseWindow = new SurpriseWindow();
-            surpriseWindow.ShowDialog();
-        }
     }
 }

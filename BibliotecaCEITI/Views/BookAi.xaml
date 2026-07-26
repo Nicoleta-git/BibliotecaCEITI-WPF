@@ -32,7 +32,7 @@
                 <TextBlock Text="✦" Foreground="{DynamicResource PrimaryEmerald}" FontSize="24" VerticalAlignment="Center" Margin="0,0,10,0"/>
                 <StackPanel VerticalAlignment="Center">
                     <TextBlock Text="Gemini" FontWeight="Bold" FontSize="20" Foreground="{DynamicResource TextPrimary}"/>
-                    <TextBlock Text="Pune întrebări" FontSize="13" Foreground="{DynamicResource TextMuted}"/>
+                    <TextBlock Text="{DynamicResource BookAi_AskQuestions}" FontSize="13" Foreground="{DynamicResource TextMuted}"/>
                 </StackPanel>
             </StackPanel>
 

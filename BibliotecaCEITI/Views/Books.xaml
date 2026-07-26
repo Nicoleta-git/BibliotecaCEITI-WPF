@@ -37,7 +37,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Margin="0,0,0,25" Grid.ColumnSpan="2">
-            <TextBlock x:Name="txtBook" Text="Gestiune Inventar (Cărți)" FontSize="28" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
+            <TextBlock x:Name="txtBook" Text="{DynamicResource Books_InventoryManagement}" FontSize="28" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
         </StackPanel>
 
         <Grid Grid.Row="1" Margin="0,10,0,20" Grid.ColumnSpan="2">
@@ -61,21 +61,21 @@
 
             <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="15,0,0,0">
 
-                <Button x:Name="BtnSwitchArhiva" Style="{StaticResource ActionButtonStyle}" ToolTip="Afișează cărțile arhivate" Margin="0,0,10,0" Click="BtnSwitchArhiva_Click">
+                <Button x:Name="BtnSwitchArhiva" Style="{StaticResource ActionButtonStyle}" ToolTip="{DynamicResource Books_ShowArchivedTooltip}" Margin="0,0,10,0" Click="BtnSwitchArhiva_Click">
                     <StackPanel Orientation="Horizontal">
                         <fa5:ImageAwesome x:Name="iconArhiva" Icon="Solid_Archive" Foreground="{DynamicResource TextPrimary}" Width="14" Margin="0,0,8,0"/>
-                        <TextBlock x:Name="TextArhiva" Text="Vezi Arhiva" Foreground="{DynamicResource TextPrimary}"/>
+                        <TextBlock x:Name="TextArhiva" Text="{DynamicResource Books_ViewArchive}" Foreground="{DynamicResource TextPrimary}"/>
                     </StackPanel>
                 </Button>
 
-                <Button x:Name="RefreshBooks" Style="{StaticResource ActionButtonStyle}" ToolTip="Actualizează inventarul" Margin="0,0,10,0" Click="RefreshBooks_Click">
+                <Button x:Name="RefreshBooks" Style="{StaticResource ActionButtonStyle}" ToolTip="{DynamicResource Books_UpdateInventoryTooltip}" Margin="0,0,10,0" Click="RefreshBooks_Click">
                     <fa5:ImageAwesome Icon="Solid_SyncAlt" Foreground="{DynamicResource TextPrimary}" Width="14"/>
                 </Button>
 
                 <Button x:Name="AddBook" Style="{StaticResource GlobalActionButtonStyle}" Foreground="White" Click="AddBook_Click" Visibility="Visible">
                     <StackPanel Orientation="Horizontal">
                         <fa5:ImageAwesome Icon="Solid_Plus" Foreground="White" Width="12" Margin="0,0,10,0"/>
-                        <TextBlock x:Name="txtAdd" Text="Adauga carte"/>
+                        <TextBlock x:Name="txtAdd" Text="{DynamicResource Books_AddBook}"/>
                     </StackPanel>
                 </Button>
             </StackPanel>
@@ -95,11 +95,11 @@
                   Width="NaN">
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Denumire" 
+                <DataGridTextColumn Header="{DynamicResource Books_ColTitle}" 
                                     Binding="{Binding Titlu}" 
                                     Width="3*" />
 
-                <DataGridTextColumn Header="Autor" 
+                <DataGridTextColumn Header="{DynamicResource Books_ColAuthor}" 
                                     Binding="{Binding Autor}" 
                                     Width="1.8*" />
 
@@ -107,14 +107,14 @@
                                     Binding="{Binding ISBN}" 
                                     Width="1.7*" />
 
-                <DataGridTextColumn Header="Nr. Exemplare" 
+                <DataGridTextColumn Header="{DynamicResource Books_ColCopies}" 
                                     Binding="{Binding Total_Exemplare}" 
                                     Width="1*" />
 
-                <DataGridTemplateColumn x:Name="ColActions" Header="Acțiuni" Width="*">
+                <DataGridTemplateColumn x:Name="ColActions" Header="{DynamicResource Books_ColActions}" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="+ exemplar" 
+                            <Button Content="{DynamicResource Books_AddCopy}" 
                                     Click="BtnAdaugaExemplar_Click" 
                                     CommandParameter="{Binding Id_Carte}"
                                     Foreground="White" 
@@ -151,18 +151,18 @@
           Visibility="Collapsed">
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Cod_Inventar" 
+                <DataGridTextColumn Header="{DynamicResource Books_ColInventoryCode}" 
                             Binding="{Binding Cod_Inventar}" 
                             Width="3*" />
 
-                <DataGridTextColumn Header="Stare" 
+                <DataGridTextColumn Header="{DynamicResource Books_ColStatus}" 
                             Binding="{Binding Stare}" 
                             Width="1.8*" />
 
-                <DataGridTemplateColumn x:Name="ColArhivareExemplar" Header="Acțiuni" Width="*">
+                <DataGridTemplateColumn x:Name="ColArhivareExemplar" Header="{DynamicResource Books_ColActions}" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Arhivează" 
+                            <Button Content="{DynamicResource Books_Archive}" 
                                     Click="BtnActiuneExemplar_Click" 
                                     CommandParameter="{Binding Cod_Inventar}"
                                     Foreground="White" Cursor="Hand">
@@ -178,10 +178,10 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn x:Name="ColDezarhivareExemplar" Header="Acțiuni" Width="*" Visibility="Collapsed">
+                <DataGridTemplateColumn x:Name="ColDezarhivareExemplar" Header="{DynamicResource Books_ColActions}" Width="*" Visibility="Collapsed">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Dezarhivează" 
+                            <Button Content="{DynamicResource Books_Unarchive}" 
                                     Click="BtnActiuneExemplar_Click" 
                                     CommandParameter="{Binding Cod_Inventar}"
                                     Foreground="White" Cursor="Hand">
@@ -213,7 +213,7 @@
                 </Border>
 
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                    <TextBlock x:Name="detalii" Text="DETALII CARTE" FontSize="10" FontWeight="Black" Foreground="{DynamicResource TextMuted}" Margin="0,0,0,5"/>
+                    <TextBlock x:Name="detalii" Text="{DynamicResource Books_DetailsTitle}" FontSize="10" FontWeight="Black" Foreground="{DynamicResource TextMuted}" Margin="0,0,0,5"/>
                     <TextBlock x:Name="titlu_exemplar" Text="{Binding SelectedItem.Titlu, ElementName=BooksGrid, FallbackValue='Selectați o carte'}" 
                                FontSize="22" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
 
@@ -221,18 +221,18 @@
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,0"/>
                         <StackPanel x:Name="locatie_exemplar" Orientation="Horizontal" Margin="0,0,20,0" Visibility="Collapsed">
                             <fa5:ImageAwesome Icon="Solid_MapMarkerAlt" Width="12" Foreground="{DynamicResource PrimaryBlue}" Margin="0,0,5,0"/>
-                            <TextBlock Text="Locație: " Foreground="{DynamicResource TextMuted}"/>
+                            <TextBlock Text="{DynamicResource Books_Location}" Foreground="{DynamicResource TextMuted}"/>
                             <TextBlock x:Name="locatie" Text="{Binding SelectedItem.LocatieCompleta, FallbackValue='N/A'}" Foreground="{DynamicResource TextPrimary}" FontWeight="SemiBold"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
                             <fa5:ImageAwesome Icon="Solid_Building" Width="12" Foreground="{DynamicResource TextMuted}" Margin="0,0,5,0"/>
-                            <TextBlock Text="Editura: " Foreground="{DynamicResource TextMuted}"/>
+                            <TextBlock Text="{DynamicResource Books_Publisher}" Foreground="{DynamicResource TextMuted}"/>
                             <TextBlock x:Name="editura" Text="{Binding SelectedItem.EdituraDenumire, FallbackValue='Nespecificat'}" Foreground="{DynamicResource TextPrimary}" FontWeight="SemiBold"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
                             <fa5:ImageAwesome Icon="Solid_Tag" Width="12" Foreground="{DynamicResource TextMuted}" Margin="0,0,5,0"/>
-                            <TextBlock Text="Tip: " Foreground="{DynamicResource TextMuted}"/>
+                            <TextBlock Text="{DynamicResource Books_Type}" Foreground="{DynamicResource TextMuted}"/>
                             <TextBlock x:Name="tip" Text="{Binding SelectedItem.CategorieTip, FallbackValue='Carte'}" Foreground="{DynamicResource TextPrimary}" FontWeight="SemiBold"/>
                         </StackPanel>
                     </WrapPanel>
@@ -242,25 +242,25 @@
                     <Button x:Name="btnEditare" Style="{StaticResource ActionButtonStyle}" Click="EditBtn_Click" Background="#223B82F6" Foreground="{DynamicResource PrimaryBlue}" Margin="0,0,10,0">
                         <StackPanel Orientation="Horizontal">
                             <fa5:ImageAwesome Icon="Solid_Edit" Width="14" Margin="0,0,10,0" Foreground="{DynamicResource PrimaryBlue}"/>
-                            <TextBlock Text="Editare"/>
+                            <TextBlock Text="{DynamicResource Books_Edit}"/>
                         </StackPanel>
                     </Button>
                     <Button x:Name="btnArhiveaza" Style="{StaticResource ActionButtonStyle}" Background="#223B82F6" Foreground="{DynamicResource PrimaryBlue}" Margin="0,0,10,0" Click="arhiveaza_Click">
                         <StackPanel Orientation="Horizontal">
                             <fa5:ImageAwesome Icon="Solid_Archive" Width="14" Margin="0,0,10,0" Foreground="{DynamicResource PrimaryBlue}"/>
-                            <TextBlock x:Name="txtArhiveaza" Text="Arhivează"/>
+                            <TextBlock x:Name="txtArhiveaza" Text="{DynamicResource Books_Archive}"/>
                         </StackPanel>
                     </Button>
                     <Button x:Name="btnDezarhiveaza" Style="{StaticResource ActionButtonStyle}" Background="#223B82F6" Foreground="{DynamicResource PrimaryBlue}" Margin="0,0,10,0" Visibility="Collapsed" Click="dezarhiveaza_Click">
                         <StackPanel Orientation="Horizontal">
                             <fa5:ImageAwesome Icon="Solid_Archive" Width="14" Margin="0,0,10,0" Foreground="{DynamicResource PrimaryBlue}"/>
-                            <TextBlock x:Name="txtDezarhiveaza" Text="Dezarhivează"/>
+                            <TextBlock x:Name="txtDezarhiveaza" Text="{DynamicResource Books_Unarchive}"/>
                         </StackPanel>
                     </Button>
                     <Button x:Name="btnShowExemplare" Style="{StaticResource ActionButtonStyle}" Background="#22F59E0B" Foreground="#F59E0B" Margin="0,0,10,0" Click="btnShowExemplare_Click">
                         <StackPanel Orientation="Horizontal">
                             <fa5:ImageAwesome Icon="Solid_LayerGroup" Width="14" Margin="0,0,10,0" Foreground="#F59E0B"/>
-                            <TextBlock Text="Gestionează exemplare"/>
+                            <TextBlock Text="{DynamicResource Books_ManageCopies}"/>
                         </StackPanel>
                     </Button>
                     <Button x:Name="StergeBtn" Style="{StaticResource ActionButtonStyle}" Background="#22EF4444" Foreground="#EF4444" Click="StergeBtn_Click">
