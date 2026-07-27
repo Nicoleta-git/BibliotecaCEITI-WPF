@@ -1,4 +1,3 @@
-﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -15,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MySql.Data.MySqlClient;
 
 namespace BibliotecaCEITI
 {
@@ -31,9 +31,9 @@ namespace BibliotecaCEITI
             SelectBooks();
             SelectStudents();
 
-            SearchTextBox.Text = "Caută o carte...";
+            SearchTextBox.Text = (string)Application.Current.FindResource("Placeholder_SearchBook");
             SearchTextBox.Foreground = new SolidColorBrush(Colors.Gray);
-            SearchStudentBox.Text = "Caută un elev...";
+            SearchStudentBox.Text = (string)Application.Current.FindResource("Loans_SearchStudent");
             SearchStudentBox.Foreground = new SolidColorBrush(Colors.Gray);
         }
 
@@ -195,7 +195,7 @@ namespace BibliotecaCEITI
         private async Task CautaCartiAsync(string textCautat)
         {
             textCautat = SearchTextBox.Text.Trim();
-            if (textCautat == "Caută o carte...")
+            if (textCautat == (string)Application.Current.FindResource("Placeholder_SearchBook"))
             {
                 textCautat = "";
             }
@@ -222,7 +222,7 @@ namespace BibliotecaCEITI
             }
             catch (TaskCanceledException)
             {
-                
+
             }
         }
 
@@ -355,7 +355,7 @@ namespace BibliotecaCEITI
         private async void SearchStudentBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             string textCautat = SearchStudentBox.Text.Trim();
-            if (textCautat == "Caută un elev...")
+            if (textCautat == (string)Application.Current.FindResource("Loans_SearchStudent"))
             {
                 textCautat = "";
             }
@@ -418,7 +418,7 @@ namespace BibliotecaCEITI
 
         private void CurrentLoanGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            string[] coloaneDeAscuns = { "Id_elev", "Telefon"};
+            string[] coloaneDeAscuns = { "Id_elev", "Telefon" };
 
             if (coloaneDeAscuns.Contains(e.Column.Header.ToString()))
             {
@@ -447,22 +447,22 @@ namespace BibliotecaCEITI
 
         private void SearchTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.GotFocus(sender, "Caută o carte...");
+            UsefulFunction.GotFocus(sender, (string)Application.Current.FindResource("Placeholder_SearchBook"));
         }
 
         private void SearchTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.LostFocus(sender, "Caută o carte...");
+            UsefulFunction.LostFocus(sender, (string)Application.Current.FindResource("Placeholder_SearchBook"));
         }
 
         private void SearchStudentBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.GotFocus(sender, "Caută un elev...");
+            UsefulFunction.GotFocus(sender, (string)Application.Current.FindResource("Loans_SearchStudent"));
         }
 
         private void SearchStudentBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.LostFocus(sender, "Caută un elev...");
+            UsefulFunction.LostFocus(sender, (string)Application.Current.FindResource("Loans_SearchStudent"));
         }
 
         private void StudentsGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)

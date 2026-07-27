@@ -95,7 +95,7 @@
                     <TextBlock Text="{DynamicResource Loans_SelectedDetailsTitle}" FontSize="11" FontWeight="Bold" Foreground="{DynamicResource TextMuted}" Margin="0,0,0,8" />
 
                     <StackPanel x:Name="titlu1" Orientation="Horizontal" Margin="0,0,0,12">
-                        <TextBlock x:Name="titlu" Text="{Binding SelectedItem.TitluCarte, ElementName=BooksGrid, FallbackValue='Selectați o înregistrare'}" 
+                        <TextBlock x:Name="titlu" Text="{Binding SelectedItem.TitluCarte, ElementName=BooksGrid, FallbackValue='Select a record'}"
                                    FontSize="22" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
                         <TextBlock Text="{Binding SelectedItem.Autor, ElementName=BooksGrid, StringFormat=' de \{0\}'}" 
                                    FontSize="18" Foreground="{DynamicResource TextMuted}" VerticalAlignment="Bottom" Margin="5,0,0,2"/>
@@ -120,7 +120,7 @@
                         <StackPanel Orientation="Horizontal" Margin="0,0,20,0" VerticalAlignment="Center">
                             <fa5:ImageAwesome Icon="Solid_Clock" Width="12" Foreground="{DynamicResource TextMuted}" Margin="0,0,8,0" VerticalAlignment="Center"/>
                             <TextBlock Text="{DynamicResource Loans_ReturnDate}" Foreground="{DynamicResource TextMuted}" VerticalAlignment="Center"/>
-                            <TextBlock x:Name="returnare" Text="{Binding SelectedItem.data_returnare, ElementName=BooksGrid, StringFormat=\{0:dd.MM.yyyy\}, FallbackValue='Nerestituit'}" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="returnare" Text="{Binding SelectedItem.data_returnare, ElementName=BooksGrid, StringFormat=\{0:dd.MM.yyyy\}, FallbackValue='Not Returned'}" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}" VerticalAlignment="Center"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">

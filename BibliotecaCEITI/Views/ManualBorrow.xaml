@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:fa5="http://schemas.fontawesome.com/icons/"
              mc:Ignorable="d" 
-             Background="#F4F7FE"
+             Background="{DynamicResource WindowBackground}"
              FontFamily="Segoe UI" d:DesignWidth="1000" d:Height="853">
 
     <UserControl.Resources>
@@ -32,23 +32,23 @@
                     </StackPanel>
                 </Button>
 
-                <TextBlock Text="{DynamicResource Loans_Manuals}" FontSize="28" FontWeight="Bold" Foreground="#1E293B" Margin="0,10,0,5"/>
+                <TextBlock Text="{DynamicResource Loans_Manuals}" FontSize="28" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}" Margin="0,10,0,5"/>
                 <TextBlock Text="{DynamicResource ManualBorrow_SelectPrompt}"
-                           Foreground="#718096" FontSize="13" Margin="0,0,0,25"/>
+                           Foreground="{DynamicResource TextMuted}" FontSize="13" Margin="0,0,0,25"/>
 
-                <Border Background="White" CornerRadius="8" BorderBrush="#E2E8F0" BorderThickness="1"
+                <Border Background="{DynamicResource CardBackground}" CornerRadius="8" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1"
                         Padding="10" Margin="0,0,0,15" HorizontalAlignment="Stretch">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                         <Button x:Name="BtnModImprumut" Content="{DynamicResource ManualBorrow_Loan}" Width="160" Height="36" Margin="10,0,20,0"
                                 Tag="activ"
                                 Style="{StaticResource GlobalActionButtonStyle}" Click="BtnModImprumut_Click"/>
                         <Button x:Name="BtnModReturnare" Content="{DynamicResource ManualBorrow_Return}" Width="160" Height="36"
-                                Background="#E2E8F0" Foreground="#64748B"
+                                Background="{DynamicResource BorderBrushLight}" Foreground="{DynamicResource LabelGray}"
                                 Style="{StaticResource GlobalActionButtonStyle}" Click="BtnModReturnare_Click"/>
                     </StackPanel>
                 </Border>
 
-                <Border Background="White" CornerRadius="8" BorderBrush="#E2E8F0" BorderThickness="1"
+                <Border Background="{DynamicResource CardBackground}" CornerRadius="8" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1"
                         Padding="20" Margin="0,0,0,15">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -59,32 +59,32 @@
                         </Grid.ColumnDefinitions>
 
                         <StackPanel Grid.Column="0" Margin="0,0,20,0">
-                            <TextBlock Text="{DynamicResource ManualBorrow_Category}" FontSize="12" Foreground="#64748B" Margin="0,0,0,6"/>
+                            <TextBlock Text="{DynamicResource ManualBorrow_Category}" FontSize="12" Foreground="{DynamicResource LabelGray}" Margin="0,0,0,6"/>
                             <ComboBox x:Name="CmbCategorie" Height="40" HorizontalAlignment="Stretch"
                                       DisplayMemberPath="NumeCategorie" SelectionChanged="CmbCategorie_SelectionChanged"/>
                         </StackPanel>
 
                         <StackPanel Grid.Column="1" Margin="0,0,20,0">
-                            <TextBlock Text="{DynamicResource ManualBorrow_Manual}" FontSize="12" Foreground="#64748B" Margin="0,0,0,6"/>
+                            <TextBlock Text="{DynamicResource ManualBorrow_Manual}" FontSize="12" Foreground="{DynamicResource LabelGray}" Margin="0,0,0,6"/>
                             <ComboBox x:Name="CmbManual" Height="40" HorizontalAlignment="Stretch"
                                       DisplayMemberPath="Denumire" SelectedValuePath="Id" SelectionChanged="CmbManual_SelectionChanged"/>
                         </StackPanel>
 
                         <StackPanel Grid.Column="2" Margin="0,0,20,0">
-                            <TextBlock x:Name="TxtNumarExemplare" Text="{DynamicResource ManualBorrow_ExistingCopies}" FontSize="12" Foreground="#64748B" Margin="0,0,0,6"/>
+                            <TextBlock x:Name="TxtNumarExemplare" Text="{DynamicResource ManualBorrow_ExistingCopies}" FontSize="12" Foreground="{DynamicResource LabelGray}" Margin="0,0,0,6"/>
                             <Button x:Name="BtnAdaugaExemplare" Content="{DynamicResource ManualBorrow_AddCopies}" Width="180" Height="40"
                                     Style="{StaticResource GlobalActionButtonStyle}" Click="BtnAdaugaExemplare_Click"/>
                         </StackPanel>
 
                         <StackPanel Grid.Column="3">
-                            <TextBlock Text="{DynamicResource Students_ColGroup}" FontSize="12" Foreground="#64748B" Margin="0,0,0,6"/>
+                            <TextBlock Text="{DynamicResource Students_ColGroup}" FontSize="12" Foreground="{DynamicResource LabelGray}" Margin="0,0,0,6"/>
                             <ComboBox x:Name="CmbGrupa" Height="40" HorizontalAlignment="Stretch"
                                       DisplayMemberPath="NumeGrupa" SelectionChanged="CmbGrupa_SelectionChanged"/>
                         </StackPanel>
                     </Grid>
                 </Border>
 
-                <Border Background="White" CornerRadius="8" BorderBrush="#E2E8F0" BorderThickness="1"
+                <Border Background="{DynamicResource CardBackground}" CornerRadius="8" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1"
                         Padding="20" Margin="0,0,0,15">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -92,13 +92,13 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock x:Name="TxtGrupLabel" Grid.Row="0" Text="{DynamicResource ManualBorrow_StudentsInGroupA}" FontSize="15" FontWeight="SemiBold" Foreground="#1E293B" Margin="0,0,0,12"/>
+                        <TextBlock x:Name="TxtGrupLabel" Grid.Row="0" Text="{DynamicResource ManualBorrow_StudentsInGroupA}" FontSize="15" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,12"/>
 
                         <DataGrid x:Name="DgElevi" Grid.Row="1"
                                   Style="{StaticResource ModernDataGridStyle}"
                                   AutoGenerateColumns="False" 
                                   CanUserAddRows="False" 
-                                  Foreground="Black" 
+                                  Foreground="{DynamicResource TextPrimary}"
                                   MinHeight="360" 
                                   Margin="0,10,0,0"
                                   HorizontalAlignment="Stretch"
@@ -112,9 +112,9 @@
                                             <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
                                                 <Grid Margin="0,0,10,0">
                                                     <Ellipse Width="32" Height="32" Fill="#F0F2F5"/>
-                                                    <TextBlock Text="{Binding Initiale}" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" Foreground="#2D3748" FontSize="13"/>
+                                                    <TextBlock Text="{Binding Initiale}" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" Foreground="{DynamicResource TextSecondary}" FontSize="13"/>
                                                 </Grid>
-                                                <TextBlock Text="{Binding NumeElev}" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" Foreground="#2D3748"/>
+                                                <TextBlock Text="{Binding NumeElev}" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" Foreground="{DynamicResource TextSecondary}"/>
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
@@ -134,7 +134,7 @@
                     </Grid>
                 </Border>
 
-                <Border Background="White" CornerRadius="8" BorderBrush="#E2E8F0" BorderThickness="1"
+                <Border Background="{DynamicResource CardBackground}" CornerRadius="8" BorderBrush="{DynamicResource BorderBrushLight}" BorderThickness="1"
                         Padding="20,12">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -148,7 +148,7 @@
                         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                             <CheckBox x:Name="ChkBifeazaToti" Content="{DynamicResource ManualBorrow_CheckAll}"
                                       VerticalAlignment="Center" Margin="0,0,20,0"
-                                      FontSize="14" Foreground="#2D3748"
+                                      FontSize="14" Foreground="{DynamicResource TextSecondary}"
                                       Checked="ChkBifeazaToti_Changed" Unchecked="ChkBifeazaToti_Changed"/>
 
                             <Button x:Name="BtnSalveaza" Content="{DynamicResource ManualBorrow_SaveLoan}" Width="180" Height="40"

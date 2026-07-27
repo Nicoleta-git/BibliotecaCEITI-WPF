@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:BibliotecaCEITI"
              xmlns:fa5="http://schemas.fontawesome.com/icons/"
              mc:Ignorable="d" 
-             Background="#F4F7FE" 
+             Background="{DynamicResource WindowBackground}" 
              FontFamily="Segoe UI" 
              d:DesignHeight="741" d:DesignWidth="1000">
 
@@ -33,7 +33,7 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,5">
-                    <Button x:Name="btnExportPdf" Width="140" Height="38" Background="White" Margin="0,0,10,0">
+                    <Button x:Name="btnExportPdf" Width="140" Height="38" Background="{DynamicResource CardBackground}" Margin="0,0,10,0">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="8"/>
@@ -56,31 +56,31 @@
         </Border>
 
         <UniformGrid Grid.Row="1" Columns="3" Margin="40,15,40,10">
-            <Border Background="White" CornerRadius="12" BorderBrush="{StaticResource BorderLight}" BorderThickness="1" Padding="20" Margin="0,0,15,0">
+            <Border Background="{DynamicResource CardBackground}" CornerRadius="12" BorderBrush="{StaticResource BorderLight}" BorderThickness="1" Padding="20" Margin="0,0,15,0">
                 <Grid>
                     <StackPanel HorizontalAlignment="Left">
                         <TextBlock Text="{DynamicResource Reports_TotalBooksLoaned}" FontSize="14" Foreground="#A3AED0" FontWeight="Medium"/>
                         <TextBlock x:Name="txtStatTotalImprumuturi" Text="0" FontSize="24" FontWeight="Bold" Foreground="#1B2559" Margin="0,5,0,0"/>
                     </StackPanel>
-                    <Border Background="#F4F7FE" Width="48" Height="48" CornerRadius="24" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Border Background="{DynamicResource WindowBackground}" Width="48" Height="48" CornerRadius="24" HorizontalAlignment="Right" VerticalAlignment="Center">
                         <fa5:ImageAwesome Icon="Solid_BookReader" Width="18" Foreground="#4483EC" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Border>
                 </Grid>
             </Border>
 
-            <Border Background="White" CornerRadius="12" BorderBrush="{StaticResource BorderLight}" BorderThickness="1" Padding="20" Margin="10,0,10,0">
+            <Border Background="{DynamicResource CardBackground}" CornerRadius="12" BorderBrush="{StaticResource BorderLight}" BorderThickness="1" Padding="20" Margin="10,0,10,0">
                 <Grid>
                     <StackPanel HorizontalAlignment="Left">
                         <TextBlock Text="{DynamicResource Reports_ActiveReaders}" FontSize="14" Foreground="#A3AED0" FontWeight="Medium"/>
                         <TextBlock x:Name="txtStatCititoriActivi" Text="0" FontSize="24" FontWeight="Bold" Foreground="#1B2559" Margin="0,5,0,0"/>
                     </StackPanel>
-                    <Border Background="#F4F7FE" Width="48" Height="48" CornerRadius="24" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Border Background="{DynamicResource WindowBackground}" Width="48" Height="48" CornerRadius="24" HorizontalAlignment="Right" VerticalAlignment="Center">
                         <fa5:ImageAwesome Icon="Solid_Users" Width="18" Foreground="#05CD99" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Border>
                 </Grid>
             </Border>
 
-            <Border Background="White" CornerRadius="12" BorderBrush="{StaticResource BorderLight}" BorderThickness="1" Padding="20" Margin="15,0,0,0">
+            <Border Background="{DynamicResource CardBackground}" CornerRadius="12" BorderBrush="{StaticResource BorderLight}" BorderThickness="1" Padding="20" Margin="15,0,0,0">
                 <Grid>
                     <StackPanel HorizontalAlignment="Left">
                         <TextBlock Text="{DynamicResource Reports_OverdueTerm}" FontSize="14" Foreground="#A3AED0" FontWeight="Medium"/>
@@ -94,7 +94,7 @@
         </UniformGrid>
 
         <Grid Grid.Row="2" Margin="40,15">
-            <Border Background="White" CornerRadius="12" BorderBrush="{StaticResource BorderLight}" BorderThickness="1" Padding="25">
+            <Border Background="{DynamicResource CardBackground}" CornerRadius="12" BorderBrush="{StaticResource BorderLight}" BorderThickness="1" Padding="25">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -131,11 +131,11 @@
 
                     <DataGrid Grid.Row="1" x:Name="dgRaportRezultate" AutoGenerateColumns="False" 
                               Background="Transparent" BorderThickness="0" CanUserAddRows="False"
-                              GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#F4F7FE"
+                              GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="{DynamicResource WindowBackground}"
                               RowHeight="40">
                         <DataGrid.Resources>
                             <Style TargetType="DataGridColumnHeader">
-                                <Setter Property="Background" Value="#F4F7FE"/>
+                                <Setter Property="Background" Value="{DynamicResource WindowBackground}"/>
                                 <Setter Property="Foreground" Value="#A3AED0"/>
                                 <Setter Property="FontWeight" Value="SemiBold"/>
                                 <Setter Property="Padding" Value="10,0"/>

@@ -1,6 +1,3 @@
-﻿using FontAwesome5;
-using MySql.Data.MySqlClient;
-using Org.BouncyCastle.Asn1.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -17,6 +14,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using FontAwesome5;
+using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Asn1.Ocsp;
 
 
 namespace BibliotecaCEITI
@@ -36,7 +36,7 @@ namespace BibliotecaCEITI
             InitializeComponent();
             SelectBooks();
 
-            SearchTextBox.Text = "Caută o carte...";
+            SearchTextBox.Text = (string)Application.Current.FindResource("Placeholder_SearchBook");
             SearchTextBox.Foreground = new SolidColorBrush(Colors.Gray);
         }
 
@@ -53,7 +53,8 @@ namespace BibliotecaCEITI
                     da.Fill(dt);
                     BooksGrid.ItemsSource = dt.DefaultView;
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("Error loading data: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -362,7 +363,7 @@ namespace BibliotecaCEITI
             BookDetails addBook = new BookDetails(0);
             Window parentWindow = Window.GetWindow(this);
 
-            if (parentWindow is MainWindow mainWindow) 
+            if (parentWindow is MainWindow mainWindow)
             {
                 mainWindow.ChangeView(addBook);
             }
@@ -373,7 +374,7 @@ namespace BibliotecaCEITI
             if (isGestionezExemplare)
             {
                 string textCautat = SearchTextBox.Text.Trim();
-                if (textCautat == "Caută un exemplar...")
+                if (textCautat == (string)Application.Current.FindResource("Placeholder_SearchCopy"))
                 {
                     textCautat = "";
                 }
@@ -407,11 +408,12 @@ namespace BibliotecaCEITI
                 {
 
                 }
-            } else
+            }
+            else
             {
                 id_CarteSelectata = 0;
                 string textCautat = SearchTextBox.Text.Trim();
-                if (textCautat == "Caută o carte...")
+                if (textCautat == (string)Application.Current.FindResource("Placeholder_SearchBook"))
                 {
                     textCautat = "";
                 }
@@ -470,14 +472,14 @@ namespace BibliotecaCEITI
             btnEditare.Visibility = Visibility.Visible;
             btnShowExemplare.Visibility = Visibility.Visible;
             AddBook.Visibility = Visibility.Visible;
-            SearchTextBox.Text = "Caută o carte...";
+            SearchTextBox.Text = (string)Application.Current.FindResource("Placeholder_SearchBook");
             SearchTextBox.Foreground = new SolidColorBrush(Colors.Gray);
             txtBook.Text = "Gestiune Inventar (Cărți)";
             imgCoperta.Source = null;
             locatie.Text = "N/A";
 
             SearchTextBox.TextChanged -= SearchTextBox_TextChanged;
-            SearchTextBox.Text = "Caută o carte...";
+            SearchTextBox.Text = (string)Application.Current.FindResource("Placeholder_SearchBook");
             SearchTextBox.Foreground = new SolidColorBrush(Colors.Gray);
             SearchTextBox.TextChanged += SearchTextBox_TextChanged;
         }
@@ -613,11 +615,11 @@ namespace BibliotecaCEITI
         private void BtnSwitchArhiva_Click(object sender, RoutedEventArgs e)
         {
             SearchTextBox.TextChanged -= SearchTextBox_TextChanged;
-            SearchTextBox.Text = isGestionezExemplare ? "Caută un exemplar..." : "Caută o carte...";
+            SearchTextBox.Text = isGestionezExemplare ? (string)Application.Current.FindResource("Placeholder_SearchCopy") : (string)Application.Current.FindResource("Placeholder_SearchBook");
             SearchTextBox.Foreground = new SolidColorBrush(Colors.Gray);
             SearchTextBox.TextChanged += SearchTextBox_TextChanged;
 
-            if (isGestionezExemplare) 
+            if (isGestionezExemplare)
             {
                 id_CarteSelectata = 0;
 
@@ -642,7 +644,8 @@ namespace BibliotecaCEITI
                     ColDezarhivareExemplar.Visibility = Visibility.Collapsed;
                     SelectExemplare(id_CarteExemplare);
                 }
-            } else
+            }
+            else
             {
                 modeArhiva = !modeArhiva;
 
@@ -713,7 +716,7 @@ namespace BibliotecaCEITI
             locatie.Text = "N/A";
 
             SearchTextBox.TextChanged -= SearchTextBox_TextChanged;
-            SearchTextBox.Text = "Caută un exemplar...";
+            SearchTextBox.Text = (string)Application.Current.FindResource("Placeholder_SearchCopy");
             SearchTextBox.Foreground = new SolidColorBrush(Colors.Gray);
             SearchTextBox.TextChanged += SearchTextBox_TextChanged;
 
@@ -754,7 +757,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare: "  + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Eroare: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -888,10 +891,11 @@ namespace BibliotecaCEITI
         {
             if (isGestionezExemplare)
             {
-                UsefulFunction.GotFocus(sender, "Caută un exemplar...");
-            } else
+                UsefulFunction.GotFocus(sender, (string)Application.Current.FindResource("Placeholder_SearchCopy"));
+            }
+            else
             {
-                UsefulFunction.GotFocus(sender, "Caută o carte...");
+                UsefulFunction.GotFocus(sender, (string)Application.Current.FindResource("Placeholder_SearchBook"));
             }
         }
 
@@ -899,11 +903,11 @@ namespace BibliotecaCEITI
         {
             if (isGestionezExemplare)
             {
-                UsefulFunction.LostFocus(sender, "Caută un exemplar...");
+                UsefulFunction.LostFocus(sender, (string)Application.Current.FindResource("Placeholder_SearchCopy"));
             }
             else
             {
-                UsefulFunction.LostFocus(sender, "Caută o carte...");
+                UsefulFunction.LostFocus(sender, (string)Application.Current.FindResource("Placeholder_SearchBook"));
             }
         }
 
@@ -996,7 +1000,7 @@ namespace BibliotecaCEITI
             if (ExemplareGrid.SelectedItem is DataRowView row)
             {
                 idExemplarSelectat = int.TryParse(row["Id_exemplar"].ToString(), out int idExemplar) ? idExemplar : 0;
-                    try
+                try
                 {
                     using (MySqlConnection conn = DatabaseConfig.GetConnection())
                     {
@@ -1080,7 +1084,7 @@ namespace BibliotecaCEITI
                     }
 
                     MessageBox.Show($"S-au adăugat cu succes {numarExemplare} exemplare pentru această carte!", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
-                    SearchTextBox.Text = "Caută o carte...";
+                    SearchTextBox.Text = (string)Application.Current.FindResource("Placeholder_SearchBook");
                     SearchTextBox.Foreground = new SolidColorBrush(Colors.Gray);
                 }
 

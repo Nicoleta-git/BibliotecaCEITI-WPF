@@ -1,9 +1,9 @@
-﻿using MySql.Data.MySqlClient;
 using System;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using MySql.Data.MySqlClient;
 
 namespace BibliotecaCEITI
 {
@@ -119,7 +119,7 @@ namespace BibliotecaCEITI
                         da.Fill(dt);
 
                         List<ComboItem> lista = new List<ComboItem>();
-                        lista.Add(new ComboItem { Id = -1, Denumire = "Selectează manualul..." });
+                        lista.Add(new ComboItem { Id = -1, Denumire = (string)Application.Current.FindResource("Placeholder_SelectManual") });
                         foreach (DataRow rand in dt.Rows)
                         {
                             lista.Add(new ComboItem
@@ -158,7 +158,7 @@ namespace BibliotecaCEITI
                         da.Fill(dt);
 
                         List<ComboItem> lista = new List<ComboItem>();
-                        lista.Add(new ComboItem { Denumire = "Selectează categoria..." });
+                        lista.Add(new ComboItem { Denumire = (string)Application.Current.FindResource("Placeholder_SelectCategory") });
 
                         foreach (DataRow rand in dt.Rows)
                         {
@@ -187,7 +187,7 @@ namespace BibliotecaCEITI
         {
             string selectedCategorie = (CmbCategorie.SelectedItem as ComboItem)?.Denumire;
 
-            if (!string.IsNullOrEmpty(selectedCategorie) && selectedCategorie != "Selectează categoria...")
+            if (!string.IsNullOrEmpty(selectedCategorie) && selectedCategorie != (string)Application.Current.FindResource("Placeholder_SelectCategory"))
             {
                 SorteazaManuale_perCategorie(selectedCategorie);
             }
@@ -209,7 +209,7 @@ namespace BibliotecaCEITI
                         da.Fill(dt);
 
                         List<ComboItem> lista = new List<ComboItem>();
-                        lista.Add(new ComboItem { Denumire = "Selectează grupa..." });
+                        lista.Add(new ComboItem { Denumire = (string)Application.Current.FindResource("Loans_SelectGroupPlaceholder") });
                         foreach (DataRow rand in dt.Rows)
                         {
                             lista.Add(new ComboItem { Denumire = rand["Grupa"].ToString() });
@@ -281,7 +281,7 @@ namespace BibliotecaCEITI
         private void CmbGrupa_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string? selectedGrupa = (CmbGrupa.SelectedItem as ComboItem)?.Denumire;
-            if (string.IsNullOrEmpty(selectedGrupa) || selectedGrupa == "Selectează grupa...") return;
+            if (string.IsNullOrEmpty(selectedGrupa) || selectedGrupa == (string)Application.Current.FindResource("Loans_SelectGroupPlaceholder")) return;
 
             if (mod_manuale == "returnare")
             {
@@ -502,7 +502,8 @@ namespace BibliotecaCEITI
             if (mod_manuale == "împrumut")
             {
                 return;
-            } else
+            }
+            else
             {
                 mod_manuale = "împrumut";
             }
@@ -520,7 +521,8 @@ namespace BibliotecaCEITI
             if (mod_manuale == "returnare")
             {
                 return;
-            } else
+            }
+            else
             {
                 mod_manuale = "returnare";
             }
@@ -574,7 +576,7 @@ namespace BibliotecaCEITI
                         {
                             string nume = rand["Nume"].ToString();
                             string prenume = rand["Prenume"].ToString();
-                            string initiale = (!string.IsNullOrEmpty(nume) && !string.IsNullOrEmpty(prenume))? (nume[0].ToString() + prenume[0].ToString()).ToUpper() : "";
+                            string initiale = (!string.IsNullOrEmpty(nume) && !string.IsNullOrEmpty(prenume)) ? (nume[0].ToString() + prenume[0].ToString()).ToUpper() : "";
 
                             listaElevi.Add(new ElevModel(
                                 Convert.ToInt32(rand["Id_elev"]),

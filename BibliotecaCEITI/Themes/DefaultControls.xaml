@@ -219,4 +219,79 @@
 
     <Style TargetType="ComboBox" BasedOn="{StaticResource ModernComboBox}"/>
 
+    <!-- Shared across Books, Students, BookReservation search bars -->
+    <Style x:Key="SearchBorderStyle" TargetType="Border">
+        <Setter Property="Background" Value="{DynamicResource CardBackground}"/>
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderBrushLight}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Height" Value="45"/>
+    </Style>
+
+    <!-- Shared across the Check-In wizard steps -->
+    <Style x:Key="SearchButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="{DynamicResource TotalBlue}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Padding" Value="25,10"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="8">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Shared across LoginWindow and Registrare -->
+    <Style x:Key="ModernButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="#6a11cb"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="border" CornerRadius="22" Background="{TemplateBinding Background}" BorderThickness="0">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="15" Direction="270" Opacity="0.3" ShadowDepth="5" Color="#6a11cb"/>
+                        </Border.Effect>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#2575fc"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ModernInputStyle" TargetType="Control">
+        <Setter Property="Height" Value="35"/>
+        <Setter Property="Background" Value="#F5F6F7"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Control">
+                    <Border x:Name="InputBorder" CornerRadius="8" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <ScrollViewer x:Name="PART_ContentHost" Margin="10,0" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="InputBorder" Property="BorderBrush" Value="#6a11cb"/>
+                            <Setter TargetName="InputBorder" Property="Background" Value="White"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

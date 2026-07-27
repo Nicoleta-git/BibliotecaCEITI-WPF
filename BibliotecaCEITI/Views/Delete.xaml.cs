@@ -1,5 +1,3 @@
-﻿using MySql.Data.MySqlClient;
-using Org.BouncyCastle.Crypto;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Crypto;
 
 namespace BibliotecaCEITI
 {
@@ -25,14 +25,14 @@ namespace BibliotecaCEITI
     public partial class Delete : UserControl
     {
         private int _idCarte;
-        private string motivul_stergerii = "Selectează motivul", observatie_stergere = "";
+        private string motivul_stergerii = (string)Application.Current.FindResource("Delete_SelectReason"), observatie_stergere = "";
         public Delete(int idCarteSelectata = 0)
         {
             InitializeComponent();
             _idCarte = idCarteSelectata;
             IncarcaDateStergere();
 
-            txtObservatii.Text = "Ex: Scrie aici explicația suplimentară...";
+            txtObservatii.Text = (string)Application.Current.FindResource("Placeholder_DeleteExplanation");
             txtObservatii.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Gray);
         }
 
@@ -55,7 +55,7 @@ namespace BibliotecaCEITI
             }
             motivul_stergerii = cbMotiv.Text;
             observatie_stergere = txtObservatii.Text;
-            if (string.IsNullOrWhiteSpace(motivul_stergerii) || motivul_stergerii == "Selectează motivul")
+            if (string.IsNullOrWhiteSpace(motivul_stergerii) || motivul_stergerii == (string)Application.Current.FindResource("Delete_SelectReason"))
             {
                 MessageBox.Show("Vă rugăm să selectați un motiv al ștergerii cărții.", "Atenție", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
@@ -86,12 +86,12 @@ namespace BibliotecaCEITI
 
         private void txtObservatii_GotFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.GotFocus(sender, "Ex: Scrie aici explicația suplimentară...");
+            UsefulFunction.GotFocus(sender, (string)Application.Current.FindResource("Placeholder_DeleteExplanation"));
         }
 
         private void txtObservatii_LostFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.LostFocus(sender, "Ex: Scrie aici explicația suplimentară...");
+            UsefulFunction.LostFocus(sender, (string)Application.Current.FindResource("Placeholder_DeleteExplanation"));
         }
 
         private void IncarcaDateStergere()

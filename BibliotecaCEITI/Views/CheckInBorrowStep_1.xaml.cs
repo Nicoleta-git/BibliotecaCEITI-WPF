@@ -1,4 +1,3 @@
-﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -14,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MySql.Data.MySqlClient;
 
 namespace BibliotecaCEITI
 {
@@ -29,7 +29,7 @@ namespace BibliotecaCEITI
             InitializeComponent();
             _idElev = idElev;
 
-            SearchBox.Text = "Caută un elev...";
+            SearchBox.Text = (string)Application.Current.FindResource("Loans_SearchStudent");
             SearchBox.Foreground = new SolidColorBrush(Colors.Gray);
 
             SelectStudentsAsync();
@@ -161,18 +161,18 @@ namespace BibliotecaCEITI
 
         private void SearchBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.GotFocus(sender, "Caută un elev...");
+            UsefulFunction.GotFocus(sender, (string)Application.Current.FindResource("Loans_SearchStudent"));
         }
 
         private void SearchBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.LostFocus(sender, "Caută un elev...");
+            UsefulFunction.LostFocus(sender, (string)Application.Current.FindResource("Loans_SearchStudent"));
         }
 
         private async void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             string textCautat = SearchBox.Text.Trim();
-            if (textCautat == "Caută un elev...")
+            if (textCautat == (string)Application.Current.FindResource("Loans_SearchStudent"))
             {
                 textCautat = "";
             }

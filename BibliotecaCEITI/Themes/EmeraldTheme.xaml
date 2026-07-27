@@ -18,19 +18,6 @@
 
     <SolidColorBrush x:Key="PrimaryEmerald" Color="#059669"/>
     <SolidColorBrush x:Key="PrimaryEmeraldHover" Color="#047857"/>
-    <SolidColorBrush x:Key="PrimaryEmeraldSelected" Color="#D1FAE5"/>
-    <SolidColorBrush x:Key="TextEmeraldSelected" Color="#065F46"/>
-
-    <SolidColorBrush x:Key="ButtonBackground" Color="#059669"/>
-    <SolidColorBrush x:Key="ButtonBackgroundHover" Color="#047857"/>
-    <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#064E3B"/>
-    <SolidColorBrush x:Key="ButtonForeground" Color="White"/>
-    <SolidColorBrush x:Key="ButtonBorder" Color="#059669"/>
-
-    <SolidColorBrush x:Key="SecondaryButtonBackground" Color="Transparent"/>
-    <SolidColorBrush x:Key="SecondaryButtonHover" Color="#EAF2EE"/>
-    <SolidColorBrush x:Key="SecondaryButtonForeground" Color="#059669"/>
-    <SolidColorBrush x:Key="SecondaryButtonBorder" Color="#059669"/>
 
     <SolidColorBrush x:Key="DataGridHeaderBackground" Color="#059669"/>
     <SolidColorBrush x:Key="DataGridHeaderForeground" Color="White"/>
@@ -40,8 +27,6 @@
     <SolidColorBrush x:Key="DataGridRowSelectedBackground" Color="#D1FAE5"/>
     <SolidColorBrush x:Key="DataGridRowSelectedForeground" Color="#065F46"/>
 
-    <SolidColorBrush x:Key="AccentTeal" Color="#0D9488"/>
-    <SolidColorBrush x:Key="AccentTealBg" Color="#CCFBF1"/>
     <SolidColorBrush x:Key="HeaderWhite" Color="White"/>
 
 

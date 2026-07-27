@@ -102,8 +102,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <!-- Left Column: Dates and Duration Form -->
-                <!-- Left Column: Dates and Duration Form -->
+                <!-- left column: dates and duration -->
                 <StackPanel Grid.Column="0" Margin="0,0,20,0">
                     <StackPanel Margin="0,0,0,20">
                         <TextBlock Text="{DynamicResource CheckIn_LoanDateLabel}" Margin="0,0,0,8" FontSize="13" FontWeight="Medium" Foreground="{DynamicResource TextMuted}"/>

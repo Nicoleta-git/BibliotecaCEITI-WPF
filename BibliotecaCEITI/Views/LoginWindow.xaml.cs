@@ -1,4 +1,3 @@
-﻿using MySql.Data.MySqlClient;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -6,15 +5,14 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using BCrypt.Net;
+using MySql.Data.MySqlClient;
 
 namespace BibliotecaCEITI
 {
     public partial class LoginWindow : Window
     {
-        // ── Token de anulare — anulat la închiderea ferestrei ─────────────
         private CancellationTokenSource _cts = new();
 
-        // ── Flag: credențialele OAuth au fost încărcate cu succes ─────────
         private bool _oauthConfigurat = false;
         public LoginWindow()
         {
@@ -35,9 +33,7 @@ namespace BibliotecaCEITI
             }
         }
 
-        // ─────────────────────────────────────────────────────────────────
-        //  Inițializare OAuth — citește ClientId și ClientSecret din BD
-        // ─────────────────────────────────────────────────────────────────
+        // reads ClientId/ClientSecret from configurare_oauth
         private async Task InitializeOAuthAsync()
         {
             try
@@ -91,9 +87,6 @@ namespace BibliotecaCEITI
             }
         }
 
-        // ─────────────────────────────────────────────────────────────────
-        //  Autentificare clasică — email + parolă
-        // ─────────────────────────────────────────────────────────────────
         private async void ConectareBtn_Click(object sender, RoutedEventArgs e)
         {
             string utilizator = utlizatorTxt.Text.Trim();
@@ -107,7 +100,7 @@ namespace BibliotecaCEITI
             }
 
             conectareBtn.IsEnabled = false;
-            conectareBtn.Content = "Se verifică...";
+            conectareBtn.Content = (string)Application.Current.FindResource("Login_Checking");
 
             try
             {
@@ -184,13 +177,10 @@ namespace BibliotecaCEITI
             finally
             {
                 conectareBtn.IsEnabled = true;
-                conectareBtn.Content = "CONECTARE";
+                conectareBtn.Content = (string)Application.Current.FindResource("Login_SubmitButton");
             }
         }
 
-        // ─────────────────────────────────────────────────────────────────
-        //  Autentificare Google OAuth
-        // ─────────────────────────────────────────────────────────────────
         private async void GoogleBtn_Click(object sender, RoutedEventArgs e)
         {
             if (!_oauthConfigurat)
@@ -290,9 +280,6 @@ namespace BibliotecaCEITI
             }
         }
 
-        // ─────────────────────────────────────────────────────────────────
-        //  Butoane existente
-        // ─────────────────────────────────────────────────────────────────
         private void Registrare_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -310,9 +297,7 @@ namespace BibliotecaCEITI
             Application.Current.Shutdown();
         }
 
-        // ─────────────────────────────────────────────────────────────────
-        //  Curățare garantată la orice mod de închidere a ferestrei
-        // ─────────────────────────────────────────────────────────────────
+        // runs on every close path, not just the button
         protected override void OnClosed(EventArgs e)
         {
             _cts.Cancel();
@@ -320,9 +305,6 @@ namespace BibliotecaCEITI
             base.OnClosed(e);
         }
 
-        // ─────────────────────────────────────────────────────────────────
-        //  Helper: creează sesiunea în BD via sp_creeaza_sesiune
-        // ─────────────────────────────────────────────────────────────────
         private async Task CreeazaSesiuneAsync(int idBib, string metoda, string token)
         {
             using var conn = DatabaseConfig.GetConnection();
@@ -340,9 +322,6 @@ namespace BibliotecaCEITI
             await cmd.ExecuteNonQueryAsync();
         }
 
-        // ─────────────────────────────────────────────────────────────────
-        //  Helpers statice
-        // ─────────────────────────────────────────────────────────────────
         private async Task DeschideMainWindowAsync()
         {
             await IncarcaDateSesiuneAsync(SesiuneBibliotecar.IdBibliotecarCurent);

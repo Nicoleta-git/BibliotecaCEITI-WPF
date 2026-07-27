@@ -1,6 +1,3 @@
-﻿using Microsoft.Win32;
-using MySql.Data.MySqlClient;
-using Mysqlx.Crud;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -17,6 +14,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Microsoft.Win32;
+using MySql.Data.MySqlClient;
+using Mysqlx.Crud;
 
 namespace BibliotecaCEITI
 {
@@ -49,21 +49,21 @@ namespace BibliotecaCEITI
                 functie = "salvare";
                 action_book.Text = "Salvare carte";
 
-                txtTitlu.Text = "Ex: Amintiri din copilărie...";
+                txtTitlu.Text = (string)Application.Current.FindResource("Placeholder_BookTitle");
                 txtTitlu.Foreground = new SolidColorBrush(Colors.Gray);
-                txtIsbn.Text = "Ex: 978-973-46-1234-5...";
+                txtIsbn.Text = (string)Application.Current.FindResource("Placeholder_ISBN");
                 txtIsbn.Foreground = new SolidColorBrush(Colors.Gray);
-                txtAnPublicare.Text = "Ex: 2020...";
+                txtAnPublicare.Text = (string)Application.Current.FindResource("Placeholder_Year");
                 txtAnPublicare.Foreground = new SolidColorBrush(Colors.Gray);
-                txtPretMdl.Text = "Ex: 350...";
+                txtPretMdl.Text = (string)Application.Current.FindResource("Placeholder_Price");
                 txtPretMdl.Foreground = new SolidColorBrush(Colors.Gray);
-                txtPretChirie.Text = "Ex: 100...";
+                txtPretChirie.Text = (string)Application.Current.FindResource("Placeholder_RentPrice");
                 txtPretChirie.Foreground = new SolidColorBrush(Colors.Gray);
             }
 
             if (string.IsNullOrEmpty(txtDescriere.Text))
             {
-                txtDescriere.Text = "Scrie o scurtă prezentare a cărții...";
+                txtDescriere.Text = (string)Application.Current.FindResource("Placeholder_BookDescription");
                 txtDescriere.Foreground = new SolidColorBrush(Colors.Gray);
             }
 
@@ -162,7 +162,7 @@ namespace BibliotecaCEITI
                         da.Fill(dt);
 
                         List<ComboItem> lista = new List<ComboItem>();
-                        lista.Add(new ComboItem { Id = -1, Denumire = "Selectează autor..." });
+                        lista.Add(new ComboItem { Id = -1, Denumire = (string)Application.Current.FindResource("Placeholder_SelectAuthor") });
 
                         foreach (DataRow rand in dt.Rows)
                         {
@@ -204,7 +204,7 @@ namespace BibliotecaCEITI
                         da.Fill(dt);
 
                         List<ComboItem> lista = new List<ComboItem>();
-                        lista.Add(new ComboItem { Id = -1, Denumire = "Selectează categoria..." });
+                        lista.Add(new ComboItem { Id = -1, Denumire = (string)Application.Current.FindResource("Placeholder_SelectCategory") });
 
                         foreach (DataRow rand in dt.Rows)
                         {
@@ -245,7 +245,7 @@ namespace BibliotecaCEITI
                         da.Fill(dt);
 
                         List<ComboItem> lista = new List<ComboItem>();
-                        lista.Add(new ComboItem { Id = -1, Denumire = "Selectează editura..." });
+                        lista.Add(new ComboItem { Id = -1, Denumire = (string)Application.Current.FindResource("Placeholder_SelectPublisher") });
 
                         foreach (DataRow rand in dt.Rows)
                         {
@@ -288,7 +288,7 @@ namespace BibliotecaCEITI
                             da.Fill(dt);
 
                             List<ComboItem> lista = new List<ComboItem>();
-                            lista.Add(new ComboItem { Id = -1, Denumire = "Selectează limba..." });
+                            lista.Add(new ComboItem { Id = -1, Denumire = (string)Application.Current.FindResource("Placeholder_SelectLanguage") });
                             foreach (DataRow rand in dt.Rows)
                             {
                                 ComboItem item = new ComboItem
@@ -447,10 +447,10 @@ namespace BibliotecaCEITI
                 int idBibliotecarLogat = SesiuneBibliotecar.IdBibliotecarCurent;
                 byte[]? copertaBytes = ImageToBytes(imgCoperta);
 
-                if (!ValidateTextBox(txtTitlu, "Ex: Amintiri din copilărie...", "Vă rugăm să introduceți titlul cărții.")) return;
+                if (!ValidateTextBox(txtTitlu, (string)Application.Current.FindResource("Placeholder_BookTitle"), "Vă rugăm să introduceți titlul cărții.")) return;
                 if (!ValidateComboBox(cbAutor, "Vă rugăm să introduceți autorul cărții.")) return;
                 if (!ValidateComboBox(cbCategorie, "Vă rugăm să alegeți categoria cărții.")) return;
-                if (!ValidateTextBox(txtIsbn, "Ex: 978-973-46-1234-5...", "Vă rugăm să introduceți ISBN-ul cărții.")) return;
+                if (!ValidateTextBox(txtIsbn, (string)Application.Current.FindResource("Placeholder_ISBN"), "Vă rugăm să introduceți ISBN-ul cărții.")) return;
                 if (!ValidateComboBox(cbEditura, "Vă rugăm să alegeți editura cărții.")) return;
                 if (!ValidateNumber(txtAnPublicare, "Anul publicării este invalid.", out int an)) return;
                 if (!ValidateComboBox(cbLimba, "Vă rugăm să alegeți limba cărții.")) return;
@@ -503,62 +503,62 @@ namespace BibliotecaCEITI
 
         private void txtTitlu_GotFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.GotFocus(sender, "Ex: Amintiri din copilărie...");
+            UsefulFunction.GotFocus(sender, (string)Application.Current.FindResource("Placeholder_BookTitle"));
         }
 
         private void txtTitlu_LostFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.LostFocus(sender, "Ex: Amintiri din copilărie...");
+            UsefulFunction.LostFocus(sender, (string)Application.Current.FindResource("Placeholder_BookTitle"));
         }
 
         private void txtDescriere_GotFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.GotFocus(sender, "Scrie o scurtă prezentare a cărții...");
+            UsefulFunction.GotFocus(sender, (string)Application.Current.FindResource("Placeholder_BookDescription"));
         }
 
         private void txtDescriere_LostFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.LostFocus(sender, "Scrie o scurtă prezentare a cărții...");
+            UsefulFunction.LostFocus(sender, (string)Application.Current.FindResource("Placeholder_BookDescription"));
         }
 
         private void txtIsbn_GotFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.GotFocus(sender, "Ex: 978-973-46-1234-5...");
+            UsefulFunction.GotFocus(sender, (string)Application.Current.FindResource("Placeholder_ISBN"));
         }
 
         private void txtIsbn_LostFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.LostFocus(sender, "Ex: 978-973-46-1234-5...");
+            UsefulFunction.LostFocus(sender, (string)Application.Current.FindResource("Placeholder_ISBN"));
         }
 
         private void txtAnPublicare_GotFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.GotFocus(sender, "Ex: 2020...");
+            UsefulFunction.GotFocus(sender, (string)Application.Current.FindResource("Placeholder_Year"));
         }
 
         private void txtAnPublicare_LostFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.LostFocus(sender, "Ex: 2020...");
+            UsefulFunction.LostFocus(sender, (string)Application.Current.FindResource("Placeholder_Year"));
         }
 
         private void txtPretMdl_GotFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.GotFocus(sender, "Ex: 350...");
+            UsefulFunction.GotFocus(sender, (string)Application.Current.FindResource("Placeholder_Price"));
         }
 
         private void txtPretMdl_LostFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.LostFocus(sender, "Ex: 350...");
+            UsefulFunction.LostFocus(sender, (string)Application.Current.FindResource("Placeholder_Price"));
         }
 
         private void txtPretChirie_GotFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.GotFocus(sender, "Ex: 100...");
+            UsefulFunction.GotFocus(sender, (string)Application.Current.FindResource("Placeholder_RentPrice"));
         }
 
         private void txtPretChirie_LostFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.LostFocus(sender, "Ex: 100...");
+            UsefulFunction.LostFocus(sender, (string)Application.Current.FindResource("Placeholder_RentPrice"));
         }
 
         private bool isbnFormatat = false;
@@ -568,16 +568,16 @@ namespace BibliotecaCEITI
 
             TextBox textBox = sender as TextBox;
             if (textBox == null) return;
-            if (textBox.Text != "Ex: 978-973-46-1234-5...")
+            if (textBox.Text != (string)Application.Current.FindResource("Placeholder_ISBN"))
             {
                 textBox.ClearValue(TextBox.BorderBrushProperty);
             }
-            if (textBox.Text == "Ex: 978-973-46-1234-5...") return;
+            if (textBox.Text == (string)Application.Current.FindResource("Placeholder_ISBN")) return;
             string rawDigits = new string(textBox.Text.Where(char.IsDigit).ToArray());
             string separator = "";
             for (int i = 0; i < rawDigits.Length; i++)
             {
-                // Adăugăm cratimă după a 3-a, a 6-a, a 9-a și a 13-a cifră
+                // group the ISBN digits with dashes
                 if (i == 3 || i == 6 || i == 9 || i == 13)
                 {
                     separator += "-";
@@ -617,45 +617,45 @@ namespace BibliotecaCEITI
 
         private void txtTitlu_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (txtTitlu.Text != "Ex: Amintiri din copilărie..." && !string.IsNullOrWhiteSpace(txtTitlu.Text))
+            if (txtTitlu.Text != (string)Application.Current.FindResource("Placeholder_BookTitle") && !string.IsNullOrWhiteSpace(txtTitlu.Text))
             {
                 txtTitlu.ClearValue(TextBox.BorderBrushProperty);
             }
         }
 
-        private void cbAutor_SelectionChanged(object sender, SelectionChangedEventArgs e) 
-        { 
-            if (cbAutor.SelectedIndex > 0) cbAutor.ClearValue(Control.BorderBrushProperty); 
+        private void cbAutor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbAutor.SelectedIndex > 0) cbAutor.ClearValue(Control.BorderBrushProperty);
         }
 
-        private void cbCategorie_SelectionChanged(object sender, SelectionChangedEventArgs e) 
-        { 
-            if (cbCategorie.SelectedIndex > 0) cbCategorie.ClearValue(Control.BorderBrushProperty); 
+        private void cbCategorie_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbCategorie.SelectedIndex > 0) cbCategorie.ClearValue(Control.BorderBrushProperty);
         }
 
-        private void cbEditura_SelectionChanged(object sender, SelectionChangedEventArgs e) 
-        { 
-            if (cbEditura.SelectedIndex > 0) cbEditura.ClearValue(Control.BorderBrushProperty); 
+        private void cbEditura_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbEditura.SelectedIndex > 0) cbEditura.ClearValue(Control.BorderBrushProperty);
         }
 
-        private void cbLimba_SelectionChanged(object sender, SelectionChangedEventArgs e) 
-        { 
-            if (cbLimba.SelectedIndex > 0) cbLimba.ClearValue(Control.BorderBrushProperty); 
+        private void cbLimba_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbLimba.SelectedIndex > 0) cbLimba.ClearValue(Control.BorderBrushProperty);
         }
 
-        private void txtAnPublicare_TextChanged(object sender, TextChangedEventArgs e) 
-        { 
-            if (int.TryParse(txtAnPublicare.Text, out _)) txtAnPublicare.ClearValue(Control.BorderBrushProperty); 
+        private void txtAnPublicare_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (int.TryParse(txtAnPublicare.Text, out _)) txtAnPublicare.ClearValue(Control.BorderBrushProperty);
         }
 
-        private void txtPretMdl_TextChanged(object sender, TextChangedEventArgs e) 
-        { 
-            if (double.TryParse(txtPretMdl.Text, out _)) txtPretMdl.ClearValue(Control.BorderBrushProperty); 
+        private void txtPretMdl_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (double.TryParse(txtPretMdl.Text, out _)) txtPretMdl.ClearValue(Control.BorderBrushProperty);
         }
 
-        private void txtPretChirie_TextChanged(object sender, TextChangedEventArgs e) 
-        { 
-            if (double.TryParse(txtPretChirie.Text, out _)) txtPretChirie.ClearValue(Control.BorderBrushProperty); 
+        private void txtPretChirie_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (double.TryParse(txtPretChirie.Text, out _)) txtPretChirie.ClearValue(Control.BorderBrushProperty);
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)

@@ -14,7 +14,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="ProgressBar">
                         <Grid x:Name="Root" Height="{TemplateBinding Height}">
-                            <Border Name="PART_Track" CornerRadius="12" Background="#E2E8F0" />
+                            <Border Name="PART_Track" CornerRadius="12" Background="{DynamicResource BorderBrushLight}" />
                             <Decorator x:Name="PART_Indicator" HorizontalAlignment="Left">
                                 <Border Name="Indicator" CornerRadius="12">
                                     <Border.Background>
@@ -41,7 +41,7 @@
         </Style>
     </Window.Resources>
 
-    <Border CornerRadius="0,40,0,40" ClipToBounds="True" BorderBrush="#CBD5E1" BorderThickness="3">
+    <Border CornerRadius="0,40,0,40" ClipToBounds="True" BorderBrush="{DynamicResource BorderBrushDark}" BorderThickness="3">
         <Border.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                 <GradientStop Color="#FFFFFF" Offset="0.0" />
@@ -53,9 +53,9 @@
         </Border.Effect>
 
         <Grid>
-            <!-- Decorative Background Elements -> Elipse -->
+            <!-- background decoration -->
             <Ellipse Fill="#DBEAFE" Width="600" Height="600" Margin="-250,-300,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.6"/>
-            <Ellipse Fill="#EFF6FF" Width="400" Height="400" Margin="0,0,-150,-150" HorizontalAlignment="Right" VerticalAlignment="Bottom" Opacity="0.8"/>
+            <Ellipse Fill="{DynamicResource TotalBlueBg}" Width="400" Height="400" Margin="0,0,-150,-150" HorizontalAlignment="Right" VerticalAlignment="Bottom" Opacity="0.8"/>
             <Ellipse Fill="#BFDBFE" Width="100" Height="100" Margin="0,40,120,0" HorizontalAlignment="Right" VerticalAlignment="Top" Opacity="0.3"/>
 
             <Grid Margin="50">

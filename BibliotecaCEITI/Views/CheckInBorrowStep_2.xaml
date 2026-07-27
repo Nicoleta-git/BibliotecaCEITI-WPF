@@ -13,23 +13,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Themes/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-
-            <Style x:Key="SearchButtonStyle" TargetType="Button">
-                <Setter Property="Background" Value="{DynamicResource TotalBlue}"/>
-                <Setter Property="Foreground" Value="White"/>
-                <Setter Property="FontWeight" Value="SemiBold"/>
-                <Setter Property="Padding" Value="25,10"/>
-                <Setter Property="Cursor" Value="Hand"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="Button">
-                            <Border Background="{TemplateBinding Background}" CornerRadius="8">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
 

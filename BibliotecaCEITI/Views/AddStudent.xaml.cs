@@ -1,4 +1,3 @@
-﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -15,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MySql.Data.MySqlClient;
 
 namespace BibliotecaCEITI
 {
@@ -28,17 +28,17 @@ namespace BibliotecaCEITI
             InitializeComponent();
             PopuleazaGrupe();
 
-            txtIdnp.Text = "Ex: 1234567890123...";
+            txtIdnp.Text = (string)Application.Current.FindResource("Placeholder_IDNP");
             txtIdnp.Foreground = new SolidColorBrush(Colors.Gray);
-            txtNume.Text = "Ex: Moraru...";
+            txtNume.Text = (string)Application.Current.FindResource("Placeholder_LastName");
             txtNume.Foreground = new SolidColorBrush(Colors.Gray);
-            txtPrenume.Text = "Ex: Vasile...";
+            txtPrenume.Text = (string)Application.Current.FindResource("Placeholder_FirstName");
             txtPrenume.Foreground = new SolidColorBrush(Colors.Gray);
-            txtTelefon.Text = "Ex: 012345678...";
+            txtTelefon.Text = (string)Application.Current.FindResource("Placeholder_PhoneShort");
             txtTelefon.Foreground = new SolidColorBrush(Colors.Gray);
-            txtEmail.Text = "Ex: moraru.vasile@gmail.com...";
+            txtEmail.Text = (string)Application.Current.FindResource("Placeholder_Email");
             txtEmail.Foreground = new SolidColorBrush(Colors.Gray);
-            txtObservatii.Text = "Scrie aici observații generale despre elev...";
+            txtObservatii.Text = (string)Application.Current.FindResource("Placeholder_StudentNotes");
             txtObservatii.Foreground = new SolidColorBrush(Colors.Gray);
         }
 
@@ -93,12 +93,12 @@ namespace BibliotecaCEITI
             int idBibliotecar = SesiuneBibliotecar.IdBibliotecarCurent;
             try
             {
-                if (!ValidateTextBox(txtIdnp, "Ex: 1234567890123...", "Vă rugăm să introduceți IDNP-ul cărții.")) return;
+                if (!ValidateTextBox(txtIdnp, (string)Application.Current.FindResource("Placeholder_IDNP"), "Vă rugăm să introduceți IDNP-ul cărții.")) return;
                 if (!ValidateComboBox(cbGrupe, "Vă rugăm să selectați grupa")) return;
-                if (!ValidateTextBox(txtNume, "Ex: Moraru...", "Vă rugăm să introduceți numele elevului.")) return;
-                if (!ValidateTextBox(txtPrenume, "Ex: Vasile...", "Vă rugăm să introduceți prenumele elevului.")) return;
-                if (!ValidateTextBox(txtTelefon, "Ex: 012345678...", "Vă rugăm să introduceți un număr de telefon.")) return;
-                if (!ValidateTextBox(txtEmail, "Ex: moraru.vasile@gmail.com...", "Vă rugăm să introduceți o adresă de email.")) return;
+                if (!ValidateTextBox(txtNume, (string)Application.Current.FindResource("Placeholder_LastName"), "Vă rugăm să introduceți numele elevului.")) return;
+                if (!ValidateTextBox(txtPrenume, (string)Application.Current.FindResource("Placeholder_FirstName"), "Vă rugăm să introduceți prenumele elevului.")) return;
+                if (!ValidateTextBox(txtTelefon, (string)Application.Current.FindResource("Placeholder_PhoneShort"), "Vă rugăm să introduceți un număr de telefon.")) return;
+                if (!ValidateTextBox(txtEmail, (string)Application.Current.FindResource("Placeholder_Email"), "Vă rugăm să introduceți o adresă de email.")) return;
                 if (!ValidateDateTimePicker(dpDataNasterii, "Vă rugăm să selectați data nașterii.")) return;
 
                 DateTime data_nasterii = dpDataNasterii.SelectedDate.Value;
@@ -201,7 +201,7 @@ namespace BibliotecaCEITI
                             da.Fill(dt);
 
                             List<ComboItem> lista = new List<ComboItem>();
-                            lista.Add(new ComboItem { Id = -1, Denumire = "Selectează grupa..." });
+                            lista.Add(new ComboItem { Id = -1, Denumire = (string)Application.Current.FindResource("Loans_SelectGroupPlaceholder") });
 
                             foreach (DataRow rand in dt.Rows)
                             {
@@ -233,62 +233,62 @@ namespace BibliotecaCEITI
 
         private void txtIdnp_GotFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.GotFocus(sender, "Ex: 1234567890123...");
+            UsefulFunction.GotFocus(sender, (string)Application.Current.FindResource("Placeholder_IDNP"));
         }
 
         private void txtIdnp_LostFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.LostFocus(sender, "Ex: 1234567890123...");
+            UsefulFunction.LostFocus(sender, (string)Application.Current.FindResource("Placeholder_IDNP"));
         }
 
         private void txtNume_GotFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.GotFocus(sender, "Ex: Moraru...");
+            UsefulFunction.GotFocus(sender, (string)Application.Current.FindResource("Placeholder_LastName"));
         }
 
         private void txtNume_LostFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.LostFocus(sender, "Ex: Moraru...");
+            UsefulFunction.LostFocus(sender, (string)Application.Current.FindResource("Placeholder_LastName"));
         }
 
         private void txtPrenume_GotFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.GotFocus(sender, "Ex: Vasile...");
+            UsefulFunction.GotFocus(sender, (string)Application.Current.FindResource("Placeholder_FirstName"));
         }
 
         private void txtPrenume_LostFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.LostFocus(sender, "Ex: Vasile...");
+            UsefulFunction.LostFocus(sender, (string)Application.Current.FindResource("Placeholder_FirstName"));
         }
 
         private void txtTelefon_GotFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.GotFocus(sender, "Ex: 012345678...");
+            UsefulFunction.GotFocus(sender, (string)Application.Current.FindResource("Placeholder_PhoneShort"));
         }
 
         private void txtTelefon_LostFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.LostFocus(sender, "Ex: 012345678...");
+            UsefulFunction.LostFocus(sender, (string)Application.Current.FindResource("Placeholder_PhoneShort"));
         }
 
         private void txtEmail_GotFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.GotFocus(sender, "Ex: moraru.vasile@gmail.com...");
+            UsefulFunction.GotFocus(sender, (string)Application.Current.FindResource("Placeholder_Email"));
         }
 
         private void txtEmail_LostFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.LostFocus(sender, "Ex: moraru.vasile@gmail.com...");
+            UsefulFunction.LostFocus(sender, (string)Application.Current.FindResource("Placeholder_Email"));
         }
 
         private void txtObservatii_GotFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.GotFocus(sender, "Scrie aici observații generale despre elev...");
+            UsefulFunction.GotFocus(sender, (string)Application.Current.FindResource("Placeholder_StudentNotes"));
         }
 
         private void txtObservatii_LostFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.LostFocus(sender, "Scrie aici observații generale despre elev...");
+            UsefulFunction.LostFocus(sender, (string)Application.Current.FindResource("Placeholder_StudentNotes"));
         }
 
         private void txtIdnp_PreviewTextInput(object sender, TextCompositionEventArgs e)

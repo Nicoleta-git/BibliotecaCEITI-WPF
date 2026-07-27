@@ -12,9 +12,7 @@
         Background="Transparent"
         Opacity="0">
 
-    <!-- ═══════════════════════════════════════════════════════════ -->
-    <!-- ANIMAȚIE DESCHIDERE — declanșată la Loaded                 -->
-    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- open animation, triggered on Loaded -->
     <Window.Triggers>
         <EventTrigger RoutedEvent="Window.Loaded">
             <BeginStoryboard>
@@ -139,9 +137,7 @@
 
     </Window.Resources>
 
-    <!-- ═══════════════════════════════════════════════════════════ -->
-    <!-- ROOT BORDER — poartă TransformGroup pentru animații        -->
-    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- carries the TransformGroup the animations target -->
     <Border x:Name="RootBorder"
             CornerRadius="10"
             Background="#0D1117"
@@ -167,9 +163,7 @@
                 <RowDefinition Height="56"/>
             </Grid.RowDefinitions>
 
-            <!-- ══════════════════════════════════════════════ -->
             <!-- ROW 0: TITLE BAR                              -->
-            <!-- ══════════════════════════════════════════════ -->
             <Border Grid.Row="0"
                     Background="#080E16"
                     CornerRadius="10,10,0,0"
@@ -236,9 +230,7 @@
                 </Grid>
             </Border>
 
-            <!-- ══════════════════════════════════════════════ -->
             <!-- ROW 1: TAB BAR                                -->
-            <!-- ══════════════════════════════════════════════ -->
             <Border Grid.Row="1"
                     Background="#0A1520"
                     BorderBrush="#1C2A3F"
@@ -289,9 +281,7 @@
                 </Grid>
             </Border>
 
-            <!-- ══════════════════════════════════════════════ -->
             <!-- ROW 2: EDITOR                                 -->
-            <!-- ══════════════════════════════════════════════ -->
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="56"/>
@@ -312,9 +302,7 @@
                          ScrollViewer.ScrollChanged="CodeBox_ScrollChanged"/>
             </Grid>
 
-            <!-- ══════════════════════════════════════════════ -->
             <!-- ROW 3: STATUS BAR                             -->
-            <!-- ══════════════════════════════════════════════ -->
             <Border Grid.Row="3"
                     Background="#080E16"
                     BorderBrush="#13203A"
@@ -343,9 +331,7 @@
                 </Grid>
             </Border>
 
-            <!-- ══════════════════════════════════════════════ -->
             <!-- ROW 4: FOOTER                                 -->
-            <!-- ══════════════════════════════════════════════ -->
             <Border Grid.Row="4"
                     Background="#080E16"
                     BorderBrush="#13203A"

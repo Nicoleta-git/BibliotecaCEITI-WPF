@@ -1,5 +1,4 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -16,7 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using static Google.Protobuf.Reflection.SourceCodeInfo.Types;
+using MySql.Data.MySqlClient;
 
 namespace BibliotecaCEITI
 {
@@ -32,7 +31,7 @@ namespace BibliotecaCEITI
             InitializeComponent();
             id_CarteSelectata = idExemplar;
 
-            SearchBox.Text = "Caută o carte...";
+            SearchBox.Text = (string)Application.Current.FindResource("Placeholder_SearchBook");
             SearchBox.Foreground = new SolidColorBrush(Colors.Gray);
 
             SelectBooks();
@@ -105,7 +104,7 @@ namespace BibliotecaCEITI
         private async void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             string textCautat = SearchBox.Text.Trim();
-            if (textCautat == "Caută o carte...")
+            if (textCautat == (string)Application.Current.FindResource("Placeholder_SearchBook"))
             {
                 textCautat = "";
             }
@@ -152,12 +151,12 @@ namespace BibliotecaCEITI
 
         private void SearchBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.GotFocus(sender, "Caută o carte...");
+            UsefulFunction.GotFocus(sender, (string)Application.Current.FindResource("Placeholder_SearchBook"));
         }
 
         private void SearchBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.LostFocus(sender, "Caută o carte...");
+            UsefulFunction.LostFocus(sender, (string)Application.Current.FindResource("Placeholder_SearchBook"));
         }
 
         private void BooksGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)

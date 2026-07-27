@@ -23,6 +23,7 @@
     <system:String x:Key="Login_Or">sau</system:String>
     <system:String x:Key="Login_ContinueWithGoogle">Continuă cu Google</system:String>
     <system:String x:Key="Login_SubmitButton">CONECTARE</system:String>
+    <system:String x:Key="Login_Checking">Se verifică...</system:String>
 
     <!-- Dashboard -->
     <system:String x:Key="Dashboard_WelcomePrefix">Bun venit, </system:String>
@@ -76,6 +77,8 @@
     <system:String x:Key="Loans_AllStatuses">Toate Stările</system:String>
     <system:String x:Key="Loans_SearchStudent">Caută un elev...</system:String>
     <system:String x:Key="Loans_SelectedDetailsTitle">DETALII ÎMPRUMUT SELECTAT</system:String>
+    <system:String x:Key="Loans_SelectGroupPlaceholder">Selectează grupa...</system:String>
+    <system:String x:Key="Loans_SelectStatusPlaceholder">Selectează starea...</system:String>
     <system:String x:Key="Loans_ReturnDate">Data Returnării: </system:String>
     <system:String x:Key="Loans_ManagementSubtitle">Gestionarea manualelor și cărților împrumutate.</system:String>
     <system:String x:Key="Loans_Manuals">Manuale</system:String>
@@ -291,5 +294,33 @@
 
     <!-- Book AI -->
     <system:String x:Key="BookAi_AskQuestions">Pune întrebări</system:String>
+    <system:String x:Key="Placeholder_AskYourQuestion">Scrie întrebarea ta...</system:String>
+
+    <!-- Search placeholders -->
+    <system:String x:Key="Placeholder_SearchBook">Caută o carte...</system:String>
+    <system:String x:Key="Placeholder_SearchCopy">Caută un exemplar...</system:String>
+
+    <!-- Form field placeholders -->
+    <system:String x:Key="Placeholder_IDNP">Ex: 1234567890123...</system:String>
+    <system:String x:Key="Placeholder_LastName">Ex: Moraru...</system:String>
+    <system:String x:Key="Placeholder_FirstName">Ex: Vasile...</system:String>
+    <system:String x:Key="Placeholder_PhoneShort">Ex: 012345678...</system:String>
+    <system:String x:Key="Placeholder_PhoneWithCode">Ex: +373 12345678...</system:String>
+    <system:String x:Key="Placeholder_Email">Ex: moraru.vasile@gmail.com...</system:String>
+    <system:String x:Key="Placeholder_StudentNotes">Scrie aici observații generale despre elev...</system:String>
+    <system:String x:Key="Placeholder_BookTitle">Ex: Amintiri din copilărie...</system:String>
+    <system:String x:Key="Placeholder_BookDescription">Scrie o scurtă prezentare a cărții...</system:String>
+    <system:String x:Key="Placeholder_ISBN">Ex: 978-973-46-1234-5...</system:String>
+    <system:String x:Key="Placeholder_Year">Ex: 2020...</system:String>
+    <system:String x:Key="Placeholder_Price">Ex: 350...</system:String>
+    <system:String x:Key="Placeholder_RentPrice">Ex: 100...</system:String>
+    <system:String x:Key="Placeholder_DeleteExplanation">Ex: Scrie aici explicația suplimentară...</system:String>
+
+    <!-- Combo box placeholders -->
+    <system:String x:Key="Placeholder_SelectAuthor">Selectează autor...</system:String>
+    <system:String x:Key="Placeholder_SelectCategory">Selectează categoria...</system:String>
+    <system:String x:Key="Placeholder_SelectPublisher">Selectează editura...</system:String>
+    <system:String x:Key="Placeholder_SelectLanguage">Selectează limba...</system:String>
+    <system:String x:Key="Placeholder_SelectManual">Selectează manualul...</system:String>
 
 </ResourceDictionary>

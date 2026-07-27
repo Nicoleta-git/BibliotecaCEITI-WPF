@@ -1,4 +1,3 @@
-﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using MySql.Data.MySqlClient;
 
 namespace BibliotecaCEITI
 {
@@ -27,12 +27,12 @@ namespace BibliotecaCEITI
 
         private void txtSearch_GotFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.GotFocus(sender, "Caută un elev...");
+            UsefulFunction.GotFocus(sender, (string)Application.Current.FindResource("Loans_SearchStudent"));
         }
 
         private void txtSearch_LostFocus(object sender, RoutedEventArgs e)
         {
-            UsefulFunction.LostFocus(sender, "Caută un elev...");
+            UsefulFunction.LostFocus(sender, (string)Application.Current.FindResource("Loans_SearchStudent"));
         }
 
         public Borrow()
@@ -142,7 +142,7 @@ namespace BibliotecaCEITI
                             da.Fill(dt);
 
                             List<ComboItem> lista = new List<ComboItem>();
-                            lista.Add(new ComboItem { Id = -1, Denumire = "Selectează grupa..." });
+                            lista.Add(new ComboItem { Id = -1, Denumire = (string)Application.Current.FindResource("Loans_SelectGroupPlaceholder") });
                             foreach (DataRow rand in dt.Rows)
                             {
                                 ComboItem item = new ComboItem
@@ -184,7 +184,7 @@ namespace BibliotecaCEITI
                             da.Fill(dt);
 
                             List<ComboItem> lista = new List<ComboItem>();
-                            lista.Add(new ComboItem { Id = -1, Denumire = "Selectează starea..." });
+                            lista.Add(new ComboItem { Id = -1, Denumire = (string)Application.Current.FindResource("Loans_SelectStatusPlaceholder") });
 
                             int index = 0;
                             foreach (DataRow rand in dt.Rows)
@@ -359,7 +359,7 @@ namespace BibliotecaCEITI
                 return;
 
             string textCautat = txtSearch.Text.Trim();
-            if (textCautat == "Caută un elev...")
+            if (textCautat == (string)Application.Current.FindResource("Loans_SearchStudent"))
                 textCautat = "";
 
             int? idGrupa = null;

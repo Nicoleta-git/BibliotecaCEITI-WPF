@@ -14,14 +14,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Themes/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-
-            <Style x:Key="SearchBorderStyle" TargetType="Border">
-                <Setter Property="Background" Value="{DynamicResource CardBackground}"/>
-                <Setter Property="CornerRadius" Value="8"/>
-                <Setter Property="BorderBrush" Value="{DynamicResource BorderBrushLight}"/>
-                <Setter Property="BorderThickness" Value="1"/>
-                <Setter Property="Height" Value="45"/>
-            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
 

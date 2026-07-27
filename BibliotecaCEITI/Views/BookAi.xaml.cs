@@ -1,12 +1,12 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Net.Http;
 using System.Text;
-using System.Windows;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using MySql.Data.MySqlClient;
@@ -15,55 +15,44 @@ namespace BibliotecaCEITI
 {
     public partial class BookAi : UserControl
     {
-        // Get the API Key from system environment variables for security
         private static readonly string ApiKey = Environment.GetEnvironmentVariable("GEMINI_API_KEY");
         private const string ModelId = "gemini-3.1-flash-lite";
         private static readonly HttpClient client = new HttpClient();
 
-        // Maintains the conversation logs so the AI can track historical context between message turns
         private readonly List<object> _conversationHistory = new List<object>();
 
-        // Observable collection bound to the view's ItemsControl for dynamic chat bubbles
         public ObservableCollection<UiMessage> ChatMessages { get; set; } = new ObservableCollection<UiMessage>();
 
-        // ID of the currently authenticated librarian (Can be updated dynamically based on active user context)
         private const int CurrentLibrarianId = 1;
 
         public BookAi()
         {
             InitializeComponent();
 
-            // Disable specific network wait behavior to optimize API response latency
             System.Net.ServicePointManager.Expect100Continue = false;
 
-            // Bind the data collection to the ItemsControl UI container
             ChatItemsControl.ItemsSource = ChatMessages;
 
-            // Initial friendly greetings message from the AI on component startup
             AddMessageToUi("Salut! Sunt asistentul tău AI. Cu ce te pot ajuta astăzi?", isUser: false);
         }
 
-        // Clear the placeholder text when the user clicks inside the input textbox element
         private void Input_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (input.Text == "Scrie întrebarea ta...")
+            if (input.Text == (string)Application.Current.FindResource("Placeholder_AskYourQuestion"))
             {
                 input.Text = "";
             }
         }
 
-        // Main logic triggered when clicking the UI Send button
         private async void OnSendClick(object sender, RoutedEventArgs e)
         {
             string userPrompt = input.Text.Trim();
 
-            // Validation: Abort processing if input text payload contains empty spaces or the initial placeholder
-            if (string.IsNullOrWhiteSpace(userPrompt) || userPrompt == "Scrie întrebarea ta...")
+            if (string.IsNullOrWhiteSpace(userPrompt) || userPrompt == (string)Application.Current.FindResource("Placeholder_AskYourQuestion"))
             {
                 return;
             }
 
-            // Enforce checking if API access token configurations are populated
             if (string.IsNullOrEmpty(ApiKey))
             {
                 AddMessageToUi("Eroare: Cheia API nu a fost găsită. Setați variabila de mediu 'GEMINI_API_KEY'.", isUser: false);
@@ -72,20 +61,15 @@ namespace BibliotecaCEITI
 
             try
             {
-                // Render user message to bubble thread and clear input line field
                 AddMessageToUi(userPrompt, isUser: true);
                 input.Text = "";
 
-                // Display asynchronous visual status feedback object
                 var loadingBubble = AddMessageToUi("Se gândește...", isUser: false);
 
-                // 1. Submit the text sequence data and receive the raw structured JSON back from Gemini
                 string rawJson = await GetGeminiRawResponse(userPrompt);
 
-                // Remove temporary thinking status indicator before updating finalized data payload turns
                 ChatMessages.Remove(loadingBubble);
 
-                // 2. Parse out execution instructions or plain text content from the response payload
                 await ProcessAiResponse(rawJson);
             }
             catch (Exception ex)
@@ -94,26 +78,24 @@ namespace BibliotecaCEITI
             }
         }
 
-        // Helper framework wrapper handling UI state bindings and autoscrolling threads securely
         private UiMessage AddMessageToUi(string text, bool isUser)
         {
             var message = new UiMessage(text, isUser);
             ChatMessages.Add(message);
 
-            // Execute asynchronous UI updates across proper rendering passes
-            Dispatcher.BeginInvoke(new Action(() => {
+            // scroll after the item template has been rendered
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
                 ChatScrollViewer.ScrollToBottom();
             }), System.Windows.Threading.DispatcherPriority.Background);
 
             return message;
         }
 
-        // Helper method to load system instructions safely from the specific static file path
         private string LoadSystemInstructions()
         {
             try
             {
-                // Get the direct path where the .exe file is currently running
                 string baseDir = AppDomain.CurrentDomain.BaseDirectory;
                 string path = Path.Combine(baseDir, "Instructions.txt");
 
@@ -122,7 +104,7 @@ namespace BibliotecaCEITI
                     return File.ReadAllText(path, Encoding.UTF8);
                 }
 
-                // Alternative fallback to look into the source project folder during active debug sessions
+                // when running under the debugger the file sits in the project folder
                 string debugFallbackPath = Path.GetFullPath(Path.Combine(baseDir, @"..\..\..\Instructions.txt"));
                 if (File.Exists(debugFallbackPath))
                 {
@@ -144,18 +126,14 @@ namespace BibliotecaCEITI
             }
         }
 
-        // Handles building parameters and dispatching the HTTP POST payload request targeting Gemini endpoint
         private async Task<string> GetGeminiRawResponse(string promptText)
         {
             string url = $"https://generativelanguage.googleapis.com/v1beta/models/{ModelId}:generateContent?key={ApiKey}";
 
-            // Append the new incoming user input block into our local conversation history container
             _conversationHistory.Add(new { role = "user", parts = new[] { new { text = promptText } } });
 
-            // Extract the instruction payload blocks dynamically from your localized text asset
             string dynamicSystemInstruction = LoadSystemInstructions();
 
-            // Constructing the nested JSON schema representation exactly as Google's AI API infrastructure expects it
             var requestBody = new
             {
                 contents = _conversationHistory.ToArray(),
@@ -182,7 +160,7 @@ namespace BibliotecaCEITI
                                         pretVanzare = new { type = "number", description = "Prețul cărții în MDL. Default: 0" },
                                         pretChirie = new { type = "number", description = "Prețul chiriei per lună în MDL (valabil doar pentru manuale). Default: 0" }
                                     },
-                                    // Added 'isbn' to the required array so the AI is forced to ask for it before triggering the function
+                                    // isbn is required so the model asks for it instead of inserting without one
                                     required = new[] { "titlu", "autor", "categorie", "anPublicare", "limba", "isbn" }
                                 }
                             }
@@ -198,7 +176,6 @@ namespace BibliotecaCEITI
             return await httpResponse.Content.ReadAsStringAsync();
         }
 
-        // Evaluates whether the generated response is an automated function intent call or conversational text
         private async Task ProcessAiResponse(string rawJson)
         {
             using var doc = JsonDocument.Parse(rawJson);
@@ -208,7 +185,6 @@ namespace BibliotecaCEITI
                            .GetProperty("content")
                            .GetProperty("parts")[0];
 
-            // Case 1: AI evaluated that context parameters match and requests the application to execute a data modification function
             if (part.TryGetProperty("functionCall", out JsonElement functionCall))
             {
                 string functionName = functionCall.GetProperty("name").GetString();
@@ -216,7 +192,6 @@ namespace BibliotecaCEITI
 
                 if (functionName == "InsertBookIntoDb")
                 {
-                    // Safe property retrieval containing type bindings and default fallback mechanisms 
                     string titlu = args.GetProperty("titlu").GetString();
                     string autor = args.GetProperty("autor").GetString();
                     string categorie = args.GetProperty("categorie").GetString();
@@ -228,25 +203,21 @@ namespace BibliotecaCEITI
                     double pretVanzare = args.TryGetProperty("pretVanzare", out var pv) ? pv.GetDouble() : 0.0;
                     double pretChirie = args.TryGetProperty("pretChirie", out var pc) ? pc.GetDouble() : 0.0;
 
-                    // Trigger the native C# ADO.NET wrapper invoking the stored procedure inside MySQL engine
                     var dbResult = await AddBookAsync(titlu, autor, categorie, descriere, isbn, editura, anPublicare, limba, pretVanzare, pretChirie, null, CurrentLibrarianId);
 
-                    // Output custom application messages returned from the database out execution block (p_mesaj)
                     AddMessageToUi($"[Database Code {dbResult.Cod}]: {dbResult.Mesaj}", isUser: false);
 
-                    // Inject a confirmation flag back to our tracker arrays so the engine handles conversational updates properly
+                    // feed the result back so the model knows the insert already happened
                     _conversationHistory.Add(new { role = "model", parts = new[] { new { text = $"Sistem: Executat cu succes. Mesaj DB: {dbResult.Mesaj}" } } });
                 }
             }
-            // Case 2: Provided input data is missing required details; model handles conversational follow-up questions
             else if (part.TryGetProperty("text", out JsonElement textProp))
             {
                 string aiText = textProp.GetString();
 
-                // Store assistant conversational text within the tracker collections to keep context alive
                 _conversationHistory.Add(new { role = "model", parts = new[] { new { text = aiText } } });
 
-                // Deep sanitize logic to strip any remaining markdown symbols (*, _, #, headers, list blocks) entirely
+                // the chat bubbles are plain TextBlocks, so strip the markdown the model still emits
                 string cleanResult = aiText
                     .Replace("**", "")
                     .Replace("__", "")
@@ -263,10 +234,8 @@ namespace BibliotecaCEITI
             }
         }
 
-        // Invokes your custom database routine and intercepts OUT result properties (p_cod and p_mesaj)
         private async Task<(int Cod, string Mesaj)> AddBookAsync(string titlu, string autor, string categorie, string descriere, string isbn, string editura, int anPublicare, string limba, double pretVanzare, double pretChirie, byte[] copertaBytes, int idBibliotecar)
         {
-            // Leverages your active application layout configuration management layers (DatabaseConfig)
             using (MySqlConnection conn = DatabaseConfig.GetConnection())
             using (var cmd = new MySqlCommand("sp_insert_carte", conn))
             {
@@ -299,7 +268,6 @@ namespace BibliotecaCEITI
                 await conn.OpenAsync();
                 await cmd.ExecuteNonQueryAsync();
 
-                // Capture output parameter results compiled inside your underlying database procedure schemas
                 int codRezultat = pCod.Value != DBNull.Value ? Convert.ToInt32(pCod.Value) : -1;
                 string mesajRezultat = pMsg.Value != DBNull.Value ? pMsg.Value.ToString() : "Procedura nu a returnat un mesaj.";
 
@@ -308,7 +276,6 @@ namespace BibliotecaCEITI
         }
     }
 
-    // Encapsulated UI message helper modeling properties bound directly into XAML items controls
     public class UiMessage
     {
         public string MessageText { get; set; }
@@ -328,7 +295,6 @@ namespace BibliotecaCEITI
                 Alignment = HorizontalAlignment.Right;
                 BubbleRadius = new CornerRadius(14, 14, 2, 14);
 
-                // Uses dynamic dashboard blue style from your library styles resource file
                 BackgroundBrush = Application.Current.Resources["PrimaryBlue"] as Brush ?? new SolidColorBrush(Color.FromRgb(37, 99, 235));
                 TextBrush = new SolidColorBrush(Colors.White);
                 BorderThickness = new Thickness(0);
@@ -339,7 +305,6 @@ namespace BibliotecaCEITI
                 Alignment = HorizontalAlignment.Left;
                 BubbleRadius = new CornerRadius(14, 14, 14, 2);
 
-                // Matches default grey/dark cards container styling rules dynamically
                 BackgroundBrush = Application.Current.Resources["InputBackground"] as Brush ?? new SolidColorBrush(Color.FromRgb(243, 244, 246));
                 TextBrush = Application.Current.Resources["TextPrimary"] as Brush ?? new SolidColorBrush(Color.FromRgb(17, 24, 39));
                 BorderThickness = new Thickness(1);
