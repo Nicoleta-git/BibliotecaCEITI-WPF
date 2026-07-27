@@ -1,5 +1,4 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -15,15 +14,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using static Google.Protobuf.Reflection.SourceCodeInfo.Types;
+using MySql.Data.MySqlClient;
 
 namespace BibliotecaCEITI
 {
     /// <summary>
     /// Interaction logic for CheckInBorrow.xaml
     /// </summary>
-    ///
-
     public partial class CheckInBorrow : UserControl
     {
         private int _idElevCurent = 0, _idExemplarSelectat = 0;
@@ -114,7 +111,8 @@ namespace BibliotecaCEITI
                 checkIn_2.IdSelected += TakeIdBook;
                 ActiveBorrowContent.Content = checkIn_2;
                 step = 2;
-            } else if (step == 4)
+            }
+            else if (step == 4)
             {
                 CheckInBorrowStep_3 checkIn_3 = new CheckInBorrowStep_3(_idExemplarSelectat, _data_imprumut.Value, _data_returnarii.Value);
                 checkIn_3.d_imprumut += TakeDates;
@@ -165,7 +163,8 @@ namespace BibliotecaCEITI
                 ActiveBorrowContent.Content = checkIn_4;
                 step = 4;
                 salveaza.Text = "Salvează";
-            } else if (step == 4 && salveaza.Text == "Salvează")
+            }
+            else if (step == 4 && salveaza.Text == "Salvează")
             {
                 SalveazaImprumut();
             }

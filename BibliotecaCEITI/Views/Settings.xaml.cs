@@ -1,6 +1,3 @@
-﻿using Microsoft.Win32;
-using MySql.Data.MySqlClient;
-using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -19,6 +16,9 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
+using MySql.Data.MySqlClient;
+using SkiaSharp;
 
 namespace BibliotecaCEITI
 {

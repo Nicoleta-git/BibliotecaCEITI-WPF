@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,7 +25,6 @@ namespace BibliotecaCEITI
             StartLoading();
         }
 
-        //ProgressBar increment -> provide a smooth, non-frozen visual update
         private async void StartLoading()
         {
             for (int i = 0; i <= 100; i++)
@@ -37,7 +36,6 @@ namespace BibliotecaCEITI
                 else if (i < 90) StatusLabel.Text = "Finalizare...";
                 else StatusLabel.Text = "Gata!";
 
-                // Wait 50 milliseconds between each 1%
                 await Task.Delay(50);
             }
 

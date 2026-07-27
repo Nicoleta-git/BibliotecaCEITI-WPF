@@ -1,24 +1,22 @@
-﻿using MailKit.Net.Smtp;
-using MailKit.Security;
-using MimeKit;
-using MySql.Data.MySqlClient;
 using System;
 using System.Data;
 using System.Threading.Tasks;
+using MailKit.Net.Smtp;
+using MailKit.Security;
+using MimeKit;
+using MySql.Data.MySqlClient;
 
 namespace BibliotecaCEITI
 {
 
     public static class EmailService
     {
-        // ── Punct de intrare ────────────────────────────────────────────
         public static async Task NotificaRezervariAsync(int idCarte, string titluCarte)
         {
             if (idCarte <= 0) return;
 
             try
             {
-                // 1. Config SMTP + template din BD
                 string server = GetSetare("smtp_server");
                 string user = GetSetare("smtp_user");
                 string password = GetSetare("smtp_password");
@@ -31,11 +29,10 @@ namespace BibliotecaCEITI
                     return;
                 }
 
-                // 2. Rezervări active nenotificate pentru această carte
                 DataTable rezervari = await GetRezervariActiveAsync(idCarte);
                 if (rezervari.Rows.Count == 0) return;
 
-                // 3. Conectare SMTP o singură dată pentru toate emailurile
+                // connect once and reuse the session for every message
                 await Task.Run(() =>
                 {
                     using var smtp = new SmtpClient();
@@ -53,7 +50,7 @@ namespace BibliotecaCEITI
 
                         try
                         {
-                            // Înlocuiește placeholder-ele din templateul HTML
+                            // fill the placeholders in the HTML template
                             string corp = template
                                 .Replace("{{NUME_ELEV}}", numeElev)
                                 .Replace("{{TITLU_CARTE}}", titluCarte)
@@ -67,7 +64,7 @@ namespace BibliotecaCEITI
 
                             smtp.Send(mesaj);
 
-                            // Marchează rezervarea ca notificată (evită duplicate)
+                            // mark notified so the reminder is not sent twice
                             if (idRez > 0) MarcheazaNotificat(idRez);
 
                             System.Diagnostics.Debug.WriteLine($"[EmailService] Email trimis → {email}");
@@ -87,7 +84,7 @@ namespace BibliotecaCEITI
             }
         }
 
-     
+
         private static async Task<DataTable> GetRezervariActiveAsync(int idCarte)
         {
             return await Task.Run(() =>
@@ -103,7 +100,7 @@ namespace BibliotecaCEITI
             });
         }
 
-        
+
         private static void MarcheazaNotificat(int idRezervare)
         {
             try
@@ -121,7 +118,6 @@ namespace BibliotecaCEITI
             }
         }
 
-        // ── Citește o valoare din tabelul `setari` ──────────────────────
         private static string GetSetare(string cheie)
         {
             try

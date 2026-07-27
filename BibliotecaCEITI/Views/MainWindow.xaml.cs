@@ -1,4 +1,3 @@
-﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using MySql.Data.MySqlClient;
 
 namespace BibliotecaCEITI
 {
@@ -40,30 +40,23 @@ namespace BibliotecaCEITI
             imgProfil.Source = UsefulFunction.ConvertBytesToImage(SesiuneBibliotecar.PozaProfil);
         }
 
-        // ── Constructor nou pentru login cu sesiune ──────────────────────
         public MainWindow(string nume, string rol, int id, string token) : this()
         {
-            // Salvează datele sesiunii în proprietăți statice
-            // (accesibile din orice UserControl cu MainWindow.Rol etc.)
+            // session data is static so any UserControl can read it
             NumeUtilizator = nume;
             Rol = rol;
             IdBibliotecar = id;
             TokenSesiune = token;
 
-            // Poți afișa numele utilizatorului în interfață
-            // Decomentează linia de jos dacă ai un TextBlock numit txtNume în XAML
-            // txtNume.Text = $"Bun venit, {nume}!";
         }
         private void EfectueazaLogout()
         {
-            // Exemplu: curățare sesiune
             TokenSesiune = null;
             NumeUtilizator = null;
             Rol = null;
             IdBibliotecar = 0;
         }
 
-        // ── Logout la închiderea ferestrei ───────────────────────────────
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             if (!string.IsNullOrEmpty(TokenSesiune))
@@ -115,7 +108,7 @@ namespace BibliotecaCEITI
 
         private void SettingsBtn_Click(object sender, RoutedEventArgs e)
         {
-           Settings settings = new Settings();
+            Settings settings = new Settings();
             MainContentContainer.Content = settings;
         }
         private void ReserveBook_Click(object sender, RoutedEventArgs e)
@@ -203,37 +196,48 @@ namespace BibliotecaCEITI
             if (luna == "1")
             {
                 luna = "Ianuarie";
-            } else if (luna == "2")
+            }
+            else if (luna == "2")
             {
                 luna = "Februarie";
-            } else if (luna == "3")
+            }
+            else if (luna == "3")
             {
                 luna = "Martie";
-            } else if (luna == "4")
+            }
+            else if (luna == "4")
             {
                 luna = "Aprilie";
-            } else if (luna == "5")
+            }
+            else if (luna == "5")
             {
                 luna = "Mai";
-            } else if (luna == "6")
+            }
+            else if (luna == "6")
             {
                 luna = "Iunie";
-            } else if (luna == "7")
+            }
+            else if (luna == "7")
             {
                 luna = "Iulie";
-            } else if (luna == "8")
+            }
+            else if (luna == "8")
             {
                 luna = "August";
-            } else if (luna == "9")
+            }
+            else if (luna == "9")
             {
                 luna = "Septembrie";
-            } else if (luna == "10")
+            }
+            else if (luna == "10")
             {
                 luna = "Octombrie";
-            } else if (luna == "11")
+            }
+            else if (luna == "11")
             {
                 luna = "Noiembrie";
-            } else if (luna == "12")
+            }
+            else if (luna == "12")
             {
                 luna = "Decembrie";
             }

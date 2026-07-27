@@ -1,11 +1,11 @@
-﻿using Microsoft.Win32;
-using MySql.Data.MySqlClient;
 using System;
 using System.Data;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using Microsoft.Win32;
+using MySql.Data.MySqlClient;
 
 namespace BibliotecaCEITI
 {
@@ -36,7 +36,7 @@ namespace BibliotecaCEITI
             }
             catch (Exception)
             {
-                
+
             }
 
             return null;

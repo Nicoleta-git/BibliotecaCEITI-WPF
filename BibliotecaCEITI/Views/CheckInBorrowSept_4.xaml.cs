@@ -1,4 +1,3 @@
-﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -15,13 +14,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MySql.Data.MySqlClient;
 
 namespace BibliotecaCEITI
 {
     /// <summary>
     /// Interaction logic for CheckInBorrowStep_4.xaml
     /// </summary>
-    public partial class CheckInBorrowStep_4 : UserControl 
+    public partial class CheckInBorrowStep_4 : UserControl
     {
         private int _idElev, _idEx;
         private DateTime _d_impr, _d_return;

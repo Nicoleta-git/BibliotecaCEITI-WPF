@@ -1,8 +1,3 @@
-﻿using BibliotecaCEITI.Models;
-using MailKit.Net.Smtp;
-using MailKit.Security;
-using MimeKit;
-using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,21 +5,23 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
+using BibliotecaCEITI.Models;
+using MailKit.Net.Smtp;
+using MailKit.Security;
+using MimeKit;
+using MySql.Data.MySqlClient;
 
 namespace BibliotecaCEITI
 {
     public partial class Attention : UserControl
     {
-        // ── Date ──────────────────────────────────────────────────────────────
-        private List<AttentionItemViewModel> _toateIntarzierile = new ();
-        private List<AttentionItemViewModel> _filtrate = new ();
+        private List<AttentionItemViewModel> _toateIntarzierile = new();
+        private List<AttentionItemViewModel> _filtrate = new();
 
-        // ── Paginare ──────────────────────────────────────────────────────────
         private const int ItemsPerPage = 7;
         private int _paginaCurenta = 1;
         private int _totalPagini = 1;
 
-        // ── Paletă avatare ────────────────────────────────────────────────────
         private static readonly (SolidColorBrush bg, SolidColorBrush fg)[] PaletaAvatare =
         {
             (new SolidColorBrush(Color.FromRgb(0xE0,0xE7,0xFF)), new SolidColorBrush(Color.FromRgb(0x62,0x10,0xCC))),
@@ -40,9 +37,6 @@ namespace BibliotecaCEITI
             Loaded += (s, e) => IncarcaDate();
         }
 
-        // ══════════════════════════════════════════════════════════════════════
-        // INCARCARE DATE
-        // ══════════════════════════════════════════════════════════════════════
         private void IncarcaDate()
         {
             try
@@ -51,7 +45,6 @@ namespace BibliotecaCEITI
                 IncarcaClase();
                 ActualizeazaStatCarduri();
                 AplicaFiltre();
-                //ActualizeazaPrevizualizare();
                 IncarcaIstoricNotificari();
 
             }
@@ -165,9 +158,6 @@ namespace BibliotecaCEITI
             txtInAsteptare.Text = _filtrate.Count(x => x.Selectat).ToString();
         }
 
-        // ══════════════════════════════════════════════════════════════════════
-        // FILTRARE
-        // ══════════════════════════════════════════════════════════════════════
         private void AplicaFiltre()
         {
             if (txtSearch == null || cbxClasa == null || cbxStatus == null) return;
@@ -209,9 +199,6 @@ namespace BibliotecaCEITI
                 txtInAsteptare.Text = _filtrate.Count(x => x.Selectat).ToString();
         }
 
-        // ══════════════════════════════════════════════════════════════════════
-        // RANDARE RÂNDURI
-        // ══════════════════════════════════════════════════════════════════════
         private void RandariazaPagina()
         {
             if (spRanduri == null || bdPlaceholder == null || txtPaginareInfo == null) return;
@@ -259,7 +246,7 @@ namespace BibliotecaCEITI
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(180) });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
 
-            // Col 0 — CheckBox
+            // col 0: checkbox
             var chk = new CheckBox
             {
                 IsChecked = item.Selectat,
@@ -269,7 +256,7 @@ namespace BibliotecaCEITI
             chk.Unchecked += (_, _) => { item.Selectat = false; ActualizeazaBtnTrimite(); };
             Grid.SetColumn(chk, 0);
 
-            // Col 1 — Avatar + Nume + Clasă
+            // col 1: avatar, name, class
             var avatarBorder = CreeazaAvatar(item.Initiale);
             var elevPanel = new StackPanel { Orientation = Orientation.Horizontal, VerticalAlignment = VerticalAlignment.Center };
             elevPanel.Children.Add(avatarBorder);
@@ -290,7 +277,7 @@ namespace BibliotecaCEITI
             elevPanel.Children.Add(elevInfo);
             Grid.SetColumn(elevPanel, 1);
 
-            // Col 2 — Titlu + Autor
+            // col 2: title and author
             var cartePanel = new StackPanel { VerticalAlignment = VerticalAlignment.Center };
             cartePanel.Children.Add(new TextBlock
             {
@@ -308,7 +295,7 @@ namespace BibliotecaCEITI
             });
             Grid.SetColumn(cartePanel, 2);
 
-            // Col 3 — Termen returnare
+            // col 3: due date
             var txtTermen = new TextBlock
             {
                 Text = item.TermenReturnareText,
@@ -318,7 +305,7 @@ namespace BibliotecaCEITI
             };
             Grid.SetColumn(txtTermen, 3);
 
-            // Col 4 — Zile întârziere (colorat)
+            // col 4: days overdue
             var zileColor = item.EsteGrav
                 ? new SolidColorBrush(Color.FromRgb(0xEF, 0x44, 0x44))
                 : new SolidColorBrush(Color.FromRgb(0xF5, 0x9E, 0x0B));
@@ -332,7 +319,7 @@ namespace BibliotecaCEITI
             };
             Grid.SetColumn(txtZile, 4);
 
-            // Col 5 — Email
+            // col 5: email
             var txtEmail = new TextBlock
             {
                 Text = item.Email,
@@ -343,7 +330,7 @@ namespace BibliotecaCEITI
             };
             Grid.SetColumn(txtEmail, 5);
 
-            // Col 6 — Badge status
+            // col 6: status badge
             var badge = CreeazaBadgeStatus(item.EsteGrav);
             Grid.SetColumn(badge, 6);
 
@@ -357,7 +344,6 @@ namespace BibliotecaCEITI
 
             rand.Child = grid;
 
-            // Hover
             rand.MouseEnter += (_, _) =>
             {
                 if (!alternativ) rand.Background = new SolidColorBrush(Color.FromRgb(0xF0, 0xF4, 0xFF));
@@ -369,8 +355,6 @@ namespace BibliotecaCEITI
                     : Brushes.White;
             };
 
-            // Click pe rand selectează item în previzualizare
-          //  rand.MouseLeftButtonUp += (_, _) => ActualizeazaPrevizualizarePentru(item);
 
             return rand;
         }
@@ -422,9 +406,6 @@ namespace BibliotecaCEITI
             };
         }
 
-        // ══════════════════════════════════════════════════════════════════════
-        // PAGINARE
-        // ══════════════════════════════════════════════════════════════════════
         private void ActualizeazaPaginator()
         {
             if (spPaginator == null) return;
@@ -464,9 +445,6 @@ namespace BibliotecaCEITI
             spPaginator.Children.Add(btnNext);
         }
 
-        // ══════════════════════════════════════════════════════════════════════
-        // SELECT ALL / BUTON TRIMITE
-        // ══════════════════════════════════════════════════════════════════════
         private void ActualizeazaSelectAll()
         {
             if (chkSelectAll == null || txtSelectAll == null) return;
@@ -496,15 +474,12 @@ namespace BibliotecaCEITI
             txtInAsteptare.Text = sel.ToString();
         }
 
-        // ══════════════════════════════════════════════════════════════════════
-        // Istoric Notificari EMAIL
-        // ══════════════════════════════════════════════════════════════════════
 
         private void IncarcaIstoricNotificari()
         {
             if (spIstoricNotificari == null || bdIstoricPlaceholder == null) return;
 
-            // Șterge rândurile vechi, dar păstrează placeholder-ul
+            // keep the placeholder, drop the old rows
             var deElim = spIstoricNotificari.Children
                 .OfType<Border>()
                 .Where(b => b.Name != "bdIstoricPlaceholder")
@@ -551,7 +526,6 @@ namespace BibliotecaCEITI
             bool primul = true;
             foreach (var (numeElev, titluCarte, trimisLa) in istoric)
             {
-                // Separator între rânduri (nu înainte de primul)
                 if (!primul)
                 {
                     spIstoricNotificari.Children.Add(new Border
@@ -563,10 +537,8 @@ namespace BibliotecaCEITI
                 }
                 primul = false;
 
-                // Formatare timestamp: "azi 14:32" / "ieri 09:15" / "12 mai 10:00"
                 string timestamp = FormatTimestamp(trimisLa);
 
-                // Inițiale pentru avatar
                 string initiale = numeElev.Length >= 2
                     ? $"{numeElev[0]}{numeElev.SkipWhile(c => c != ' ').Skip(1).FirstOrDefault()}"
                           .ToUpper().Trim()
@@ -579,7 +551,6 @@ namespace BibliotecaCEITI
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(8) });
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
 
-                // Avatar mic
                 var avatar = new Border
                 {
                     Width = 32,
@@ -598,10 +569,8 @@ namespace BibliotecaCEITI
                 };
                 Grid.SetColumn(avatar, 0);
 
-                // Info text
                 var info = new StackPanel { VerticalAlignment = VerticalAlignment.Center };
 
-                // Titlu carte (trunchiat dacă e prea lung)
                 info.Children.Add(new TextBlock
                 {
                     Text = titluCarte,
@@ -611,7 +580,6 @@ namespace BibliotecaCEITI
                     TextTrimming = TextTrimming.CharacterEllipsis,
                 });
 
-                // Nume elev + timestamp pe același rând
                 var subRand = new StackPanel { Orientation = Orientation.Horizontal };
                 subRand.Children.Add(new TextBlock
                 {
@@ -635,7 +603,6 @@ namespace BibliotecaCEITI
                 grid.Children.Add(info);
                 rand.Child = grid;
 
-                // Hover subtil
                 rand.MouseEnter += (_, _) =>
                     rand.Background = new SolidColorBrush(Color.FromRgb(0xF8, 0xFA, 0xFC));
                 rand.MouseLeave += (_, _) =>
@@ -645,7 +612,6 @@ namespace BibliotecaCEITI
             }
         }
 
-        // Formatează data într-un format compact și uman
         private static string FormatTimestamp(DateTime dt)
         {
             var azi = DateTime.Today;
@@ -657,9 +623,6 @@ namespace BibliotecaCEITI
         }
 
 
-        // ══════════════════════════════════════════════════════════════════════
-        // TRIMITERE EMAIL
-        // ══════════════════════════════════════════════════════════════════════
         private async void BtnTrimite_Click(object sender, RoutedEventArgs e)
         {
             if (overlayLoading == null || btnTrimite == null) return;
@@ -741,10 +704,6 @@ namespace BibliotecaCEITI
             }
         }
 
-        // ─────────────────────────────────────────────────────────────────────────────
-        // Înlocuiește metoda existentă ConstruiesteEmail din proiectul tău.
-        // Nu sunt necesare alte modificări — logica de trimitere rămâne identică.
-        // ─────────────────────────────────────────────────────────────────────────────
 
         private MimeMessage ConstruiesteEmail(AttentionItemViewModel item, string expeditorEmail)
         {
@@ -780,9 +739,7 @@ namespace BibliotecaCEITI
             return msg;
         }
 
-        // ══════════════════════════════════════════════════════════════════════
-        // HELPER: Escapare HTML minimă (anti-XSS dacă numele conține caractere speciale)
-        // ══════════════════════════════════════════════════════════════════════
+        // minimal HTML escaping for names with special characters
         private static string EscapeHtml(string text)
         {
             if (string.IsNullOrEmpty(text)) return text;
@@ -810,9 +767,6 @@ namespace BibliotecaCEITI
             catch { /* log dacă există logger */ }
         }
 
-        // ══════════════════════════════════════════════════════════════════════
-        // HELPER — CITIRE SETARI DIN DB
-        // ══════════════════════════════════════════════════════════════════════
         private string GetSetare(string cheie)
         {
             try
@@ -827,9 +781,6 @@ namespace BibliotecaCEITI
             catch { return string.Empty; }
         }
 
-        // ══════════════════════════════════════════════════════════════════════
-        // EVENT HANDLERS
-        // ══════════════════════════════════════════════════════════════════════
         private void BtnReincarca_Click(object sender, RoutedEventArgs e) => IncarcaDate();
 
         private void TxtSearch_TextChanged(object sender, TextChangedEventArgs e) => AplicaFiltre();

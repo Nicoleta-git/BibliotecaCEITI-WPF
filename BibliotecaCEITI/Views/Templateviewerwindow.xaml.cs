@@ -1,24 +1,23 @@
-﻿using MySql.Data.MySqlClient;
 using System;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using MySql.Data.MySqlClient;
 
 namespace BibliotecaCEITI
 {
     /// <summary>
-    /// Fereastră editor HTML pentru template-urile de email.
-    /// Salvarea se face exclusiv prin procedura stocată sp_salveaza_template,
-    /// care validează cheia pe o listă albă (whitelist) înainte de INSERT/UPDATE.
+    /// HTML editor for the email templates. Saving goes through sp_salveaza_template,
+    /// which checks the key against a server-side whitelist before INSERT/UPDATE.
     /// </summary>
     public partial class TemplateViewerWindow : Window
     {
         private readonly string _cheie;
         private bool _modificat = false;
 
-        // Flag care permite închiderea reală după ce animația termină
+        // set once the closing animation has finished
         private bool _closeAnimationDone = false;
 
         public TemplateViewerWindow(string titlu, string continut, string cheie)
@@ -40,9 +39,6 @@ namespace BibliotecaCEITI
             ActualizeazaStatusBar();
         }
 
-        // ══════════════════════════════════════════════════════════════
-        // ANIMAȚIE ÎNCHIDERE
-        // ══════════════════════════════════════════════════════════════
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
@@ -89,9 +85,6 @@ namespace BibliotecaCEITI
             scale?.BeginAnimation(ScaleTransform.ScaleYProperty, scaleDownY);
         }
 
-        // ══════════════════════════════════════════════════════════════
-        // TITLE BAR — drag + butoane fereastră
-        // ══════════════════════════════════════════════════════════════
         private void TitleBar_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (e.ClickCount == 2)
@@ -127,9 +120,6 @@ namespace BibliotecaCEITI
                 : WindowState.Maximized;
         }
 
-        // ══════════════════════════════════════════════════════════════
-        // EDITOR — events
-        // ══════════════════════════════════════════════════════════════
         private void CodeBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             _modificat = true;
@@ -144,9 +134,6 @@ namespace BibliotecaCEITI
             sv?.ScrollToVerticalOffset(e.VerticalOffset);
         }
 
-        // ══════════════════════════════════════════════════════════════
-        // BUTOANE FOOTER
-        // ══════════════════════════════════════════════════════════════
         private void BtnAnuleaza_Click(object sender, RoutedEventArgs e)
         {
             if (_modificat)
@@ -161,9 +148,8 @@ namespace BibliotecaCEITI
         }
 
         /// <summary>
-        /// Salvează template-ul prin sp_salveaza_template.
-        /// Procedura validează cheia pe o whitelist server-side
-        /// și returnează p_cod / p_mesaj pentru tratarea erorilor.
+        /// Saves the template through sp_salveaza_template, which validates the key
+        /// server-side and returns p_cod / p_mesaj for error handling.
         /// </summary>
         private void BtnSalveaza_Click(object sender, RoutedEventArgs e)
         {
@@ -180,11 +166,9 @@ namespace BibliotecaCEITI
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                        // Parametri IN
                         cmd.Parameters.AddWithValue("p_cheie", _cheie);
                         cmd.Parameters.AddWithValue("p_valoare", codeBox.Text);
 
-                        // Parametri OUT
                         var pCod = new MySqlParameter("p_cod", MySqlDbType.Int32)
                         { Direction = System.Data.ParameterDirection.Output };
                         var pMesaj = new MySqlParameter("p_mesaj", MySqlDbType.VarChar, 255)
@@ -198,7 +182,6 @@ namespace BibliotecaCEITI
                         int cod = pCod.Value != DBNull.Value ? Convert.ToInt32(pCod.Value) : -1;
                         string mesaj = pMesaj.Value?.ToString() ?? "Eroare necunoscută.";
 
-                        // Procedura a returnat o eroare de validare
                         if (cod != 0)
                         {
                             MessageBox.Show(mesaj, "Eroare validare",
@@ -208,14 +191,12 @@ namespace BibliotecaCEITI
                     }
                 }
 
-                // Succes
                 _modificat = false;
                 dotUnsaved.Visibility = Visibility.Collapsed;
 
                 MessageBox.Show("Template salvat cu succes!", "Succes",
                     MessageBoxButton.OK, MessageBoxImage.Information);
 
-                // Închide cu animație după salvare
                 _closeAnimationDone = false;
                 Close();
             }
@@ -231,9 +212,6 @@ namespace BibliotecaCEITI
             }
         }
 
-        // ══════════════════════════════════════════════════════════════
-        // HELPERS
-        // ══════════════════════════════════════════════════════════════
         private void ActualizeazaNumereLinii()
         {
             int linii = codeBox.LineCount > 0 ? codeBox.LineCount : 1;

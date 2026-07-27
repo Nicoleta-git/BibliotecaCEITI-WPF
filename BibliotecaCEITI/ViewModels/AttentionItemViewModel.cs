@@ -1,4 +1,4 @@
-﻿namespace BibliotecaCEITI.Models
+namespace BibliotecaCEITI.Models
 {
     public class AttentionItemViewModel
     {

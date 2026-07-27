@@ -1,30 +1,25 @@
-﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using MySql.Data.MySqlClient;
 
 namespace BibliotecaCEITI
 {
     /// <summary>
-    /// Setări avansate sistem — deschise din butonul SYS din Settings.xaml.
-    /// Toate operațiunile pe BD se fac exclusiv prin proceduri stocate:
-    ///   sp_get_setari          — încărcarea inițială a tuturor setărilor
-    ///   sp_salveaza_general    — salvare bloc General
-    ///   sp_salveaza_smtp       — salvare bloc SMTP
-    ///   sp_salveaza_app        — salvare bloc Setări aplicație
-    ///   sp_salveaza_template   — salvare template HTML (din TemplateViewerWindow)
+    /// Advanced system settings, opened from the SYS button in Settings.xaml.
+    /// Every database call goes through a stored procedure: sp_get_setari to load,
+    /// sp_salveaza_general / sp_salveaza_smtp / sp_salveaza_app to save each block,
+    /// and sp_salveaza_template for the HTML template.
     /// </summary>
     public partial class SystemSettings : UserControl
     {
-        // ── Stare editare per secțiune ──────────────────────────────────────
         private bool _editGeneral = false;
         private bool _editSmtp = false;
         private bool _editApp = false;
 
-        // ── Cache setări încărcate din BD ───────────────────────────────────
         private Dictionary<string, string> _setari = new Dictionary<string, string>();
 
         public SystemSettings()
@@ -33,12 +28,9 @@ namespace BibliotecaCEITI
             IncarcaSetari();
         }
 
-        // ═══════════════════════════════════════════════════════════════════
-        //  ÎNCĂRCARE DATE — sp_get_setari
-        // ═══════════════════════════════════════════════════════════════════
 
         /// <summary>
-        /// Apelează sp_get_setari și populează cache-ul local _setari.
+        /// Calls sp_get_setari and fills the local _setari cache.
         /// </summary>
         private void IncarcaSetari()
         {
@@ -70,28 +62,24 @@ namespace BibliotecaCEITI
             }
         }
 
-        // ── Helper rapid pentru citire din cache ───────────────────────────
         private string Get(string cheie, string fallback = "—")
             => _setari.TryGetValue(cheie, out string val) ? val : fallback;
 
         private void AfiseazaDate()
         {
-            // ── General ────────────────────────────────────────────────────
             lblDenumireInstitutie.Text = Get("denumire_institutie");
             lblAdresa.Text = Get("adresa_bibliotecii");
             lblTelefon.Text = Get("telefon_contact");
             lblEmailBiblioteca.Text = Get("email_biblioteca");
             lblWebsite.Text = Get("website");
 
-            // ── SMTP ───────────────────────────────────────────────────────
             string port = Get("smtp_port", "587");
             string ssl = Get("smtp_ssl", "TLS");
             lblSmtpServer.Text = Get("smtp_server");
             lblSmtpPort.Text = $"{port} ({ssl})";
             lblSmtpEmail.Text = Get("smtp_email_expeditor");
-            // Parola rămâne mascată în view mode
+            // password stays masked in view mode
 
-            // ── Setări aplicație ───────────────────────────────────────────
             lblDurataImprumut.Text = Get("durata_imprumut_zile");
             lblMaxImprumuturi.Text = Get("max_imprumuturi_per_elev");
             lblDurataRezervare.Text = Get("durata_rezervare_zile");
@@ -99,9 +87,6 @@ namespace BibliotecaCEITI
             lblPenalizare.Text = Get("penalizare_per_zi_mdl");
         }
 
-        // ═══════════════════════════════════════════════════════════════════
-        //  TOGGLE EDIT — GENERAL
-        // ═══════════════════════════════════════════════════════════════════
         private void BtnEditGeneral_Click(object sender, RoutedEventArgs e)
         {
             _editGeneral = !_editGeneral;
@@ -126,9 +111,6 @@ namespace BibliotecaCEITI
             }
         }
 
-        // ═══════════════════════════════════════════════════════════════════
-        //  TOGGLE EDIT — SMTP
-        // ═══════════════════════════════════════════════════════════════════
         private void BtnEditSmtp_Click(object sender, RoutedEventArgs e)
         {
             _editSmtp = !_editSmtp;
@@ -138,7 +120,7 @@ namespace BibliotecaCEITI
                 txtSmtpServer.Text = Get("smtp_server");
                 txtSmtpPort.Text = Get("smtp_port", "587");
                 txtSmtpEmail.Text = Get("smtp_email_expeditor");
-                // Nu precompletăm parola pentru securitate
+                // never prefill the password
 
                 pnlSmtpView.Visibility = Visibility.Collapsed;
                 pnlSmtpEdit.Visibility = Visibility.Visible;
@@ -152,9 +134,6 @@ namespace BibliotecaCEITI
             }
         }
 
-        // ═══════════════════════════════════════════════════════════════════
-        //  TOGGLE EDIT — APP SETTINGS
-        // ═══════════════════════════════════════════════════════════════════
         private void BtnEditApp_Click(object sender, RoutedEventArgs e)
         {
             _editApp = !_editApp;
@@ -179,15 +158,9 @@ namespace BibliotecaCEITI
             }
         }
 
-        // ═══════════════════════════════════════════════════════════════════
-        //  SALVARE GLOBALĂ
-        //  Apelează câte o procedură stocată per secțiune activă.
-        //  Dacă oricare procedură returnează p_cod != 0, salvarea se oprește
-        //  și utilizatorul vede mesajul de eroare returnat de BD.
-        // ═══════════════════════════════════════════════════════════════════
+        // one stored procedure per active section; stops on the first p_cod != 0
         private void BtnSalveazaSistem_Click(object sender, RoutedEventArgs e)
         {
-            // ── Validări C# înainte de apelul la BD ────────────────────────
             if (_editApp)
             {
                 if (!int.TryParse(txtDurataImprumut.Text, out int durataImp) || durataImp <= 0)
@@ -219,7 +192,6 @@ namespace BibliotecaCEITI
                 {
                     conn.Open();
 
-                    // ── Bloc General ───────────────────────────────────────
                     if (_editGeneral)
                     {
                         if (!ApeleazaSalvare(conn,
@@ -235,7 +207,6 @@ namespace BibliotecaCEITI
                             return; // mesajul de eroare deja afișat în ApeleazaSalvare
                     }
 
-                    // ── Bloc SMTP ──────────────────────────────────────────
                     if (_editSmtp)
                     {
                         string parola = txtSmtpParola.Password; // poate fi gol = nu suprascrie
@@ -251,10 +222,9 @@ namespace BibliotecaCEITI
                             return;
                     }
 
-                    // ── Bloc Setări aplicație ──────────────────────────────
                     if (_editApp)
                     {
-                        // Normalizăm separatorul zecimal la punct înainte de trimitere
+                        // normalise the decimal separator to a dot
                         string penalizare = txtPenalizare.Text.Trim().Replace(',', '.');
 
                         if (!ApeleazaSalvare(conn,
@@ -271,9 +241,7 @@ namespace BibliotecaCEITI
                     }
                 }
 
-                // Resetează toate secțiunile la view mode
                 ResetEditMode();
-                // Reîncarcă datele proaspete din BD prin sp_get_setari
                 IncarcaSetari();
 
                 MessageBox.Show("Setările au fost salvate cu succes!",
@@ -286,9 +254,6 @@ namespace BibliotecaCEITI
             }
         }
 
-        // ═══════════════════════════════════════════════════════════════════
-        //  TEMPLATE-URI — Butoane „Vezi cod"
-        // ═══════════════════════════════════════════════════════════════════
         private void BtnVezuCodIntarziere_Click(object sender, RoutedEventArgs e)
             => DeschideTemplateViewer("email_corp_html", "Atenționare întârziere");
 
@@ -299,23 +264,19 @@ namespace BibliotecaCEITI
             win.ShowDialog();
         }
 
-      
 
-        
+
+
 
         private void DeschideTemplateViewer(string cheie, string titlu)
         {
             string continut = Get(cheie, "<!-- Template-ul nu a fost găsit -->");
             var win = new TemplateViewerWindow(titlu, continut, cheie);
             win.ShowDialog();
-            // Reîncărcăm cache-ul după ce fereastra se închide, în caz că
-            // utilizatorul a salvat modificări la template
+            // reload the cache in case the template was saved
             IncarcaSetari();
         }
 
-        // ═══════════════════════════════════════════════════════════════════
-        //  ÎNAPOI la Settings
-        // ═══════════════════════════════════════════════════════════════════
         private void BtnInapoi_Click(object sender, RoutedEventArgs e)
         {
             var mainWindow = Window.GetWindow(this) as MainWindow;
@@ -325,9 +286,6 @@ namespace BibliotecaCEITI
             }
         }
 
-        // ═══════════════════════════════════════════════════════════════════
-        //  HELPERS PRIVATE
-        // ═══════════════════════════════════════════════════════════════════
         private static bool ApeleazaSalvare(
             MySqlConnection conn,
             string numeProcedura,
@@ -337,11 +295,9 @@ namespace BibliotecaCEITI
             {
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                // Adaugă parametrii IN
                 foreach (var (nume, valoare) in parametriIn)
                     cmd.Parameters.AddWithValue(nume, valoare ?? (object)DBNull.Value);
 
-                // Parametrii OUT comuni tuturor procedurilor de salvare
                 var pCod = new MySqlParameter("p_cod", MySqlDbType.Int32)
                 { Direction = System.Data.ParameterDirection.Output };
                 var pMesaj = new MySqlParameter("p_mesaj", MySqlDbType.VarChar, 255)
@@ -382,7 +338,7 @@ namespace BibliotecaCEITI
             btnEditApp.Content = BuildButtonContent("Solid_Pen", "Editează", "#4483EC");
         }
 
- 
+
         private static StackPanel BuildButtonContent(string icon, string text, string colorHex)
         {
             var sp = new StackPanel { Orientation = Orientation.Horizontal };
@@ -402,7 +358,7 @@ namespace BibliotecaCEITI
         }
 
         /// <summary>
-        /// Găsește ScrollViewer-ul intern al unui TextBox prin VisualTree.
+        /// Walks the visual tree to find the ScrollViewer inside a TextBox.
         /// </summary>
         private static System.Windows.Controls.ScrollViewer FindScrollViewer(DependencyObject obj)
         {
@@ -416,12 +372,8 @@ namespace BibliotecaCEITI
             return null;
         }
 
-        // ── Stare editare tematică ──────────────────────────────────────────
         private bool _editTheme = false;
 
-        // ═══════════════════════════════════════════════════════════════════
-        //  DESCHIDERE CONTAINER ȘI GENERARE BUTOANE TEMATICI
-        // ═══════════════════════════════════════════════════════════════════
         private void BtnEditTheme_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -430,18 +382,13 @@ namespace BibliotecaCEITI
 
                 if (_editTheme)
                 {
-                    // 1. Ascundem vizualizarea text și afișăm panoul de editare existent în XAML
                     pnlThemeView.Visibility = Visibility.Collapsed;
                     pnlThemeEdit.Visibility = Visibility.Visible;
 
-                    // 2. Schimbăm aspectul butonului principal în „Anulează” (Stilul tău nativ)
                     btnEditTheme.Content = BuildButtonContent("Solid_Times", "Anulează", "#E53E3E");
 
-                    // 3. Înlocuim ComboBox-ul cu un container de butoane direct în interiorul pnlThemeEdit
-                    // Pentru a nu strica structura, curățăm ce este în pnlThemeEdit și punem butoanele
                     pnlThemeEdit.Children.Clear();
 
-                    // Adăugăm un titlu discret deasupra butoanelor
                     pnlThemeEdit.Children.Add(new TextBlock
                     {
                         Text = "Alege tematica vizuală direct din butoanele de mai jos:",
@@ -451,10 +398,8 @@ namespace BibliotecaCEITI
                         FontWeight = FontWeights.Medium
                     });
 
-                    // Creăm un WrapPanel dinamic pentru ca butoanele să stea aliniate frumos de la stânga la dreapta
                     WrapPanel containerButoane = new WrapPanel { HorizontalAlignment = HorizontalAlignment.Left };
 
-                    // Definim cele 4 tematici cerute de tine
                     var tematici = new Dictionary<string, (string Path, string ColorHex)>
                     {
                         { "Dark Theme",    ("Themes/DarkTheme.xaml",    "#1E1E24") },
@@ -463,7 +408,6 @@ namespace BibliotecaCEITI
                         { "Red Blue",      ("Themes/RedBlueTheme.xaml", "#E53E3E") }
                     };
 
-                    // Generăm fizic butoanele în container
                     foreach (var tema in tematici)
                     {
                         Button btnNou = new Button
@@ -478,21 +422,17 @@ namespace BibliotecaCEITI
                             Tag = tema.Value.Path // Salvăm calea XAML în Tag
                         };
 
-                        // Injectăm textul și iconița folosind funcția ta helper
                         btnNou.Content = BuildButtonContent("Solid_Palette", tema.Key, tema.Value.ColorHex);
 
-                        // Atașăm evenimentul de click
                         btnNou.Click += ButonSchimbaTema_Click;
 
                         containerButoane.Children.Add(btnNou);
                     }
 
-                    // Introducem panoul cu butoane în containerul principal XAML
                     pnlThemeEdit.Children.Add(containerButoane);
                 }
                 else
                 {
-                    // Dacă se apasă „Anulează”, revenim la starea inițială de vizualizare
                     pnlThemeView.Visibility = Visibility.Visible;
                     pnlThemeEdit.Visibility = Visibility.Collapsed;
                     btnEditTheme.Content = BuildButtonContent("Solid_Pen", "Editează", "#8B5CF6");
@@ -505,9 +445,6 @@ namespace BibliotecaCEITI
             }
         }
 
-        // ═══════════════════════════════════════════════════════════════════
-        //  SCHIMBARE TEMATICA
-        // ═══════════════════════════════════════════════════════════════════
         private void ButonSchimbaTema_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Button btnSelectat && btnSelectat.Tag != null)
@@ -520,12 +457,11 @@ namespace BibliotecaCEITI
                     var dictionaries = Application.Current.Resources.MergedDictionaries;
                     bool themeReplaced = false;
 
-                    // Căutăm dicționarul vechi direct după cuvântul "Theme" din denumire
+                    // find the currently loaded theme dictionary by name
                     for (int i = 0; i < dictionaries.Count; i++)
                     {
                         string sourceStr = dictionaries[i].Source?.OriginalString ?? "";
 
-                        // Verifică dacă fișierul conține "Theme" (ex: LightTheme.xaml, EmeraldTheme.xaml etc.)
                         if (sourceStr.Contains("Theme"))
                         {
                             dictionaries[i] = newDict;
@@ -534,22 +470,18 @@ namespace BibliotecaCEITI
                         }
                     }
 
-                    // Dacă din vreun motiv nu a găsit nicio temă activă anterioară, o adăugăm acum
                     if (!themeReplaced)
                     {
                         dictionaries.Add(newDict);
                     }
 
-                    // Extragem doar numele curat, eliminând extensia .xaml
                     string themeName = themePath.Replace(".xaml", "");
                     Application.Current.Properties["Theme"] = themeName;
 
-                    // Actualizăm textul din interfața grafică în funcție de ce s-a selectat
                     lblActiveTheme.Text = themeName.Contains("Light") ? "Light Theme" :
                                           themeName.Contains("Dark") ? "Dark Theme" :
                                           themeName.Contains("Emerald") ? "Emerald Theme" : "Red Blue Theme";
 
-                    // Închidem panoul de editare și revenim la modul vizualizare
                     _editTheme = false;
                     pnlThemeView.Visibility = Visibility.Visible;
                     pnlThemeEdit.Visibility = Visibility.Collapsed;

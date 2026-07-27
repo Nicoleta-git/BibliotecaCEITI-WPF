@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.Windows.Media.Imaging;
 
 public class ElevModel : INotifyPropertyChanged
@@ -19,7 +19,6 @@ public class ElevModel : INotifyPropertyChanged
         }
     }
 
-    // AICI E LOCUL CORECT PENTRU PROPRIETATEA QR CODE
     public BitmapImage QRCodeImage
     {
         get { return _qrCodeImage; }
