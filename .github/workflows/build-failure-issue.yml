@@ -1,0 +1,55 @@
+name: Report build failure
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
+    branches: [master]
+
+permissions:
+  issues: write
+  actions: read
+
+jobs:
+  open-issue:
+    if: github.event.workflow_run.conclusion == 'failure'
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Open or update an issue
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const run = context.payload.workflow_run;
+          const title = `CI failed on master (run #${run.run_number})`;
+          const label = 'ci-failure';
+
+          const existing = await github.rest.issues.listForRepo({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            state: 'open',
+            labels: label
+          });
+
+          const body = [
+            `Branch \`${run.head_branch}\` failed at commit ${run.head_sha.substring(0, 7)}.`,
+            '',
+            `Run: ${run.html_url}`
+          ].join('\n');
+
+          if (existing.data.length > 0) {
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: existing.data[0].number,
+              body
+            });
+          } else {
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title,
+              body,
+              labels: [label]
+            });
+          }

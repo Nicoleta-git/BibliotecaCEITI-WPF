@@ -1,56 +1,21 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-# This workflow will build, test, sign and package a WPF or Windows Forms desktop application
-# built on .NET Core.
-# To learn how to migrate your existing application to .NET Core,
-# refer to https://docs.microsoft.com/en-us/dotnet/desktop-wpf/migration/convert-project-from-net-framework
-#
-# To configure this workflow:
-#
-# 1. Configure environment variables
-# GitHub sets default environment variables for every workflow run.
-# Replace the variables relative to your project in the "env" section below.
-#
-# 2. Signing
-# Generate a signing certificate in the Windows Application
-# Packaging Project or add an existing signing certificate to the project.
-# Next, use PowerShell to encode the .pfx file using Base64 encoding
-# by running the following Powershell script to generate the output string:
-#
-# $pfx_cert = Get-Content '.\SigningCertificate.pfx' -Encoding Byte
-# [System.Convert]::ToBase64String($pfx_cert) | Out-File 'SigningCertificate_Encoded.txt'
-#
-# Open the output file, SigningCertificate_Encoded.txt, and copy the
-# string inside. Then, add the string to the repo as a GitHub secret
-# and name it "Base64_Encoded_Pfx."
-# For more information on how to configure your signing certificate for
-# this workflow, refer to https://github.com/microsoft/github-actions-for-desktop-apps#signing
-#
-# Finally, add the signing certificate password to the repo as a secret and name it "Pfx_Key".
-# See "Build the Windows Application Packaging project" below to see how the secret is used.
-#
-# For more information on GitHub Actions, refer to https://github.com/features/actions
-# For a complete CI/CD sample to get started with GitHub Action workflows for Desktop Applications,
-# refer to https://github.com/microsoft/github-actions-for-desktop-apps
-
 name: .NET Core Desktop
 
 on:
   push:
-    branches: [ "master" ]
+    tags: [ "v*" ]
   pull_request:
     branches: [ "master" ]
+
+permissions:
+  contents: write
 
 jobs:
   build:
     runs-on: windows-latest
 
     env:
-      Solution_Name: BibliotecaCEITI.sln
       Configuration: Release
+      MySqlVersion: 8.0.46
 
     steps:
     - name: Checkout
@@ -58,28 +23,68 @@ jobs:
       with:
         fetch-depth: 0
 
-    # Install the .NET Core workload
     - name: Install .NET Core
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
 
-    # Add MSBuild to the PATH
-    - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v2
+    # self-contained so the machine does not need the .NET runtime installed
+    - name: Publish the application
+      run: dotnet publish BibliotecaCEITI/BibliotecaCEITI.csproj -c $env:Configuration -r win-x64 --self-contained true -p:PublishSingleFile=true -o dist/app
 
-    # Restore the application (installs NuGet packages)
-    - name: Restore the application
-      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
-
-    # Build the application (compiles the C# and WPF code)
-    - name: Build the application
-      run: msbuild $env:Solution_Name /p:Configuration=$env:Configuration
-
-    # Upload the compiled app so you can download it and share it
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
       with:
         name: BibliotecaCEITI-Build
-        path: |
-           **/bin/Release/net8.0-windows/
+        path: dist/app
+
+    # the steps below only run for a version tag, they take several minutes
+    - name: Download portable MySQL
+      if: startsWith(github.ref, 'refs/tags/')
+      run: curl -L -o mysql.zip "https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-$env:MySqlVersion-winx64.zip"
+
+    - name: Extract MySQL
+      if: startsWith(github.ref, 'refs/tags/')
+      run: Expand-Archive -Path mysql.zip -DestinationPath mysql-extracted
+
+    - name: Extract database dump
+      if: startsWith(github.ref, 'refs/tags/')
+      run: |
+        & "C:\Program Files\7-Zip\7z.exe" x -y "Dump20260529 (1).rar" -o"dump"
+
+    - name: Initialize and seed a fresh MySQL data directory
+      if: startsWith(github.ref, 'refs/tags/')
+      run: |
+        $mysql = "mysql-extracted/mysql-$env:MySqlVersion-winx64"
+        & "$mysql/bin/mysqld.exe" --initialize-insecure --datadir="$mysql/data"
+        Start-Process -FilePath "$mysql/bin/mysqld.exe" -ArgumentList "--datadir=$mysql/data --port=3308"
+        Start-Sleep -Seconds 8
+        Get-Content "dump/Dump20260529 (1).sql" -Raw | & "$mysql/bin/mysql.exe" -h 127.0.0.1 -P 3308 -u root
+        & "$mysql/bin/mysqladmin.exe" -h 127.0.0.1 -P 3308 -u root shutdown
+        Start-Sleep -Seconds 3
+
+    - name: Trim and assemble the bundled MySQL folder
+      if: startsWith(github.ref, 'refs/tags/')
+      run: |
+        $mysql = "mysql-extracted/mysql-$env:MySqlVersion-winx64"
+        New-Item -ItemType Directory -Force -Path dist/mysql/bin, dist/mysql/data, dist/mysql/share, dist/mysql/lib/plugin | Out-Null
+        Copy-Item "$mysql/bin/*" dist/mysql/bin -Recurse -Force
+        Get-ChildItem dist/mysql/bin -Include *.pdb,*.lib,*-debug.dll -Recurse | Remove-Item -Force
+        Copy-Item "$mysql/data/*" dist/mysql/data -Recurse -Force
+        Copy-Item "$mysql/share/*" dist/mysql/share -Recurse -Force
+        Copy-Item "$mysql/lib/plugin/component_reference_cache.dll" dist/mysql/lib/plugin/
+
+    - name: Install Inno Setup
+      if: startsWith(github.ref, 'refs/tags/')
+      run: choco install innosetup -y
+
+    - name: Build the installer
+      if: startsWith(github.ref, 'refs/tags/')
+      run: |
+        & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" /DMyAppVersion=$env:GITHUB_REF_NAME installer.iss
+
+    - name: Publish GitHub Release
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v2
+      with:
+        files: dist-installer/BibliotecaCEITI-Setup.exe

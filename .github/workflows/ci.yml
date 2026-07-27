@@ -1,0 +1,70 @@
+name: CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  schedule:
+    - cron: "0 5 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Restore
+      run: dotnet restore BibliotecaCEITI/BibliotecaCEITI.csproj
+
+    - name: Build
+      run: dotnet build BibliotecaCEITI/BibliotecaCEITI.csproj -c Release --no-restore
+
+    - name: Collect analyzer warnings
+      if: always()
+      run: |
+        dotnet build BibliotecaCEITI/BibliotecaCEITI.csproj -c Release --no-incremental -v minimal `
+          | Select-String -Pattern 'warning (CA|IDE)\d+' `
+          | ForEach-Object { $_.Line.Trim() } `
+          | Sort-Object -Unique > analyzer-warnings.txt
+        $count = (Get-Content analyzer-warnings.txt | Measure-Object -Line).Lines
+        "### Analyzer warnings: $count" >> $env:GITHUB_STEP_SUMMARY
+        if ($count -gt 0) {
+          '```' >> $env:GITHUB_STEP_SUMMARY
+          Get-Content analyzer-warnings.txt -TotalCount 40 >> $env:GITHUB_STEP_SUMMARY
+          '```' >> $env:GITHUB_STEP_SUMMARY
+        }
+
+    - name: Upload analyzer warnings
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: analyzer-warnings
+        path: analyzer-warnings.txt
+
+  format:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    # advisory only, the codebase predates the .editorconfig rules
+    - name: Check formatting
+      continue-on-error: true
+      run: dotnet format BibliotecaCEITI/BibliotecaCEITI.csproj --verify-no-changes --severity error

@@ -8,6 +8,8 @@
 ![MySQL](https://img.shields.io/badge/MySQL-4479a1?style=for-the-badge&logo=mysql)
 ![Gemini AI](https://img.shields.io/badge/Gemini_AI-4285f4?style=for-the-badge&logo=google-gemini) <br><br>
 [![.NET Core Desktop](https://github.com/Nicoleta-git/BibliotecaCEITI-WPF/actions/workflows/dotnet-desktop.yml/badge.svg)](https://github.com/Nicoleta-git/BibliotecaCEITI-WPF/actions/workflows/dotnet-desktop.yml)
+[![CI](https://github.com/Nicoleta-git/BibliotecaCEITI-WPF/actions/workflows/ci.yml/badge.svg)](https://github.com/Nicoleta-git/BibliotecaCEITI-WPF/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/Nicoleta-git/BibliotecaCEITI-WPF/actions/workflows/codeql.yml/badge.svg)](https://github.com/Nicoleta-git/BibliotecaCEITI-WPF/actions/workflows/codeql.yml)
 
 
 # Installation Guide
