@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biblioteca CEITI</title>
+<style>
+  :root {
+    --bg: #f4f6fb;
+    --card: #ffffff;
+    --text: #1e293b;
+    --muted: #64748b;
+    --accent: #2563eb;
+    --accent-dark: #1d4ed8;
+    --border: #e2e8f0;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --accent: #3b82f6;
+      --accent-dark: #60a5fa;
+      --border: #334155;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    padding: 24px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    max-width: 480px;
+    width: 100%;
+    padding: 40px 32px;
+    text-align: center;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  }
+  img.logo {
+    width: 84px;
+    height: 84px;
+    object-fit: contain;
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-size: 1.6rem;
+    margin: 0 0 8px;
+  }
+  p.subtitle {
+    color: var(--muted);
+    margin: 0 0 28px;
+    line-height: 1.5;
+  }
+  .download-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--accent);
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.05rem;
+    padding: 14px 28px;
+    border-radius: 10px;
+    transition: background 0.15s ease;
+    width: 100%;
+  }
+  .download-btn:hover { background: var(--accent-dark); }
+  .meta {
+    margin-top: 16px;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .meta a { color: var(--accent); text-decoration: none; }
+  .meta a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <img class="logo" src="logo.png" alt="Biblioteca CEITI">
+    <h1>Biblioteca CEITI</h1>
+    <p class="subtitle">Aplicație de gestionare a bibliotecii școlare. Descarcă, instalează și gata: nu ai nevoie de nimic altceva instalat pe calculator.</p>
+    <a class="download-btn" href="https://github.com/Nicoleta-git/BibliotecaCEITI-WPF/releases/latest/download/BibliotecaCEITI-Setup.exe">
+      ⬇ Descarcă pentru Windows
+    </a>
+    <p class="meta">
+      Doar Windows 64-bit &middot;
+      <a href="https://github.com/Nicoleta-git/BibliotecaCEITI-WPF/releases/latest">vezi toate versiunile</a>
+    </p>
+  </div>
+</body>
+</html>
