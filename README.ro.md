@@ -169,7 +169,13 @@ Dependabot ține pachetele NuGet la zi. Un build programat care eșuează deschi
 - Teste automate pentru servicii și pentru fluxul de împrumut
 - Instalator semnat, ca Windows SmartScreen să nu mai avertizeze la prima rulare
 
-## Autor
+## Contribuitori
 
-Realizat de [Nicoleta-git](https://github.com/Nicoleta-git) pentru
-Centrul de Excelență în Informatică și Tehnologii Informaționale (CEITI), Chișinău.
+Realizat la Centrul de Excelență în Informatică și Tehnologii Informaționale (CEITI), Chișinău.
+
+| Cine | La ce a lucrat |
+| --- | --- |
+| [@Nicoleta-git](https://github.com/Nicoleta-git) | Autoarea proiectului. Interfața și temele, graficele din dashboard, paginile de elevi, rezervările de cărți, setările, asistentul Gemini, traducerea în engleză/română/rusă, structura proiectului, instalatorul, pagina de descărcare și CI |
+| [@Misha-cybernet](https://github.com/Misha-cybernet) | Scripturile bazei de date, fluxul de împrumut și cei patru pași, CRUD-ul pentru elevi, exemplarele și arhivarea, căutarea cărților, încărcarea copertelor, generatorul de coduri QR, tratarea erorilor și a crash-urilor |
+| [@00NYXth](https://github.com/00NYXth) | Autentificarea cu Google OAuth, notificările pe e-mail, notificările de avertizare, panoul de setări al bazei de date, delogarea |
+| valentin_0x | Controlul de împrumut manual și integrarea lui în pagina de împrumuturi |

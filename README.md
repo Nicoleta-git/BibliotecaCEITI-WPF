@@ -166,7 +166,13 @@ up to date. A failed scheduled build automatically opens an issue.
 - Automated tests for the services and the loan flow
 - Signed installer, so Windows SmartScreen stops warning on first run
 
-## Author
+## Contributors
 
-Built by [Nicoleta-git](https://github.com/Nicoleta-git) for the
-Centre of Excellence in Informatics and Information Technologies (CEITI), Chișinău.
+Built at the Centre of Excellence in Informatics and Information Technologies (CEITI), Chișinău.
+
+| Who | What they worked on |
+| --- | --- |
+| [@Nicoleta-git](https://github.com/Nicoleta-git) | Project author. Interface and themes, dashboard charts, student pages, book reservations, settings, the Gemini assistant, English/Romanian/Russian localisation, project structure, installer, download page and CI |
+| [@Misha-cybernet](https://github.com/Misha-cybernet) | Database scripts, the loan flow and the four borrow steps, student CRUD, copies and archiving, book search, cover upload, QR code generator, crash and exception handling |
+| [@00NYXth](https://github.com/00NYXth) | Google OAuth login, e-mail notifications, warning notifications, database settings panel, logout |
+| valentin_0x | The manual borrow control and its integration with the loans page |
