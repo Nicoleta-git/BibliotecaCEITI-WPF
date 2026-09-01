@@ -171,6 +171,5 @@ up to date. A failed scheduled build automatically opens an issue.
 - [@Nicoleta-git](https://github.com/Nicoleta-git)
 - [@Misha-cybernet](https://github.com/Misha-cybernet)
 - [@00NYXth](https://github.com/00NYXth)
-- valentin_0x
 
 Built at the Centre of Excellence in Informatics and Information Technologies (CEITI), Chișinău.
